@@ -3,9 +3,10 @@ import { useAuth } from "../../context/AuthContext";
 import { getDashboardSummary } from "../../services/dashboard.service";
 import { formatPrice } from "../../utils/formatPrice";
 import StatCard from "../../components/admin/StatCard";
+import AdminNav from "../../components/admin/AdminNav";
 
 function Dashboard() {
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,12 +20,9 @@ function Dashboard() {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-10">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
-        <button type="button" onClick={logout} className="text-sm text-gray-500 underline">
-          Cerrar sesión
-        </button>
-      </div>
+      <AdminNav />
+
+      <h1 className="text-2xl font-semibold">Dashboard</h1>
 
       {loading && <p className="mt-6 text-gray-500">Cargando métricas...</p>}
       {error && <p className="mt-6 text-red-600">{error}</p>}
