@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-20 text-center">
-      <h1 className="text-4xl font-bold tracking-tight">ODDI.</h1>
+      <h1 className="text-4xl font-bold tracking-tight">Ruby.</h1>
       <p className="mt-4 text-gray-600">Streetwear con flow propio.</p>
       <Link
         to="/catalogo"

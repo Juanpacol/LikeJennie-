@@ -1,4 +1,4 @@
-# ODDI. — Frontend
+# Ruby. — Frontend
 
 React + Vite + Tailwind. Ver `/README.md` en la raíz del repo para contexto general del proyecto.
 

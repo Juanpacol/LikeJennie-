@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { login as loginRequest } from "../services/auth.service";
 
 const AuthContext = createContext(null);
-const STORAGE_KEY = "oddi_admin_token";
+const STORAGE_KEY = "ruby_admin_token";
 
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem(STORAGE_KEY));
