@@ -8,7 +8,7 @@ function Navbar() {
     <header className="border-b border-gray-200">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
         <Link to="/" className="text-xl font-bold tracking-tight">
-          ODDI.
+          Ruby.
         </Link>
         <nav className="flex gap-6 text-sm">
           <Link to="/catalogo">Catálogo</Link>
