@@ -10,6 +10,8 @@ import Catalog from "./pages/public/Catalog";
 import ProductDetail from "./pages/public/ProductDetail";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
+import AdminProducts from "./pages/admin/Products";
+import AdminProductForm from "./pages/admin/ProductForm";
 
 function App() {
   return (
@@ -29,6 +31,30 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <AdminDashboard />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/products"
+                  element={
+                    <ProtectedRoute>
+                      <AdminProducts />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/products/new"
+                  element={
+                    <ProtectedRoute>
+                      <AdminProductForm />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/admin/products/:id/edit"
+                  element={
+                    <ProtectedRoute>
+                      <AdminProductForm />
                     </ProtectedRoute>
                   }
                 />

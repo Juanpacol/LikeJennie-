@@ -6,6 +6,11 @@ export async function apiRequest(path, options = {}) {
     headers: { "Content-Type": "application/json", ...options.headers },
   });
 
+  if (response.status === 204) {
+    if (!response.ok) throw new Error("Error en la petición");
+    return null;
+  }
+
   const body = await response.json();
   if (!response.ok) {
     throw new Error(body.error || "Error en la petición");
