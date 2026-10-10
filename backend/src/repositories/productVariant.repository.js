@@ -1,7 +1,7 @@
 const prisma = require("../config/db");
 
 function findById(id) {
-  return prisma.productVariant.findUnique({ where: { id } });
+  return prisma.productVariant.findUnique({ where: { id }, include: { product: true } });
 }
 
 function findLowStock(threshold) {
