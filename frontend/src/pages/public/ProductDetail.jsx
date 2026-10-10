@@ -2,15 +2,18 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProductBySlug } from "../../services/product.service";
 import { formatPrice } from "../../utils/formatPrice";
+import { useCart } from "../../context/CartContext";
 import VariantSelector from "../../components/product/VariantSelector";
 
 function ProductDetail() {
   const { slug } = useParams();
+  const { addItem } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     setLoading(true);
@@ -43,6 +46,21 @@ function ProductDetail() {
   if (!product) return null;
 
   const hasSale = product.salePrice != null;
+  const price = hasSale ? product.salePrice : product.basePrice;
+  const canAddToCart = selectedVariant && !selectedVariant.isOutOfStock;
+
+  function handleAddToCart() {
+    addItem({
+      variantId: selectedVariant.id,
+      productName: product.name,
+      size: selectedVariant.size,
+      color: selectedVariant.color,
+      price: Number(price),
+      image: product.images[0]?.url,
+      quantity,
+    });
+    setQuantity(1);
+  }
 
   return (
     <section className="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-10 md:grid-cols-2">
@@ -96,6 +114,35 @@ function ProductDetail() {
           {selectedVariant && !selectedVariant.isOutOfStock && !selectedVariant.isLowStock && (
             <p className="text-sm text-gray-500">Disponible.</p>
           )}
+        </div>
+
+        <div className="mt-6 flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+              className="h-8 w-8 rounded border border-gray-300 text-sm"
+            >
+              −
+            </button>
+            <span className="w-6 text-center text-sm">{quantity}</span>
+            <button
+              type="button"
+              onClick={() => setQuantity((q) => q + 1)}
+              className="h-8 w-8 rounded border border-gray-300 text-sm"
+            >
+              +
+            </button>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            disabled={!canAddToCart}
+            className="flex-1 rounded-full bg-black py-3 text-sm text-white disabled:opacity-40"
+          >
+            Agregar al carrito
+          </button>
         </div>
       </div>
     </section>
