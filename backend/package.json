@@ -13,6 +13,9 @@
   "devDependencies": {
     "prisma": "^5.22.0"
   },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "allowScripts": {
     "@prisma/client@5.22.0": true,
     "prisma@5.22.0": true,
