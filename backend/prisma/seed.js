@@ -1,6 +1,10 @@
 const { PrismaClient } = require("@prisma/client");
+const bcrypt = require("bcryptjs");
 
 const prisma = new PrismaClient();
+
+const ADMIN_EMAIL = "admin@likejennie.com";
+const ADMIN_PASSWORD = "Admin123.";
 
 const CATEGORIES = [
   { name: "Camisetas", slug: "camisetas" },
@@ -114,7 +118,18 @@ async function main() {
     });
   }
 
-  console.log(`Seed completo: ${CATEGORIES.length} categorías, ${PRODUCTS.length} productos.`);
+  await prisma.adminUser.upsert({
+    where: { email: ADMIN_EMAIL },
+    update: {},
+    create: {
+      email: ADMIN_EMAIL,
+      passwordHash: await bcrypt.hash(ADMIN_PASSWORD, 10),
+      name: "Admin",
+    },
+  });
+
+  console.log(`Seed completo: ${CATEGORIES.length} categorías, ${PRODUCTS.length} productos, 1 admin.`);
+  console.log(`Credenciales admin de prueba -> email: ${ADMIN_EMAIL} / password: ${ADMIN_PASSWORD}`);
 }
 
 main()
