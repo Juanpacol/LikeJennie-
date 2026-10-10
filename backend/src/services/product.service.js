@@ -30,6 +30,12 @@ function listAllProducts() {
   return productRepo.findMany({ onlyActive: false });
 }
 
+async function getProductById(id) {
+  const product = await productRepo.findById(id);
+  if (!product) throw new NotFoundError("Producto no encontrado");
+  return product;
+}
+
 function createProduct(data) {
   return productRepo.create(data);
 }
@@ -50,6 +56,7 @@ module.exports = {
   getCatalog,
   getProductDetail,
   listAllProducts,
+  getProductById,
   createProduct,
   updateProduct,
   deleteProduct,

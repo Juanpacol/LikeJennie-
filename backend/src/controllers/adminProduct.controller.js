@@ -7,6 +7,11 @@ const list = asyncHandler(async (req, res) => {
   ok(res, products);
 });
 
+const getOne = asyncHandler(async (req, res) => {
+  const product = await productService.getProductById(req.params.id);
+  ok(res, product);
+});
+
 const create = asyncHandler(async (req, res) => {
   const product = await productService.createProduct(req.body);
   ok(res, product, 201);
@@ -22,4 +27,4 @@ const remove = asyncHandler(async (req, res) => {
   res.status(204).end();
 });
 
-module.exports = { list, create, update, remove };
+module.exports = { list, getOne, create, update, remove };
