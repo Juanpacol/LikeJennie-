@@ -6,6 +6,12 @@ export function getAllProducts(token) {
   });
 }
 
+export function getProductById(token, id) {
+  return apiRequest(`/admin/products/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
 export function createProduct(token, data) {
   return apiRequest("/admin/products", {
     method: "POST",
@@ -26,5 +32,13 @@ export function deleteProduct(token, id) {
   return apiRequest(`/admin/products/${id}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export function updateVariantStock(token, variantId, stock) {
+  return apiRequest(`/admin/variants/${variantId}/stock`, {
+    method: "PUT",
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ stock }),
   });
 }

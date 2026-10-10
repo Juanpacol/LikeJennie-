@@ -7,4 +7,9 @@ const getLowStock = asyncHandler(async (req, res) => {
   ok(res, variants);
 });
 
-module.exports = { getLowStock };
+const updateStock = asyncHandler(async (req, res) => {
+  const variant = await stockService.updateVariantStock(req.params.variantId, Number(req.body.stock));
+  ok(res, variant);
+});
+
+module.exports = { getLowStock, updateStock };
