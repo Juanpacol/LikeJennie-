@@ -7,4 +7,9 @@ const create = asyncHandler(async (req, res) => {
   ok(res, order, 201);
 });
 
-module.exports = { create };
+const adminList = asyncHandler(async (req, res) => {
+  const orders = await orderService.listOrders();
+  ok(res, orders);
+});
+
+module.exports = { create, adminList };
