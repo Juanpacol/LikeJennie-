@@ -60,7 +60,7 @@ function AppLayout() {
           />
         </Routes>
       </main>
-      <Footer />
+      {!isLanding && <Footer />}
     </div>
   );
 }
