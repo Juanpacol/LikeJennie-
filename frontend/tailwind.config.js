@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         script: ["Allura", "cursive"],
+        display: ['"Bodoni Moda"', "serif"],
       },
     },
   },
