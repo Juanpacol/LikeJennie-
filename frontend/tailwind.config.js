@@ -7,6 +7,9 @@ export default {
         script: ["Allura", "cursive"],
         display: ['"Bodoni Moda"', "serif"],
       },
+      colors: {
+        accent: "#D6001C",
+      },
     },
   },
   plugins: [],

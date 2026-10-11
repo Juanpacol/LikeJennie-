@@ -7,31 +7,29 @@ function ProductCard({ product }) {
 
   return (
     <Link to={`/productos/${product.slug}`} className="group block">
-      <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-neutral-900">
         <img
           src={product.images[0]?.url}
           alt={product.name}
           className="h-full w-full object-cover transition group-hover:scale-105"
         />
         {isOutOfStock && (
-          <span className="absolute left-2 top-2 rounded bg-black px-2 py-1 text-xs text-white">
+          <span className="absolute left-2 top-2 rounded bg-black px-2 py-1 text-xs uppercase tracking-wide text-white">
             Agotado
           </span>
         )}
       </div>
-      <h3 className="mt-3 text-sm font-medium text-gray-900">{product.name}</h3>
+      <h3 className="mt-3 font-display text-sm font-medium text-white">{product.name}</h3>
       <p className="mt-1 text-sm">
         {hasSale ? (
           <>
-            <span className="mr-2 text-gray-400 line-through">
+            <span className="mr-2 text-white/40 line-through">
               {formatPrice(product.basePrice)}
             </span>
-            <span className="font-semibold text-red-600">
-              {formatPrice(product.salePrice)}
-            </span>
+            <span className="font-semibold text-accent">{formatPrice(product.salePrice)}</span>
           </>
         ) : (
-          <span className="text-gray-900">{formatPrice(product.basePrice)}</span>
+          <span className="text-white/80">{formatPrice(product.basePrice)}</span>
         )}
       </p>
     </Link>
