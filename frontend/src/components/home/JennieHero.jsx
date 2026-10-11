@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import heroImage from "../../assets/jennie-hero.jpg";
 
@@ -22,15 +23,12 @@ function JennieHero() {
       <header className="absolute inset-x-0 top-0 flex items-center justify-between px-6 py-6 sm:px-10 sm:py-8">
         <p className="font-script text-4xl sm:text-5xl">Ruby.</p>
         <nav className="flex gap-6 text-xs uppercase tracking-widest sm:gap-8">
-          <a href="#tienda" className="hover:text-white/70">
+          <Link to="/catalogo" className="hover:text-white/70">
             Tienda
-          </a>
+          </Link>
           <button type="button" onClick={open} className="hover:text-white/70">
             Carrito ({count})
           </button>
-          <a href="#contacto" className="hover:text-white/70">
-            Contacto
-          </a>
         </nav>
       </header>
 
@@ -56,18 +54,12 @@ function JennieHero() {
       <div className="absolute bottom-16 left-1/2 w-full max-w-sm -translate-x-1/2 px-4 text-center">
         <h1 className="font-script text-6xl leading-none sm:text-7xl">Ruby.</h1>
         <div className="mt-8 flex flex-col gap-3">
-          <a
-            href="#tienda"
+          <Link
+            to="/catalogo"
             className="border border-white/70 px-6 py-3 text-xs uppercase tracking-widest transition hover:bg-white hover:text-black"
           >
             Ver tienda
-          </a>
-          <a
-            href="#contacto"
-            className="border border-white/70 px-6 py-3 text-xs uppercase tracking-widest transition hover:bg-white hover:text-black"
-          >
-            Contacto
-          </a>
+          </Link>
         </div>
       </div>
     </section>
