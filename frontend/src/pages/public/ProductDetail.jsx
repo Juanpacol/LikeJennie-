@@ -81,7 +81,7 @@ function ProductDetail() {
               <span className="mr-2 text-gray-400 line-through">
                 {formatPrice(product.basePrice)}
               </span>
-              <span className="font-semibold text-red-600">{formatPrice(product.salePrice)}</span>
+              <span className="font-semibold text-accent">{formatPrice(product.salePrice)}</span>
             </>
           ) : (
             <span>{formatPrice(product.basePrice)}</span>
