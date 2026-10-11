@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
@@ -13,55 +13,64 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import AdminProducts from "./pages/admin/Products";
 import AdminProductForm from "./pages/admin/ProductForm";
 
+function AppLayout() {
+  const location = useLocation();
+  const isLanding = location.pathname === "/";
+
+  return (
+    <div className="flex min-h-screen flex-col">
+      {!isLanding && <Navbar />}
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/catalogo" element={<Catalog />} />
+          <Route path="/productos/:slug" element={<ProductDetail />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/products"
+            element={
+              <ProtectedRoute>
+                <AdminProducts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/products/new"
+            element={
+              <ProtectedRoute>
+                <AdminProductForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/products/:id/edit"
+            element={
+              <ProtectedRoute>
+                <AdminProductForm />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
 function App() {
   return (
     <AuthProvider>
       <CartProvider>
         <BrowserRouter>
-          <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/catalogo" element={<Catalog />} />
-                <Route path="/productos/:slug" element={<ProductDetail />} />
-                <Route path="/admin/login" element={<AdminLogin />} />
-                <Route
-                  path="/admin"
-                  element={
-                    <ProtectedRoute>
-                      <AdminDashboard />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/products"
-                  element={
-                    <ProtectedRoute>
-                      <AdminProducts />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/products/new"
-                  element={
-                    <ProtectedRoute>
-                      <AdminProductForm />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/products/:id/edit"
-                  element={
-                    <ProtectedRoute>
-                      <AdminProductForm />
-                    </ProtectedRoute>
-                  }
-                />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
+          <AppLayout />
           <CartDrawer />
         </BrowserRouter>
       </CartProvider>
