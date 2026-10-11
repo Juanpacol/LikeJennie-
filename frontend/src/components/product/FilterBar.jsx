@@ -4,8 +4,8 @@ function FilterBar({ categories, selected, onSelect }) {
       <button
         type="button"
         onClick={() => onSelect(null)}
-        className={`rounded-full border px-4 py-1.5 text-sm transition ${
-          selected === null ? "border-black bg-black text-white" : "border-gray-300 text-gray-700"
+        className={`rounded-full border px-4 py-1.5 font-display text-sm transition ${
+          selected === null ? "border-accent bg-accent text-white" : "border-white/30 text-white/70"
         }`}
       >
         Todos
@@ -15,10 +15,10 @@ function FilterBar({ categories, selected, onSelect }) {
           key={category.id}
           type="button"
           onClick={() => onSelect(category.slug)}
-          className={`rounded-full border px-4 py-1.5 text-sm transition ${
+          className={`rounded-full border px-4 py-1.5 font-display text-sm transition ${
             selected === category.slug
-              ? "border-black bg-black text-white"
-              : "border-gray-300 text-gray-700"
+              ? "border-accent bg-accent text-white"
+              : "border-white/30 text-white/70"
           }`}
         >
           {category.name}
