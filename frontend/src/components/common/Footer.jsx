@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="border-t border-gray-200">
+    <footer id="contacto" className="border-t border-gray-200">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-10 text-center sm:flex-row sm:justify-between sm:text-left">
         <div>
           <p className="text-lg font-bold tracking-tight">Ruby.</p>

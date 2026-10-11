@@ -4,7 +4,9 @@
 
 Proyecto final de Taller II de Programación (Ingeniería Informática, Politécnico Colombiano Jaime Isaza Cadavid). Entrega: E-commerce full-stack funcional, desplegado en internet, con documentación técnica y de usuario.
 
-Nicho: tienda de ropa/streetwear, con estética inspirada en el estilo de la artista Jennie. **Nombre de marca definido: `Ruby.`** — se descartó usar "LikeJennie" o "ODDI." como marca visible en el sitio: el nombre real de la artista no se usa como marca pública por riesgo de marca registrada/derechos de imagen en un deploy accesible por URL. El repo se llama `LikeJennie-` solo como nombre de repositorio personal, no es la marca del sitio.
+Nicho: tienda de ropa/streetwear, con estética inspirada en el estilo de la artista Jennie. Marca del sitio: `Ruby.`. El repo se llama `LikeJennie-` solo como nombre de repositorio personal.
+
+**2026-10-10: se decidió usar nombre e imagen real de la artista Jennie en el landing/diseño, asumiendo conscientemente el riesgo de marca registrada/derechos de imagen en el deploy público** (se había descartado antes por ese motivo; el usuario revirtió esa decisión explícitamente).
 
 ## Requisitos obligatorios del taller (fuente: Final_taller_2.docx)
 
@@ -49,5 +51,4 @@ Pendiente:
 
 - Avanzar despacio, capa por capa, no generar todo de golpe. Cada PR se prueba en vivo antes de darla por lista.
 - Código lo más simple y limpio posible — priorizar legibilidad sobre abstracciones innecesarias; no sumar funcionalidad no pedida por el taller (ej: sin reviews, wishlists, multi-rol, multi-moneda).
-- No usar el nombre/imagen real de la artista Jennie como marca del proyecto desplegado; la marca pública es `Ruby.`.
 - **Nunca usar `window.confirm`/`window.alert`/`window.prompt` en el frontend** — bloquean el hilo del navegador (rompió una sesión de automatización con Claude in Chrome). Usar confirmación/errores inline en el propio componente, como en `Products.jsx`.
