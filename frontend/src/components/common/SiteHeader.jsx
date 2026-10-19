@@ -18,9 +18,9 @@ function SiteHeader({ overlay = false, dark = true }) {
       .catch(() => {});
   }, []);
 
-  const position = overlay ? "absolute inset-x-0 top-0 z-10" : "border-b";
+  const position = overlay ? "absolute inset-x-0 top-0 z-10" : "sticky top-0 z-40 border-b backdrop-blur-md";
   const theme = dark ? "border-white/10 text-white" : "border-gray-200 text-black";
-  const background = overlay ? "" : dark ? "bg-black" : "bg-white";
+  const background = overlay ? "" : dark ? "bg-black/60" : "bg-white/80";
 
   return (
     <header className={`${position} ${theme} ${background}`}>
