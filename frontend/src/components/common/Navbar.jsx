@@ -1,4 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
+import BagIcon from "../icons/BagIcon";
+import UserIcon from "../icons/UserIcon";
 import { useCart } from "../../context/CartContext";
 
 function Navbar() {
@@ -20,9 +22,19 @@ function Navbar() {
         <nav className={`flex gap-6 text-sm ${isStore ? "font-display" : ""}`}>
           <Link to="/catalogo">Catálogo</Link>
         </nav>
-        <button type="button" onClick={open} className={`text-sm ${isStore ? "font-display" : ""}`}>
-          Carrito ({count})
-        </button>
+        <div className="flex items-center gap-5">
+          <button type="button" aria-label="Cuenta">
+            <UserIcon className="h-5 w-5" />
+          </button>
+          <button type="button" onClick={open} aria-label={`Carrito (${count})`} className="relative">
+            <BagIcon className="h-5 w-5" />
+            {count > 0 && (
+              <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] leading-none text-white">
+                {count}
+              </span>
+            )}
+          </button>
+        </div>
       </div>
     </header>
   );
