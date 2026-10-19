@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAccountPanel } from "../../context/AccountPanelContext";
 
 const SECONDARY_BUTTON_CLASS =
-  "border border-lilac-deep/30 bg-white/30 py-3 text-xs uppercase tracking-widest transition hover:bg-white/60";
+  "border border-lilac-deep/50 bg-white/60 py-3 text-xs uppercase tracking-widest transition hover:bg-white/60";
 
 function AccountPanel() {
   const { isOpen, close } = useAccountPanel();
@@ -25,8 +25,8 @@ function AccountPanel() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-end p-4 sm:p-6">
-      <div className="absolute inset-0 bg-black/40" onClick={handleClose} />
+    <div className="fixed inset-0 z-50 flex items-start justify-end px-4 pt-24 sm:px-6">
+      <div className="absolute inset-0 bg-black/60" onClick={handleClose} />
 
       <section
         role="dialog"
@@ -39,14 +39,14 @@ function AccountPanel() {
             type="button"
             onClick={handleClose}
             aria-label="Cerrar"
-            className="flex h-9 w-9 items-center justify-center bg-white/40 text-lg leading-none transition hover:bg-white/70"
+            className="flex h-9 w-9 items-center justify-center bg-white/70 text-lg leading-none transition hover:bg-white"
           >
             ×
           </button>
         </div>
 
         <form onSubmit={showComingSoon} className="mt-6">
-          <div className="flex items-center border border-lilac-deep/30 bg-white/40">
+          <div className="flex items-center border border-lilac-deep/50 bg-white/80">
             <input
               type="email"
               required
@@ -54,7 +54,7 @@ function AccountPanel() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               aria-label="Email"
-              className="w-full bg-transparent px-4 py-3 text-sm placeholder:text-lilac-deep/60 focus:outline-none"
+              className="w-full bg-transparent px-4 py-3 text-sm placeholder:text-lilac-deep/70 focus:outline-none"
             />
             <button type="submit" aria-label="Continuar" className="px-4 text-lg">
               →
@@ -72,7 +72,9 @@ function AccountPanel() {
           </label>
         </form>
 
-        {notice && <p className="mt-4 text-xs">{notice}</p>}
+        {notice && <p role="status" className="mt-4 border border-lilac-deep/50 bg-white px-3 py-2 text-xs">
+            {notice}
+          </p>}
 
         <div className="mt-6 grid grid-cols-2 gap-3">
           <button type="button" onClick={showComingSoon} className={SECONDARY_BUTTON_CLASS}>

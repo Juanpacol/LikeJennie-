@@ -10,7 +10,7 @@ function CartItem({ item }) {
 
       <div className="flex-1">
         <p className="text-sm">{item.productName}</p>
-        <p className="text-xs text-lilac-deep/70">
+        <p className="text-xs text-lilac-deep">
           {item.size} / {item.color}
         </p>
         <p className="mt-1 text-sm">{formatPrice(item.price)}</p>
@@ -34,7 +34,7 @@ function CartItem({ item }) {
           <button
             type="button"
             onClick={() => removeItem(item.variantId)}
-            className="ml-2 text-xs text-lilac-deep/70 underline"
+            className="ml-2 text-xs text-lilac-deep underline"
           >
             Quitar
           </button>

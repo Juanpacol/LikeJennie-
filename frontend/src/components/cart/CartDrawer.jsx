@@ -6,9 +6,9 @@ import { formatPrice } from "../../utils/formatPrice";
 import CartItem from "./CartItem";
 
 const INPUT_CLASS =
-  "mt-1 w-full border border-lilac-deep/30 bg-white/40 px-3 py-2 font-display text-sm text-lilac-deep placeholder:text-lilac-deep/50 focus:border-lilac-deep focus:outline-none";
+  "mt-1 w-full border border-lilac-deep/50 bg-white/80 px-3 py-2 font-display text-sm text-lilac-deep placeholder:text-lilac-deep/70 focus:border-lilac-deep focus:outline-none";
 const PRIMARY_BUTTON_CLASS =
-  "w-full bg-white/70 py-3 font-display text-xs uppercase tracking-widest text-lilac-deep transition hover:bg-white disabled:opacity-50";
+  "w-full bg-white py-3 font-display text-xs uppercase tracking-widest text-lilac-deep transition hover:bg-white disabled:opacity-50";
 
 function CartDrawer() {
   const { items, total, isOpen, close, clear } = useCart();
@@ -87,7 +87,7 @@ function CartDrawer() {
             <Link
               to="/catalogo"
               onClick={handleClose}
-              className="mt-6 bg-white/70 px-8 py-3 text-xs uppercase tracking-widest transition hover:bg-white"
+              className="mt-6 bg-white px-8 py-3 text-xs uppercase tracking-widest transition hover:bg-white"
             >
               Seguir comprando
             </Link>
