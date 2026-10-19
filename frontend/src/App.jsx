@@ -3,7 +3,7 @@ import { CartProvider } from "./context/CartContext";
 import { AccountPanelProvider } from "./context/AccountPanelContext";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
-import Navbar from "./components/common/Navbar";
+import SiteHeader from "./components/common/SiteHeader";
 import Footer from "./components/common/Footer";
 import CartDrawer from "./components/cart/CartDrawer";
 import AccountPanel from "./components/account/AccountPanel";
@@ -22,8 +22,8 @@ function AppLayout() {
     isLanding || location.pathname === "/catalogo" || location.pathname.startsWith("/productos/");
 
   return (
-    <div className={`flex min-h-screen flex-col ${isDarkRoute ? "bg-black" : ""}`}>
-      {!isLanding && <Navbar />}
+    <div className={`relative flex min-h-screen flex-col ${isDarkRoute ? "bg-black" : ""}`}>
+      <SiteHeader overlay={isLanding} dark={isDarkRoute} />
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
