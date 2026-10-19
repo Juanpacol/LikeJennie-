@@ -3,9 +3,9 @@ import { useCart } from "../../context/CartContext";
 import heroImage from "../../assets/jennie-hero.jpg";
 
 const SOCIAL_ICONS = [
-  { label: "Música", d: "M9 18V5l10-2v11" },
-  { label: "Fotos", d: "M4 7h16v12H4z M4 7l4-4h8l4 4" },
-  { label: "Video", d: "M4 5h12v14H4z M16 9l4-2v10l-4-2" },
+  { label: "Música", d: "M9 18V5l10-2v11", href: "https://open.spotify.com/artist/250b0Wlc5Vk0CoUsaCY84M" },
+  { label: "Fotos", d: "M4 7h16v12H4z M4 7l4-4h8l4 4", href: "https://www.instagram.com/jennierubyjane/" },
+  { label: "Video", d: "M4 5h12v14H4z M16 9l4-2v10l-4-2", href: "https://www.youtube.com/channel/UCNYi_zGmR519r5gYdOKLTjQ" },
 ];
 
 function JennieHero() {
@@ -15,7 +15,7 @@ function JennieHero() {
     <section className="relative h-screen min-h-[640px] w-full overflow-hidden bg-black text-white">
       <img
         src={heroImage}
-        alt="Ruby."
+        alt="Jennie posando para la campaña Ruby, cabello rojo sobre fondo negro"
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />
@@ -35,7 +35,14 @@ function JennieHero() {
       <ul className="absolute bottom-10 left-6 flex flex-col gap-4 sm:left-10">
         {SOCIAL_ICONS.map((icon) => (
           <li key={icon.label}>
-            <span aria-label={icon.label} title={icon.label} className="block text-white/80">
+            <a
+              href={icon.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={icon.label}
+              title={icon.label}
+              className="block text-white/80 transition hover:text-white"
+            >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -46,7 +53,7 @@ function JennieHero() {
               >
                 <path d={icon.d} />
               </svg>
-            </span>
+            </a>
           </li>
         ))}
       </ul>
