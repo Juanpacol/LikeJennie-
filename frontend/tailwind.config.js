@@ -9,6 +9,7 @@ export default {
       },
       colors: {
         accent: "#D6001C",
+        lilac: { DEFAULT: "#D9C8E0", deep: "#3B1F4D" },
       },
     },
   },
