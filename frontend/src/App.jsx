@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
+import { AccountPanelProvider } from "./context/AccountPanelContext";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import Navbar from "./components/common/Navbar";
 import Footer from "./components/common/Footer";
 import CartDrawer from "./components/cart/CartDrawer";
+import AccountPanel from "./components/account/AccountPanel";
 import Home from "./pages/public/Home";
 import Catalog from "./pages/public/Catalog";
 import ProductDetail from "./pages/public/ProductDetail";
@@ -71,10 +73,13 @@ function App() {
   return (
     <AuthProvider>
       <CartProvider>
-        <BrowserRouter>
-          <AppLayout />
-          <CartDrawer />
-        </BrowserRouter>
+        <AccountPanelProvider>
+          <BrowserRouter>
+            <AppLayout />
+            <CartDrawer />
+            <AccountPanel />
+          </BrowserRouter>
+        </AccountPanelProvider>
       </CartProvider>
     </AuthProvider>
   );

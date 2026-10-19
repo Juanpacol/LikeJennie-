@@ -1,10 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import BagIcon from "../icons/BagIcon";
 import UserIcon from "../icons/UserIcon";
+import { useAccountPanel } from "../../context/AccountPanelContext";
 import { useCart } from "../../context/CartContext";
 
 function Navbar() {
   const { count, open } = useCart();
+  const { open: openAccount } = useAccountPanel();
   const { pathname } = useLocation();
   const isStore = pathname === "/catalogo";
 
@@ -23,7 +25,7 @@ function Navbar() {
           <Link to="/catalogo">Catálogo</Link>
         </nav>
         <div className="flex items-center gap-5">
-          <button type="button" aria-label="Cuenta">
+          <button type="button" onClick={openAccount} aria-label="Cuenta">
             <UserIcon className="h-5 w-5" />
           </button>
           <button type="button" onClick={open} aria-label={`Carrito (${count})`} className="relative">
