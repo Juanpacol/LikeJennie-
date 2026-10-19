@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { getCategories } from "../../services/category.service";
 import { getCatalog } from "../../services/product.service";
 import ProductCard from "./ProductCard";
@@ -6,7 +7,9 @@ import FilterBar from "./FilterBar";
 
 function StoreGrid() {
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  // La categoría vive en la URL (?categoria=slug) para poder enlazarla desde el header.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCategory = searchParams.get("categoria");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,9 +29,13 @@ function StoreGrid() {
       .finally(() => setLoading(false));
   }, [selectedCategory]);
 
+  function handleSelect(slug) {
+    setSearchParams(slug ? { categoria: slug } : {});
+  }
+
   return (
     <>
-      <FilterBar categories={categories} selected={selectedCategory} onSelect={setSelectedCategory} />
+      <FilterBar categories={categories} selected={selectedCategory} onSelect={handleSelect} />
 
       {loading && <p className="mt-8 text-white/50">Cargando productos...</p>}
       {error && <p className="mt-8 text-accent">{error}</p>}

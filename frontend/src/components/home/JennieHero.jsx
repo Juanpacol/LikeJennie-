@@ -1,8 +1,4 @@
 import { Link } from "react-router-dom";
-import { useAccountPanel } from "../../context/AccountPanelContext";
-import { useCart } from "../../context/CartContext";
-import BagIcon from "../icons/BagIcon";
-import UserIcon from "../icons/UserIcon";
 import heroImage from "../../assets/jennie-hero.jpg";
 
 const SOCIAL_ICONS = [
@@ -27,9 +23,6 @@ const SOCIAL_ICONS = [
 ];
 
 function JennieHero() {
-  const { count, open } = useCart();
-  const { open: openAccount } = useAccountPanel();
-
   return (
     <section className="relative h-screen min-h-[640px] w-full overflow-hidden bg-black text-white">
       <img
@@ -38,36 +31,6 @@ function JennieHero() {
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />
-
-      <header className="absolute inset-x-0 top-0 flex items-center justify-between px-6 py-6 sm:px-10 sm:py-8">
-        <p className="font-script text-4xl sm:text-5xl">Ruby.</p>
-        <nav className="flex items-center gap-6 font-display text-xs uppercase tracking-widest sm:gap-8">
-          <Link to="/catalogo" className="hover:text-white/70">
-            Tienda
-          </Link>
-          <button
-            type="button"
-            onClick={openAccount}
-            aria-label="Cuenta"
-            className="hover:text-white/70"
-          >
-            <UserIcon />
-          </button>
-          <button
-            type="button"
-            onClick={open}
-            aria-label={`Carrito (${count})`}
-            className="relative hover:text-white/70"
-          >
-            <BagIcon />
-            {count > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] leading-none">
-                {count}
-              </span>
-            )}
-          </button>
-        </nav>
-      </header>
 
       <ul className="absolute bottom-10 left-6 flex flex-col gap-4 sm:left-10">
         {SOCIAL_ICONS.map((icon) => (
