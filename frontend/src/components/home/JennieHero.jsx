@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useAccountPanel } from "../../context/AccountPanelContext";
 import { useCart } from "../../context/CartContext";
 import BagIcon from "../icons/BagIcon";
 import UserIcon from "../icons/UserIcon";
@@ -27,6 +28,7 @@ const SOCIAL_ICONS = [
 
 function JennieHero() {
   const { count, open } = useCart();
+  const { open: openAccount } = useAccountPanel();
 
   return (
     <section className="relative h-screen min-h-[640px] w-full overflow-hidden bg-black text-white">
@@ -43,7 +45,12 @@ function JennieHero() {
           <Link to="/catalogo" className="hover:text-white/70">
             Tienda
           </Link>
-          <button type="button" aria-label="Cuenta" className="hover:text-white/70">
+          <button
+            type="button"
+            onClick={openAccount}
+            aria-label="Cuenta"
+            className="hover:text-white/70"
+          >
             <UserIcon />
           </button>
           <button
@@ -85,7 +92,9 @@ function JennieHero() {
               className="pointer-events-none absolute left-full top-1/2 ml-3 -translate-y-1/2 translate-x-1 whitespace-nowrap rounded-full bg-white px-3 py-1.5 opacity-0 shadow-lg transition group-hover:translate-x-0 group-hover:opacity-100"
               role="tooltip"
             >
-              <span className="font-display text-xs text-black">{icon.platform}</span>
+              <span className="font-display text-xs text-black">
+                {icon.platform}
+              </span>
             </div>
           </li>
         ))}
