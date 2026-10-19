@@ -16,9 +16,11 @@ import AdminProductForm from "./pages/admin/ProductForm";
 function AppLayout() {
   const location = useLocation();
   const isLanding = location.pathname === "/";
+  const isDarkRoute =
+    isLanding || location.pathname === "/catalogo" || location.pathname.startsWith("/productos/");
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className={`flex min-h-screen flex-col ${isDarkRoute ? "bg-black" : ""}`}>
       {!isLanding && <Navbar />}
       <main className="flex-1">
         <Routes>
