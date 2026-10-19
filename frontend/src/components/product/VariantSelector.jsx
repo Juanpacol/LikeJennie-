@@ -2,17 +2,17 @@ function VariantSelector({ sizes, colors, selectedSize, selectedColor, onSelectS
   return (
     <div className="mt-6 space-y-4">
       <div>
-        <p className="text-sm font-medium text-gray-700">Talla</p>
+        <p className="font-display text-sm font-medium text-white/70">Talla</p>
         <div className="mt-2 flex flex-wrap gap-2">
           {sizes.map((size) => (
             <button
               key={size}
               type="button"
               onClick={() => onSelectSize(size)}
-              className={`rounded-full border px-4 py-1.5 text-sm transition ${
+              className={`rounded-full border px-4 py-1.5 font-display text-sm transition ${
                 selectedSize === size
-                  ? "border-black bg-black text-white"
-                  : "border-gray-300 text-gray-700"
+                  ? "border-accent bg-accent text-white"
+                  : "border-white/30 text-white/70"
               }`}
             >
               {size}
@@ -22,17 +22,17 @@ function VariantSelector({ sizes, colors, selectedSize, selectedColor, onSelectS
       </div>
 
       <div>
-        <p className="text-sm font-medium text-gray-700">Color</p>
+        <p className="font-display text-sm font-medium text-white/70">Color</p>
         <div className="mt-2 flex flex-wrap gap-2">
           {colors.map((color) => (
             <button
               key={color}
               type="button"
               onClick={() => onSelectColor(color)}
-              className={`rounded-full border px-4 py-1.5 text-sm transition ${
+              className={`rounded-full border px-4 py-1.5 font-display text-sm transition ${
                 selectedColor === color
-                  ? "border-black bg-black text-white"
-                  : "border-gray-300 text-gray-700"
+                  ? "border-accent bg-accent text-white"
+                  : "border-white/30 text-white/70"
               }`}
             >
               {color}
