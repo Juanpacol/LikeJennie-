@@ -4,7 +4,7 @@ import { useCart } from "../../context/CartContext";
 function Navbar() {
   const { count, open } = useCart();
   const { pathname } = useLocation();
-  const isStore = pathname === "/catalogo";
+  const isStore = pathname === "/catalogo" || pathname.startsWith("/productos/");
 
   return (
     <header

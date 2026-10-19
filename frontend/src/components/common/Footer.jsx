@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 
 function Footer() {
   const { pathname } = useLocation();
-  const isStore = pathname === "/catalogo";
+  const isStore = pathname === "/catalogo" || pathname.startsWith("/productos/");
 
   return (
     <footer
