@@ -9,7 +9,7 @@ E-commerce full-stack de ropa/streetwear, proyecto académico (Taller II de Prog
 - **Frontend:** React + Vite + Tailwind CSS, React Router, Context API (carrito y sesión admin)
 - **Comunicación:** JSON exclusivo entre cliente y servidor
 - **Auth admin:** JWT (jsonwebtoken) + bcryptjs
-- **Deploy:** pendiente — Backend en Render, Frontend en Vercel, DB ya en Supabase
+- **Deploy:** Backend en Render, Frontend en Vercel, DB en Supabase — ver sección Despliegue
 
 ## Estructura del proyecto
 
@@ -80,6 +80,20 @@ npm run dev                # http://localhost:5173
 
 Credenciales de admin de prueba: ver salida de `npx prisma db seed` (se generan en `backend/prisma/seed.js`).
 
+## Despliegue
+
+El despliegue es automático: cada push a `main` redespliega ambos servicios desde GitHub (sin workflow propio; el CI de `.github/workflows/ci.yml` solo valida los PR).
+
+**Backend (Render)**
+1. Render > New > Blueprint, conectar este repo. Lee `render.yaml` y crea el servicio `ruby-api`.
+2. Cargar en el panel las variables `DATABASE_URL` (cadena de Supabase) y `JWT_SECRET` (valor aleatorio largo).
+3. Con Supabase usar la cadena del *Session pooler* (puerto 5432): la conexión directa es solo IPv6 y Render no la alcanza.
+4. Verificar `https://<servicio>.onrender.com/api/health` (responde `ok`).
+
+**Frontend (Vercel)**
+1. Proyecto con *Root Directory* `frontend`; el build usa `vite build`.
+2. Definir `VITE_API_URL` = `https://<servicio>.onrender.com/api` (Production y Preview) y redesplegar: Vite incorpora la variable al compilar.
+
 ## Flujo de trabajo del repo
 
 Nada se commitea directo en `main`. Cada feature vive en su propia rama (`feature/...`), se prueba contra el backend/DB real, se abre PR, y se mergea desde ahí.
@@ -88,4 +102,4 @@ Nada se commitea directo en `main`. Cada feature vive en su propia rama (`featur
 
 Backend y frontend funcionales de punta a punta, probados en vivo contra Supabase (sin mocks): modelo de datos, API pública y admin, catálogo, carrito/checkout, panel admin con auth/dashboard/CRUD.
 
-Pendiente: despliegue real (Render + Vercel) y documentación de entrega (Manual de Usuario + Manual del Programador).
+Pendiente: documentación de entrega (Manual de Usuario + Manual del Programador).
