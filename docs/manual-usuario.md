@@ -14,9 +14,9 @@ Sitio: https://like-jennie-seven.vercel.app
 
 Al entrar verás:
 
-1. **Encabezado** (arriba): el logo **Ruby.**, el menú **Tienda** con las categorías (Accesorios, Camisetas, Hoodies) y tres íconos: lupa (buscar), persona (cuenta) y bolsa (carrito).
+1. **Encabezado** (arriba): el logo **Ruby.**, el menú **Tienda** con las categorías (Ropa, Abrigos, Accesorios, Música) y tres íconos: lupa (buscar), persona (cuenta) y bolsa (carrito).
 2. **Portada** con el botón **Ver tienda**.
-3. **Colección Fallen Angel**: una banda lila con el botón **Comprar ahora**.
+3. **Colecciones**: una banda por colección, con el botón **Comprar ahora**. Hoy hay dos: **Fallen Angel** (lila) y **JENNIE x Haribo** (rojo).
 4. **Destacados**: una selección de productos, con el botón **Ver todo**.
 5. **Pie de página**: enlaces a la tienda por categoría y a las redes (Spotify, Instagram, YouTube).
 
@@ -26,13 +26,13 @@ El encabezado te acompaña mientras te desplazas por la página.
 
 1. Pulsa **Tienda** en el menú, o **Ver tienda** en la portada.
 2. Verás todos los productos con su foto, nombre y precio.
-3. Para ver solo un tipo de prenda, pulsa una categoría (**Accesorios**, **Camisetas** o **Hoodies**) arriba de la lista, o en el menú del encabezado. **Todos** vuelve a mostrar todo.
+3. Para ver solo un tipo de prenda, pulsa una categoría (**Ropa**, **Abrigos**, **Accesorios** o **Música**) arriba de la lista, o en el menú del encabezado. **Todos** vuelve a mostrar todo.
 4. Si un producto tiene precio de oferta, verás el precio original tachado y el nuevo en rojo.
 5. Los productos sin existencias muestran la etiqueta **Agotado**.
 
-### 3. Ver la colección Fallen Angel
+### 3. Ver una colección
 
-Pulsa **Comprar ahora** en la banda lila de la página de inicio. Se abre una página con todos los productos de esa colección.
+Pulsa **Comprar ahora** en la banda de la colección que te interese (**Fallen Angel** o **JENNIE x Haribo**) en la página de inicio. Se abre una página con todos los productos de esa colección.
 
 ### 4. Buscar un producto
 
