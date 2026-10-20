@@ -1,0 +1,414 @@
+[
+  {
+    "name": "Fallen Angel Black Tee",
+    "slug": "fallen-angel-black-tee",
+    "description": "Unisex black tee with Fallen Angel logo printed at the front, and black and white album cover image at the back. 6.5oz, 100% Cotton. *This item is preorder, and is expected to ship on 30 October 2026. Orders will ship once all items are in stock.",
+    "basePrice": 77000,
+    "category": "ropa",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/JENNIE-TEE-BLACK-FRONT.png?v=1787830788",
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/JENNIE-TEE-BLACK-BACK.png?v=1787830788"
+    ],
+    "variants": [
+      {
+        "size": "S",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "M",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "L",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "XL",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "2XL",
+        "color": "Único",
+        "stock": 10
+      }
+    ]
+  },
+  {
+    "name": "Fallen Angel White Tee",
+    "slug": "fallen-angel-white-tee",
+    "description": "Unisex white tee with Fallen Angel logo printed at the front, and black and white album cover image at the back. 6.5oz, 100% Cotton. *This item is preorder, and is expected to ship on 30 October 2026. Orders will ship once all items are in stock.",
+    "basePrice": 77000,
+    "category": "ropa",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/JENNIE-TEE-WHITE-FRONT.png?v=1787830788",
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/JENNIE-TEE-WHITE-BACK.png?v=1787830789"
+    ],
+    "variants": [
+      {
+        "size": "S",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "M",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "L",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "XL",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "2XL",
+        "color": "Único",
+        "stock": 10
+      }
+    ]
+  },
+  {
+    "name": "Fallen Angel Baby Tee",
+    "slug": "fallen-angel-baby-tee",
+    "description": "Classic crewneck white baby tee Fallen Angel images printed at the front, and logo at the back. 6.5oz, 100% Cotton, 1x1 baby rib. *This item is preorder, and is expected to ship on 30 October 2026. Orders will ship once all items are in stock.",
+    "basePrice": 77000,
+    "category": "ropa",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/JENNIE-FA-PHOTO-BABY-TEE-WHT-BACK.png?v=1787830790",
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/JENNIE-FA-PHOTO-BABY-TEE-WHT-FRONT.png?v=1787830790"
+    ],
+    "variants": [
+      {
+        "size": "S",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "M",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "L",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "XL",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "2XL",
+        "color": "Único",
+        "stock": 10
+      }
+    ]
+  },
+  {
+    "name": "JENNIE x Haribo Tee Black",
+    "slug": "jennie-x-haribo-tee-black-2",
+    "description": "Black tee featuring JENNIE x Haribo graphic printed in red on the front and back. 6.5 oz 100% Cotton Care Instructions: Machine Wash Cold Tumble Dry Low Do Not Bleach or Iron This is a preorder item expected to ship in late March 2026. Your order will ship when all items are in stock.",
+    "basePrice": 77000,
+    "category": "ropa",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/Untitled-6.png?v=1763483701",
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/JENNIEHARIBO-RUBYHEARTSTEEBLACK-BACK_ea344fde-a94d-4628-a78a-6440c1a16981.png?v=1763483702"
+    ],
+    "variants": [
+      {
+        "size": "s",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "m",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "l",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "xl",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "2xl",
+        "color": "Único",
+        "stock": 10
+      }
+    ]
+  },
+  {
+    "name": "JENNIE x Haribo Crop Tee",
+    "slug": "jennie-x-haribo-crop-tee-2",
+    "description": "White crop tee featuring JENNIE x Haribo Ruby Hearts graphic printed on the front. 100% Cotton Crop Fit Care Instructions: Machine Wash Cold Tumble Dry Low Do Not Bleach or Iron This is a preorder item expected to ship in late March 2026. Your order will ship when all items are in stock.",
+    "basePrice": 70000,
+    "category": "ropa",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/JENNIEHARIBO-AIRBRUSHBABYTEE_262e604c-a159-466e-b94f-9c1aa58335e2.png?v=1763483698"
+    ],
+    "variants": [
+      {
+        "size": "s",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "m",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "l",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "xl",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "2xl",
+        "color": "Único",
+        "stock": 10
+      }
+    ]
+  },
+  {
+    "name": "JENNIE x Haribo Tank White",
+    "slug": "jennie-x-haribo-tank-white-2",
+    "description": "Black tank featuring JENNIE x Haribo graphic embroidered in red on the front. 100% Cotton Care Instructions: Machine Wash Cold Tumble Dry Low Do Not Bleach or Iron This is a preorder item expected to ship in late March 2026. Your order will ship when all items are in stock.",
+    "basePrice": 70000,
+    "category": "ropa",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/Untitled-3_f36aaa19-d3b0-4b57-b2ce-8a214165d9cf.png?v=1763483697"
+    ],
+    "variants": [
+      {
+        "size": "xs",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "s",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "m",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "l",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "xl",
+        "color": "Único",
+        "stock": 10
+      }
+    ]
+  },
+  {
+    "name": "JENNIE x Haribo Tank Black",
+    "slug": "jennie-x-haribo-tank-black-2",
+    "description": "Black tank featuring JENNIE x Haribo graphic embroidered in red on the front. 100% Cotton Care Instructions: Machine Wash Cold Tumble Dry Low Do Not Bleach or Iron This is a preorder item expected to ship in late March 2026. Your order will ship when all items are in stock.",
+    "basePrice": 70000,
+    "category": "ropa",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/Untitled-2_4.png?v=1763483696"
+    ],
+    "variants": [
+      {
+        "size": "xs",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "s",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "m",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "l",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "xl",
+        "color": "Único",
+        "stock": 10
+      }
+    ]
+  },
+  {
+    "name": "JENNIE x Haribo Tee Red",
+    "slug": "jennie-x-haribo-tee-red-2",
+    "description": "Red tee featuring JENNIE x Haribo graphic printed in white on the front and back. 6.5 oz 100% Cotton Care Instructions: Machine Wash Cold Tumble Dry Low Do Not Bleach or Iron This is a preorder item expected to ship in late March 2026. Your order will ship when all items are in stock.",
+    "basePrice": 77000,
+    "category": "ropa",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/Untitled-4.png?v=1763483695",
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/Untitled-5.png?v=1763483695"
+    ],
+    "variants": [
+      {
+        "size": "s",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "m",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "l",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "xl",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "2xl",
+        "color": "Único",
+        "stock": 10
+      }
+    ]
+  },
+  {
+    "name": "Ruby Photo Tank Top",
+    "slug": "ruby-photo-tank-top",
+    "description": "JENNIE photo collage printed on the front of a red tank top. Product Details: 100% Cotton 4.5oz",
+    "basePrice": 77000,
+    "category": "ropa",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/JENNIEBTSTANK.png?v=1757498289"
+    ],
+    "variants": [
+      {
+        "size": "s",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "m",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "l",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "xl",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "2xl",
+        "color": "Único",
+        "stock": 10
+      }
+    ]
+  },
+  {
+    "name": "Ruby Photo T-Shirt",
+    "slug": "ruby-white-t-shirt",
+    "description": "Ruby flower photo printed on the front of a unisex, white tee.",
+    "basePrice": 77000,
+    "category": "ropa",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/JENNIERUBY-T-SHIRT-OFFWHITEBIRTH_PREVIEW_fe2abb3d-140e-467a-8304-d8cc84d9eace.png?v=1742589497"
+    ],
+    "variants": [
+      {
+        "size": "S",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "L",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "Único",
+        "stock": 10
+      },
+      {
+        "size": "2XL",
+        "color": "Único",
+        "stock": 10
+      }
+    ]
+  },
+  {
+    "name": "Ruby Flower T-Shirt",
+    "slug": "ruby-red-t-shirt",
+    "description": "Red unisex short-sleeve t-shirt with JENNIE flower print.",
+    "basePrice": 77000,
+    "category": "ropa",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0903/1372/0126/files/JENNIE-FLOWER-TEE-FRONT.png?v=1738665566"
+    ],
+    "variants": [
+      {
+        "size": "S",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "L",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "Único",
+        "stock": 0
+      },
+      {
+        "size": "2XL",
+        "color": "Único",
+        "stock": 0
+      }
+    ]
+  }
+]
