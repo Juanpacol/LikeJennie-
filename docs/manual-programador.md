@@ -91,13 +91,13 @@ Todas las respuestas son JSON. Éxito: `{ "success": true, "data": ... }`. Error
 | POST | `/api/admin/products` | Crea producto con `images` y `variants` anidadas. |
 | PUT | `/api/admin/products/:id` | Actualiza un producto. |
 | DELETE | `/api/admin/products/:id` | Elimina un producto (cascada a variantes e imágenes). |
-| GET | `/api/admin/stock/low` | Variantes con stock bajo el mínimo. |
+| GET | `/api/admin/stock/low` | Variantes con stock igual o menor al mínimo (incluye agotadas). |
 | PUT | `/api/admin/variants/:variantId/stock` | Cuerpo `{ stock }`; ajusta el stock de una variante. |
 | GET | `/api/admin/orders` | Lista de órdenes. |
 
 Códigos de error: 400 (solicitud inválida, p. ej. carrito vacío, stock insuficiente, credenciales inválidas), 401 (sin token o token inválido), 404 (recurso inexistente), 500 (error interno sin detalles).
 
-Regla de stock: `STOCK_MINIMO = 5` (`backend/src/constants/stock.constants.js`). Una variante con stock ≤ 5 es "stock bajo"; con 0 es "agotada".
+Regla de stock: `STOCK_MINIMO = 5` (`backend/src/constants/stock.constants.js`). La bandera `isLowStock` aplica con stock entre 1 y 5, e `isOutOfStock` con 0. El endpoint `/api/admin/stock/low` y el dashboard listan todas las variantes con stock ≤ 5, incluidas las agotadas.
 
 ## 5. Flujo de datos de extremo a extremo
 
