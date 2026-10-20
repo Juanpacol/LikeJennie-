@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BagIcon from "../icons/BagIcon";
+import SearchIcon from "../icons/SearchIcon";
 import UserIcon from "../icons/UserIcon";
+import SearchPanel from "../search/SearchPanel";
 import { useAccountPanel } from "../../context/AccountPanelContext";
 import { useCart } from "../../context/CartContext";
 import { getCategories } from "../../services/category.service";
@@ -11,6 +13,7 @@ function SiteHeader({ overlay = false, dark = true }) {
   const { count, open: openCart } = useCart();
   const { open: openAccount } = useAccountPanel();
   const [categories, setCategories] = useState([]);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     getCategories()
@@ -45,6 +48,14 @@ function SiteHeader({ overlay = false, dark = true }) {
         </nav>
 
         <div className="flex items-center gap-5">
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Buscar"
+            className="hover:opacity-70"
+          >
+            <SearchIcon className="h-6 w-6" />
+          </button>
           <button type="button" onClick={openAccount} aria-label="Cuenta" className="hover:opacity-70">
             <UserIcon className="h-6 w-6" />
           </button>
@@ -63,6 +74,7 @@ function SiteHeader({ overlay = false, dark = true }) {
           </button>
         </div>
       </div>
+      {searchOpen && <SearchPanel onClose={() => setSearchOpen(false)} />}
     </header>
   );
 }
