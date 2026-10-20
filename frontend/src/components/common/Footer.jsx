@@ -1,39 +1,77 @@
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { SOCIAL_ICONS } from "../../data/socialLinks";
+import { getCategories } from "../../services/category.service";
 
-function Footer() {
-  const { pathname } = useLocation();
-  const isStore = pathname === "/catalogo";
+// Footer del sitio. `dark` elige el tema, igual que el SiteHeader.
+function Footer({ dark = true }) {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getCategories()
+      .then(setCategories)
+      .catch(() => {});
+  }, []);
+
+  const theme = dark ? "border-white/10 bg-black text-white" : "border-gray-200 bg-white text-black";
+  const muted = dark ? "text-white/60" : "text-gray-500";
+  const headingClass = "font-display text-xs uppercase tracking-widest";
+  const linkClass = `font-display text-sm ${muted} transition hover:text-accent`;
 
   return (
-    <footer
-      id="contacto"
-      className={`border-t ${isStore ? "border-white/10 bg-black text-white" : "border-gray-200"}`}
-    >
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-10 text-center sm:flex-row sm:justify-between sm:text-left">
+    <footer id="contacto" className={`border-t ${theme}`}>
+      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 sm:grid-cols-3">
         <div>
-          <p
-            className={
-              isStore ? "font-script text-2xl" : "text-lg font-bold tracking-tight"
-            }
-          >
-            Ruby.
-          </p>
-          <p className={`mt-1 text-sm ${isStore ? "text-white/60" : "text-gray-500"}`}>
-            Streetwear con flow propio.
-          </p>
+          <p className="font-script text-5xl leading-none">Ruby.</p>
+          <p className={`mt-3 font-display text-sm ${muted}`}>Streetwear con flow propio.</p>
         </div>
-        <nav className={`flex gap-6 text-sm ${isStore ? "font-display text-white/80" : "text-gray-600"}`}>
-          <Link to="/catalogo" className={isStore ? "hover:text-accent" : "hover:text-black"}>
-            Catálogo
-          </Link>
-          <Link to="/admin/login" className={isStore ? "hover:text-accent" : "hover:text-black"}>
-            Admin
-          </Link>
+
+        <nav aria-label="Tienda">
+          <h2 className={headingClass}>Tienda</h2>
+          <ul className="mt-4 space-y-2">
+            <li>
+              <Link to="/catalogo" className={linkClass}>
+                Todo el catálogo
+              </Link>
+            </li>
+            {categories.map((category) => (
+              <li key={category.id}>
+                <Link to={`/catalogo?categoria=${category.slug}`} className={linkClass}>
+                  {category.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </nav>
+
+        <div>
+          <h2 className={headingClass}>Sígueme</h2>
+          <ul className="mt-4 space-y-2">
+            {SOCIAL_ICONS.map((icon) => (
+              <li key={icon.platform}>
+                <a
+                  href={icon.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group flex items-center gap-3 ${linkClass}`}
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
+                    <path d={icon.d} />
+                  </svg>
+                  {icon.platform}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <Link to="/admin/login" className={`mt-6 inline-block text-xs underline ${muted}`}>
+            Acceso administrador
+          </Link>
+        </div>
       </div>
+
       <div
         className={`border-t py-4 text-center text-xs ${
-          isStore ? "border-white/10 text-white/40" : "border-gray-100 text-gray-400"
+          dark ? "border-white/10 text-white/40" : "border-gray-100 text-gray-400"
         }`}
       >
         © {new Date().getFullYear()} Ruby. Proyecto académico.
