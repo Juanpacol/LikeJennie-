@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 import { formatPrice } from "../../utils/formatPrice";
 
 function ProductCard({ product }) {
-  const isOutOfStock = product.variants.every((variant) => variant.isOutOfStock);
+  const isOutOfStock = product.variants.every(
+    (variant) => variant.isOutOfStock,
+  );
   const hasSale = product.salePrice != null;
 
   return (
@@ -19,17 +21,23 @@ function ProductCard({ product }) {
           </span>
         )}
       </div>
-      <h3 className="mt-3 font-display text-sm font-medium text-white">{product.name}</h3>
+      <h3 className="mt-3 font-display text-sm font-medium text-[color:var(--card-ink,#fff)]">
+        {product.name}
+      </h3>
       <p className="mt-1 text-sm">
         {hasSale ? (
           <>
-            <span className="mr-2 text-white/40 line-through">
+            <span className="mr-2 text-[color:var(--card-ink,#fff)] line-through opacity-50">
               {formatPrice(product.basePrice)}
             </span>
-            <span className="font-semibold text-accent">{formatPrice(product.salePrice)}</span>
+            <span className="font-semibold text-[color:var(--card-accent,#D6001C)]">
+              {formatPrice(product.salePrice)}
+            </span>
           </>
         ) : (
-          <span className="text-white/80">{formatPrice(product.basePrice)}</span>
+          <span className="text-[color:var(--card-ink,#fff)] opacity-80">
+            {formatPrice(product.basePrice)}
+          </span>
         )}
       </p>
     </Link>
