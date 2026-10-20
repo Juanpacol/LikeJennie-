@@ -47,7 +47,7 @@ Pulsa cualquier producto. En su página puedes ver las fotos, la descripción y 
 
 1. **Talla** y **color**. Solo se pueden combinar las opciones disponibles.
 2. Si la combinación elegida no tiene existencias, aparecerá **Agotado en esta combinación**: prueba con otra talla o color.
-3. Cuando la combinación está disponible, se habilita el botón para agregar al carrito.
+3. Cuando la combinación está disponible, pulsa **Agregar al carrito**.
 
 ### 6. Usar el carrito
 
@@ -77,7 +77,7 @@ El panel de administración permite gestionar los productos y revisar el estado 
 ### 1. Ingresar
 
 1. Entra a `/admin/login` (también hay un enlace **Acceso administrador** en el pie de página).
-2. Escribe tu **email** y tu **contraseña** de administrador y pulsa para ingresar. Si no tienes credenciales, pídelas al equipo responsable.
+2. Escribe tu **email** y tu **contraseña** de administrador y pulsa **Ingresar**. Si no tienes credenciales, pídelas al equipo responsable.
 3. Si los datos son incorrectos, verás el aviso "Credenciales inválidas".
 4. Tu sesión dura 1 día. Para salir antes, pulsa **Cerrar sesión** en el menú del panel.
 
@@ -99,7 +99,7 @@ Pulsa **Productos** en el menú del panel. La tabla muestra, por producto: **Nom
 
 1. En **Productos**, pulsa **+ Nuevo producto**.
 2. Completa los datos:
-   - **Nombre**, **slug** (el nombre que aparece en la dirección web, en minúsculas y con guiones, por ejemplo `hoodie-negro`) y **descripción**.
+   - **Nombre**, **slug** (el nombre que aparece en la dirección web, por ejemplo `hoodie-negro`; se genera solo a partir del nombre y puedes corregirlo) y **descripción**.
    - **Precio** y, si hay oferta, **precio de oferta**.
    - **Categoría**.
    - **Imagen**: pega la dirección web (URL) de la foto, que empieza por `https://`. La tienda no sube archivos: la imagen debe estar ya publicada en internet.
@@ -116,7 +116,7 @@ Pulsa **Productos** en el menú del panel. La tabla muestra, por producto: **Nom
 ### 6. Eliminar un producto
 
 1. En la tabla, pulsa **Eliminar** en el producto.
-2. Aparece la pregunta **¿Eliminar?** en la misma fila: confirma para borrarlo o cancela.
+2. Aparece la pregunta **¿Eliminar?** en la misma fila: pulsa **Sí** para borrarlo o **No** para cancelar.
 3. Al eliminarlo se borran también sus imágenes y variantes. Esta acción no se puede deshacer.
 
 ### 7. Reponer stock
