@@ -4,6 +4,8 @@ import ProductCard from "../../components/product/ProductCard";
 import { COLLECTIONS } from "../../data/collections";
 import { getCatalog } from "../../services/product.service";
 
+const THEME_CLASSES = { lilac: "bg-lilac text-lilac-deep", ruby: "bg-accent text-white" };
+
 function Collection() {
   const { slug } = useParams();
   const collection = COLLECTIONS[slug];
@@ -34,7 +36,7 @@ function Collection() {
 
   return (
     <div className="bg-black text-white">
-      <div className="bg-lilac px-6 py-14 text-center text-lilac-deep">
+      <div className={`px-6 py-14 text-center ${THEME_CLASSES[collection.theme]}`}>
         <p className="font-display text-xs uppercase tracking-widest">Colección</p>
         <h1 className="mt-3 font-script text-6xl leading-none sm:text-7xl">{collection.title}</h1>
         <p className="mx-auto mt-4 max-w-md font-display text-sm">{collection.description}</p>
