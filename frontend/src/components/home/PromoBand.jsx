@@ -10,7 +10,7 @@ function PromoBand() {
         Hoodies, camisetas y accesorios con el flow de Ruby.
       </p>
       <Link
-        to="/catalogo"
+        to="/colecciones/fallen-angel"
         className="mt-8 inline-block bg-lilac-deep px-8 py-3 font-display text-xs uppercase tracking-widest text-white transition hover:bg-black"
       >
         Comprar ahora
