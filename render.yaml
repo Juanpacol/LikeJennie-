@@ -1,0 +1,20 @@
+# Blueprint de Render para el backend. Render lo lee al conectar el repo (New > Blueprint).
+# Los valores marcados `sync: false` se escriben a mano en el panel de Render; no van al repo.
+services:
+  - type: web
+    name: ruby-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    branch: main
+    autoDeployTrigger: commit # redespliega con cada push a main
+    buildCommand: npm ci && npx prisma migrate deploy
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
