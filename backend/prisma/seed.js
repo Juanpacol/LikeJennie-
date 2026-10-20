@@ -7,9 +7,10 @@ const ADMIN_EMAIL = "admin@likejennie.com";
 const ADMIN_PASSWORD = "Admin123.";
 
 const CATEGORIES = [
-  { name: "Camisetas", slug: "camisetas" },
-  { name: "Hoodies", slug: "hoodies" },
+  { name: "Ropa", slug: "ropa" },
+  { name: "Abrigos", slug: "abrigos" },
   { name: "Accesorios", slug: "accesorios" },
+  { name: "Música", slug: "musica" },
 ];
 
 const PRODUCTS = [
@@ -19,7 +20,7 @@ const PRODUCTS = [
     description: "Camiseta oversized de algodón pesado, corte streetwear.",
     basePrice: 89000,
     salePrice: null,
-    category: "camisetas",
+    category: "ropa",
     image: "https://picsum.photos/seed/oversized-tee-noir/600/800",
     variants: [
       { size: "S", color: "Negro", stock: 12 },
@@ -33,7 +34,7 @@ const PRODUCTS = [
     description: "Camiseta estampada edición limitada.",
     basePrice: 95000,
     salePrice: 75000,
-    category: "camisetas",
+    category: "ropa",
     image: "https://picsum.photos/seed/graphic-tee-flow/600/800",
     variants: [
       { size: "M", color: "Blanco", stock: 8 },
@@ -46,7 +47,7 @@ const PRODUCTS = [
     description: "Hoodie unisex con bordado minimalista al pecho.",
     basePrice: 169000,
     salePrice: null,
-    category: "hoodies",
+    category: "abrigos",
     image: "https://picsum.photos/seed/hoodie-mantra/600/800",
     variants: [
       { size: "S", color: "Gris", stock: 5 },
@@ -60,7 +61,7 @@ const PRODUCTS = [
     description: "Buzo crewneck de algodón perchado, fit relajado.",
     basePrice: 145000,
     salePrice: 120000,
-    category: "hoodies",
+    category: "abrigos",
     image: "https://picsum.photos/seed/zen-crewneck/600/800",
     variants: [{ size: "M", color: "Beige", stock: 6 }],
   },
@@ -90,7 +91,7 @@ const PRODUCTS = [
     description: "Camiseta negra oversized, corte limpio, base de la línea Ruby.",
     basePrice: 95000,
     salePrice: null,
-    category: "camisetas",
+    category: "ropa",
     image: "https://picsum.photos/seed/ruby-noir-tee/600/800",
     variants: [
       { size: "S", color: "Negro", stock: 10 },
@@ -104,7 +105,7 @@ const PRODUCTS = [
     description: "Camiseta blanca con gráfico de corazón, edición limitada.",
     basePrice: 85000,
     salePrice: 65000,
-    category: "camisetas",
+    category: "ropa",
     image: "https://picsum.photos/seed/ruby-heart-tee/600/800",
     variants: [
       { size: "S", color: "Blanco", stock: 4 },
@@ -117,7 +118,7 @@ const PRODUCTS = [
     description: "Camiseta negra con tipografía statement a gran escala.",
     basePrice: 99000,
     salePrice: 79000,
-    category: "camisetas",
+    category: "ropa",
     image: "https://picsum.photos/seed/statement-tee-crimson/600/800",
     variants: [
       { size: "M", color: "Negro", stock: 7 },
@@ -130,7 +131,7 @@ const PRODUCTS = [
     description: "Hoodie oversized de algodón perchado, gráfico frontal.",
     basePrice: 175000,
     salePrice: null,
-    category: "hoodies",
+    category: "abrigos",
     image: "https://picsum.photos/seed/ruby-midnight-hoodie/600/800",
     variants: [
       { size: "S", color: "Negro", stock: 5 },
@@ -184,7 +185,7 @@ const PRODUCTS = [
     description: "Camiseta con cuello redondo y manga corta, estampado JENNIE en delantero y espalda.",
     basePrice: 89000,
     salePrice: null,
-    category: "camisetas",
+    category: "ropa",
     image:
       "https://static.zara.net/assets/public/e978/0822/67524def8d69/85691c52ea78/04479702807-p/04479702807-p.jpg",
     variants: [
@@ -210,7 +211,7 @@ const PRODUCTS = [
     description: "Camiseta oversized con estampado JENNIE, cuello redondo, manga corta.",
     basePrice: 129000,
     salePrice: null,
-    category: "camisetas",
+    category: "ropa",
     image: "https://image.hm.com/assets/hm/85/f9/85f9005dfd29ac03ba82f16e4e1fadbcc32d4d7f.jpg",
     variants: [
       { size: "S", color: "Negro", stock: 6 },
@@ -224,7 +225,7 @@ const PRODUCTS = [
     description: "Hoodie con capucha y manga larga, acabados en rib, estampado JENNIE en pechera y espalda.",
     basePrice: 229000,
     salePrice: null,
-    category: "hoodies",
+    category: "abrigos",
     image:
       "https://static.zara.net/assets/public/36a2/4c87/47e74c59bdff/22fc77471e0b/04479703812-e1/04479703812-e1.jpg",
     variants: [
@@ -239,7 +240,7 @@ const PRODUCTS = [
     description: "Camiseta con cuello redondo y manga corta, estampado fotografía JENNIE.",
     basePrice: 79000,
     salePrice: null,
-    category: "camisetas",
+    category: "ropa",
     image:
       "https://static.zara.net/assets/public/2a5b/b51d/adf54965aa19/a76beca09771/04479705250-p/04479705250-p.jpg",
     variants: [
@@ -276,7 +277,7 @@ const PRODUCTS = [
     description: "Hoodie con cierre, línea Fallen Angel.",
     basePrice: 249000,
     salePrice: null,
-    category: "hoodies",
+    category: "abrigos",
     image: "https://shopuk.jenn.ie/cdn/shop/files/FADED-ZIP-HOODIE-2-LAV.png?v=1787830779",
     variants: [
       { size: "S", color: "Lavanda", stock: 6 },
@@ -290,7 +291,7 @@ const PRODUCTS = [
     description: "Hoodie con cierre, línea Fallen Angel.",
     basePrice: 249000,
     salePrice: null,
-    category: "hoodies",
+    category: "abrigos",
     image: "https://shopuk.jenn.ie/cdn/shop/files/FADED-ZIP-HOODIE-1-WHT.png?v=1787830779",
     variants: [
       { size: "S", color: "Blanco", stock: 6 },
@@ -324,7 +325,7 @@ const PRODUCTS = [
     description: "Sweatshirt crewneck, línea Fallen Angel.",
     basePrice: 199000,
     salePrice: null,
-    category: "hoodies",
+    category: "abrigos",
     image: "https://shopuk.jenn.ie/cdn/shop/files/JENNIE-CREWNECK-WHITE-FRONT.png?v=1787830780",
     variants: [
       { size: "S", color: "Blanco", stock: 7 },
@@ -348,7 +349,7 @@ const PRODUCTS = [
     description: "Camiseta colección Fallen Angel.",
     basePrice: 69000,
     salePrice: null,
-    category: "camisetas",
+    category: "ropa",
     image: "https://shopuk.jenn.ie/cdn/shop/files/JENNIE-TEE-BLACK-FRONT.png?v=1787830788",
     variants: [
       { size: "S", color: "Negro", stock: 8 },
@@ -362,7 +363,7 @@ const PRODUCTS = [
     description: "Camiseta colección Fallen Angel.",
     basePrice: 69000,
     salePrice: null,
-    category: "camisetas",
+    category: "ropa",
     image: "https://shopuk.jenn.ie/cdn/shop/files/JENNIE-TEE-WHITE-FRONT.png?v=1787830788",
     variants: [
       { size: "S", color: "Blanco", stock: 8 },
@@ -406,7 +407,7 @@ const PRODUCTS = [
     description: "Top tirantes con collage fotográfico JENNIE.",
     basePrice: 69000,
     salePrice: null,
-    category: "camisetas",
+    category: "ropa",
     image: "https://shopuk.jenn.ie/cdn/shop/files/JENNIEBTSTANK.png?v=1757498289",
     variants: [
       { size: "S", color: "Rojo", stock: 6 },
@@ -420,7 +421,7 @@ const PRODUCTS = [
     description: "Camiseta unisex roja con estampado flor JENNIE.",
     basePrice: 69000,
     salePrice: null,
-    category: "camisetas",
+    category: "ropa",
     image: "https://shopuk.jenn.ie/cdn/shop/files/JENNIE-FLOWER-TEE-FRONT.png",
     variants: [
       { size: "S", color: "Rojo", stock: 6 },
@@ -434,7 +435,7 @@ const PRODUCTS = [
     description: "Camiseta con foto flor Ruby impresa al frente.",
     basePrice: 69000,
     salePrice: null,
-    category: "camisetas",
+    category: "ropa",
     image:
       "https://shopuk.jenn.ie/cdn/shop/files/JENNIERUBY-T-SHIRT-OFFWHITEBIRTH_PREVIEW_fe2abb3d-140e-467a-8304-d8cc84d9eace.png",
     variants: [
