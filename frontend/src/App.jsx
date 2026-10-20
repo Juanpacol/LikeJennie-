@@ -9,6 +9,7 @@ import CartDrawer from "./components/cart/CartDrawer";
 import AccountPanel from "./components/account/AccountPanel";
 import Home from "./pages/public/Home";
 import Catalog from "./pages/public/Catalog";
+import Collection from "./pages/public/Collection";
 import ProductDetail from "./pages/public/ProductDetail";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -19,15 +20,21 @@ function AppLayout() {
   const location = useLocation();
   const isLanding = location.pathname === "/";
   const isDarkRoute =
-    isLanding || location.pathname === "/catalogo" || location.pathname.startsWith("/productos/");
+    isLanding ||
+    location.pathname === "/catalogo" ||
+    location.pathname.startsWith("/colecciones/") ||
+    location.pathname.startsWith("/productos/");
 
   return (
-    <div className={`relative flex min-h-screen flex-col ${isDarkRoute ? "bg-black" : ""}`}>
+    <div
+      className={`relative flex min-h-screen flex-col ${isDarkRoute ? "bg-black" : ""}`}
+    >
       <SiteHeader overlay={isLanding} dark={isDarkRoute} />
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catalogo" element={<Catalog />} />
+          <Route path="/colecciones/:slug" element={<Collection />} />
           <Route path="/productos/:slug" element={<ProductDetail />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route
