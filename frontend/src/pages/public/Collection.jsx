@@ -4,8 +4,6 @@ import ProductCard from "../../components/product/ProductCard";
 import { COLLECTIONS } from "../../data/collections";
 import { getCatalog } from "../../services/product.service";
 
-const THEME_CLASSES = { lilac: "bg-lilac text-lilac-deep", ruby: "bg-accent text-white" };
-
 function Collection() {
   const { slug } = useParams();
   const collection = COLLECTIONS[slug];
@@ -35,18 +33,26 @@ function Collection() {
   }
 
   return (
-    <div className="bg-black text-white">
-      <div className={`px-6 py-14 text-center ${THEME_CLASSES[collection.theme]}`}>
+    <div
+      className="min-h-[60vh]"
+      style={{
+        backgroundColor: collection.theme.page,
+        color: collection.theme.ink,
+        "--card-ink": collection.theme.ink,
+        "--card-accent": collection.theme.accent,
+      }}
+    >
+      <div className="bg-black/10 px-6 py-14 text-center">
         <p className="font-display text-xs uppercase tracking-widest">Colección</p>
         <h1 className="mt-3 font-script text-6xl leading-none sm:text-7xl">{collection.title}</h1>
         <p className="mx-auto mt-4 max-w-md font-display text-sm">{collection.description}</p>
       </div>
 
       <section className="mx-auto max-w-6xl px-6 py-12">
-        {loading && <p className="text-white/50">Cargando productos...</p>}
+        {loading && <p className="opacity-70">Cargando productos...</p>}
         {error && <p className="text-accent">{error}</p>}
         {!loading && !error && products.length === 0 && (
-          <p className="text-white/50">Esta colección aún no tiene productos.</p>
+          <p className="opacity-70">Esta colección aún no tiene productos.</p>
         )}
         {!loading && !error && products.length > 0 && (
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
