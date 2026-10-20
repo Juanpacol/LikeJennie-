@@ -64,7 +64,7 @@ function AppLayout() {
           />
         </Routes>
       </main>
-      {!isLanding && <Footer dark={isDarkRoute} />}
+      <Footer dark={isDarkRoute} />
     </div>
   );
 }
