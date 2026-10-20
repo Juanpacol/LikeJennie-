@@ -1,22 +1,30 @@
 import { Link } from "react-router-dom";
+import { COLLECTIONS } from "../../data/collections";
 
-// Banda promocional bajo el hero: lila de la paleta con llamado a la tienda.
+const THEMES = {
+  lilac: { band: "bg-lilac text-lilac-deep", button: "bg-lilac-deep text-white hover:bg-black" },
+  ruby: { band: "bg-accent text-white", button: "bg-black text-white hover:bg-white hover:text-black" },
+};
+
+// Una banda promocional por colección, bajo el hero.
 function PromoBand() {
-  return (
-    <section className="bg-lilac px-6 py-16 text-center text-lilac-deep">
-      <p className="font-display text-xs uppercase tracking-widest">Nueva colección</p>
-      <h2 className="mt-3 font-script text-6xl leading-none sm:text-7xl">Fallen Angel</h2>
-      <p className="mx-auto mt-4 max-w-md font-display text-sm">
-        Hoodies, camisetas y accesorios con el flow de Ruby.
-      </p>
-      <Link
-        to="/colecciones/fallen-angel"
-        className="mt-8 inline-block bg-lilac-deep px-8 py-3 font-display text-xs uppercase tracking-widest text-white transition hover:bg-black"
-      >
-        Comprar ahora
-      </Link>
-    </section>
-  );
+  return Object.entries(COLLECTIONS).map(([slug, collection]) => {
+    const theme = THEMES[collection.theme];
+
+    return (
+      <section key={slug} className={`px-6 py-16 text-center ${theme.band}`}>
+        <p className="font-display text-xs uppercase tracking-widest">{collection.tagline}</p>
+        <h2 className="mt-3 font-script text-6xl leading-none sm:text-7xl">{collection.title}</h2>
+        <p className="mx-auto mt-4 max-w-md font-display text-sm">{collection.description}</p>
+        <Link
+          to={`/colecciones/${slug}`}
+          className={`mt-8 inline-block px-8 py-3 font-display text-xs uppercase tracking-widest transition ${theme.button}`}
+        >
+          Comprar ahora
+        </Link>
+      </section>
+    );
+  });
 }
 
 export default PromoBand;
