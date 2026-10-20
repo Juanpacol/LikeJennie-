@@ -162,7 +162,23 @@ Variables de entorno:
 
 Ver la sección *Despliegue* del `README.md`. En resumen: `render.yaml` define el servicio del backend (build con `npm ci && npx prisma migrate deploy`), Vercel construye el frontend desde `frontend/`, y ambos se redespliegan solos con cada push a `main`.
 
-## 8. Flujo de trabajo y calidad
+## 8. Scripts de datos y colecciones
+
+Los scripts viven en `backend/prisma/scripts/` y se ejecutan a mano desde `backend/` (modifican la base a la que apunte `DATABASE_URL`).
+
+| Script | Uso |
+|---|---|
+| `restructure-categories.js` | Deja las categorías como Ropa, Abrigos, Accesorios y Música (renombra o fusiona las anteriores). |
+| `import-catalog.js <archivo.json> [--dry-run]` | Importa productos desde `prisma/data/catalog-*.json`. Omite los que ya existen por slug o nombre; `--dry-run` solo lista lo que haría. |
+| `deactivate-placeholder-products.js [--dry-run]` | Oculta (`isActive = false`) los productos de relleno con imagen de `picsum.photos`. |
+
+Los JSON de `prisma/data/` salen del catálogo de la tienda de referencia: precios convertidos a COP (£ × 2.200, redondeado al millar), imágenes solo por URL y variantes por talla con color "Único".
+
+**Colecciones.** No existe un modelo en la base: `frontend/src/data/collections.js` define cada colección (título, descripción, tema de color y un texto `match`), y un producto pertenece a ella si su nombre contiene ese texto. La home dibuja una banda por colección y `/colecciones/:slug` lista sus productos. Para añadir una colección basta una entrada nueva en ese archivo.
+
+**Orden de categorías.** `frontend/src/services/category.service.js` ordena las categorías (Ropa, Abrigos, Accesorios, Música) para el menú, el footer y los filtros.
+
+## 9. Flujo de trabajo y calidad
 
 - Nada se commitea directo en `main`: cada cambio va en su rama (`feat/...`, `fix/...`, `docs/...`), se prueba contra el backend y la DB reales y entra por Pull Request.
 - El CI valida cada PR: `prisma validate` en el backend y `oxlint` + `vite build` en el frontend.
