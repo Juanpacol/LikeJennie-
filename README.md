@@ -88,11 +88,13 @@ El despliegue es automático: cada push a `main` redespliega ambos servicios des
 1. Render > New > Blueprint, conectar este repo. Lee `render.yaml` y crea el servicio `ruby-api`.
 2. Cargar en el panel las variables `DATABASE_URL` (cadena de Supabase) y `JWT_SECRET` (valor aleatorio largo).
 3. Con Supabase usar la cadena del *Session pooler* (puerto 5432): la conexión directa es solo IPv6 y Render no la alcanza.
-4. Verificar `https://<servicio>.onrender.com/api/health` (responde `ok`).
+4. Verificar `https://ruby-api-cf12.onrender.com/api/health` (responde `ok`).
 
 **Frontend (Vercel)**
 1. Proyecto con *Root Directory* `frontend`; el build usa `vite build`.
-2. Definir `VITE_API_URL` = `https://<servicio>.onrender.com/api` (Production y Preview) y redesplegar: Vite incorpora la variable al compilar.
+2. Definir `VITE_API_URL` = `https://ruby-api-cf12.onrender.com/api` (Production y Preview) y redesplegar: Vite incorpora la variable al compilar.
+
+**URLs en producción:** sitio `https://like-jennie-seven.vercel.app` · API `https://ruby-api-cf12.onrender.com/api`. El plan gratuito de Render duerme el servicio tras un rato sin tráfico: la primera petición puede tardar 30–60 s.
 
 ## Flujo de trabajo del repo
 
