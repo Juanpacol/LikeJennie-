@@ -45,7 +45,13 @@ function Footer() {
     <footer
       id="contacto"
       className="relative overflow-hidden transition-colors duration-500"
-      style={{ backgroundColor: color, color: ink }}
+      style={{
+        backgroundColor: color,
+        color: ink,
+        // Efecto de footer revelado: --footer-progress lo define FooterReveal (1 si no aplica).
+        filter: "blur(calc(10px * (1 - var(--footer-progress, 1))))",
+        opacity: "calc(0.4 + 0.6 * var(--footer-progress, 1))",
+      }}
     >
       {/* Foto vertical en blanco y negro mezclada con el color de la marca (duotono). Se muestra
           entera, de alto completo, y se desvanece por abajo y por los lados. */}
@@ -74,7 +80,12 @@ function Footer() {
         Ruby.
       </p>
 
-      <div className="relative mx-auto max-w-6xl px-6 pb-8 pt-72 md:pt-96">
+      <div
+        className="relative mx-auto max-w-6xl px-6 pb-8 pt-72 md:pt-96"
+        style={{
+          transform: "translateY(calc((1 - var(--footer-progress, 1)) * 30%))",
+        }}
+      >
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
           <div className="sm:col-span-2 lg:col-span-1">
             <p className="font-script text-6xl leading-none">Ruby.</p>

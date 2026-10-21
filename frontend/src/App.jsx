@@ -5,6 +5,7 @@ import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import SiteHeader from "./components/common/SiteHeader";
 import Footer from "./components/common/Footer";
+import FooterReveal from "./components/common/FooterReveal";
 import CartDrawer from "./components/cart/CartDrawer";
 import CartToast from "./components/cart/CartToast";
 import BrandFrame from "./components/common/BrandFrame";
@@ -33,7 +34,9 @@ function AppLayout() {
       className={`relative flex min-h-screen flex-col ${isDarkRoute ? "bg-black" : ""}`}
     >
       <SiteHeader overlay={isLanding} dark={isDarkRoute} />
-      <main className="flex-1">
+      <main
+        className={`relative z-10 flex-1 ${isDarkRoute ? "bg-black" : "bg-white"}`}
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catalogo" element={<Catalog />} />
@@ -74,7 +77,9 @@ function AppLayout() {
           />
         </Routes>
       </main>
-      <Footer />
+      <FooterReveal disabled={location.pathname.startsWith("/admin")}>
+        <Footer />
+      </FooterReveal>
     </div>
   );
 }
