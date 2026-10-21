@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/admin/ProtectedRoute";
 import SiteHeader from "./components/common/SiteHeader";
 import Footer from "./components/common/Footer";
 import CartDrawer from "./components/cart/CartDrawer";
+import CartToast from "./components/cart/CartToast";
 import AccountPanel from "./components/account/AccountPanel";
 import Home from "./pages/public/Home";
 import Catalog from "./pages/public/Catalog";
@@ -84,6 +85,7 @@ function App() {
           <BrowserRouter>
             <AppLayout />
             <CartDrawer />
+            <CartToast />
             <AccountPanel />
           </BrowserRouter>
         </AccountPanelProvider>
