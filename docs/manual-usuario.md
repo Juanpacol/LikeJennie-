@@ -17,9 +17,10 @@ Al entrar verás, de arriba abajo:
 1. **Encabezado:** el logo **Ruby.** al centro con los íconos de **Spotify**, **Instagram** y **YouTube** debajo; las secciones (**Tienda**, **Ropa**, **Abrigos**, **Accesorios**, **Música**) repartidas a ambos lados; y a la derecha tres íconos: lupa (buscar), persona (cuenta) y bolsa (carrito). Al bajar por la página, el encabezado se hace más pequeño y no se pierde de vista.
 2. **Portada:** el titular **«Wanna rock with this?»**, una foto de Jennie y los botones **Ver tienda** y **Colecciones**.
 3. **Colecciones:** tres tarjetas con su foto, una por colección: **Fallen Angel** (lila), **JENNIE x Haribo** (amarillo) y **JENNIE x Ruby** (negro y rojo). Al pasar el mouse sobre una tarjeta aparecen su frase y el botón **Ver colección**. En el celular se deslizan de lado.
-4. **Elige lo tuyo:** una mini tienda con pestañas (**Todo**, **Ropa**, **Abrigos**, **Accesorios** y **Música**) que muestra cuatro productos de la categoría elegida sin salir de la página. **Ver todo** abre el catálogo ya filtrado.
-5. **Preguntas frecuentes (FAQs):** las tres preguntas esenciales; pulsa una para ver la respuesta.
-6. **Pie de página:** al llegar al final de la página de inicio aparece poco a poco, con la marca en grande y tres columnas de enlaces: **Colecciones**, **Cuenta** (catálogo, mi cuenta, carrito y acceso de administrador) y **Sígueme** (redes). En el resto de las páginas (catálogo, colecciones y productos) el pie es una franja delgada con la marca, los enlaces principales y las redes.
+4. **Lookbook:** una sección de pantalla completa con la palabra **RUBY** en rojo y cuatro fotos recortadas que se cruzan con ella; al mover el mouse, las fotos se desplazan un poco para dar profundidad.
+5. **Elige lo tuyo:** una mini tienda con pestañas (**Todo**, **Ropa**, **Abrigos**, **Accesorios** y **Música**) que muestra cuatro productos de la categoría elegida sin salir de la página. **Ver todo** abre el catálogo ya filtrado.
+6. **Preguntas frecuentes (FAQs):** las tres preguntas esenciales; pulsa una para ver la respuesta.
+7. **Pie de página:** al llegar al final de la página de inicio aparece poco a poco, con la marca en grande y tres columnas de enlaces: **Colecciones**, **Cuenta** (catálogo, mi cuenta, carrito y acceso de administrador) y **Sígueme** (redes). En el resto de las páginas (catálogo, colecciones y productos) el pie es una franja delgada con la marca, los enlaces principales y las redes.
 
 **Detalles de la página**
 - Un **marco de color** rodea la ventana: rojo en la tienda, y lila, amarillo o rojo cuando estás en una colección. En Safari y en el celular, la barra del navegador también toma ese color.
