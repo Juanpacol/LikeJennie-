@@ -14,11 +14,11 @@ function JennieHero() {
           </p>
 
           <h1 className="mt-5 font-condensed text-[clamp(3.6rem,10.5vw,9.5rem)] font-light uppercase leading-[0.92] tracking-[-0.02em]">
-            Streetwear
+            Wanna
             <br />
-            con <span className="text-accent">flow</span>
+            rock with
             <br />
-            propio.
+            <span className="text-accent">this?</span>
           </h1>
 
           <p className="mt-6 max-w-md font-display text-sm text-white/70 sm:text-base">

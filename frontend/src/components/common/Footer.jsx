@@ -90,7 +90,7 @@ function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <p className="font-script text-6xl leading-none">Ruby.</p>
             <p className="mt-3 font-display text-xs uppercase tracking-widest">
-              Streetwear con flow propio.
+              Wanna rock with this?
             </p>
           </div>
 
