@@ -8,7 +8,7 @@ import CartItem from "./CartItem";
 const INPUT_CLASS =
   "mt-1 w-full border border-lilac-deep/50 bg-white/80 px-3 py-2 font-display text-sm text-lilac-deep placeholder:text-lilac-deep/70 focus:border-lilac-deep focus:outline-none";
 const PRIMARY_BUTTON_CLASS =
-  "w-full bg-white py-3 font-display text-xs uppercase tracking-widest text-lilac-deep transition hover:bg-white disabled:opacity-50";
+  "btn-sweep w-full bg-white py-3 font-display text-xs uppercase tracking-widest text-lilac-deep [--sweep:rgb(0_0_0/0.12)] disabled:opacity-50";
 
 function CartDrawer() {
   const { items, total, isOpen, close, clear } = useCart();
