@@ -12,19 +12,24 @@ Sitio: https://like-jennie-seven.vercel.app
 
 ### 1. Conocer la página de inicio
 
-Al entrar verás:
+Al entrar verás, de arriba abajo:
 
-1. **Encabezado** (arriba): el logo **Ruby.**, el menú **Tienda** con las categorías (Ropa, Abrigos, Accesorios, Música) y tres íconos: lupa (buscar), persona (cuenta) y bolsa (carrito).
-2. **Portada** con el botón **Ver tienda**.
-3. **Colecciones**: una banda por colección, con el botón **Comprar ahora**. Hoy hay dos: **Fallen Angel** (lila) y **JENNIE x Haribo** (rojo).
-4. **Destacados**: una selección de productos, con el botón **Ver todo**.
-5. **Pie de página**: enlaces a la tienda por categoría y a las redes (Spotify, Instagram, YouTube).
+1. **Encabezado:** el logo **Ruby.** al centro con los íconos de **Spotify**, **Instagram** y **YouTube** debajo; las secciones (**Tienda**, **Ropa**, **Abrigos**, **Accesorios**, **Música**) repartidas a ambos lados; y a la derecha tres íconos: lupa (buscar), persona (cuenta) y bolsa (carrito). Al bajar por la página, el encabezado se hace más pequeño y no se pierde de vista.
+2. **Portada:** el titular **«Streetwear con flow propio»**, una foto de Jennie y los botones **Ver tienda** y **Colecciones**.
+3. **Colecciones:** una banda por colección, con su foto y el botón **Comprar ahora**. Hoy hay dos: **Fallen Angel** (lila) y **JENNIE x Haribo** (amarillo).
+4. **Elige tu mundo:** cuatro tarjetas numeradas, una por categoría (Ropa, Abrigos, Accesorios y Música), con la cantidad de productos de cada una.
+5. **Destacados:** una selección de productos, con el botón **Ver todo**.
+6. **Preguntas frecuentes (FAQs):** pulsa una pregunta para ver la respuesta; solo se mantiene una abierta a la vez.
+7. **Pie de página:** al llegar al final de la página aparece poco a poco, con la marca en grande y cuatro columnas de enlaces: **Tienda**, **Colecciones**, **Cuenta** y **Sígueme** (redes).
 
-El encabezado te acompaña mientras te desplazas por la página.
+**Detalles de la página**
+- Un **marco de color** rodea la ventana: rojo en la tienda, y lila o amarillo cuando estás en una colección. En Safari y en el celular, la barra del navegador también toma ese color.
+- La página se desplaza con un movimiento suave. Si tu equipo tiene activada la opción **Reducir movimiento**, la página no usa animaciones.
+- En el celular el menú de secciones se abre con el botón de **tres rayas** (ver el apartado de menú móvil).
 
 ### 2. Explorar el catálogo
 
-1. Pulsa **Tienda** en el menú, o **Ver tienda** en la portada.
+1. Pulsa **Tienda** en el menú, **Ver tienda** en la portada, o una de las tarjetas de **Elige tu mundo**.
 2. Verás todos los productos con su foto, nombre y precio.
 3. Para ver solo un tipo de prenda, pulsa una categoría (**Ropa**, **Abrigos**, **Accesorios** o **Música**) arriba de la lista, o en el menú del encabezado. **Todos** vuelve a mostrar todo.
 4. Si un producto tiene precio de oferta, verás el precio original tachado y el nuevo en rojo.
@@ -32,7 +37,7 @@ El encabezado te acompaña mientras te desplazas por la página.
 
 ### 3. Ver una colección
 
-Pulsa **Comprar ahora** en la banda de la colección que te interese (**Fallen Angel** o **JENNIE x Haribo**) en la página de inicio. Se abre una página con todos los productos de esa colección.
+Pulsa **Comprar ahora** en la banda de la colección que te interese (**Fallen Angel** o **JENNIE x Haribo**), o su nombre en el pie de página o en el menú del celular. Se abre una página con el color de esa colección y todos sus productos.
 
 ### 4. Buscar un producto
 
@@ -43,7 +48,7 @@ Pulsa **Comprar ahora** en la banda de la colección que te interese (**Fallen A
 
 ### 5. Ver el detalle de un producto
 
-Pulsa cualquier producto. En su página puedes ver las fotos, la descripción y el precio, y elegir:
+Pulsa cualquier producto. En su página verás la categoría, el nombre, el precio y la descripción, y a la izquierda las fotos: si el producto tiene varias, aparecen miniaturas debajo para cambiar la foto principal. El enlace **← Volver a la tienda** te regresa al catálogo. Aquí puedes elegir:
 
 1. **Talla** y **color**. Solo se pueden combinar las opciones disponibles.
 2. Si la combinación elegida no tiene existencias, aparecerá **Agotado en esta combinación**: prueba con otra talla o color.
@@ -51,10 +56,11 @@ Pulsa cualquier producto. En su página puedes ver las fotos, la descripción y 
 
 ### 6. Usar el carrito
 
-1. Al agregar un producto se abre el carrito, un panel lateral lila. También puedes abrirlo con el ícono de **bolsa**; el número rojo indica cuántas prendas llevas.
-2. Para cada producto puedes cambiar la cantidad con **−** y **+**, o quitarlo con **Quitar**.
-3. Abajo verás el **Total**.
-4. Si el carrito está vacío, aparece el mensaje "Tu carrito está vacío" y el botón **Seguir comprando**.
+1. Al pulsar **Agregar al carrito** aparece, arriba a la derecha, un aviso con la foto del producto, su nombre, la talla y el color. Pulsa **Ver carrito** para abrir el carrito, o cierra el aviso con la **×**; si no haces nada, se cierra solo a los 4 segundos.
+2. El carrito es un panel lateral lila. También lo abres con el ícono de **bolsa**; el número rojo indica cuántas prendas llevas.
+3. Para cada producto puedes cambiar la cantidad con **−** y **+**, o quitarlo con **Quitar**.
+4. Abajo verás el **Total**.
+5. Si el carrito está vacío, aparece el mensaje "Tu carrito está vacío" y el botón **Seguir comprando**.
 
 ### 7. Finalizar la compra
 
@@ -64,7 +70,11 @@ Pulsa cualquier producto. En su página puedes ver las fotos, la descripción y 
 4. Si todo sale bien verás **¡Pedido confirmado!** y el carrito queda vacío. El pedido descuenta las existencias.
 5. Si alguna prenda ya no tiene existencias suficientes, verás un aviso en rojo; vuelve al carrito con **Volver al carrito** y ajusta la cantidad.
 
-### 8. Panel de cuenta
+### 8. Menú en el celular
+
+En pantallas pequeñas el menú de secciones se esconde. Pulsa el botón de **tres rayas** (arriba a la izquierda): se abre un panel lila con **Tienda** (todo el catálogo y las categorías), **Colecciones** y las redes sociales. Se cierra con la **×**, tocando fuera del panel, con la tecla **Esc** o al elegir una opción.
+
+### 9. Panel de cuenta
 
 El ícono de **persona** abre un panel con un campo de email y los botones **Pedidos** y **Perfil**. **El registro e inicio de sesión de clientes aún no está disponible**; el panel te lo indica con un aviso. Para comprar no necesitas cuenta.
 
@@ -126,6 +136,8 @@ Cuando una variante aparezca en **Alertas de stock**, entra a **Editar** en ese 
 ---
 
 ## Preguntas frecuentes
+
+**¿Qué significa «Últimas unidades»?** Quedan cinco o menos de esa combinación de talla y color.
 
 **¿Por qué no veo un producto en la tienda?** Puede estar desactivado: en el panel, edítalo y marca **Producto activo**.
 
