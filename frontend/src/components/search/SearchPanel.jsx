@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { getCatalog } from "../../services/product.service";
 import { formatPrice } from "../../utils/formatPrice";
@@ -30,7 +31,8 @@ function SearchPanel({ onClose }) {
     ? products.filter((product) => product.name.toLowerCase().includes(term))
     : [];
 
-  return (
+  // En un portal: dentro del header (con backdrop-filter) el panel quedaba atrapado en su alto.
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-24">
       <div className="absolute inset-0 bg-black/60" onClick={onClose} />
 
@@ -61,7 +63,9 @@ function SearchPanel({ onClose }) {
         {error && <p className="mt-4 text-sm text-accent">{error}</p>}
 
         {term && !error && results.length === 0 && (
-          <p className="mt-4 text-sm">No encontramos productos para “{query.trim()}”.</p>
+          <p className="mt-4 text-sm">
+            No encontramos productos para “{query.trim()}”.
+          </p>
         )}
 
         {results.length > 0 && (
@@ -97,7 +101,8 @@ function SearchPanel({ onClose }) {
           </>
         )}
       </section>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BagIcon from "../icons/BagIcon";
 import { Dock, DockIcon, DockText } from "./Dock";
+import MenuIcon from "../icons/MenuIcon";
 import SearchIcon from "../icons/SearchIcon";
 import UserIcon from "../icons/UserIcon";
+import MobileMenu from "./MobileMenu";
 import SearchPanel from "../search/SearchPanel";
 import { useAccountPanel } from "../../context/AccountPanelContext";
 import { useCart } from "../../context/CartContext";
@@ -19,6 +21,7 @@ function SiteHeader({ overlay = false, dark = true }) {
   const { open: openAccount } = useAccountPanel();
   const [categories, setCategories] = useState([]);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   // Al bajar, el header se compacta (logo y relleno más pequeños, fondo más opaco).
@@ -61,12 +64,22 @@ function SiteHeader({ overlay = false, dark = true }) {
         <div
           className={`mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 transition-[padding] duration-200 ${compact ? "py-3" : "py-6"}`}
         >
-          <Link
-            to="/"
-            className={`font-script leading-none transition-[font-size] duration-200 ${compact ? "text-3xl" : "text-4xl"}`}
-          >
-            <DockText text="Ruby." magnification={1.3} distance={50} />
-          </Link>
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Abrir menú"
+              className="md:hidden"
+            >
+              <MenuIcon />
+            </button>
+            <Link
+              to="/"
+              className={`font-script leading-none transition-[font-size] duration-200 ${compact ? "text-3xl" : "text-4xl"}`}
+            >
+              <DockText text="Ruby." magnification={1.3} distance={50} />
+            </Link>
+          </div>
 
           <nav className="hidden flex-1 justify-center gap-8 font-display text-xs uppercase tracking-widest md:flex">
             <Link to="/catalogo" className="hover-underline">
@@ -122,6 +135,12 @@ function SiteHeader({ overlay = false, dark = true }) {
           </Dock>
         </div>
         {searchOpen && <SearchPanel onClose={() => setSearchOpen(false)} />}
+        {menuOpen && (
+          <MobileMenu
+            categories={categories}
+            onClose={() => setMenuOpen(false)}
+          />
+        )}
       </header>
     </>
   );
