@@ -33,7 +33,9 @@ function MobileMenu({ categories, onClose }) {
         className="relative flex h-full w-[85%] max-w-sm animate-slide-in-left flex-col overflow-y-auto rounded-r-3xl bg-lilac p-6 font-display text-lilac-deep shadow-2xl"
       >
         <div className="flex items-center justify-between">
-          <p className="font-script text-4xl leading-none">Ruby.</p>
+          <p className="font-condensed font-semibold uppercase tracking-[0.06em] text-4xl leading-none">
+            Ruby.
+          </p>
           <button
             type="button"
             onClick={onClose}

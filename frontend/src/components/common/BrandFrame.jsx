@@ -10,11 +10,19 @@ function BrandFrame() {
   const color = brandThemeForPath(isAdmin ? "/" : pathname).color;
 
   useEffect(() => {
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", color);
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", color);
   }, [color]);
 
   if (isAdmin) return null;
-  return <div aria-hidden="true" className="brand-frame" style={{ "--frame-color": color }} />;
+  return (
+    <div
+      aria-hidden="true"
+      className="brand-frame"
+      style={{ "--frame-color": color }}
+    />
+  );
 }
 
 export default BrandFrame;

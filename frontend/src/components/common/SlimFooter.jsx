@@ -18,7 +18,10 @@ function SlimFooter({ dark = true }) {
     <footer className={`relative z-10 border-t ${theme}`}>
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 py-8 lg:flex-row lg:justify-between">
         <div className="text-center lg:text-left">
-          <Link to="/" className="font-script text-3xl leading-none">
+          <Link
+            to="/"
+            className="font-condensed font-semibold uppercase tracking-[0.06em] text-3xl leading-none"
+          >
             Ruby.
           </Link>
           <p className="mt-1 font-display text-[11px] uppercase tracking-widest opacity-50">
