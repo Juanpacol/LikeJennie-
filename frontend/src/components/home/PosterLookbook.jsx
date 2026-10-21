@@ -6,40 +6,33 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import heroCenter from "../../assets/cutouts/hero-center.webp";
-import heroLeft from "../../assets/cutouts/hero-left.webp";
-import heroRight from "../../assets/cutouts/hero-right.webp";
-import footerStage from "../../assets/cutouts/footer-stage.webp";
+import sessionKneel from "../../assets/cutouts/session-kneel.webp";
+import sessionPose from "../../assets/cutouts/session-pose.webp";
+import sessionSeat from "../../assets/cutouts/session-seat.webp";
 
 // Figuras recortadas, de atrás hacia delante. `box` da su posición y alto (en % de la sección) para
-// móvil y, con el prefijo md:, para escritorio (en móvil se muestran solo dos); `depth` es cuántos px
+// móvil y, con el prefijo md:, para escritorio (en móvil se muestran solo dos). Las tres son de la
+// misma sesión en blanco y negro, así que se ven unificadas; `depth` es cuántos px
 // se desplazan con el mouse (más = más cerca).
 const FIGURES = [
   {
-    src: heroCenter,
-    alt: "Bailarina con gafas oscuras",
-    box: "hidden md:block md:left-[72%] md:h-[66%]",
-    depth: 12,
-    z: 10,
-  },
-  {
-    src: heroLeft,
-    alt: "Retrato en blanco y negro con gorro",
-    box: "hidden md:block md:left-[5%] md:h-[72%]",
+    src: sessionSeat,
+    alt: "Jennie sentada, de perfil, con chaqueta de cuero",
+    box: "left-[2%] h-[46%] md:left-[4%] md:h-[62%]",
     depth: 16,
     z: 20,
   },
   {
-    src: heroRight,
-    alt: "Jennie con una chaqueta de mezclilla",
-    box: "left-[38%] h-[52%] md:left-[50%] md:h-[76%]",
+    src: sessionKneel,
+    alt: "Jennie de rodillas sobre un banco, mirando a cámara",
+    box: "hidden md:block md:left-[66%] md:h-[70%]",
     depth: 22,
     z: 20,
   },
   {
-    src: footerStage,
-    alt: "Figura de pie con botas",
-    box: "bottom-[6%] left-[6%] h-[58%] md:bottom-[7%] md:left-[30%] md:h-[84%]",
+    src: sessionPose,
+    alt: "Jennie en una pierna con el cuerpo arqueado",
+    box: "left-[44%] h-[58%] md:left-[39%] md:h-[88%]",
     depth: 32,
     z: 30,
   },
@@ -159,7 +152,7 @@ function PosterLookbook() {
             src={figure.src}
             alt={figure.alt}
             loading="lazy"
-            className="h-full w-auto max-w-none object-contain object-bottom [filter:drop-shadow(0_28px_34px_rgba(0,0,0,0.65))]"
+            className="h-full w-auto max-w-none object-contain object-bottom [filter:contrast(1.08)_drop-shadow(0_28px_34px_rgba(0,0,0,0.65))]"
           />
         </Layer>
       ))}
@@ -170,8 +163,8 @@ function PosterLookbook() {
           Lookbook · 2026
         </p>
         <p className="mt-4 hidden font-display text-xs leading-relaxed text-white/70 sm:block">
-          Prendas, accesorios y música del universo Ruby. Cuatro miradas, un
-          mismo rojo.
+          Prendas, accesorios y música del universo Ruby. Tres poses, una
+          sesión, un mismo rojo.
         </p>
         <Link
           to="/catalogo"

@@ -27,10 +27,24 @@ ERASE = {
         [(0, 380), (188, 380), (200, 445), (196, 470), (150, 500), (100, 506), (0, 512)],
         [(0, 505), (110, 505), (110, 548), (0, 548)],
     ],
+    # Sesión en blanco y negro: la banca blanca queda pegada a las figuras sentadas.
+    "session-kneel": [
+        [(0, 812), (395, 812), (428, 832), (436, 895), (0, 895)],
+    ],
+    "session-seat": [
+        [(0, 797), (400, 797), (428, 815), (440, 848), (0, 848)],
+    ],
 }
 
 # nombre -> píxeles que se contrae el borde (quita el halo del fondo original) antes de suavizarlo
-ERODE = {"hero-right": 2, "hero-center": 1, "footer-stage": 1}
+ERODE = {
+    "hero-right": 2,
+    "hero-center": 1,
+    "footer-stage": 1,
+    "session-kneel": 2,
+    "session-pose": 2,
+    "session-seat": 2,
+}
 
 for name, polygons in ERASE.items():
     path = CUTOUTS / f"{name}.png"
