@@ -15,7 +15,7 @@ Sitio: https://like-jennie-seven.vercel.app
 Al entrar verás, de arriba abajo:
 
 1. **Encabezado:** el logo **Ruby.** al centro con los íconos de **Spotify**, **Instagram** y **YouTube** debajo; las secciones (**Tienda**, **Ropa**, **Abrigos**, **Accesorios**, **Música**) repartidas a ambos lados; y a la derecha tres íconos: lupa (buscar), persona (cuenta) y bolsa (carrito). Al bajar por la página, el encabezado se hace más pequeño y no se pierde de vista.
-2. **Portada:** el titular **«Wanna rock with this?»**, una foto de Jennie y los botones **Ver tienda** y **Colecciones**.
+2. **Portada:** el titular **«Wanna rock with this?»**, tres fotos en franjas que se revelan una tras otra y los botones **Ver tienda** y **Colecciones**.
 3. **Colecciones:** tres tarjetas, una por colección, cada una con **su propio color** y su foto fundida en él: **Fallen Angel** (lila), **JENNIE x Haribo** (amarillo) y **JENNIE x Ruby** (negro y rojo). Al pasar el mouse sobre una tarjeta aparecen su frase y el botón **Ver colección**. En el celular se deslizan de lado.
 4. **Elige lo tuyo:** una mini tienda con pestañas (**Todo**, **Ropa**, **Abrigos**, **Accesorios** y **Música**) que muestra cuatro productos de la categoría elegida sin salir de la página. **Ver todo** abre el catálogo ya filtrado.
 5. **Preguntas frecuentes (FAQs):** las tres preguntas esenciales; pulsa una para ver la respuesta.
