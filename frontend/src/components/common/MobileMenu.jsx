@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { COLLECTIONS } from "../../data/collections";
+import SocialDock from "./SocialDock";
 
 const LINK_CLASS = "hover-underline inline-block font-display text-2xl";
 
@@ -24,7 +25,7 @@ function MobileMenu({ categories, onClose }) {
   }, [onClose]);
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex md:hidden">
+    <div className="fixed inset-0 z-50 flex lg:hidden">
       <aside
         role="dialog"
         aria-label="Menú"
@@ -81,6 +82,8 @@ function MobileMenu({ categories, onClose }) {
             ))}
           </ul>
         </nav>
+
+        <SocialDock className="mt-auto justify-start pt-10" />
       </aside>
 
       <div

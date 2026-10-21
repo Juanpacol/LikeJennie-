@@ -50,7 +50,7 @@ function Footer() {
         color: ink,
         // Efecto de footer revelado: --footer-progress lo define FooterReveal (1 si no aplica).
         filter: "blur(calc(10px * (1 - var(--footer-progress, 1))))",
-        opacity: "calc(0.4 + 0.6 * var(--footer-progress, 1))",
+        opacity: "var(--footer-progress, 1)",
       }}
     >
       {/* Foto vertical en blanco y negro mezclada con el color de la marca (duotono). Se muestra
