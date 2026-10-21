@@ -1,31 +1,5 @@
-const OPTION_BASE =
-  "rounded-full border px-4 py-1.5 font-display text-sm transition";
-const OPTION_SELECTED = "border-white bg-white text-black";
-const OPTION_IDLE = "border-white/30 text-white/80 hover:border-white";
-
-function OptionGroup({ label, options, selected, onSelect, className = "" }) {
-  return (
-    <div>
-      <p className="font-display text-xs uppercase tracking-widest text-white/60">
-        {label}
-      </p>
-      <div className="mt-2 flex flex-wrap gap-2">
-        {options.map((option) => (
-          <button
-            key={option}
-            type="button"
-            onClick={() => onSelect(option)}
-            aria-pressed={selected === option}
-            className={`${OPTION_BASE} ${className} ${selected === option ? OPTION_SELECTED : OPTION_IDLE}`}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
+// Selector de talla y color para la tarjeta de compra (fondo claro). Las tallas sin existencias
+// (para el color elegido) salen tachadas y deshabilitadas, como en las tiendas de moda.
 function VariantSelector({
   sizes,
   colors,
@@ -33,22 +7,55 @@ function VariantSelector({
   selectedColor,
   onSelectSize,
   onSelectColor,
+  isSizeAvailable,
 }) {
   return (
-    <div className="mt-6 space-y-5">
-      <OptionGroup
-        label="Talla"
-        options={sizes}
-        selected={selectedSize}
-        onSelect={onSelectSize}
-        className="uppercase"
-      />
-      <OptionGroup
-        label="Color"
-        options={colors}
-        selected={selectedColor}
-        onSelect={onSelectColor}
-      />
+    <div>
+      {colors.length > 1 && (
+        <div className="mb-5">
+          <div className="flex flex-wrap gap-2">
+            {colors.map((color) => (
+              <button
+                key={color}
+                type="button"
+                onClick={() => onSelectColor(color)}
+                aria-pressed={selectedColor === color}
+                className={`border px-3 py-1.5 font-display text-xs uppercase tracking-widest transition ${
+                  selectedColor === color
+                    ? "border-black bg-black text-white"
+                    : "border-black/25 hover:border-black"
+                }`}
+              >
+                {color}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <p className="font-display text-xs uppercase tracking-widest">Tallas</p>
+      <div className="mt-3 flex flex-wrap gap-x-1 gap-y-2">
+        {sizes.map((size) => {
+          const available = isSizeAvailable(size);
+          const selected = selectedSize === size;
+          return (
+            <button
+              key={size}
+              type="button"
+              disabled={!available}
+              onClick={() => onSelectSize(size)}
+              aria-pressed={selected}
+              className={`min-w-11 border-b-2 px-3 py-1.5 font-display text-sm uppercase transition ${
+                selected
+                  ? "border-black font-semibold"
+                  : "border-transparent hover:border-black/40"
+              } ${available ? "" : "cursor-not-allowed text-black/30 line-through"}`}
+            >
+              {size}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

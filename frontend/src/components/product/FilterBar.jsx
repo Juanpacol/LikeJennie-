@@ -5,7 +5,9 @@ function FilterBar({ categories, selected, onSelect }) {
         type="button"
         onClick={() => onSelect(null)}
         className={`rounded-full border px-4 py-1.5 font-display text-sm transition ${
-          selected === null ? "border-accent bg-accent text-white" : "border-white/30 text-white/70"
+          selected === null
+            ? "border-accent bg-accent text-white"
+            : "border-white/30 text-white/70"
         }`}
       >
         Todos
