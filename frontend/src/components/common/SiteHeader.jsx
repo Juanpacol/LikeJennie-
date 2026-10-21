@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BagIcon from "../icons/BagIcon";
+import { Dock, DockIcon } from "./Dock";
 import SearchIcon from "../icons/SearchIcon";
 import UserIcon from "../icons/UserIcon";
 import SearchPanel from "../search/SearchPanel";
@@ -47,32 +48,38 @@ function SiteHeader({ overlay = false, dark = true }) {
           ))}
         </nav>
 
-        <div className="flex items-center gap-5">
-          <button
-            type="button"
-            onClick={() => setSearchOpen(true)}
-            aria-label="Buscar"
-            className="hover:opacity-70"
-          >
-            <SearchIcon className="h-6 w-6" />
-          </button>
-          <button type="button" onClick={openAccount} aria-label="Cuenta" className="hover:opacity-70">
-            <UserIcon className="h-6 w-6" />
-          </button>
-          <button
-            type="button"
-            onClick={openCart}
-            aria-label={`Carrito (${count})`}
-            className="relative hover:opacity-70"
-          >
-            <BagIcon className="h-6 w-6" />
+        <Dock>
+          <DockIcon>
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              aria-label="Buscar"
+              className="h-full w-full"
+            >
+              <SearchIcon className="h-full w-full" />
+            </button>
+          </DockIcon>
+          <DockIcon>
+            <button type="button" onClick={openAccount} aria-label="Cuenta" className="h-full w-full">
+              <UserIcon className="h-full w-full" />
+            </button>
+          </DockIcon>
+          <DockIcon>
+            <button
+              type="button"
+              onClick={openCart}
+              aria-label={`Carrito (${count})`}
+              className="h-full w-full"
+            >
+              <BagIcon className="h-full w-full" />
+            </button>
             {count > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] leading-none text-white">
+              <span className="pointer-events-none absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] leading-none text-white">
                 {count}
               </span>
             )}
-          </button>
-        </div>
+          </DockIcon>
+        </Dock>
       </div>
       {searchOpen && <SearchPanel onClose={() => setSearchOpen(false)} />}
     </header>
