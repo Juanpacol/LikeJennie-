@@ -8,6 +8,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
+import { COLLECTIONS } from "../../data/collections";
 import sessionCoat from "../../assets/cutouts/session-coat.webp";
 import sessionBlazer from "../../assets/cutouts/session-blazer.webp";
 import sessionSuit from "../../assets/cutouts/session-suit.webp";
@@ -169,8 +170,8 @@ function PosterLookbook() {
           Lookbook · 2026
         </p>
         <p className="mt-3 font-display text-xs font-semibold leading-relaxed">
-          Prendas, accesorios y música del universo Ruby. Una mirada, un mismo
-          rojo.
+          Tres colecciones y cuatro categorías: ropa, abrigos, accesorios y
+          música, en un solo lugar.
         </p>
       </div>
 
@@ -216,24 +217,27 @@ function PosterLookbook() {
         Ver tienda
       </Link>
 
-      <p
-        aria-hidden="true"
-        className="absolute right-6 top-28 z-40 hidden text-right font-condensed text-3xl font-semibold uppercase leading-[1.05] sm:block sm:right-10 lg:top-36 lg:text-4xl"
+      {/* Las colecciones como atajo: información útil en lugar de repetir el eslogan del hero y del footer. */}
+      <nav
+        aria-label="Colecciones"
+        className="absolute right-6 top-28 z-40 hidden text-right sm:right-10 md:block lg:top-36"
       >
-        Wanna
-        <br />
-        rock
-        <br />
-        with
-        <br />
-        <span className="text-accent">this?</span>
-      </p>
-      <p
-        aria-hidden="true"
-        className="absolute right-6 top-[17.5rem] z-40 hidden font-display text-[11px] uppercase tracking-[0.3em] text-black/70 sm:right-10 md:block lg:top-[19rem]"
-      >
-        Jennie
-      </p>
+        <p className="font-display text-[11px] uppercase tracking-[0.3em] text-black/60">
+          Colecciones
+        </p>
+        <ul className="mt-3 font-condensed text-3xl font-semibold uppercase leading-[1.1] lg:text-4xl">
+          {Object.entries(COLLECTIONS).map(([slug, collection]) => (
+            <li key={slug}>
+              <Link
+                to={`/colecciones/${slug}`}
+                className="hover-underline transition-colors hover:text-accent"
+              >
+                {collection.title.replace("JENNIE x ", "")}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <p className="absolute bottom-5 left-6 z-40 font-display text-[11px] uppercase tracking-widest text-black/50 sm:left-10">
         © 2026 Ruby.
