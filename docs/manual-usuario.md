@@ -50,7 +50,7 @@ Pulsa **Comprar ahora** en la banda de la colección que te interese (**Fallen A
 
 Pulsa cualquier producto. La página se divide en dos partes:
 
-- **A la izquierda, las fotos** a pantalla completa. Si el producto tiene varias, avanzan solas cada pocos segundos; el avance se detiene mientras tienes el mouse encima. Pulsa una foto, o el botón de las cuatro esquinas, para verlas a pantalla completa: con las flechas del teclado o las de la pantalla cambias de foto, y con **Esc** o la **×** lo cierras.
+- **A la izquierda, la foto** del producto, completa y sin movimientos automáticos. Si tiene varias, **mueve el mouse sobre la foto** para ver las otras (con dos fotos, la mitad izquierda muestra la primera y la derecha, la segunda); al sacar el mouse vuelve a la primera. Abajo a la derecha, unos **puntos** indican en cuál estás y también se pueden pulsar. En el celular, desliza el dedo hacia los lados. Pulsa la foto, o el botón de las cuatro esquinas, para verlas a pantalla completa: con las flechas del teclado o las de la pantalla cambias de foto, y con **Esc** o la **×** lo cierras.
 - **A la derecha, una columna negra** con la categoría, el nombre, el precio y los controles de compra. Si el producto está en oferta verás una etiqueta roja con el porcentaje de descuento y el precio original tachado.
 
 Debajo están el enlace **← Volver a la tienda** y la **descripción** del producto.

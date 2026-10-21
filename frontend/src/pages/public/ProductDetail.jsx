@@ -6,8 +6,6 @@ import { useCart } from "../../context/CartContext";
 import ImageLightbox from "../../components/product/ImageLightbox";
 import VariantSelector from "../../components/product/VariantSelector";
 
-const CAROUSEL_MS = 4000;
-
 function ProductDetail() {
   const { slug } = useParams();
   const { addItem } = useCart();
@@ -18,9 +16,8 @@ function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [lightboxIndex, setLightboxIndex] = useState(null);
-  // Carrusel automático: se detiene mientras el mouse está sobre la galería.
+  // Foto activa: en escritorio la elige el mouse al recorrer la foto; en móvil, el deslizamiento.
   const [activeIndex, setActiveIndex] = useState(0);
-  const [hovering, setHovering] = useState(false);
   const stripRef = useRef(null);
 
   useEffect(() => {
@@ -56,27 +53,41 @@ function ProductDetail() {
 
   const photoCount = product?.images.length ?? 0;
 
-  // Avanza sola cada 4 s (si hay más de una foto, no hay un visor abierto y el usuario no pidió
-  // reducir el movimiento) y centra la foto activa dentro de la tira.
-  useEffect(() => {
-    if (hovering || photoCount < 2 || lightboxIndex !== null) return undefined;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
-      return undefined;
-    const timer = setInterval(
-      () => setActiveIndex((i) => (i + 1) % photoCount),
-      CAROUSEL_MS,
+  // Escritorio: el mouse recorre la foto de izquierda a derecha y muestra cada imagen completa
+  // (con dos fotos, la mitad izquierda muestra la primera y la derecha la segunda). Al salir, vuelve a la primera.
+  function handleStageMove(event) {
+    if (
+      photoCount < 2 ||
+      !window.matchMedia("(hover: hover) and (min-width: 1024px)").matches
+    )
+      return;
+    const box = event.currentTarget.getBoundingClientRect();
+    const ratio = (event.clientX - box.left) / box.width;
+    setActiveIndex(
+      Math.min(photoCount - 1, Math.max(0, Math.floor(ratio * photoCount))),
     );
-    return () => clearInterval(timer);
-  }, [hovering, photoCount, lightboxIndex]);
+  }
 
-  useEffect(() => {
-    const photo = stripRef.current?.children[activeIndex];
-    photo?.scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "nearest",
-    });
-  }, [activeIndex]);
+  function handleStageLeave() {
+    if (window.matchMedia("(hover: hover) and (min-width: 1024px)").matches)
+      setActiveIndex(0);
+  }
+
+  // Móvil: una foto por pantalla; el índice sigue al deslizamiento.
+  function handleStripScroll(event) {
+    const strip = event.currentTarget;
+    if (strip.scrollWidth > strip.clientWidth) {
+      setActiveIndex(Math.round(strip.scrollLeft / strip.clientWidth));
+    }
+  }
+
+  function goToPhoto(index) {
+    setActiveIndex(index);
+    const strip = stripRef.current;
+    if (strip && strip.scrollWidth > strip.clientWidth) {
+      strip.scrollTo({ left: index * strip.clientWidth, behavior: "smooth" });
+    }
+  }
 
   if (loading)
     return (
@@ -120,12 +131,14 @@ function ProductDetail() {
       <div className="lg:grid lg:h-[calc(100vh-127px)] lg:min-h-[620px] lg:grid-cols-[1fr_26rem]">
         <div
           className="relative h-[68vh] overflow-hidden bg-black lg:h-full"
-          onMouseEnter={() => setHovering(true)}
-          onMouseLeave={() => setHovering(false)}
+          onMouseMove={handleStageMove}
+          onMouseLeave={handleStageLeave}
         >
+          {/* Móvil: una foto por pantalla, se desliza. Escritorio: fotos apiladas con fundido. */}
           <div
             ref={stripRef}
-            className="no-scrollbar relative flex h-full snap-x snap-mandatory items-center gap-3 overflow-x-auto px-4"
+            onScroll={handleStripScroll}
+            className="no-scrollbar flex h-full snap-x snap-mandatory overflow-x-auto lg:block lg:overflow-hidden"
           >
             {images.map((image, index) => (
               <button
@@ -133,19 +146,39 @@ function ProductDetail() {
                 type="button"
                 onClick={() => setLightboxIndex(index)}
                 aria-label={`Ver foto ${index + 1} a pantalla completa`}
-                className={`h-[92%] shrink-0 animate-slide-in-right cursor-zoom-in snap-center overflow-hidden transition-opacity duration-500 first:ml-auto last:mr-auto ${
-                  index === activeIndex ? "opacity-100" : "opacity-75"
+                className={`h-full w-full shrink-0 cursor-zoom-in snap-center p-6 transition-opacity duration-500 lg:absolute lg:inset-0 lg:p-10 ${
+                  index === activeIndex
+                    ? "lg:opacity-100"
+                    : "lg:pointer-events-none lg:opacity-0"
                 }`}
-                style={{ animationDelay: `${index * 140}ms` }}
               >
                 <img
                   src={image.url}
                   alt={index === 0 ? product.name : ""}
-                  className="h-full w-auto max-w-[88vw] object-contain brightness-[1.3] contrast-[1.05] transition-transform duration-500 ease-out hover:scale-[1.03]"
+                  className="h-full w-full object-contain brightness-[1.3] contrast-[1.05]"
                 />
               </button>
             ))}
           </div>
+
+          {images.length > 1 && (
+            <div className="absolute bottom-6 right-6 flex gap-2">
+              {images.map((image, index) => (
+                <button
+                  key={image.id ?? image.url}
+                  type="button"
+                  onClick={() => goToPhoto(index)}
+                  aria-label={`Foto ${index + 1} de ${images.length}`}
+                  aria-current={index === activeIndex}
+                  className={`h-2 transition-all duration-300 ${
+                    index === activeIndex
+                      ? "w-6 bg-accent"
+                      : "w-2 bg-white/40 hover:bg-white/70"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
 
           <div className="absolute bottom-5 left-5 lg:left-1/2 lg:-translate-x-1/2">
             <button
