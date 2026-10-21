@@ -159,3 +159,12 @@ body {
     display: none;
   }
 }
+
+/* Oculta la barra de scroll sin quitar el scroll (carrusel de fotos). */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

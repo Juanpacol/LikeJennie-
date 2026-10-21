@@ -27,13 +27,14 @@ function ImageLightbox({ images, index, onIndexChange, onClose, alt }) {
     <div
       role="dialog"
       aria-label="Fotos del producto"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
+      className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-black/95"
       onClick={onClose}
     >
       <img
+        key={index}
         src={images[index]?.url}
         alt={alt}
-        className="max-h-[92vh] max-w-[92vw] object-contain"
+        className="max-h-[92vh] max-w-[92vw] animate-fade-in object-contain"
         onClick={(event) => event.stopPropagation()}
       />
 

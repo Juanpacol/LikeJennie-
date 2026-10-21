@@ -12,11 +12,17 @@ export default {
         "toast-in": { from: { opacity: "0", transform: "translateX(1rem)" } },
         "toast-out": { to: { opacity: "0", transform: "translateX(1rem)" } },
         "slide-in-left": { from: { transform: "translateX(-100%)" } },
+        "fade-in": { from: { opacity: "0" } },
+        "fade-up": { from: { opacity: "0", transform: "translateY(1.5rem)" } },
+        "slide-in-right": { from: { opacity: "0", transform: "translateX(4rem)" } },
       },
       animation: {
         "toast-in": "toast-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both",
         "toast-out": "toast-out 0.25s cubic-bezier(0.4, 0, 1, 1) both",
         "slide-in-left": "slide-in-left 0.3s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "fade-in": "fade-in 0.3s ease-out both",
+        "fade-up": "fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "slide-in-right": "slide-in-right 0.7s cubic-bezier(0.16, 1, 0.3, 1) both",
       },
       colors: {
         accent: "#D6001C",

@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getProductBySlug } from "../../services/product.service";
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
 import ImageLightbox from "../../components/product/ImageLightbox";
 import VariantSelector from "../../components/product/VariantSelector";
+
+const CAROUSEL_MS = 4000;
 
 function ProductDetail() {
   const { slug } = useParams();
@@ -16,6 +18,10 @@ function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  // Carrusel: foto activa y reproducción automática (como el botón de pausa de Bershka).
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const stripRef = useRef(null);
 
   useEffect(() => {
     setLoading(true);
@@ -29,6 +35,8 @@ function ProductDetail() {
         setSelectedSize(first?.size ?? null);
         setSelectedColor(first?.color ?? null);
         setLightboxIndex(null);
+        setActiveIndex(0);
+        setPlaying(true);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -46,6 +54,30 @@ function ProductDetail() {
   const selectedVariant = product?.variants.find(
     (v) => v.size === selectedSize && v.color === selectedColor,
   );
+
+  const photoCount = product?.images.length ?? 0;
+
+  // Avanza sola cada 4 s (si hay más de una foto, no hay un visor abierto y el usuario no pidió
+  // reducir el movimiento) y centra la foto activa dentro de la tira.
+  useEffect(() => {
+    if (!playing || photoCount < 2 || lightboxIndex !== null) return undefined;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+      return undefined;
+    const timer = setInterval(
+      () => setActiveIndex((i) => (i + 1) % photoCount),
+      CAROUSEL_MS,
+    );
+    return () => clearInterval(timer);
+  }, [playing, photoCount, lightboxIndex]);
+
+  useEffect(() => {
+    const photo = stripRef.current?.children[activeIndex];
+    photo?.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
+  }, [activeIndex]);
 
   if (loading)
     return (
@@ -95,14 +127,20 @@ function ProductDetail() {
             aria-hidden="true"
             className="absolute inset-0 h-full w-full scale-125 object-cover opacity-50 blur-3xl"
           />
-          <div className="relative flex h-full snap-x snap-mandatory items-center gap-3 overflow-x-auto px-4 lg:justify-center lg:overflow-visible lg:pr-[26rem]">
+          <div
+            ref={stripRef}
+            className="no-scrollbar relative flex h-full snap-x snap-mandatory items-center gap-3 overflow-x-auto px-4 lg:pr-[26rem]"
+          >
             {images.map((image, index) => (
               <button
                 key={image.id ?? image.url}
                 type="button"
                 onClick={() => setLightboxIndex(index)}
                 aria-label={`Ver foto ${index + 1} a pantalla completa`}
-                className="h-[92%] shrink-0 snap-center cursor-zoom-in overflow-hidden"
+                className={`h-[92%] shrink-0 animate-slide-in-right cursor-zoom-in snap-center overflow-hidden transition-opacity duration-500 first:ml-auto last:mr-auto ${
+                  index === activeIndex ? "opacity-100" : "opacity-50"
+                }`}
+                style={{ animationDelay: `${index * 140}ms` }}
               >
                 <img
                   src={image.url}
@@ -113,28 +151,61 @@ function ProductDetail() {
             ))}
           </div>
 
-          <button
-            type="button"
-            onClick={() => setLightboxIndex(0)}
-            aria-label="Ver a pantalla completa"
-            className="absolute bottom-5 left-5 flex h-11 w-11 items-center justify-center bg-white/90 text-black transition hover:bg-white lg:left-1/2 lg:-translate-x-1/2"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              className="h-5 w-5"
-              aria-hidden="true"
+          <div className="absolute bottom-5 left-5 flex gap-2 lg:left-1/2 lg:-translate-x-1/2">
+            {images.length > 1 && (
+              <button
+                type="button"
+                onClick={() => setPlaying((value) => !value)}
+                aria-label={
+                  playing ? "Pausar el carrusel" : "Reproducir el carrusel"
+                }
+                aria-pressed={!playing}
+                className="flex h-11 w-11 items-center justify-center bg-white/90 text-black transition hover:bg-white"
+              >
+                {playing ? (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 4h3.5v16H7zM13.5 4H17v16h-3.5z" />
+                  </svg>
+                ) : (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 4l13 8-13 8z" />
+                  </svg>
+                )}
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => setLightboxIndex(activeIndex)}
+              aria-label="Ver a pantalla completa"
+              className="flex h-11 w-11 items-center justify-center bg-white/90 text-black transition hover:bg-white"
             >
-              <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
-            </svg>
-          </button>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                className="h-5 w-5"
+                aria-hidden="true"
+              >
+                <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Tarjeta de compra: de vidrio esmerilado sobre la foto en escritorio; bajo ella en móvil. */}
-        <aside className="bg-white/90 p-6 text-black backdrop-blur-xl lg:absolute lg:bottom-8 lg:right-8 lg:w-[24rem]">
+        <aside className="animate-fade-up bg-white/90 p-6 text-black backdrop-blur-xl [animation-delay:350ms] lg:absolute lg:bottom-8 lg:right-8 lg:w-[24rem]">
           <div className="flex items-start justify-between gap-3">
             {product.category && (
               <p className="bg-white px-2 py-1 font-display text-[11px] font-semibold uppercase tracking-widest shadow-sm">
