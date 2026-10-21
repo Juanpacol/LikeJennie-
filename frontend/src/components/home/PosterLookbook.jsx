@@ -6,9 +6,9 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import sessionKneel from "../../assets/cutouts/session-kneel.webp";
+import footerStage from "../../assets/cutouts/footer-stage.webp";
 import sessionPose from "../../assets/cutouts/session-pose.webp";
-import sessionSeat from "../../assets/cutouts/session-seat.webp";
+import sessionSuit from "../../assets/cutouts/session-suit.webp";
 
 // Figuras recortadas, de atrás hacia delante. `box` da su posición y alto (en % de la sección) para
 // móvil y, con el prefijo md:, para escritorio (en móvil se muestran solo dos). Las tres son de la
@@ -16,23 +16,24 @@ import sessionSeat from "../../assets/cutouts/session-seat.webp";
 // se desplazan con el mouse (más = más cerca).
 const FIGURES = [
   {
-    src: sessionSeat,
-    alt: "Jennie sentada, de perfil, con chaqueta de cuero",
-    box: "left-[2%] h-[46%] md:left-[4%] md:h-[62%]",
-    depth: 16,
+    src: sessionSuit,
+    alt: "Jennie de pie con traje de rayas, mirando hacia arriba",
+    box: "bottom-[-3%] left-[0%] h-[56%] md:left-[9%] md:h-[78%]",
+    depth: 20,
     z: 20,
   },
   {
-    src: sessionKneel,
-    alt: "Jennie de rodillas sobre un banco, mirando a cámara",
-    box: "hidden md:block md:left-[66%] md:h-[70%]",
-    depth: 22,
+    src: footerStage,
+    alt: "Jennie de pie con botas y falda de mezclilla",
+    box: "hidden md:block md:bottom-[2%] md:left-[68%] md:h-[80%]",
+    mono: true,
+    depth: 24,
     z: 20,
   },
   {
     src: sessionPose,
     alt: "Jennie en una pierna con el cuerpo arqueado",
-    box: "left-[44%] h-[58%] md:left-[39%] md:h-[88%]",
+    box: "bottom-0 left-[44%] h-[58%] md:left-[40%] md:h-[88%]",
     depth: 32,
     z: 30,
   },
@@ -146,14 +147,14 @@ function PosterLookbook() {
           pointerY={pointerY}
           depth={figure.depth}
           index={index}
-          className={`pointer-events-none absolute bottom-0 ${figure.box}`}
+          className={`pointer-events-none absolute ${figure.box}`}
           style={{ zIndex: figure.z }}
         >
           <img
             src={figure.src}
             alt={figure.alt}
             loading="lazy"
-            className="h-full w-auto max-w-none object-contain object-bottom [filter:contrast(1.08)_drop-shadow(18px_34px_26px_rgba(0,0,0,0.85))]"
+            className={`h-full w-auto max-w-none object-contain object-bottom ${figure.mono ? "[filter:grayscale(1)_contrast(1.08)_drop-shadow(18px_34px_26px_rgba(0,0,0,0.85))]" : "[filter:contrast(1.08)_drop-shadow(18px_34px_26px_rgba(0,0,0,0.85))]"}`}
           />
         </Layer>
       ))}

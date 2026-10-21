@@ -44,6 +44,7 @@ ERODE = {
     "session-kneel": 2,
     "session-pose": 2,
     "session-seat": 2,
+    "session-suit": 2,
 }
 
 for name, polygons in ERASE.items():
