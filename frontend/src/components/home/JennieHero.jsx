@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { DockText } from "../common/Dock";
 import heroCenter from "../../assets/hero-center.jpg";
 import heroLeft from "../../assets/hero-left.jpg";
 import heroRight from "../../assets/hero-right.jpg";
@@ -48,19 +47,62 @@ function useImagesReady(sources) {
   return ready;
 }
 
+// Etiquetas sobre cada franja (llevan a la colección) y categorías del índice.
+const LABELS = [
+  { index: "01", name: "Fallen Angel", slug: "fallen-angel" },
+  { index: "02", name: "Haribo", slug: "haribo" },
+  { index: "03", name: "Ruby", slug: "ruby" },
+];
+const CATEGORIES = ["Ropa", "Abrigos", "Accesorios", "Música"];
+
 const SOURCES = STRIPS.map((strip) => strip.src);
 
-// Hero dividido (inspirado en el de Hermes): titular enorme en tipografía condensada a la
-// izquierda y, a la derecha, la foto partida en tres franjas que se revelan de arriba hacia abajo
-// una tras otra (idea de offform.net), con "JENNIE" en script cruzando el borde.
+// Hero a pantalla completa (inspirado en offform.net): tres fotos que ocupan todo el ancho y se
+// revelan de arriba hacia abajo una tras otra, con el titular condensado, etiquetas en
+// monoespaciada sobre cada franja y un índice de categorías.
 function JennieHero() {
   const ready = useImagesReady(SOURCES);
 
   return (
-    <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-black px-6 pb-16 pt-32 text-white sm:px-10 lg:pt-44">
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-6">
-        <div className="relative z-10">
-          <p className="font-display text-xs uppercase tracking-[0.3em] text-white/60">
+    <section className="relative flex min-h-screen w-full items-end overflow-hidden bg-black px-6 pb-16 pt-32 text-white sm:px-10">
+      {/* Las tres fotos a pantalla completa, una junto a otra, como en el hero de offform.net. */}
+      <div
+        className={`absolute inset-0 grid grid-cols-3 gap-px bg-black ${ready ? "is-revealing" : ""}`}
+      >
+        {STRIPS.map((strip, index) => (
+          <div
+            key={strip.src}
+            className="hero-strip relative overflow-hidden bg-neutral-900"
+            style={{ "--strip-index": index }}
+          >
+            <img
+              src={strip.src}
+              alt={strip.alt}
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: strip.position }}
+            />
+          </div>
+        ))}
+      </div>
+      {/* Degradado para que el titular se lea sobre las fotos. */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.85),rgba(0,0,0,0.15)_55%,rgba(0,0,0,0.35))]" />
+
+      {/* Etiquetas en monoespaciada sobre cada franja, que llevan a su colección. */}
+      <div className="absolute inset-x-0 top-28 z-10 hidden grid-cols-3 gap-px md:grid lg:top-40">
+        {LABELS.map((label) => (
+          <Link
+            key={label.slug}
+            to={`/colecciones/${label.slug}`}
+            className="hover-underline mx-6 w-fit font-mono text-[11px] uppercase tracking-[0.2em] text-white/85"
+          >
+            {label.index} — {label.name}
+          </Link>
+        ))}
+      </div>
+
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-between gap-10 lg:flex-row lg:items-end">
+        <div>
+          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/70">
             Colección 2026 · Ruby.
           </p>
 
@@ -72,7 +114,7 @@ function JennieHero() {
             <span className="text-accent">this?</span>
           </h1>
 
-          <p className="mt-6 max-w-md font-display text-sm text-white/70 sm:text-base">
+          <p className="mt-6 max-w-md font-display text-sm text-white/80 sm:text-base">
             Prendas, accesorios y música inspirados en el estilo de Jennie.
             Elige tu mundo y llévalo puesto.
           </p>
@@ -86,40 +128,27 @@ function JennieHero() {
             </Link>
             <Link
               to="/colecciones/fallen-angel"
-              className="border border-white/40 px-8 py-3 font-display text-xs uppercase tracking-widest transition hover:border-white hover:bg-white hover:text-black"
+              className="border border-white/50 px-8 py-3 font-display text-xs uppercase tracking-widest transition hover:border-white hover:bg-white hover:text-black"
             >
               Colecciones
             </Link>
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-md lg:ml-auto lg:mr-0 lg:max-w-[calc((100vh-14rem)*736/986)]">
-          <div
-            className={`relative grid aspect-[736/986] grid-cols-3 gap-1 overflow-hidden rounded-sm bg-neutral-950 ring-1 ring-white/15 ${ready ? "is-revealing" : ""}`}
-          >
-            {STRIPS.map((strip, index) => (
-              <div
-                key={strip.src}
-                className="hero-strip relative overflow-hidden bg-neutral-900"
-                style={{ "--strip-index": index }}
+        {/* Índice de categorías en monoespaciada, abajo a la derecha. */}
+        <ul className="hidden font-mono text-[11px] uppercase tracking-[0.2em] lg:block">
+          {CATEGORIES.map((name, index) => (
+            <li key={name}>
+              <Link
+                to="/catalogo"
+                className="hover-underline flex min-w-44 justify-between gap-8 py-1.5 text-white/85"
               >
-                <img
-                  src={strip.src}
-                  alt={strip.alt}
-                  className="absolute inset-0 h-full w-full object-cover"
-                  style={{ objectPosition: strip.position }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-              </div>
-            ))}
-          </div>
-
-          <p className="pointer-events-none absolute -bottom-6 -left-4 z-10 whitespace-nowrap font-script text-[clamp(3.5rem,7vw,6.5rem)] leading-none text-white mix-blend-difference lg:-left-20">
-            <span className="pointer-events-auto">
-              <DockText text="JENNIE" magnification={1.4} distance={80} />
-            </span>
-          </p>
-        </div>
+                <span className="text-white/50">0{index + 1}</span>
+                {name}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
