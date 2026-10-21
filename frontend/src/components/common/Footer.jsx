@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import stagePhoto from "../../assets/footer-stage.jpg";
 import { COLLECTIONS } from "../../data/collections";
 import { SOCIAL_ICONS } from "../../data/socialLinks";
 import { useAccountPanel } from "../../context/AccountPanelContext";
 import { useCart } from "../../context/CartContext";
-import { getCategories } from "../../services/category.service";
 import { brandThemeForPath } from "../../utils/brandTheme";
 
 const YEAR = new Date().getFullYear();
@@ -27,20 +25,12 @@ function FooterColumn({ label, title, children }) {
 }
 
 // Footer a color de la marca: foto en duotono de fondo, la marca gigante como marca de agua y
-// cuatro columnas de enlaces. El color sigue el de la ruta (rojo ruby o el de la colección).
+// tres columnas de enlaces (el menú del header ya lista las categorías). El color sigue el de la ruta (rojo ruby o el de la colección).
 function Footer() {
   const { pathname } = useLocation();
   const { color, ink } = brandThemeForPath(pathname);
   const { open: openCart } = useCart();
   const { open: openAccount } = useAccountPanel();
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    getCategories()
-      .then(setCategories)
-      .catch(() => {});
-  }, []);
-
   return (
     <footer
       id="contacto"
@@ -86,31 +76,13 @@ function Footer() {
           transform: "translateY(calc((1 - var(--footer-progress, 1)) * 30%))",
         }}
       >
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div className="sm:col-span-2 lg:col-span-1">
             <p className="font-script text-6xl leading-none">Ruby.</p>
             <p className="mt-3 font-display text-xs uppercase tracking-widest">
               Wanna rock with this?
             </p>
           </div>
-
-          <FooterColumn label="Explora" title="Tienda">
-            <li>
-              <Link to="/catalogo" className={LINK_CLASS}>
-                Todo el catálogo
-              </Link>
-            </li>
-            {categories.map((category) => (
-              <li key={category.id}>
-                <Link
-                  to={`/catalogo?categoria=${category.slug}`}
-                  className={LINK_CLASS}
-                >
-                  {category.name}
-                </Link>
-              </li>
-            ))}
-          </FooterColumn>
 
           <FooterColumn label="Campañas" title="Colecciones">
             {Object.entries(COLLECTIONS).map(([slug, collection]) => (
@@ -123,6 +95,11 @@ function Footer() {
           </FooterColumn>
 
           <FooterColumn label="Tu compra" title="Cuenta">
+            <li>
+              <Link to="/catalogo" className={LINK_CLASS}>
+                Catálogo
+              </Link>
+            </li>
             <li>
               <button
                 type="button"
