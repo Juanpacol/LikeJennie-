@@ -1,7 +1,9 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
   useMotionValue,
+  useScroll,
   useReducedMotion,
   useSpring,
   useTransform,
@@ -18,9 +20,11 @@ const FIGURES = [
   {
     src: sessionBlazer,
     alt: "Jennie con un blazer negro oversize y un top blanco",
-    box: "hidden md:block md:bottom-[0%] md:left-[42%] md:h-[46%]",
+    box: "hidden md:block md:bottom-[-13%] md:left-[40%] md:h-[74%]",
     depth: 8,
-    z: 8,
+    z: 6,
+    rise: [32, -10],
+    tone: "[filter:brightness(0.8)_contrast(1.08)_drop-shadow(10px_20px_18px_rgba(0,0,0,0.7))]",
   },
   {
     src: sessionSuit,
@@ -28,6 +32,8 @@ const FIGURES = [
     box: "bottom-[-3%] left-[0%] h-[56%] md:left-[5%] md:h-[56%]",
     depth: 20,
     z: 20,
+    rise: [14, -22],
+    tone: "",
   },
   {
     src: sessionCoat,
@@ -35,6 +41,8 @@ const FIGURES = [
     box: "bottom-[-4%] left-[40%] h-[50%] md:left-[74%] md:h-[60%]",
     depth: 30,
     z: 30,
+    rise: [22, -34],
+    tone: "",
   },
 ];
 
@@ -43,6 +51,8 @@ function Layer({
   pointerX,
   pointerY,
   depth,
+  scrollProgress,
+  rise = [0, 0],
   index = 0,
   className = "",
   style,
@@ -64,6 +74,13 @@ function Layer({
     },
   );
 
+  // Al hacer scroll, cada capa sube a su propio ritmo: las lejanas poco y las cercanas mucho.
+  const rising = useTransform(
+    scrollProgress,
+    [0, 0.5, 1],
+    reduced ? ["0%", "0%", "0%"] : [`${rise[0]}%`, "0%", `${rise[1]}%`],
+  );
+
   return (
     <motion.div
       className={className}
@@ -77,8 +94,10 @@ function Layer({
         ease: [0.16, 1, 0.3, 1],
       }}
     >
-      <motion.div style={{ x, y }} className="h-full w-full">
-        {children}
+      <motion.div style={{ y: rising }} className="h-full w-full">
+        <motion.div style={{ x, y }} className="h-full w-full">
+          {children}
+        </motion.div>
       </motion.div>
     </motion.div>
   );
@@ -88,6 +107,11 @@ function Layer({
 // rojo detrás, figuras recortadas delante que lo tapan en parte, y "JENNIE" acostada en el suelo
 // con perspectiva. Las capas se mueven a distinta velocidad con el mouse para dar profundidad.
 function PosterLookbook() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
 
@@ -104,6 +128,7 @@ function PosterLookbook() {
 
   return (
     <section
+      ref={sectionRef}
       aria-label="Lookbook"
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
@@ -117,7 +142,9 @@ function PosterLookbook() {
         pointerX={pointerX}
         pointerY={pointerY}
         depth={-6}
-        className="pointer-events-none absolute inset-x-0 top-[22%] z-10 text-center md:top-[9%]"
+        scrollProgress={scrollYProgress}
+        rise={[10, -12]}
+        className="pointer-events-none absolute inset-x-0 top-[28%] z-10 text-center md:top-[9%]"
       >
         <p
           aria-hidden="true"
@@ -145,6 +172,8 @@ function PosterLookbook() {
           pointerX={pointerX}
           pointerY={pointerY}
           depth={figure.depth}
+          scrollProgress={scrollYProgress}
+          rise={figure.rise}
           index={index}
           className={`pointer-events-none absolute ${figure.box}`}
           style={{ zIndex: figure.z }}
@@ -153,7 +182,7 @@ function PosterLookbook() {
             src={figure.src}
             alt={figure.alt}
             loading="lazy"
-            className={`h-full w-auto max-w-none object-contain object-bottom [filter:contrast(1.08)_drop-shadow(18px_34px_26px_rgba(0,0,0,0.85))]`}
+            className={`h-full w-auto max-w-none object-contain object-bottom [mask-image:linear-gradient(to_bottom,#000_82%,transparent)] ${figure.tone || "[filter:contrast(1.08)_drop-shadow(18px_34px_26px_rgba(0,0,0,0.85))]"}`}
           />
         </Layer>
       ))}
