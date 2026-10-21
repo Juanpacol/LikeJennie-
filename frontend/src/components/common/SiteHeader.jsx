@@ -34,14 +34,14 @@ function SiteHeader({ overlay = false, dark = true }) {
         </Link>
 
         <nav className="hidden flex-1 justify-center gap-8 font-display text-xs uppercase tracking-widest md:flex">
-          <Link to="/catalogo" className="hover:opacity-70">
+          <Link to="/catalogo" className="hover-underline">
             Tienda
           </Link>
           {categories.map((category) => (
             <Link
               key={category.id}
               to={`/catalogo?categoria=${category.slug}`}
-              className="hover:opacity-70"
+              className="hover-underline"
             >
               {category.name}
             </Link>

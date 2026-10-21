@@ -5,3 +5,28 @@
 body {
   @apply bg-white text-black;
 }
+
+/* Subrayado que se dibuja de izquierda a derecha al pasar el mouse o enfocar con teclado. */
+@layer components {
+  .hover-underline {
+    position: relative;
+  }
+
+  .hover-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .hover-underline:hover::after,
+  .hover-underline:focus-visible::after {
+    transform: scaleX(1);
+  }
+}

@@ -17,7 +17,7 @@ function Footer({ dark = true }) {
   const theme = dark ? "border-white/10 bg-black text-white" : "border-gray-200 bg-white text-black";
   const muted = dark ? "text-white/60" : "text-gray-500";
   const headingClass = "font-display text-xs uppercase tracking-widest";
-  const linkClass = `font-display text-sm ${muted} transition hover:text-accent`;
+  const linkClass = `font-display text-sm ${muted} transition hover:text-accent hover-underline`;
 
   return (
     <footer id="contacto" className={`border-t ${theme}`}>
