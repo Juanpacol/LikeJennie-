@@ -88,7 +88,7 @@ body {
 }
 
 /* Marco de color de la marca: borde fijo de 5 px alrededor de la ventana, con un brillo que se
-   desliza despacio por el borde. El color lo da --frame-color (BrandFrame lo cambia por ruta).
+   intensifica y se apaga despacio. El color lo da --frame-color (BrandFrame lo cambia por ruta).
    Solo en escritorio; no capta clics. */
 .brand-frame {
   position: fixed;
@@ -122,18 +122,10 @@ body {
   mask:
     linear-gradient(#000 0 0) content-box exclude,
     linear-gradient(#000 0 0);
-  animation:
-    brand-frame-shimmer 14s linear infinite alternate,
-    brand-frame-bloom 42s ease-in-out infinite;
-}
-
-@keyframes brand-frame-shimmer {
-  from {
-    background-position: 0% 0%;
-  }
-  to {
-    background-position: 100% 100%;
-  }
+  /* Solo se anima la opacidad (la hace la GPU sin repintar). Animar el degradado repintaba toda
+     la ventana en cada fotograma y congelaba la página en pantalla completa. */
+  will-change: opacity;
+  animation: brand-frame-bloom 42s ease-in-out infinite;
 }
 
 @keyframes brand-frame-bloom {
