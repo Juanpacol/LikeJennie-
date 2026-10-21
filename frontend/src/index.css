@@ -86,3 +86,76 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Marco de color de la marca: borde fijo de 5 px alrededor de la ventana, con un brillo que se
+   desliza despacio por el borde. El color lo da --frame-color (BrandFrame lo cambia por ruta).
+   Solo en escritorio; no capta clics. */
+.brand-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  border: 5px solid var(--frame-color, #d6001c);
+  transition: border-color 0.4s ease;
+}
+
+.brand-frame::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  padding: 5px;
+  background: linear-gradient(
+    160deg,
+    transparent 0%,
+    rgb(255 255 255 / 0.55) 15%,
+    transparent 30%,
+    transparent 45%,
+    rgb(255 255 255 / 0.5) 60%,
+    transparent 75%
+  );
+  background-size: 300% 300%;
+  /* Deja visible solo el anillo de 5 px del borde. */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  animation:
+    brand-frame-shimmer 14s linear infinite alternate,
+    brand-frame-bloom 42s ease-in-out infinite;
+}
+
+@keyframes brand-frame-shimmer {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes brand-frame-bloom {
+  0%,
+  68%,
+  92%,
+  100% {
+    opacity: 0.45;
+  }
+  80% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .brand-frame::before {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .brand-frame {
+    display: none;
+  }
+}

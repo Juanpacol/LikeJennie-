@@ -7,6 +7,7 @@ import SiteHeader from "./components/common/SiteHeader";
 import Footer from "./components/common/Footer";
 import CartDrawer from "./components/cart/CartDrawer";
 import CartToast from "./components/cart/CartToast";
+import BrandFrame from "./components/common/BrandFrame";
 import SmoothScroll from "./components/common/SmoothScroll";
 import AccountPanel from "./components/account/AccountPanel";
 import Home from "./pages/public/Home";
@@ -85,6 +86,7 @@ function App() {
         <AccountPanelProvider>
           <BrowserRouter>
             <SmoothScroll />
+            <BrandFrame />
             <AppLayout />
             <CartDrawer />
             <CartToast />
