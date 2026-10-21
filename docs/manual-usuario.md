@@ -16,14 +16,14 @@ Al entrar verás, de arriba abajo:
 
 1. **Encabezado:** el logo **Ruby.** al centro con los íconos de **Spotify**, **Instagram** y **YouTube** debajo; las secciones (**Tienda**, **Ropa**, **Abrigos**, **Accesorios**, **Música**) repartidas a ambos lados; y a la derecha tres íconos: lupa (buscar), persona (cuenta) y bolsa (carrito). Al bajar por la página, el encabezado se hace más pequeño y no se pierde de vista.
 2. **Portada:** el titular **«Streetwear con flow propio»**, una foto de Jennie y los botones **Ver tienda** y **Colecciones**.
-3. **Colecciones:** una banda por colección, con su foto y el botón **Comprar ahora**. Hoy hay dos: **Fallen Angel** (lila) y **JENNIE x Haribo** (amarillo).
+3. **Colecciones:** una banda por colección, con su foto y el botón **Comprar ahora**. Hoy hay tres: **Fallen Angel** (lila), **JENNIE x Haribo** (amarillo) y **JENNIE x Ruby** (negro y rojo).
 4. **Elige tu mundo:** cuatro tarjetas numeradas, una por categoría (Ropa, Abrigos, Accesorios y Música), con la cantidad de productos de cada una.
 5. **Destacados:** una selección de productos, con el botón **Ver todo**.
 6. **Preguntas frecuentes (FAQs):** pulsa una pregunta para ver la respuesta; solo se mantiene una abierta a la vez.
 7. **Pie de página:** al llegar al final de la página aparece poco a poco, con la marca en grande y cuatro columnas de enlaces: **Tienda**, **Colecciones**, **Cuenta** y **Sígueme** (redes).
 
 **Detalles de la página**
-- Un **marco de color** rodea la ventana: rojo en la tienda, y lila o amarillo cuando estás en una colección. En Safari y en el celular, la barra del navegador también toma ese color.
+- Un **marco de color** rodea la ventana: rojo en la tienda, y lila, amarillo o rojo cuando estás en una colección. En Safari y en el celular, la barra del navegador también toma ese color.
 - La página se desplaza con un movimiento suave. Si tu equipo tiene activada la opción **Reducir movimiento**, la página no usa animaciones.
 - En el celular el menú de secciones se abre con el botón de **tres rayas** (ver el apartado de menú móvil).
 
@@ -37,7 +37,7 @@ Al entrar verás, de arriba abajo:
 
 ### 3. Ver una colección
 
-Pulsa **Comprar ahora** en la banda de la colección que te interese (**Fallen Angel** o **JENNIE x Haribo**), o su nombre en el pie de página o en el menú del celular. Se abre una página con el color de esa colección y todos sus productos.
+Pulsa **Comprar ahora** en la banda de la colección que te interese (**Fallen Angel**, **JENNIE x Haribo** o **JENNIE x Ruby**), o su nombre en el pie de página o en el menú del celular. Se abre una página con el color de esa colección y todos sus productos.
 
 ### 4. Buscar un producto
 
