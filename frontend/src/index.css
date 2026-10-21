@@ -6,13 +6,16 @@ body {
   @apply bg-white text-black;
 }
 
-/* Subrayado que se dibuja de izquierda a derecha al pasar el mouse o enfocar con teclado. */
+/* Subrayado que se dibuja de izquierda a derecha al pasar el mouse o enfocar con teclado.
+   .group-hover-underline lo dispara el hover del contenedor .group (p. ej. la tarjeta de producto). */
 @layer components {
-  .hover-underline {
+  .hover-underline,
+  .group-hover-underline {
     position: relative;
   }
 
-  .hover-underline::after {
+  .hover-underline::after,
+  .group-hover-underline::after {
     content: "";
     position: absolute;
     left: 0;
@@ -26,7 +29,9 @@ body {
   }
 
   .hover-underline:hover::after,
-  .hover-underline:focus-visible::after {
+  .hover-underline:focus-visible::after,
+  .group:hover .group-hover-underline::after,
+  .group:focus-visible .group-hover-underline::after {
     transform: scaleX(1);
   }
 }
