@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import heroImage from "../../assets/jennie-hero.jpg";
+import stagePhoto from "../../assets/footer-stage.jpg";
 import { COLLECTIONS } from "../../data/collections";
 import { SOCIAL_ICONS } from "../../data/socialLinks";
 import { useAccountPanel } from "../../context/AccountPanelContext";
@@ -47,12 +47,25 @@ function Footer() {
       className="relative overflow-hidden transition-colors duration-500"
       style={{ backgroundColor: color, color: ink }}
     >
-      {/* Foto en blanco y negro mezclada con el color de la marca (duotono). */}
-      <img
-        src={heroImage}
-        alt=""
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[50%_30%] opacity-40 mix-blend-screen grayscale"
-      />
+      {/* Foto vertical en blanco y negro mezclada con el color de la marca (duotono). Se muestra
+          entera, de alto completo, y se desvanece por abajo y por los lados. */}
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 hidden aspect-[736/1308] md:block"
+        style={{
+          WebkitMaskImage:
+            "linear-gradient(to bottom, #000 40%, transparent 78%), linear-gradient(to right, transparent, #000 20%, #000 80%, transparent)",
+          WebkitMaskComposite: "source-in",
+          maskImage:
+            "linear-gradient(to bottom, #000 40%, transparent 78%), linear-gradient(to right, transparent, #000 20%, #000 80%, transparent)",
+          maskComposite: "intersect",
+        }}
+      >
+        <img
+          src={stagePhoto}
+          alt=""
+          className="h-full w-full object-cover opacity-60 mix-blend-screen grayscale"
+        />
+      </div>
       {/* Marca gigante translúcida. */}
       <p
         aria-hidden="true"
