@@ -6,12 +6,19 @@ import { COLLECTIONS } from "../../data/collections";
 // derecha, fundida con un degradado, para que no se recorte ni se vea borrosa.
 function ImageBand({ slug, collection }) {
   const { page, ink, accent, onAccent } = collection.theme;
-  const colors = { "--ink": ink, "--accent": accent, "--on-accent": onAccent };
+  const { imageSide = "right", imageAspect = "1 / 1" } = collection;
+  const isLeft = imageSide === "left";
+  const colors = {
+    "--ink": ink,
+    "--accent": accent,
+    "--on-accent": onAccent,
+    "--page": page,
+  };
 
   return (
     <section
-      className="relative overflow-hidden bg-black px-6 py-20 text-center text-white md:bg-[color:var(--page)] md:min-h-[440px] md:py-24 md:text-left md:text-[color:var(--ink)]"
-      style={{ ...colors, "--page": page }}
+      className="relative overflow-hidden bg-black px-6 py-20 text-center text-white md:min-h-[440px] md:bg-[color:var(--page)] md:py-24 md:text-left md:text-[color:var(--ink)]"
+      style={colors}
     >
       {/* Móvil: la foto de fondo, oscurecida. */}
       <img
@@ -21,8 +28,11 @@ function ImageBand({ slug, collection }) {
       />
       <div className="absolute inset-0 bg-black/50 md:hidden" />
 
-      {/* Desde md: la foto entera (cuadrada) a la derecha, fundida con el color de la banda. */}
-      <div className="absolute inset-y-0 right-0 hidden aspect-square md:block">
+      {/* Desde md: la foto entera a un lado, fundida con el color de la banda. */}
+      <div
+        className={`absolute inset-y-0 hidden md:block ${isLeft ? "left-0" : "right-0"}`}
+        style={{ aspectRatio: imageAspect }}
+      >
         <img
           src={collection.image}
           alt=""
@@ -31,13 +41,15 @@ function ImageBand({ slug, collection }) {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(to right, ${page} 0%, transparent 35%)`,
+            backgroundImage: `linear-gradient(to ${isLeft ? "left" : "right"}, ${page} 0%, transparent 35%)`,
           }}
         />
       </div>
 
-      <div className="relative mx-auto max-w-6xl md:px-6">
-        <div className="md:max-w-sm">
+      <div
+        className={`relative mx-auto max-w-6xl md:flex md:px-6 ${isLeft ? "md:justify-end" : ""}`}
+      >
+        <div className="md:max-w-lg">
           <p className="font-display text-xs uppercase tracking-widest">
             {collection.tagline}
           </p>
@@ -49,7 +61,7 @@ function ImageBand({ slug, collection }) {
           </p>
           <Link
             to={`/colecciones/${slug}`}
-            className="mt-8 inline-block bg-white px-8 py-3 font-display text-xs uppercase tracking-widest text-[color:var(--ink)] transition hover:opacity-80 md:bg-[color:var(--accent)] md:text-[color:var(--on-accent)]"
+            className="mt-8 inline-block bg-white px-8 py-3 font-display text-xs uppercase tracking-widest text-black transition hover:opacity-80 md:bg-[color:var(--accent)] md:text-[color:var(--on-accent)]"
           >
             Comprar ahora
           </Link>
