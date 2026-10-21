@@ -183,3 +183,21 @@ body {
   opacity: 1;
   transform: none;
 }
+
+/* Hero en tres franjas: cada una se revela de arriba hacia abajo con clip-path (0,65 s) y entra
+   80 ms después de la anterior. Empiezan ocultas y arrancan al marcar el contenedor `is-revealing`.
+   Con prefers-reduced-motion la regla global las deja terminadas al instante. */
+.hero-strip {
+  clip-path: inset(0 0 100% 0);
+}
+
+.is-revealing .hero-strip {
+  animation: hero-strip-reveal 0.65s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  animation-delay: calc(0.12s + var(--strip-index) * 0.08s);
+}
+
+@keyframes hero-strip-reveal {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}

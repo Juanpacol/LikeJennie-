@@ -1,10 +1,61 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { DockText } from "../common/Dock";
-import heroPortrait from "../../assets/hero-portrait.jpg";
+import heroCenter from "../../assets/hero-center.jpg";
+import heroLeft from "../../assets/hero-left.jpg";
+import heroRight from "../../assets/hero-right.jpg";
+
+// Las tres imágenes del hero, de izquierda a derecha. `position` encuadra el rostro en cada franja.
+const STRIPS = [
+  {
+    src: heroLeft,
+    position: "50% 20%",
+    alt: "Retrato en blanco y negro con grano de película",
+  },
+  {
+    src: heroCenter,
+    position: "40% 30%",
+    alt: "Bailarina con gafas oscuras sobre fondo rojo",
+  },
+  {
+    src: heroRight,
+    position: "52% 20%",
+    alt: "Jennie posando con una chaqueta de mezclilla, retrato en blanco y negro",
+  },
+];
+
+// Espera a que carguen las tres fotos (o 2,5 s como máximo) para empezar la revelación.
+function useImagesReady(sources) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    let cancelled = false;
+    const loads = sources.map(
+      (src) =>
+        new Promise((resolve) => {
+          const image = new Image();
+          image.onload = image.onerror = resolve;
+          image.src = src;
+        }),
+    );
+    const timeout = new Promise((resolve) => setTimeout(resolve, 2500));
+    Promise.race([Promise.all(loads), timeout]).then(
+      () => !cancelled && setReady(true),
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [sources]);
+  return ready;
+}
+
+const SOURCES = STRIPS.map((strip) => strip.src);
 
 // Hero dividido (inspirado en el de Hermes): titular enorme en tipografía condensada a la
-// izquierda y la foto enmarcada a la derecha, con "JENNIE" en script cruzando el borde de la foto.
+// izquierda y, a la derecha, la foto partida en tres franjas que se revelan de arriba hacia abajo
+// una tras otra (idea de offform.net), con "JENNIE" en script cruzando el borde.
 function JennieHero() {
+  const ready = useImagesReady(SOURCES);
+
   return (
     <section className="relative flex min-h-screen w-full items-center overflow-hidden bg-black px-6 pb-16 pt-32 text-white sm:px-10 lg:pt-44">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-6">
@@ -43,13 +94,24 @@ function JennieHero() {
         </div>
 
         <div className="relative mx-auto w-full max-w-md lg:ml-auto lg:mr-0 lg:max-w-[calc((100vh-14rem)*736/986)]">
-          <div className="relative aspect-[736/986] overflow-hidden rounded-sm bg-neutral-900 ring-1 ring-white/15">
-            <img
-              src={heroPortrait}
-              alt="Jennie posando con una chaqueta de mezclilla, retrato en blanco y negro"
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          <div
+            className={`relative grid aspect-[736/986] grid-cols-3 gap-1 overflow-hidden rounded-sm bg-neutral-950 ring-1 ring-white/15 ${ready ? "is-revealing" : ""}`}
+          >
+            {STRIPS.map((strip, index) => (
+              <div
+                key={strip.src}
+                className="hero-strip relative overflow-hidden bg-neutral-900"
+                style={{ "--strip-index": index }}
+              >
+                <img
+                  src={strip.src}
+                  alt={strip.alt}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  style={{ objectPosition: strip.position }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              </div>
+            ))}
           </div>
 
           <p className="pointer-events-none absolute -bottom-6 -left-4 z-10 whitespace-nowrap font-script text-[clamp(3.5rem,7vw,6.5rem)] leading-none text-white mix-blend-difference lg:-left-20">
