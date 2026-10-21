@@ -118,18 +118,11 @@ function ProductDetail() {
   return (
     <section className="text-white">
       {/* Galería a pantalla completa con la tarjeta de compra flotando encima (como Bershka). */}
-      <div className="relative lg:h-[calc(100vh-127px)] lg:min-h-[620px]">
-        <div className="relative h-[68vh] overflow-hidden bg-neutral-900 lg:h-full">
-          {/* Foto desenfocada de fondo: llena los lados cuando la prenda no ocupa todo el ancho. */}
-          <img
-            src={images[0]?.url}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full scale-125 object-cover opacity-50 blur-3xl"
-          />
+      <div className="lg:grid lg:h-[calc(100vh-127px)] lg:min-h-[620px] lg:grid-cols-[1fr_26rem]">
+        <div className="relative h-[68vh] overflow-hidden bg-black lg:h-full">
           <div
             ref={stripRef}
-            className="no-scrollbar relative flex h-full snap-x snap-mandatory items-center gap-3 overflow-x-auto px-4 lg:pr-[26rem]"
+            className="no-scrollbar relative flex h-full snap-x snap-mandatory items-center gap-3 overflow-x-auto px-4"
           >
             {images.map((image, index) => (
               <button
@@ -138,14 +131,14 @@ function ProductDetail() {
                 onClick={() => setLightboxIndex(index)}
                 aria-label={`Ver foto ${index + 1} a pantalla completa`}
                 className={`h-[92%] shrink-0 animate-slide-in-right cursor-zoom-in snap-center overflow-hidden transition-opacity duration-500 first:ml-auto last:mr-auto ${
-                  index === activeIndex ? "opacity-100" : "opacity-50"
+                  index === activeIndex ? "opacity-100" : "opacity-75"
                 }`}
                 style={{ animationDelay: `${index * 140}ms` }}
               >
                 <img
                   src={image.url}
                   alt={index === 0 ? product.name : ""}
-                  className="h-full w-auto max-w-[88vw] object-contain transition-transform duration-500 ease-out hover:scale-[1.03]"
+                  className="h-full w-auto max-w-[88vw] object-contain brightness-[1.3] contrast-[1.05] transition-transform duration-500 ease-out hover:scale-[1.03]"
                 />
               </button>
             ))}
@@ -205,10 +198,10 @@ function ProductDetail() {
         </div>
 
         {/* Tarjeta de compra: de vidrio esmerilado sobre la foto en escritorio; bajo ella en móvil. */}
-        <aside className="animate-fade-up bg-white/90 p-6 text-black backdrop-blur-xl [animation-delay:350ms] lg:absolute lg:bottom-8 lg:right-8 lg:w-[24rem]">
+        <aside className="animate-fade-up bg-lilac p-6 text-lilac-deep [animation-delay:350ms] lg:flex lg:flex-col lg:justify-center lg:overflow-y-auto lg:p-10">
           <div className="flex items-start justify-between gap-3">
             {product.category && (
-              <p className="bg-white px-2 py-1 font-display text-[11px] font-semibold uppercase tracking-widest shadow-sm">
+              <p className="bg-white/70 px-2 py-1 font-display text-[11px] font-semibold uppercase tracking-widest shadow-sm">
                 {product.category.name}
               </p>
             )}
@@ -229,7 +222,7 @@ function ProductDetail() {
                   <span className="block bg-accent px-2 py-0.5 text-sm font-semibold text-white">
                     {formatPrice(product.salePrice)}
                   </span>
-                  <span className="mt-1 block text-xs text-black/50 line-through">
+                  <span className="mt-1 block text-xs text-lilac-deep/60 line-through">
                     {formatPrice(product.basePrice)}
                   </span>
                 </>
@@ -241,7 +234,7 @@ function ProductDetail() {
             </p>
           </div>
 
-          <div className="mt-5 border-t border-black/10 pt-5">
+          <div className="mt-5 border-t border-lilac-deep/20 pt-5">
             <VariantSelector
               sizes={sizes}
               colors={colors}
@@ -268,7 +261,7 @@ function ProductDetail() {
             {selectedVariant &&
               !selectedVariant.isOutOfStock &&
               !selectedVariant.isLowStock && (
-                <span className="text-black/60">Disponible.</span>
+                <span className="text-lilac-deep/70">Disponible.</span>
               )}
           </p>
 
@@ -278,7 +271,7 @@ function ProductDetail() {
                 type="button"
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                 aria-label="Disminuir cantidad"
-                className="h-9 w-9 border border-black/25 transition hover:border-black"
+                className="h-9 w-9 border border-lilac-deep/40 transition hover:border-black"
               >
                 −
               </button>
@@ -287,7 +280,7 @@ function ProductDetail() {
                 type="button"
                 onClick={() => setQuantity((q) => q + 1)}
                 aria-label="Aumentar cantidad"
-                className="h-9 w-9 border border-black/25 transition hover:border-black"
+                className="h-9 w-9 border border-lilac-deep/40 transition hover:border-black"
               >
                 +
               </button>
@@ -298,7 +291,7 @@ function ProductDetail() {
             type="button"
             onClick={handleAddToCart}
             disabled={!canAddToCart}
-            className="btn-sweep mt-4 w-full bg-black py-4 font-display text-sm uppercase tracking-widest text-white disabled:opacity-40"
+            className="btn-sweep mt-4 w-full bg-accent py-4 font-display text-sm uppercase tracking-widest text-white disabled:opacity-40"
           >
             Añadir al carrito
           </button>
