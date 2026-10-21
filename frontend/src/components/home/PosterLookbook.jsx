@@ -117,21 +117,22 @@ function PosterLookbook() {
         pointerX={pointerX}
         pointerY={pointerY}
         depth={-6}
-        className="pointer-events-none absolute inset-x-0 top-[27%] z-0 text-center md:top-[8%]"
+        className="pointer-events-none absolute inset-x-0 top-[24%] z-0 text-center md:top-[5%]"
       >
         <p
           aria-hidden="true"
-          className="select-none font-condensed text-[min(46vw,62vh)] font-semibold uppercase leading-[0.82] tracking-[-0.02em] text-accent"
+          className="select-none font-condensed text-[min(54vw,66vh)] font-semibold uppercase leading-[0.82] tracking-[0.04em] text-accent md:-translate-x-[9%]"
         >
-          Ruby
+          Idol
         </p>
       </Layer>
 
-      {/* Palabra acostada en el suelo, con perspectiva. */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[48%] overflow-hidden [perspective:800px]">
+      {/* Palabra enorme "en el suelo": en perspectiva, inclinada en diagonal y cortada por los bordes,
+          como en el póster de referencia. Las figuras proyectan su sombra sobre las letras. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[58%] overflow-hidden [perspective:620px] [mask-image:linear-gradient(to_top,#000_55%,transparent)]">
         <p
           aria-hidden="true"
-          className="origin-bottom select-none whitespace-nowrap text-center font-condensed text-[min(34vw,46vh)] font-semibold uppercase leading-none tracking-[0.02em] text-white/[0.2] [transform:rotateX(56deg)_translateY(6%)]"
+          className="absolute -left-[6%] top-[12%] w-[112%] origin-center select-none whitespace-nowrap text-center font-condensed text-[min(52vw,64vh)] font-semibold uppercase leading-none tracking-[0.03em] text-white/90 [transform:rotateX(66deg)_rotateZ(-9deg)]"
         >
           Jennie
         </p>
@@ -152,12 +153,22 @@ function PosterLookbook() {
             src={figure.src}
             alt={figure.alt}
             loading="lazy"
-            className="h-full w-auto max-w-none object-contain object-bottom [filter:contrast(1.08)_drop-shadow(0_28px_34px_rgba(0,0,0,0.65))]"
+            className="h-full w-auto max-w-none object-contain object-bottom [filter:contrast(1.08)_drop-shadow(18px_34px_26px_rgba(0,0,0,0.85))]"
           />
         </Layer>
       ))}
 
       {/* Textos pequeños de los costados. */}
+      <div
+        aria-hidden="true"
+        className="absolute left-[22%] right-[12%] top-[88px] z-40 hidden items-center gap-4 md:flex"
+      >
+        <span className="font-display text-[11px] tracking-[0.3em] text-white/70">
+          2026
+        </span>
+        <span className="h-px flex-1 bg-white/35" />
+      </div>
+
       <div className="absolute left-6 top-28 z-40 max-w-[12.5rem] sm:left-10 lg:top-36">
         <p className="font-display text-[11px] uppercase tracking-[0.3em] text-white/60">
           Lookbook · 2026
@@ -185,6 +196,12 @@ function PosterLookbook() {
         with
         <br />
         <span className="text-accent">this?</span>
+      </p>
+      <p
+        aria-hidden="true"
+        className="absolute right-6 top-[17.5rem] z-40 hidden font-display text-[11px] uppercase tracking-[0.3em] text-white/70 sm:right-10 md:block lg:top-[19rem]"
+      >
+        Jennie
       </p>
 
       <p className="absolute bottom-5 left-6 z-40 font-display text-[11px] uppercase tracking-widest text-white/50 sm:left-10">
