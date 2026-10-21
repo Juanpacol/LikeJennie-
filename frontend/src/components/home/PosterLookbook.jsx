@@ -18,21 +18,21 @@ const FIGURES = [
   {
     src: sessionBlazer,
     alt: "Jennie con un blazer negro oversize y un top blanco",
-    box: "hidden md:block md:bottom-[0%] md:left-[37%] md:h-[60%]",
+    box: "hidden md:block md:bottom-[0%] md:left-[42%] md:h-[46%]",
     depth: 8,
     z: 8,
   },
   {
     src: sessionSuit,
     alt: "Jennie de pie con traje de rayas, mirando hacia arriba",
-    box: "bottom-[-3%] left-[0%] h-[56%] md:left-[4%] md:h-[62%]",
+    box: "bottom-[-3%] left-[0%] h-[56%] md:left-[5%] md:h-[56%]",
     depth: 20,
     z: 20,
   },
   {
     src: sessionCoat,
     alt: "Jennie con un abrigo negro largo, mirando hacia abajo",
-    box: "bottom-[-4%] left-[40%] h-[50%] md:left-[69%] md:h-[64%]",
+    box: "bottom-[-4%] left-[40%] h-[50%] md:left-[74%] md:h-[60%]",
     depth: 30,
     z: 30,
   },
@@ -117,11 +117,11 @@ function PosterLookbook() {
         pointerX={pointerX}
         pointerY={pointerY}
         depth={-6}
-        className="pointer-events-none absolute inset-x-0 top-[22%] z-10 text-center md:top-[10%]"
+        className="pointer-events-none absolute inset-x-0 top-[22%] z-10 text-center md:top-[9%]"
       >
         <p
           aria-hidden="true"
-          className="select-none font-heavy text-[min(42vw,50vh)] font-extrabold leading-[0.85] tracking-[-0.05em] text-[#f2f2f2]"
+          className="select-none font-heavy text-[min(38vw,46vh)] font-extrabold leading-[0.85] tracking-[-0.05em] text-[#f2f2f2]"
         >
           Idol
         </p>
