@@ -11,20 +11,6 @@ export const FAQS = [
       "No. Para confirmar un pedido solo se piden tu nombre y tu email. El registro de clientes todavía no está disponible.",
   },
   {
-    question: "¿Cómo elijo mi talla y mi color?",
-    answer:
-      "En la página de cada producto eliges una talla y un color. Si esa combinación está agotada lo verás indicado y puedes probar con otra.",
-  },
-  {
-    question: "¿Qué significan «Agotado» y «Últimas unidades»?",
-    answer:
-      "«Agotado» quiere decir que esa combinación de talla y color no tiene existencias. «Últimas unidades» avisa que quedan cinco o menos.",
-  },
-  {
-    question: "¿En qué moneda están los precios?",
-    answer: "Todos los precios están en pesos colombianos (COP).",
-  },
-  {
     question: "¿Qué son las colecciones?",
     answer:
       "Son campañas con su propio color y sus propios productos, como Fallen Angel y JENNIE x Haribo. Puedes verlas completas desde la página de inicio.",
