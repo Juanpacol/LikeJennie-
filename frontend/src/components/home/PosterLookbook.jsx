@@ -144,11 +144,11 @@ function PosterLookbook() {
         depth={-6}
         scrollProgress={scrollYProgress}
         rise={[10, -12]}
-        className="pointer-events-none absolute inset-x-0 top-[28%] z-10 text-center md:top-[9%]"
+        className="pointer-events-none absolute inset-x-0 top-[28%] z-10 text-center md:top-[11%]"
       >
         <p
           aria-hidden="true"
-          className="select-none font-heavy text-[min(38vw,46vh)] font-extrabold leading-[0.85] tracking-[-0.05em] text-[#f2f2f2]"
+          className="select-none font-display text-[min(34vw,42vh)] font-semibold leading-[0.85] tracking-[-0.03em] text-[#f2f2f2]"
         >
           Idol
         </p>
