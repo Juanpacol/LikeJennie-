@@ -18,9 +18,9 @@ function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [lightboxIndex, setLightboxIndex] = useState(null);
-  // Carrusel: foto activa y reproducción automática (como el botón de pausa de Bershka).
+  // Carrusel automático: se detiene mientras el mouse está sobre la galería.
   const [activeIndex, setActiveIndex] = useState(0);
-  const [playing, setPlaying] = useState(true);
+  const [hovering, setHovering] = useState(false);
   const stripRef = useRef(null);
 
   useEffect(() => {
@@ -36,7 +36,6 @@ function ProductDetail() {
         setSelectedColor(first?.color ?? null);
         setLightboxIndex(null);
         setActiveIndex(0);
-        setPlaying(true);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -60,7 +59,7 @@ function ProductDetail() {
   // Avanza sola cada 4 s (si hay más de una foto, no hay un visor abierto y el usuario no pidió
   // reducir el movimiento) y centra la foto activa dentro de la tira.
   useEffect(() => {
-    if (!playing || photoCount < 2 || lightboxIndex !== null) return undefined;
+    if (hovering || photoCount < 2 || lightboxIndex !== null) return undefined;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
       return undefined;
     const timer = setInterval(
@@ -68,7 +67,7 @@ function ProductDetail() {
       CAROUSEL_MS,
     );
     return () => clearInterval(timer);
-  }, [playing, photoCount, lightboxIndex]);
+  }, [hovering, photoCount, lightboxIndex]);
 
   useEffect(() => {
     const photo = stripRef.current?.children[activeIndex];
@@ -117,9 +116,13 @@ function ProductDetail() {
 
   return (
     <section className="text-white">
-      {/* Galería a pantalla completa con la tarjeta de compra flotando encima (como Bershka). */}
+      {/* Galería a pantalla completa con la columna de compra a la derecha. */}
       <div className="lg:grid lg:h-[calc(100vh-127px)] lg:min-h-[620px] lg:grid-cols-[1fr_26rem]">
-        <div className="relative h-[68vh] overflow-hidden bg-black lg:h-full">
+        <div
+          className="relative h-[68vh] overflow-hidden bg-black lg:h-full"
+          onMouseEnter={() => setHovering(true)}
+          onMouseLeave={() => setHovering(false)}
+        >
           <div
             ref={stripRef}
             className="no-scrollbar relative flex h-full snap-x snap-mandatory items-center gap-3 overflow-x-auto px-4"
@@ -144,43 +147,12 @@ function ProductDetail() {
             ))}
           </div>
 
-          <div className="absolute bottom-5 left-5 flex gap-2 lg:left-1/2 lg:-translate-x-1/2">
-            {images.length > 1 && (
-              <button
-                type="button"
-                onClick={() => setPlaying((value) => !value)}
-                aria-label={
-                  playing ? "Pausar el carrusel" : "Reproducir el carrusel"
-                }
-                aria-pressed={!playing}
-                className="flex h-11 w-11 items-center justify-center bg-white/90 text-black transition hover:bg-white"
-              >
-                {playing ? (
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-4 w-4"
-                    aria-hidden="true"
-                  >
-                    <path d="M7 4h3.5v16H7zM13.5 4H17v16h-3.5z" />
-                  </svg>
-                ) : (
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-4 w-4"
-                    aria-hidden="true"
-                  >
-                    <path d="M7 4l13 8-13 8z" />
-                  </svg>
-                )}
-              </button>
-            )}
+          <div className="absolute bottom-5 left-5 lg:left-1/2 lg:-translate-x-1/2">
             <button
               type="button"
               onClick={() => setLightboxIndex(activeIndex)}
               aria-label="Ver a pantalla completa"
-              className="flex h-11 w-11 items-center justify-center bg-white/90 text-black transition hover:bg-white"
+              className="flex h-11 w-11 items-center justify-center border border-white/40 bg-black/70 text-white backdrop-blur transition hover:border-accent hover:bg-accent"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -198,10 +170,10 @@ function ProductDetail() {
         </div>
 
         {/* Tarjeta de compra: de vidrio esmerilado sobre la foto en escritorio; bajo ella en móvil. */}
-        <aside className="animate-fade-up bg-lilac p-6 text-lilac-deep [animation-delay:350ms] lg:flex lg:flex-col lg:justify-center lg:overflow-y-auto lg:p-10">
+        <aside className="animate-fade-up border-l border-white/10 bg-[#0d0d0d] p-6 text-white [animation-delay:350ms] lg:flex lg:flex-col lg:justify-center lg:overflow-y-auto lg:p-10">
           <div className="flex items-start justify-between gap-3">
             {product.category && (
-              <p className="bg-white/70 px-2 py-1 font-display text-[11px] font-semibold uppercase tracking-widest shadow-sm">
+              <p className="border border-white/30 px-2 py-1 font-display text-[11px] font-semibold uppercase tracking-widest shadow-sm">
                 {product.category.name}
               </p>
             )}
@@ -222,7 +194,7 @@ function ProductDetail() {
                   <span className="block bg-accent px-2 py-0.5 text-sm font-semibold text-white">
                     {formatPrice(product.salePrice)}
                   </span>
-                  <span className="mt-1 block text-xs text-lilac-deep/60 line-through">
+                  <span className="mt-1 block text-xs text-white/50 line-through">
                     {formatPrice(product.basePrice)}
                   </span>
                 </>
@@ -234,7 +206,7 @@ function ProductDetail() {
             </p>
           </div>
 
-          <div className="mt-5 border-t border-lilac-deep/20 pt-5">
+          <div className="mt-5 border-t border-white/15 pt-5">
             <VariantSelector
               sizes={sizes}
               colors={colors}
@@ -254,14 +226,14 @@ function ProductDetail() {
               </span>
             )}
             {selectedVariant?.isLowStock && (
-              <span className="font-medium text-amber-700">
+              <span className="font-medium text-amber-400">
                 ¡Últimas {selectedVariant.stock} unidades!
               </span>
             )}
             {selectedVariant &&
               !selectedVariant.isOutOfStock &&
               !selectedVariant.isLowStock && (
-                <span className="text-lilac-deep/70">Disponible.</span>
+                <span className="text-white/60">Disponible.</span>
               )}
           </p>
 
@@ -271,7 +243,7 @@ function ProductDetail() {
                 type="button"
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                 aria-label="Disminuir cantidad"
-                className="h-9 w-9 border border-lilac-deep/40 transition hover:border-black"
+                className="h-9 w-9 border border-white/30 transition hover:border-black"
               >
                 −
               </button>
@@ -280,7 +252,7 @@ function ProductDetail() {
                 type="button"
                 onClick={() => setQuantity((q) => q + 1)}
                 aria-label="Aumentar cantidad"
-                className="h-9 w-9 border border-lilac-deep/40 transition hover:border-black"
+                className="h-9 w-9 border border-white/30 transition hover:border-black"
               >
                 +
               </button>

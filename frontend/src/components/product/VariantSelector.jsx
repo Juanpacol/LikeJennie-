@@ -22,8 +22,8 @@ function VariantSelector({
                 aria-pressed={selectedColor === color}
                 className={`border px-3 py-1.5 font-display text-xs uppercase tracking-widest transition ${
                   selectedColor === color
-                    ? "border-lilac-deep bg-lilac-deep text-white"
-                    : "border-lilac-deep/40 hover:border-lilac-deep"
+                    ? "border-accent bg-accent text-white"
+                    : "border-white/30 hover:border-white"
                 }`}
               >
                 {color}
@@ -47,9 +47,9 @@ function VariantSelector({
               aria-pressed={selected}
               className={`min-w-11 border-b-2 px-3 py-1.5 font-display text-sm uppercase transition ${
                 selected
-                  ? "border-lilac-deep font-semibold"
-                  : "border-transparent hover:border-lilac-deep/40"
-              } ${available ? "" : "cursor-not-allowed text-lilac-deep/30 line-through"}`}
+                  ? "border-accent font-semibold"
+                  : "border-transparent hover:border-white/40"
+              } ${available ? "" : "cursor-not-allowed text-white/25 line-through"}`}
             >
               {size}
             </button>
