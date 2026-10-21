@@ -55,7 +55,7 @@ ERODE = {
 }
 
 # fotos a color que se pasan a blanco y negro para igualar el resto de la sesión
-GRAYSCALE = {"session-blazer"}
+GRAYSCALE = {"session-blazer", "session-coat"}
 
 for name, polygons in ERASE.items():
     path = CUTOUTS / f"{name}.png"
