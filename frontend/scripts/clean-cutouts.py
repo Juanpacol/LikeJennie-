@@ -48,11 +48,14 @@ ERODE = {
     "hero-center": 1,
     "footer-stage": 1,
     "session-kneel": 2,
-    "session-pose": 2,
+    "session-blazer": 2,
     "session-seat": 2,
     "session-suit": 2,
     "session-coat": 2,
 }
+
+# fotos a color que se pasan a blanco y negro para igualar el resto de la sesión
+GRAYSCALE = {"session-blazer"}
 
 for name, polygons in ERASE.items():
     path = CUTOUTS / f"{name}.png"
@@ -70,5 +73,9 @@ for name, pixels in ERODE.items():
     image = Image.open(path).convert("RGBA")
     alpha = image.getchannel("A").filter(ImageFilter.MinFilter(2 * pixels + 1))
     image.putalpha(alpha.filter(ImageFilter.GaussianBlur(0.7)))
+    if name in GRAYSCALE:
+        alpha_kept = image.getchannel("A")
+        image = image.convert("L").convert("RGBA")
+        image.putalpha(alpha_kept)
     image.save(path, optimize=True)
     print(f"borde de {name}.png contraído {pixels} px")

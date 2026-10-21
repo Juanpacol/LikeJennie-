@@ -7,7 +7,7 @@ import {
   useTransform,
 } from "motion/react";
 import sessionCoat from "../../assets/cutouts/session-coat.webp";
-import sessionPose from "../../assets/cutouts/session-pose.webp";
+import sessionBlazer from "../../assets/cutouts/session-blazer.webp";
 import sessionSuit from "../../assets/cutouts/session-suit.webp";
 
 // Figuras recortadas, de atrás hacia delante. `box` da su posición y alto (en % de la sección) para
@@ -16,23 +16,23 @@ import sessionSuit from "../../assets/cutouts/session-suit.webp";
 // se desplazan con el mouse (más = más cerca).
 const FIGURES = [
   {
-    src: sessionPose,
-    alt: "Jennie en una pierna con el cuerpo arqueado",
-    box: "hidden md:block md:bottom-[0%] md:left-[31%] md:h-[88%]",
+    src: sessionBlazer,
+    alt: "Jennie con un blazer negro oversize y un top blanco",
+    box: "hidden md:block md:bottom-[0%] md:left-[41%] md:h-[70%]",
     depth: 8,
     z: 8,
   },
   {
     src: sessionSuit,
     alt: "Jennie de pie con traje de rayas, mirando hacia arriba",
-    box: "bottom-[-3%] left-[0%] h-[56%] md:left-[8%] md:h-[80%]",
+    box: "bottom-[-3%] left-[0%] h-[56%] md:left-[12%] md:h-[72%]",
     depth: 20,
     z: 20,
   },
   {
     src: sessionCoat,
     alt: "Jennie con un abrigo negro largo, mirando hacia abajo",
-    box: "bottom-[-4%] left-[40%] h-[50%] md:left-[60%] md:h-[84%]",
+    box: "bottom-[-4%] left-[40%] h-[50%] md:left-[70%] md:h-[74%]",
     depth: 30,
     z: 30,
   },
@@ -112,18 +112,20 @@ function PosterLookbook() {
       {/* Resplandor rojo de fondo. */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(214,0,28,0.28),transparent_62%)]" />
 
-      {/* Palabra gigante, atrás de todo. */}
+      {/* Título en dos líneas, alineado a la izquierda y detrás de las figuras, como en el póster. */}
       <Layer
         pointerX={pointerX}
         pointerY={pointerY}
         depth={-6}
-        className="pointer-events-none absolute inset-x-0 top-[28%] z-10 text-center md:top-[11%]"
+        className="pointer-events-none absolute left-[3%] top-[16%] z-10 md:top-[9%]"
       >
         <p
           aria-hidden="true"
-          className="select-none font-heavy text-[min(44vw,56vh)] font-extrabold leading-[0.85] tracking-[-0.05em] text-[#f2f2f2]"
+          className="select-none font-heavy text-[min(24vw,30vh)] font-extrabold leading-[0.82] tracking-[-0.05em] text-[#f2f2f2]"
         >
           idol
+          <br />
+          <span className="uppercase tracking-[-0.04em]">Jennie</span>
         </p>
       </Layer>
 
@@ -134,7 +136,7 @@ function PosterLookbook() {
           aria-hidden="true"
           className="absolute -left-[6%] top-[12%] w-[112%] origin-center select-none whitespace-nowrap text-center font-heavy text-[min(40vw,52vh)] font-extrabold uppercase leading-none tracking-[-0.03em] text-white/90 [transform:rotateX(66deg)_rotateZ(-9deg)]"
         >
-          Jennie
+          Ruby
         </p>
       </div>
 
@@ -161,7 +163,7 @@ function PosterLookbook() {
       {/* Textos pequeños de los costados. */}
       <div
         aria-hidden="true"
-        className="absolute left-[34%] right-[12%] top-[88px] z-40 hidden items-center gap-4 md:flex"
+        className="absolute left-[40%] right-[12%] top-[88px] z-40 hidden items-center gap-4 md:flex"
       >
         <span className="font-display text-[11px] tracking-[0.3em] text-white/70">
           2026
@@ -169,7 +171,7 @@ function PosterLookbook() {
         <span className="h-px flex-1 bg-white/35" />
       </div>
 
-      <div className="absolute left-6 top-28 z-40 max-w-[12.5rem] sm:left-10 lg:top-36">
+      <div className="absolute bottom-16 left-6 z-40 max-w-[12.5rem] sm:left-10 md:bottom-auto md:left-[40%] md:top-[150px] md:max-w-[17rem]">
         <p className="font-display text-[11px] uppercase tracking-[0.3em] text-white/60">
           Lookbook · 2026
         </p>
