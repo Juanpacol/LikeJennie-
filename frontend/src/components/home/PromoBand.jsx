@@ -30,7 +30,7 @@ function ImageBand({ slug, collection }) {
 
       {/* Desde md: la foto entera a un lado, fundida con el color de la banda. */}
       <div
-        className={`absolute inset-y-0 hidden md:block ${isLeft ? "left-0" : "right-0"}`}
+        className={`absolute inset-y-0 hidden md:block ${isLeft ? "md:left-[8%]" : "md:right-[8%]"}`}
         style={{ aspectRatio: imageAspect }}
       >
         <img
@@ -41,7 +41,7 @@ function ImageBand({ slug, collection }) {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(to ${isLeft ? "left" : "right"}, ${page} 0%, transparent 35%)`,
+            backgroundImage: `linear-gradient(to ${isLeft ? "left" : "right"}, ${page} 0%, transparent 35%, transparent 88%, ${page} 100%)`,
           }}
         />
       </div>
