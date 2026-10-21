@@ -207,6 +207,8 @@ Los scripts viven en `backend/prisma/scripts/` y se ejecutan a mano desde `backe
 | `import-catalog.js <archivo.json> [--dry-run]` | Importa productos desde `prisma/data/catalog-*.json`. Omite los que ya existen por slug o nombre; `--dry-run` solo lista lo que haría. |
 | `deactivate-placeholder-products.js [--dry-run]` | Oculta (`isActive = false`) los productos de relleno con imagen de `picsum.photos`. |
 
+**Recortes de fotos (frontend).** `frontend/src/assets/cutouts/` guarda PNG con fondo transparente de cuatro fotos (`hero-left`, `hero-center`, `hero-right`, `footer-stage`). Se generan con `sh scripts/make-cutouts.sh <carpeta con las fotos originales>` desde `frontend/`: `cutout.swift` usa el recorte de sujeto de Apple (Vision, macOS 14+, local, sin descargas) y `clean-cutouts.py` (Pillow) borra con polígonos lo que Vision une a la persona (una cortina, otra bailarina) y contrae unos píxeles el borde para quitar el halo del fondo original. Aún no se usan en ninguna página.
+
 Los JSON de `prisma/data/` salen del catálogo de la tienda de referencia: precios convertidos a COP (£ × 2.200, redondeado al millar), imágenes solo por URL y variantes por talla con color "Único".
 
 **Colecciones.** No existe un modelo en la base: `frontend/src/data/collections.js` define cada colección (título, descripción, tema de color y un texto `match`), y un producto pertenece a ella si su nombre contiene ese texto. La home dibuja una banda por colección y `/colecciones/:slug` lista sus productos. Para añadir una colección basta una entrada nueva en ese archivo.
