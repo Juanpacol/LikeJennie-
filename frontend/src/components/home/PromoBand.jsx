@@ -22,7 +22,14 @@ function ImageBand({ slug, collection }) {
   return (
     <section
       className="relative overflow-hidden bg-black px-6 py-20 text-center text-white md:flex md:min-h-[440px] md:items-center md:bg-[color:var(--page)] md:py-24 md:text-left md:text-[color:var(--ink)]"
-      style={colors}
+      style={{
+        ...colors,
+        // Colecciones oscuras: una línea fina del acento separa la banda de las secciones negras.
+        ...(collection.divider && {
+          borderTop: `1px solid ${accent}66`,
+          borderBottom: `1px solid ${accent}66`,
+        }),
+      }}
     >
       {/* Móvil: la foto de fondo, oscurecida. */}
       <img
