@@ -59,3 +59,52 @@ export function DockIcon({ pointer, isHorizontal, size, magnification, distance,
     </motion.div>
   );
 }
+
+// Texto con efecto dock: cada letra se escala según su cercanía al cursor (onda). Usa `scale` y
+// no el tamaño de la caja, así las demás letras no se mueven.
+export function DockText({ text, magnification = 1.35, distance = 70, className = "" }) {
+  const pointer = useMotionValue(Infinity);
+
+  return (
+    <span
+      onMouseMove={(event) => pointer.set(event.clientX)}
+      onMouseLeave={() => pointer.set(Infinity)}
+      className={`inline-block ${className}`}
+      aria-label={text}
+    >
+      {[...text].map((letter, index) => (
+        <DockLetter
+          key={index}
+          letter={letter}
+          pointer={pointer}
+          magnification={magnification}
+          distance={distance}
+        />
+      ))}
+    </span>
+  );
+}
+
+function DockLetter({ letter, pointer, magnification, distance }) {
+  const ref = useRef(null);
+
+  const offset = useTransform(pointer, (value) => {
+    const bounds = ref.current?.getBoundingClientRect();
+    if (!bounds) return Infinity;
+    return value - (bounds.x + bounds.width / 2);
+  });
+
+  const target = useTransform(offset, [-distance, 0, distance], [1, magnification, 1]);
+  const scale = useSpring(target, { mass: 0.1, stiffness: 150, damping: 12 });
+
+  return (
+    <motion.span
+      ref={ref}
+      aria-hidden="true"
+      style={{ scale, transformOrigin: "50% 80%" }}
+      className="inline-block whitespace-pre"
+    >
+      {letter}
+    </motion.span>
+  );
+}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BagIcon from "../icons/BagIcon";
-import { Dock, DockIcon } from "./Dock";
+import { Dock, DockIcon, DockText } from "./Dock";
 import SearchIcon from "../icons/SearchIcon";
 import UserIcon from "../icons/UserIcon";
 import SearchPanel from "../search/SearchPanel";
@@ -30,7 +30,7 @@ function SiteHeader({ overlay = false, dark = true }) {
     <header className={`${position} ${theme} ${background}`}>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-6">
         <Link to="/" className="font-script text-4xl leading-none">
-          Ruby.
+          <DockText text="Ruby." magnification={1.3} distance={50} />
         </Link>
 
         <nav className="hidden flex-1 justify-center gap-8 font-display text-xs uppercase tracking-widest md:flex">
