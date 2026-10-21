@@ -6,7 +6,11 @@ import { COLLECTIONS } from "../../data/collections";
 // derecha, fundida con un degradado, para que no se recorte ni se vea borrosa.
 function ImageBand({ slug, collection }) {
   const { page, ink, accent, onAccent } = collection.theme;
-  const { imageSide = "right", imageAspect = "1 / 1" } = collection;
+  const {
+    imageSide = "right",
+    imageWidth = 600,
+    imagePosition = "50% 30%",
+  } = collection;
   const isLeft = imageSide === "left";
   const colors = {
     "--ink": ink,
@@ -17,7 +21,7 @@ function ImageBand({ slug, collection }) {
 
   return (
     <section
-      className="relative overflow-hidden bg-black px-6 py-20 text-center text-white md:flex md:min-h-[560px] md:items-center md:bg-[color:var(--page)] md:py-24 md:text-left md:text-[color:var(--ink)]"
+      className="relative overflow-hidden bg-black px-6 py-20 text-center text-white md:flex md:min-h-[440px] md:items-center md:bg-[color:var(--page)] md:py-24 md:text-left md:text-[color:var(--ink)]"
       style={colors}
     >
       {/* Móvil: la foto de fondo, oscurecida. */}
@@ -31,17 +35,18 @@ function ImageBand({ slug, collection }) {
       {/* Desde md: la foto entera a un lado, fundida con el color de la banda. */}
       <div
         className={`absolute inset-y-0 hidden md:block ${isLeft ? "md:left-[8%]" : "md:right-[8%]"}`}
-        style={{ aspectRatio: imageAspect }}
+        style={{ width: `min(${imageWidth}px, 55%)` }}
       >
         <img
           src={collection.image}
           alt=""
           className="h-full w-full object-cover"
+          style={{ objectPosition: imagePosition }}
         />
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(to ${isLeft ? "left" : "right"}, ${page} 0%, transparent 35%, transparent 88%, ${page} 100%)`,
+            backgroundImage: `linear-gradient(to ${isLeft ? "left" : "right"}, ${page} 0%, transparent 40%, transparent 85%, ${page} 100%)`,
           }}
         />
       </div>
