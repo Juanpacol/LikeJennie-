@@ -8,7 +8,6 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { COLLECTIONS } from "../../data/collections";
 import sessionCoat from "../../assets/cutouts/session-coat.webp";
 import sessionBlazer from "../../assets/cutouts/session-blazer.webp";
 import sessionSuit from "../../assets/cutouts/session-suit.webp";
@@ -170,8 +169,8 @@ function PosterLookbook() {
           Lookbook · 2026
         </p>
         <p className="mt-3 font-display text-xs font-semibold leading-relaxed">
-          Tres colecciones y cuatro categorías: ropa, abrigos, accesorios y
-          música, en un solo lugar.
+          Alta costura con actitud de calle. Blanco, negro y un solo acento:
+          rojo.
         </p>
       </div>
 
@@ -212,32 +211,24 @@ function PosterLookbook() {
 
       <Link
         to="/catalogo"
-        className="btn-sweep absolute bottom-14 left-6 z-40 inline-block bg-accent px-6 py-2.5 font-display text-xs uppercase tracking-widest text-white [--sweep:rgb(0_0_0/0.25)] sm:left-10 md:bottom-auto md:left-[64%] md:top-[21.5%] md:px-7 md:py-3"
+        className="btn-sweep absolute bottom-14 left-6 z-40 inline-block bg-accent px-6 py-2.5 font-display text-xs uppercase tracking-widest text-white [--sweep:rgb(0_0_0/0.25)] sm:left-10 md:bottom-auto md:left-[67%] md:top-[21.5%] md:px-7 md:py-3"
       >
         Ver tienda
       </Link>
 
-      {/* Las colecciones como atajo: información útil en lugar de repetir el eslogan del hero y del footer. */}
-      <nav
-        aria-label="Colecciones"
-        className="absolute right-6 top-28 z-40 hidden text-right sm:right-10 md:block lg:top-36"
+      {/* Lista vertical a la derecha, como el "in my ZONE" del póster de referencia. */}
+      <p
+        aria-hidden="true"
+        className="absolute right-6 top-28 z-40 hidden text-right font-condensed text-3xl font-semibold uppercase leading-[1.05] sm:block sm:right-10 lg:top-36 lg:text-4xl"
       >
-        <p className="font-display text-[11px] uppercase tracking-[0.3em] text-black/60">
-          Colecciones
-        </p>
-        <ul className="mt-3 font-condensed text-3xl font-semibold uppercase leading-[1.1] lg:text-4xl">
-          {Object.entries(COLLECTIONS).map(([slug, collection]) => (
-            <li key={slug}>
-              <Link
-                to={`/colecciones/${slug}`}
-                className="hover-underline transition-colors hover:text-accent"
-              >
-                {collection.title.replace("JENNIE x ", "")}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+        In
+        <br />
+        my
+        <br />
+        <span className="text-accent">Ruby</span>
+        <br />
+        era
+      </p>
 
       <p className="absolute bottom-5 left-6 z-40 font-display text-[11px] uppercase tracking-widest text-black/50 sm:left-10">
         © 2026 Ruby.
