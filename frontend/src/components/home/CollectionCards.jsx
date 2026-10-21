@@ -9,10 +9,12 @@ function CollectionCards() {
   return (
     <section className="bg-black px-6 py-16 text-white">
       <div className="mx-auto max-w-6xl">
-        <p className="font-display text-xs uppercase tracking-widest text-white/60">
+        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
           Campañas
         </p>
-        <h2 className="mt-3 font-display text-5xl sm:text-6xl">Colecciones</h2>
+        <h2 className="mt-3 font-condensed text-6xl font-light uppercase tracking-[-0.01em] sm:text-7xl">
+          Colecciones
+        </h2>
 
         <ul className="no-scrollbar -mx-6 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0">
           {Object.entries(COLLECTIONS).map(([slug, collection]) => {
@@ -60,7 +62,7 @@ function CollectionCards() {
                   )}
 
                   <div className="absolute inset-x-5 bottom-5">
-                    <p className="font-display text-[11px] uppercase tracking-widest opacity-70">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.2em] opacity-70">
                       {collection.tagline}
                     </p>
                     <h3 className="mt-1 font-script text-4xl leading-none lg:text-[2.6rem]">
@@ -71,7 +73,7 @@ function CollectionCards() {
                     <div className="grid transition-all duration-500 ease-out [@media(hover:hover)]:grid-rows-[0fr] [@media(hover:hover)]:opacity-0 group-hover:[@media(hover:hover)]:grid-rows-[1fr] group-hover:[@media(hover:hover)]:opacity-100">
                       <div className="overflow-hidden">
                         {collection.phrase && (
-                          <p className="mt-3 font-display text-xs uppercase tracking-[0.25em] opacity-80">
+                          <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.2em] opacity-80">
                             {collection.phrase}
                           </p>
                         )}
