@@ -3,7 +3,8 @@ import { COLLECTIONS } from "../../data/collections";
 
 // Sección "Colecciones": una tarjeta con foto por colección (tres lado a lado en escritorio; en móvil
 // se deslizan de lado, una por pantalla). Toma la foto de la cabecera de la colección (`bannerImage`)
-// o la de su banda (`image`). Al pasar el mouse, la foto hace zoom y sube su frase y el botón.
+// o la de su banda (`image`), fundida con el color de la colección. Al pasar el mouse, la foto hace
+// zoom y sube su frase y el botón.
 function CollectionCards() {
   return (
     <section className="bg-black px-6 py-16 text-white">
@@ -15,7 +16,7 @@ function CollectionCards() {
 
         <ul className="no-scrollbar -mx-6 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0">
           {Object.entries(COLLECTIONS).map(([slug, collection]) => {
-            const { page, accent } = collection.theme;
+            const { page, ink, accent, onAccent } = collection.theme;
             const image = collection.bannerImage ?? collection.image;
 
             return (
@@ -23,29 +24,46 @@ function CollectionCards() {
                 <Link
                   to={`/colecciones/${slug}`}
                   className="group relative block aspect-[4/5] overflow-hidden"
-                  style={{ backgroundColor: page }}
+                  style={{
+                    backgroundColor: page,
+                    color: ink,
+                    // Colecciones oscuras: una línea fina del acento las separa del fondo negro.
+                    border: collection.divider
+                      ? `1px solid ${accent}99`
+                      : undefined,
+                  }}
                 >
+                  {/* La foto se funde hacia abajo con el color de la colección, como en sus bandas. */}
                   {image && (
-                    <img
-                      src={image}
-                      alt=""
-                      loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    <div
+                      className="absolute inset-x-0 top-0 h-[78%] [@media(hover:none)]:h-[58%]"
                       style={{
-                        objectPosition:
-                          collection.bannerPosition ??
-                          collection.imagePosition ??
-                          "50% 30%",
+                        WebkitMaskImage:
+                          "linear-gradient(to bottom, #000 60%, transparent)",
+                        maskImage:
+                          "linear-gradient(to bottom, #000 60%, transparent)",
                       }}
-                    />
+                    >
+                      <img
+                        src={image}
+                        alt=""
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        style={{
+                          objectPosition:
+                            collection.bannerPosition ??
+                            collection.imagePosition ??
+                            "50% 30%",
+                        }}
+                      />
+                    </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
 
                   <div className="absolute inset-x-5 bottom-5">
-                    <p className="font-display text-[11px] uppercase tracking-widest text-white/70">
+                    <p className="font-display text-[11px] uppercase tracking-widest opacity-70">
                       {collection.tagline}
                     </p>
-                    <h3 className="mt-1 font-script text-5xl leading-none">
+                    <h3 className="mt-1 font-script text-4xl leading-none lg:text-[2.6rem]">
                       {collection.title}
                     </h3>
 
@@ -53,17 +71,13 @@ function CollectionCards() {
                     <div className="grid transition-all duration-500 ease-out [@media(hover:hover)]:grid-rows-[0fr] [@media(hover:hover)]:opacity-0 group-hover:[@media(hover:hover)]:grid-rows-[1fr] group-hover:[@media(hover:hover)]:opacity-100">
                       <div className="overflow-hidden">
                         {collection.phrase && (
-                          <p className="mt-3 font-display text-xs uppercase tracking-[0.25em] text-white/80">
+                          <p className="mt-3 font-display text-xs uppercase tracking-[0.25em] opacity-80">
                             {collection.phrase}
                           </p>
                         )}
                         <span
                           className="mt-4 inline-block px-6 py-2.5 font-display text-xs uppercase tracking-widest"
-                          style={{
-                            backgroundColor:
-                              accent === "#24102F" ? "#FFFFFF" : accent,
-                            color: accent === "#24102F" ? "#24102F" : "#FFFFFF",
-                          }}
+                          style={{ backgroundColor: accent, color: onAccent }}
                         >
                           Ver colección
                         </span>
