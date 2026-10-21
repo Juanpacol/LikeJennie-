@@ -25,6 +25,6 @@ export const COLLECTIONS = {
     image: hariboCover,
     imageSide: "left",
     imageAspect: "3 / 4",
-    theme: { page: "#D6001C", ink: "#FFFFFF", accent: "#FFD500", onAccent: "#000000" },
+    theme: { page: "#FFD500", ink: "#2A0008", accent: "#D6001C", onAccent: "#FFFFFF" },
   },
 };
