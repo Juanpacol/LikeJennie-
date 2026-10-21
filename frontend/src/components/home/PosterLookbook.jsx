@@ -6,7 +6,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import footerStage from "../../assets/cutouts/footer-stage.webp";
+import sessionCoat from "../../assets/cutouts/session-coat.webp";
 import sessionPose from "../../assets/cutouts/session-pose.webp";
 import sessionSuit from "../../assets/cutouts/session-suit.webp";
 
@@ -16,25 +16,24 @@ import sessionSuit from "../../assets/cutouts/session-suit.webp";
 // se desplazan con el mouse (más = más cerca).
 const FIGURES = [
   {
+    src: sessionPose,
+    alt: "Jennie en una pierna con el cuerpo arqueado",
+    box: "hidden md:block md:bottom-[0%] md:left-[31%] md:h-[88%]",
+    depth: 8,
+    z: 8,
+  },
+  {
     src: sessionSuit,
     alt: "Jennie de pie con traje de rayas, mirando hacia arriba",
-    box: "bottom-[-3%] left-[0%] h-[56%] md:left-[9%] md:h-[78%]",
+    box: "bottom-[-3%] left-[0%] h-[56%] md:left-[8%] md:h-[80%]",
     depth: 20,
     z: 20,
   },
   {
-    src: footerStage,
-    alt: "Jennie de pie con botas y falda de mezclilla",
-    box: "hidden md:block md:bottom-[2%] md:left-[68%] md:h-[80%]",
-    mono: true,
-    depth: 24,
-    z: 20,
-  },
-  {
-    src: sessionPose,
-    alt: "Jennie en una pierna con el cuerpo arqueado",
-    box: "bottom-0 left-[44%] h-[58%] md:left-[40%] md:h-[88%]",
-    depth: 32,
+    src: sessionCoat,
+    alt: "Jennie con un abrigo negro largo, mirando hacia abajo",
+    box: "bottom-[-4%] left-[40%] h-[50%] md:left-[60%] md:h-[84%]",
+    depth: 30,
     z: 30,
   },
 ];
@@ -118,13 +117,13 @@ function PosterLookbook() {
         pointerX={pointerX}
         pointerY={pointerY}
         depth={-6}
-        className="pointer-events-none absolute inset-x-0 top-[24%] z-0 text-center md:top-[5%]"
+        className="pointer-events-none absolute inset-x-0 top-[28%] z-10 text-center md:top-[11%]"
       >
         <p
           aria-hidden="true"
-          className="select-none font-condensed text-[min(54vw,66vh)] font-semibold uppercase leading-[0.82] tracking-[0.04em] text-accent md:-translate-x-[9%]"
+          className="select-none font-heavy text-[min(44vw,56vh)] font-extrabold leading-[0.85] tracking-[-0.05em] text-[#f2f2f2]"
         >
-          Idol
+          idol
         </p>
       </Layer>
 
@@ -133,7 +132,7 @@ function PosterLookbook() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[58%] overflow-hidden [perspective:620px] [mask-image:linear-gradient(to_top,#000_55%,transparent)]">
         <p
           aria-hidden="true"
-          className="absolute -left-[6%] top-[12%] w-[112%] origin-center select-none whitespace-nowrap text-center font-condensed text-[min(52vw,64vh)] font-semibold uppercase leading-none tracking-[0.03em] text-white/90 [transform:rotateX(66deg)_rotateZ(-9deg)]"
+          className="absolute -left-[6%] top-[12%] w-[112%] origin-center select-none whitespace-nowrap text-center font-heavy text-[min(40vw,52vh)] font-extrabold uppercase leading-none tracking-[-0.03em] text-white/90 [transform:rotateX(66deg)_rotateZ(-9deg)]"
         >
           Jennie
         </p>
@@ -154,7 +153,7 @@ function PosterLookbook() {
             src={figure.src}
             alt={figure.alt}
             loading="lazy"
-            className={`h-full w-auto max-w-none object-contain object-bottom ${figure.mono ? "[filter:grayscale(1)_contrast(1.08)_drop-shadow(18px_34px_26px_rgba(0,0,0,0.85))]" : "[filter:contrast(1.08)_drop-shadow(18px_34px_26px_rgba(0,0,0,0.85))]"}`}
+            className={`h-full w-auto max-w-none object-contain object-bottom [filter:contrast(1.08)_drop-shadow(18px_34px_26px_rgba(0,0,0,0.85))]`}
           />
         </Layer>
       ))}
@@ -162,7 +161,7 @@ function PosterLookbook() {
       {/* Textos pequeños de los costados. */}
       <div
         aria-hidden="true"
-        className="absolute left-[22%] right-[12%] top-[88px] z-40 hidden items-center gap-4 md:flex"
+        className="absolute left-[34%] right-[12%] top-[88px] z-40 hidden items-center gap-4 md:flex"
       >
         <span className="font-display text-[11px] tracking-[0.3em] text-white/70">
           2026
@@ -175,8 +174,8 @@ function PosterLookbook() {
           Lookbook · 2026
         </p>
         <p className="mt-4 hidden font-display text-xs leading-relaxed text-white/70 sm:block">
-          Prendas, accesorios y música del universo Ruby. Tres poses, una
-          sesión, un mismo rojo.
+          Prendas, accesorios y música del universo Ruby. Una mirada, un mismo
+          rojo.
         </p>
         <Link
           to="/catalogo"

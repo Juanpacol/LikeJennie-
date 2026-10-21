@@ -34,6 +34,12 @@ ERASE = {
     "session-seat": [
         [(0, 797), (400, 797), (428, 815), (440, 848), (0, 848)],
     ],
+    # Abrigo negro: Vision conservó la sombra proyectada en la pared, que corre por el borde derecho.
+    "session-coat": [
+        [(483, 205), (561, 205), (561, 345), (500, 345), (488, 300)],
+        [(561, 470), (552, 478), (530, 498), (512, 525), (506, 560), (506, 615), (561, 615)],
+        [(498, 615), (561, 615), (561, 770), (498, 770)],
+    ],
 }
 
 # nombre -> píxeles que se contrae el borde (quita el halo del fondo original) antes de suavizarlo
@@ -45,6 +51,7 @@ ERODE = {
     "session-pose": 2,
     "session-seat": 2,
     "session-suit": 2,
+    "session-coat": 2,
 }
 
 for name, polygons in ERASE.items():
