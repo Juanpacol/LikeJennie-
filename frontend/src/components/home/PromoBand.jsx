@@ -66,7 +66,7 @@ function ImageBand({ slug, collection }) {
           </p>
           <Link
             to={`/colecciones/${slug}`}
-            className="mt-8 inline-block bg-white px-8 py-3 font-display text-xs uppercase tracking-widest text-black transition hover:opacity-80 md:bg-[color:var(--accent)] md:text-[color:var(--on-accent)]"
+            className="btn-sweep mt-8 inline-block bg-white px-8 py-3 font-display text-xs uppercase tracking-widest text-black [--sweep:rgb(0_0_0/0.12)] md:bg-[color:var(--accent)] md:text-[color:var(--on-accent)] md:[--sweep:rgb(255_255_255/0.35)]"
           >
             Comprar ahora
           </Link>
@@ -95,7 +95,7 @@ function ColorBand({ slug, collection }) {
       </p>
       <Link
         to={`/colecciones/${slug}`}
-        className="mt-8 inline-block px-8 py-3 font-display text-xs uppercase tracking-widest transition hover:opacity-80"
+        className="btn-sweep mt-8 inline-block px-8 py-3 font-display text-xs uppercase tracking-widest"
         style={{ backgroundColor: accent, color: onAccent }}
       >
         Comprar ahora

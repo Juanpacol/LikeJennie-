@@ -139,7 +139,7 @@ function ProductDetail() {
             type="button"
             onClick={handleAddToCart}
             disabled={!canAddToCart}
-            className="flex-1 rounded-full bg-black py-3 text-sm text-white disabled:opacity-40"
+            className="btn-sweep flex-1 rounded-full bg-black py-3 text-sm text-white disabled:opacity-40"
           >
             Agregar al carrito
           </button>
