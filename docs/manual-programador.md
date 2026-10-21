@@ -183,6 +183,7 @@ Todo el movimiento respeta `prefers-reduced-motion: reduce` (CSS en `index.css`,
 | Bandas de colección | `PromoBand.jsx`, `data/collections.js` | Una banda por colección: con foto (`image`, `imageSide`, `imageWidth`, `imagePosition`, `divider`) o solo color. `theme.frame` (opcional) fija el color del marco y del footer cuando el de la página no se distingue (JENNIE x Ruby es negra). |
 | Tarjetas por categoría | `CategoryCards.jsx` | Foto de un producto real de cada categoría en duotono (`grayscale` + `mix-blend-multiply` sobre el acento). |
 | FAQs | `FaqSection.jsx`, `data/faqs.js` | Acordeón accesible (`aria-expanded`), animación de altura con `grid-template-rows`. |
+| Frases | `data/phrases.js`, `data/collections.js`, `Collection.jsx`, `CartDrawer.jsx` | `ORDER_PHRASE` se muestra en script al confirmar un pedido; cada colección tiene su `phrase`, que aparece bajo su descripción entre dos líneas finas. Los textos actuales son de ejemplo y se editan en esos dos archivos. |
 | Aviso al agregar | `CartToast.jsx`, `CartContext.jsx` | `addItem` guarda `lastAdded`; el aviso entra por la derecha y se cierra a los 4 s. `addItem` ya **no abre** el carrito. |
 | Buscador | `SearchPanel.jsx` | Carga el catálogo una vez y filtra por nombre en el cliente (hasta 5 resultados). También en un portal. |
 | Clases de CSS | `index.css` | `.hover-underline` y `.group-hover-underline` (línea que se dibuja), `.btn-sweep` (brillo que barre el botón) y `.brand-frame`. Las animaciones `toast-in`, `toast-out` y `slide-in-left` están en `tailwind.config.js`. |

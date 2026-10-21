@@ -37,7 +37,7 @@ Al entrar verás, de arriba abajo:
 
 ### 3. Ver una colección
 
-Pulsa **Comprar ahora** en la banda de la colección que te interese (**Fallen Angel**, **JENNIE x Haribo** o **JENNIE x Ruby**), o su nombre en el pie de página o en el menú del celular. Se abre una página con el color de esa colección y todos sus productos.
+Pulsa **Comprar ahora** en la banda de la colección que te interese (**Fallen Angel**, **JENNIE x Haribo** o **JENNIE x Ruby**), o su nombre en el pie de página o en el menú del celular. Se abre una página con el color de esa colección, una frase que la identifica y todos sus productos.
 
 ### 4. Buscar un producto
 
@@ -75,7 +75,7 @@ Para comprar eliges:
 1. En el carrito pulsa **Finalizar compra**.
 2. Escribe tu **nombre** y tu **email**.
 3. Pulsa **Confirmar pedido**.
-4. Si todo sale bien verás **¡Pedido confirmado!** y el carrito queda vacío. El pedido descuenta las existencias.
+4. Si todo sale bien verás **¡Pedido confirmado!** con una frase de bienvenida, y el carrito queda vacío. El pedido descuenta las existencias.
 5. Si alguna prenda ya no tiene existencias suficientes, verás un aviso en rojo; vuelve al carrito con **Volver al carrito** y ajusta la cantidad.
 
 ### 8. Menú en el celular

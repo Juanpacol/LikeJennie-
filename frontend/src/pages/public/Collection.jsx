@@ -61,6 +61,13 @@ function Collection() {
         <p className="mx-auto mt-4 max-w-md font-display text-sm">
           {collection.description}
         </p>
+        {collection.phrase && (
+          <p className="mx-auto mt-6 flex max-w-md items-center gap-4 font-display text-[11px] uppercase tracking-[0.3em] opacity-80">
+            <span className="h-px flex-1 bg-current opacity-40" />
+            {collection.phrase}
+            <span className="h-px flex-1 bg-current opacity-40" />
+          </p>
+        )}
       </div>
 
       <section className="mx-auto max-w-6xl px-6 py-12">

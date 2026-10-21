@@ -4,6 +4,8 @@ import rubyCover from "../assets/ruby-cover.jpg";
 
 // Colecciones de la tienda. No hay modelo en la DB: un producto pertenece a la colección
 // si su nombre contiene `match`.
+// `phrase`: frase de la colección (texto de EJEMPLO: reemplázalo por el que quieras); se muestra en la
+// cabecera de su página.
 // `theme`: page = fondo de la página, ink = texto, accent = botones y precio en oferta,
 // onAccent = texto sobre el accent, frame (opcional) = color del marco, el footer y la barra del
 // navegador cuando el de `page` no se distingue (p. ej. una colección en negro). `image` (opcional) = foto de la banda en la home, con `imageSide` ("left"|"right", por defecto right)
@@ -14,6 +16,7 @@ export const COLLECTIONS = {
     tagline: "Nueva colección",
     description: "Hoodies, camisetas y accesorios con el flow de Ruby.",
     match: "fallen angel",
+    phrase: "Cae con estilo.",
     image: fallenAngelCover,
     imageSide: "right",
     imageWidth: 680,
@@ -31,6 +34,7 @@ export const COLLECTIONS = {
     description:
       "Camisetas, buzos, gorras y llaveros con la dulzura de Haribo.",
     match: "haribo",
+    phrase: "Dulce, pero con carácter.",
     image: hariboCover,
     imageSide: "left",
     imageWidth: 560,
@@ -48,6 +52,7 @@ export const COLLECTIONS = {
     description:
       "Camisetas, buzos y música del álbum Ruby, en negro y rojo sangre.",
     match: "ruby",
+    phrase: "Rojo hasta el fondo.",
     image: rubyCover,
     imageSide: "right",
     imageWidth: 480,
