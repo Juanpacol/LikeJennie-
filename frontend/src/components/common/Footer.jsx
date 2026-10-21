@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { DockText } from "./Dock";
 import { SOCIAL_ICONS } from "../../data/socialLinks";
 import { getCategories } from "../../services/category.service";
 
@@ -22,7 +23,9 @@ function Footer({ dark = true }) {
     <footer id="contacto" className={`border-t ${theme}`}>
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 sm:grid-cols-3">
         <div>
-          <p className="font-script text-5xl leading-none">Ruby.</p>
+          <p className="font-script text-5xl leading-none">
+            <DockText text="Ruby." magnification={1.3} distance={60} />
+          </p>
           <p className={`mt-3 font-display text-sm ${muted}`}>Streetwear con flow propio.</p>
         </div>
 

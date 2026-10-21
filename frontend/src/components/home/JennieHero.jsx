@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Dock, DockIcon } from "../common/Dock";
+import { Dock, DockIcon, DockText } from "../common/Dock";
 import { SOCIAL_ICONS } from "../../data/socialLinks";
 import heroImage from "../../assets/jennie-hero.jpg";
 
@@ -49,7 +49,9 @@ function JennieHero() {
       </Dock>
 
       <div className="absolute bottom-16 left-1/2 w-full max-w-sm -translate-x-1/2 px-4 text-center">
-        <h1 className="font-script text-6xl leading-none sm:text-7xl">Ruby.</h1>
+        <h1 className="font-script text-6xl leading-none sm:text-7xl">
+          <DockText text="JENNIE" magnification={1.4} distance={80} />
+        </h1>
         <div className="mt-8 flex flex-col gap-3">
           <Link
             to="/catalogo"
