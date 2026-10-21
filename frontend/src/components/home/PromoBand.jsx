@@ -17,7 +17,7 @@ function ImageBand({ slug, collection }) {
 
   return (
     <section
-      className="relative overflow-hidden bg-black px-6 py-20 text-center text-white md:min-h-[440px] md:bg-[color:var(--page)] md:py-24 md:text-left md:text-[color:var(--ink)]"
+      className="relative overflow-hidden bg-black px-6 py-20 text-center text-white md:flex md:min-h-[560px] md:items-center md:bg-[color:var(--page)] md:py-24 md:text-left md:text-[color:var(--ink)]"
       style={colors}
     >
       {/* Móvil: la foto de fondo, oscurecida. */}
@@ -47,7 +47,7 @@ function ImageBand({ slug, collection }) {
       </div>
 
       <div
-        className={`relative mx-auto max-w-6xl md:flex md:px-6 ${isLeft ? "md:justify-end" : ""}`}
+        className={`relative mx-auto max-w-6xl md:flex md:w-full md:px-6 ${isLeft ? "md:justify-end" : ""}`}
       >
         <div className="md:max-w-lg">
           <p className="font-display text-xs uppercase tracking-widest">
