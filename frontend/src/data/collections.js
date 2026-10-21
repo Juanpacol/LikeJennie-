@@ -1,13 +1,16 @@
+import fallenAngelCover from "../assets/fallen-angel-cover.jpg";
+
 // Colecciones de la tienda. No hay modelo en la DB: un producto pertenece a la colección
 // si su nombre contiene `match`.
 // `theme`: page = fondo de la página, ink = texto, accent = botones y precio en oferta,
-// onAccent = texto sobre el accent.
+// onAccent = texto sobre el accent. `image` (opcional) = foto de fondo de la banda en la home.
 export const COLLECTIONS = {
   "fallen-angel": {
     title: "Fallen Angel",
     tagline: "Nueva colección",
     description: "Hoodies, camisetas y accesorios con el flow de Ruby.",
     match: "fallen angel",
+    image: fallenAngelCover,
     theme: { page: "#D9C8E0", ink: "#24102F", accent: "#24102F", onAccent: "#FFFFFF" },
   },
   haribo: {
