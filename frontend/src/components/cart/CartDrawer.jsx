@@ -96,7 +96,7 @@ function CartDrawer() {
 
         {step === "cart" && items.length > 0 && (
           <>
-            <div className="mt-4 flex-1 overflow-y-auto">
+            <div data-lenis-prevent className="mt-4 flex-1 overflow-y-auto">
               {items.map((item) => (
                 <CartItem key={item.variantId} item={item} />
               ))}
