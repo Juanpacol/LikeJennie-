@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { createOrder } from "../../services/order.service";
+import { ORDER_PHRASE } from "../../data/phrases";
 import { formatPrice } from "../../utils/formatPrice";
 import CartItem from "./CartItem";
 
@@ -35,7 +36,10 @@ function CartDrawer() {
       await createOrder({
         customerName,
         customerEmail,
-        items: items.map((item) => ({ variantId: item.variantId, quantity: item.quantity })),
+        items: items.map((item) => ({
+          variantId: item.variantId,
+          quantity: item.quantity,
+        })),
       });
       clear();
       setStep("success");
@@ -52,7 +56,9 @@ function CartDrawer() {
 
       <aside className="relative flex h-full w-full max-w-md flex-col rounded-l-3xl bg-lilac p-6 font-display text-lilac-deep shadow-2xl">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl">{step === "success" ? "¡Pedido confirmado!" : "Tu carrito"}</h2>
+          <h2 className="text-xl">
+            {step === "success" ? "¡Pedido confirmado!" : "Tu carrito"}
+          </h2>
           <button
             type="button"
             onClick={handleClose}
@@ -65,10 +71,18 @@ function CartDrawer() {
 
         {step === "success" && (
           <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <p className="text-sm">
-              Gracias por tu compra. Este es un simulacro de checkout del proyecto académico.
+            <p className="animate-fade-up font-script text-5xl leading-tight">
+              {ORDER_PHRASE}
             </p>
-            <button type="button" onClick={handleClose} className={`${PRIMARY_BUTTON_CLASS} mt-6`}>
+            <p className="mt-6 text-sm">
+              Gracias por tu compra. Este es un simulacro de checkout del
+              proyecto académico.
+            </p>
+            <button
+              type="button"
+              onClick={handleClose}
+              className={`${PRIMARY_BUTTON_CLASS} mt-6`}
+            >
               Seguir comprando
             </button>
           </div>
@@ -79,7 +93,11 @@ function CartDrawer() {
             <p className="text-xl">Tu carrito está vacío</p>
             <p className="mt-1 text-sm">
               ¿Tienes cuenta?{" "}
-              <Link to="/admin/login" onClick={handleClose} className="underline">
+              <Link
+                to="/admin/login"
+                onClick={handleClose}
+                className="underline"
+              >
                 Inicia sesión
               </Link>{" "}
               para pagar más rápido.
@@ -149,7 +167,11 @@ function CartDrawer() {
                 <span>Total</span>
                 <span>{formatPrice(total)}</span>
               </div>
-              <button type="submit" disabled={submitting} className={PRIMARY_BUTTON_CLASS}>
+              <button
+                type="submit"
+                disabled={submitting}
+                className={PRIMARY_BUTTON_CLASS}
+              >
                 {submitting ? "Procesando..." : "Confirmar pedido"}
               </button>
               <button
