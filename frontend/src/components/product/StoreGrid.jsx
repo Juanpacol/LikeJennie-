@@ -35,13 +35,19 @@ function StoreGrid() {
 
   return (
     <>
-      <FilterBar categories={categories} selected={selectedCategory} onSelect={handleSelect} />
+      <FilterBar
+        categories={categories}
+        selected={selectedCategory}
+        onSelect={handleSelect}
+      />
 
       {loading && <p className="mt-8 text-white/50">Cargando productos...</p>}
       {error && <p className="mt-8 text-accent">{error}</p>}
 
       {!loading && !error && products.length === 0 && (
-        <p className="mt-8 text-white/50">No hay productos en esta categoría.</p>
+        <p className="mt-8 text-white/50">
+          No hay productos en esta categoría.
+        </p>
       )}
 
       {!loading && !error && products.length > 0 && (

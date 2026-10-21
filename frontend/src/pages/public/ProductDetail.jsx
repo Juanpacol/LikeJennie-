@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { getProductBySlug } from "../../services/product.service";
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
+import ImageLightbox from "../../components/product/ImageLightbox";
 import VariantSelector from "../../components/product/VariantSelector";
 
 function ProductDetail() {
@@ -14,7 +15,7 @@ function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [imageIndex, setImageIndex] = useState(0);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -22,9 +23,12 @@ function ProductDetail() {
     getProductBySlug(slug)
       .then((data) => {
         setProduct(data);
-        setSelectedSize(data.variants[0]?.size ?? null);
-        setSelectedColor(data.variants[0]?.color ?? null);
-        setImageIndex(0);
+        // Arranca en la primera variante con existencias (o en la primera, si todas están agotadas).
+        const first =
+          data.variants.find((v) => !v.isOutOfStock) ?? data.variants[0];
+        setSelectedSize(first?.size ?? null);
+        setSelectedColor(first?.color ?? null);
+        setLightboxIndex(null);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -54,6 +58,15 @@ function ProductDetail() {
   const hasSale = product.salePrice != null;
   const price = hasSale ? product.salePrice : product.basePrice;
   const canAddToCart = selectedVariant && !selectedVariant.isOutOfStock;
+  const discount = hasSale
+    ? Math.round(
+        (1 - Number(product.salePrice) / Number(product.basePrice)) * 100,
+      )
+    : 0;
+  const isSizeAvailable = (size) =>
+    product.variants.some(
+      (v) => v.size === size && v.color === selectedColor && !v.isOutOfStock,
+    );
 
   function handleAddToCart() {
     addItem({
@@ -71,139 +84,178 @@ function ProductDetail() {
   const images = product.images;
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-10 text-white">
-      <Link
-        to="/catalogo"
-        className="hover-underline font-display text-xs uppercase tracking-widest text-white/60"
-      >
-        ← Volver a la tienda
-      </Link>
+    <section className="text-white">
+      {/* Galería a pantalla completa con la tarjeta de compra flotando encima (como Bershka). */}
+      <div className="relative lg:h-[calc(100vh-127px)] lg:min-h-[620px]">
+        <div className="relative h-[68vh] overflow-hidden bg-neutral-900 lg:h-full">
+          {/* Foto desenfocada de fondo: llena los lados cuando la prenda no ocupa todo el ancho. */}
+          <img
+            src={images[0]?.url}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full scale-125 object-cover opacity-50 blur-3xl"
+          />
+          <div className="relative flex h-full snap-x snap-mandatory items-center gap-3 overflow-x-auto px-4 lg:justify-center lg:overflow-visible lg:pr-[26rem]">
+            {images.map((image, index) => (
+              <button
+                key={image.id ?? image.url}
+                type="button"
+                onClick={() => setLightboxIndex(index)}
+                aria-label={`Ver foto ${index + 1} a pantalla completa`}
+                className="h-[92%] shrink-0 snap-center cursor-zoom-in overflow-hidden"
+              >
+                <img
+                  src={image.url}
+                  alt={index === 0 ? product.name : ""}
+                  className="h-full w-auto max-w-[88vw] object-contain transition-transform duration-500 ease-out hover:scale-[1.03]"
+                />
+              </button>
+            ))}
+          </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-10 md:grid-cols-2">
-        <div>
-          <div className="aspect-[3/4] overflow-hidden rounded-lg bg-neutral-800">
-            <img
-              src={images[imageIndex]?.url}
-              alt={product.name}
-              className="h-full w-full object-cover"
+          <button
+            type="button"
+            onClick={() => setLightboxIndex(0)}
+            aria-label="Ver a pantalla completa"
+            className="absolute bottom-5 left-5 flex h-11 w-11 items-center justify-center bg-white/90 text-black transition hover:bg-white lg:left-1/2 lg:-translate-x-1/2"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              className="h-5 w-5"
+              aria-hidden="true"
+            >
+              <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Tarjeta de compra: de vidrio esmerilado sobre la foto en escritorio; bajo ella en móvil. */}
+        <aside className="bg-white/90 p-6 text-black backdrop-blur-xl lg:absolute lg:bottom-8 lg:right-8 lg:w-[24rem]">
+          <div className="flex items-start justify-between gap-3">
+            {product.category && (
+              <p className="bg-white px-2 py-1 font-display text-[11px] font-semibold uppercase tracking-widest shadow-sm">
+                {product.category.name}
+              </p>
+            )}
+            {hasSale && (
+              <p className="bg-accent px-2 py-1 font-display text-xs font-semibold text-white">
+                -{discount}%
+              </p>
+            )}
+          </div>
+
+          <div className="mt-4 flex items-start justify-between gap-4">
+            <h1 className="font-display text-xl uppercase leading-tight">
+              {product.name}
+            </h1>
+            <p className="shrink-0 text-right">
+              {hasSale ? (
+                <>
+                  <span className="block bg-accent px-2 py-0.5 text-sm font-semibold text-white">
+                    {formatPrice(product.salePrice)}
+                  </span>
+                  <span className="mt-1 block text-xs text-black/50 line-through">
+                    {formatPrice(product.basePrice)}
+                  </span>
+                </>
+              ) : (
+                <span className="text-sm font-semibold">
+                  {formatPrice(product.basePrice)}
+                </span>
+              )}
+            </p>
+          </div>
+
+          <div className="mt-5 border-t border-black/10 pt-5">
+            <VariantSelector
+              sizes={sizes}
+              colors={colors}
+              selectedSize={selectedSize}
+              selectedColor={selectedColor}
+              onSelectSize={setSelectedSize}
+              onSelectColor={setSelectedColor}
+              isSizeAvailable={isSizeAvailable}
             />
           </div>
 
-          {images.length > 1 && (
-            <div className="mt-3 flex gap-3">
-              {images.map((image, index) => (
-                <button
-                  key={image.id ?? image.url}
-                  type="button"
-                  onClick={() => setImageIndex(index)}
-                  aria-label={`Ver foto ${index + 1}`}
-                  aria-pressed={imageIndex === index}
-                  className={`h-20 w-16 overflow-hidden rounded bg-neutral-800 transition ${
-                    imageIndex === index
-                      ? "ring-2 ring-white"
-                      : "opacity-60 hover:opacity-100"
-                  }`}
-                >
-                  <img
-                    src={image.url}
-                    alt=""
-                    className="h-full w-full object-cover"
-                  />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div>
-          {product.category && (
-            <p className="font-display text-xs uppercase tracking-widest text-white/60">
-              {product.category.name}
-            </p>
-          )}
-          <h1 className="mt-2 font-display text-3xl">{product.name}</h1>
-
-          <p className="mt-3 text-lg">
-            {hasSale ? (
-              <>
-                <span className="mr-2 text-white/50 line-through">
-                  {formatPrice(product.basePrice)}
-                </span>
-                <span className="font-semibold text-accent">
-                  {formatPrice(product.salePrice)}
-                </span>
-              </>
-            ) : (
-              <span>{formatPrice(product.basePrice)}</span>
-            )}
-          </p>
-
-          <p className="mt-4 text-white/70">{product.description}</p>
-
-          <VariantSelector
-            sizes={sizes}
-            colors={colors}
-            selectedSize={selectedSize}
-            selectedColor={selectedColor}
-            onSelectSize={setSelectedSize}
-            onSelectColor={setSelectedColor}
-          />
-
-          <div className="mt-6 text-sm">
-            {!selectedVariant && (
-              <p className="text-white/60">
-                Selecciona una talla y un color disponibles.
-              </p>
-            )}
+          <p className="mt-4 text-sm">
+            {!selectedVariant && "Selecciona una talla disponible."}
             {selectedVariant?.isOutOfStock && (
-              <p className="font-medium text-accent">
+              <span className="font-medium text-accent">
                 Agotado en esta combinación.
-              </p>
+              </span>
             )}
             {selectedVariant?.isLowStock && (
-              <p className="font-medium text-amber-400">
+              <span className="font-medium text-amber-700">
                 ¡Últimas {selectedVariant.stock} unidades!
-              </p>
+              </span>
             )}
             {selectedVariant &&
               !selectedVariant.isOutOfStock &&
               !selectedVariant.isLowStock && (
-                <p className="text-white/60">Disponible.</p>
+                <span className="text-black/60">Disponible.</span>
               )}
-          </div>
+          </p>
 
-          <div className="mt-6 flex items-center gap-4">
+          <div className="mt-4 flex items-center gap-3">
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                 aria-label="Disminuir cantidad"
-                className="h-9 w-9 rounded-full border border-white/30 transition hover:border-white"
+                className="h-9 w-9 border border-black/25 transition hover:border-black"
               >
                 −
               </button>
-              <span className="w-6 text-center text-sm">{quantity}</span>
+              <span className="w-5 text-center text-sm">{quantity}</span>
               <button
                 type="button"
                 onClick={() => setQuantity((q) => q + 1)}
                 aria-label="Aumentar cantidad"
-                className="h-9 w-9 rounded-full border border-white/30 transition hover:border-white"
+                className="h-9 w-9 border border-black/25 transition hover:border-black"
               >
                 +
               </button>
             </div>
-
-            <button
-              type="button"
-              onClick={handleAddToCart}
-              disabled={!canAddToCart}
-              className="btn-sweep flex-1 bg-white py-3 font-display text-xs uppercase tracking-widest text-black [--sweep:rgb(0_0_0/0.12)] disabled:opacity-40"
-            >
-              Agregar al carrito
-            </button>
           </div>
-        </div>
+
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            disabled={!canAddToCart}
+            className="btn-sweep mt-4 w-full bg-black py-4 font-display text-sm uppercase tracking-widest text-white disabled:opacity-40"
+          >
+            Añadir al carrito
+          </button>
+        </aside>
       </div>
+
+      <div className="mx-auto max-w-6xl px-6 py-12">
+        <Link
+          to="/catalogo"
+          className="hover-underline font-display text-xs uppercase tracking-widest text-white/60"
+        >
+          ← Volver a la tienda
+        </Link>
+        <h2 className="mt-8 font-display text-xs uppercase tracking-widest text-white/60">
+          Descripción
+        </h2>
+        <p className="mt-3 max-w-2xl text-white/70">{product.description}</p>
+      </div>
+
+      {lightboxIndex !== null && (
+        <ImageLightbox
+          images={images}
+          index={lightboxIndex}
+          onIndexChange={setLightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          alt={product.name}
+        />
+      )}
     </section>
   );
 }
