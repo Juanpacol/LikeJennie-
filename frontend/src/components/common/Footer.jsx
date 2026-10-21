@@ -1,11 +1,38 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { DockText } from "./Dock";
+import { Link, useLocation } from "react-router-dom";
+import heroImage from "../../assets/jennie-hero.jpg";
+import { COLLECTIONS } from "../../data/collections";
 import { SOCIAL_ICONS } from "../../data/socialLinks";
+import { useAccountPanel } from "../../context/AccountPanelContext";
+import { useCart } from "../../context/CartContext";
 import { getCategories } from "../../services/category.service";
+import { brandThemeForPath } from "../../utils/brandTheme";
 
-// Footer del sitio. `dark` elige el tema, igual que el SiteHeader.
-function Footer({ dark = true }) {
+const YEAR = new Date().getFullYear();
+
+const LINK_CLASS =
+  "hover-underline inline-block text-left font-display text-sm uppercase tracking-widest opacity-80 transition hover:opacity-100";
+
+// Una columna del footer: etiqueta pequeña, título grande y lista de enlaces.
+function FooterColumn({ label, title, children }) {
+  return (
+    <div>
+      <p className="font-display text-xs uppercase tracking-widest opacity-60">
+        {label}
+      </p>
+      <h2 className="mt-3 font-display text-3xl">{title}</h2>
+      <ul className="mt-6 space-y-3">{children}</ul>
+    </div>
+  );
+}
+
+// Footer a color de la marca: foto en duotono de fondo, la marca gigante como marca de agua y
+// cuatro columnas de enlaces. El color sigue el de la ruta (rojo ruby o el de la colección).
+function Footer() {
+  const { pathname } = useLocation();
+  const { color, ink } = brandThemeForPath(pathname);
+  const { open: openCart } = useCart();
+  const { open: openAccount } = useAccountPanel();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -14,70 +41,111 @@ function Footer({ dark = true }) {
       .catch(() => {});
   }, []);
 
-  const theme = dark ? "border-white/10 bg-black text-white" : "border-gray-200 bg-white text-black";
-  const muted = dark ? "text-white/60" : "text-gray-500";
-  const headingClass = "font-display text-xs uppercase tracking-widest";
-  const linkClass = `font-display text-sm ${muted} transition hover:text-accent hover-underline`;
-
   return (
-    <footer id="contacto" className={`border-t ${theme}`}>
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 sm:grid-cols-3">
-        <div>
-          <p className="font-script text-5xl leading-none">
-            <DockText text="Ruby." magnification={1.3} distance={60} />
-          </p>
-          <p className={`mt-3 font-display text-sm ${muted}`}>Streetwear con flow propio.</p>
-        </div>
+    <footer
+      id="contacto"
+      className="relative overflow-hidden transition-colors duration-500"
+      style={{ backgroundColor: color, color: ink }}
+    >
+      {/* Foto en blanco y negro mezclada con el color de la marca (duotono). */}
+      <img
+        src={heroImage}
+        alt=""
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[50%_30%] opacity-40 mix-blend-screen grayscale"
+      />
+      {/* Marca gigante translúcida. */}
+      <p
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-[8%] select-none text-center font-script text-[26vw] leading-none opacity-[0.12]"
+      >
+        Ruby.
+      </p>
 
-        <nav aria-label="Tienda">
-          <h2 className={headingClass}>Tienda</h2>
-          <ul className="mt-4 space-y-2">
+      <div className="relative mx-auto max-w-6xl px-6 pb-8 pt-72 md:pt-96">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <p className="font-script text-6xl leading-none">Ruby.</p>
+            <p className="mt-3 font-display text-xs uppercase tracking-widest">
+              Streetwear con flow propio.
+            </p>
+          </div>
+
+          <FooterColumn label="Explora" title="Tienda">
             <li>
-              <Link to="/catalogo" className={linkClass}>
+              <Link to="/catalogo" className={LINK_CLASS}>
                 Todo el catálogo
               </Link>
             </li>
             {categories.map((category) => (
               <li key={category.id}>
-                <Link to={`/catalogo?categoria=${category.slug}`} className={linkClass}>
+                <Link
+                  to={`/catalogo?categoria=${category.slug}`}
+                  className={LINK_CLASS}
+                >
                   {category.name}
                 </Link>
               </li>
             ))}
-          </ul>
-        </nav>
+          </FooterColumn>
 
-        <div>
-          <h2 className={headingClass}>Sígueme</h2>
-          <ul className="mt-4 space-y-2">
+          <FooterColumn label="Campañas" title="Colecciones">
+            {Object.entries(COLLECTIONS).map(([slug, collection]) => (
+              <li key={slug}>
+                <Link to={`/colecciones/${slug}`} className={LINK_CLASS}>
+                  {collection.title}
+                </Link>
+              </li>
+            ))}
+          </FooterColumn>
+
+          <FooterColumn label="Tu compra" title="Cuenta">
+            <li>
+              <button
+                type="button"
+                onClick={openAccount}
+                className={LINK_CLASS}
+              >
+                Mi cuenta
+              </button>
+            </li>
+            <li>
+              <button type="button" onClick={openCart} className={LINK_CLASS}>
+                Carrito
+              </button>
+            </li>
+            <li>
+              <Link to="/admin/login" className={LINK_CLASS}>
+                Acceso administrador
+              </Link>
+            </li>
+          </FooterColumn>
+
+          <FooterColumn label="Redes" title="Sígueme">
             {SOCIAL_ICONS.map((icon) => (
               <li key={icon.platform}>
                 <a
                   href={icon.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group flex items-center gap-3 ${linkClass}`}
+                  className={`${LINK_CLASS} flex items-center gap-3`}
                 >
-                  <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4 fill-current"
+                    aria-hidden="true"
+                  >
                     <path d={icon.d} />
                   </svg>
                   {icon.platform}
                 </a>
               </li>
             ))}
-          </ul>
-          <Link to="/admin/login" className={`mt-6 inline-block text-xs underline ${muted}`}>
-            Acceso administrador
-          </Link>
+          </FooterColumn>
         </div>
-      </div>
 
-      <div
-        className={`border-t py-4 text-center text-xs ${
-          dark ? "border-white/10 text-white/40" : "border-gray-100 text-gray-400"
-        }`}
-      >
-        © {new Date().getFullYear()} Ruby. Proyecto académico.
+        <p className="mt-16 font-display text-xs uppercase tracking-widest opacity-70">
+          © {YEAR} Ruby. Proyecto académico.
+        </p>
       </div>
     </footer>
   );
