@@ -1,5 +1,6 @@
 import fallenAngelCover from "../assets/fallen-angel-cover.jpg";
 import hariboCover from "../assets/haribo-cover.jpg";
+import rubyBanner from "../assets/ruby-banner.jpg";
 import rubyCover from "../assets/ruby-cover.jpg";
 
 // Colecciones de la tienda. No hay modelo en la DB: un producto pertenece a la colección
@@ -9,7 +10,8 @@ import rubyCover from "../assets/ruby-cover.jpg";
 // `theme`: page = fondo de la página, ink = texto, accent = botones y precio en oferta,
 // onAccent = texto sobre el accent, frame (opcional) = color del marco, el footer y la barra del
 // navegador cuando el de `page` no se distingue (p. ej. una colección en negro). `image` (opcional) = foto de la banda en la home, con `imageSide` ("left"|"right", por defecto right)
-// `imageWidth` (px máximos de ancho) e `imagePosition` (qué parte de la foto queda visible).
+// `bannerImage` (opcional) = foto de la cabecera de su página; si falta se usa `image`, con `bannerPosition`
+// (qué parte queda visible). `imageWidth` (px máximos de ancho) e `imagePosition` (qué parte de la foto queda visible).
 export const COLLECTIONS = {
   "fallen-angel": {
     title: "Fallen Angel",
@@ -54,6 +56,8 @@ export const COLLECTIONS = {
     match: "ruby",
     phrase: "Rojo hasta el fondo.",
     image: rubyCover,
+    bannerImage: rubyBanner,
+    bannerPosition: "50% 35%",
     imageSide: "right",
     imageWidth: 480,
     imagePosition: "50% 42%",
