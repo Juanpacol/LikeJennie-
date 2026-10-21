@@ -7,6 +7,8 @@ E-commerce de streetwear (Taller II de Programación). Este documento explica c�
 | Capa | Tecnología |
 |---|---|
 | Frontend | React 19, Vite, Tailwind CSS 3, React Router 7, Context API |
+| Animación e interacción | `motion` (efecto dock), `lenis` (scroll suave), CSS (transiciones, subrayados, brillos) |
+| Tipografías (Google Fonts) | Allura (script), Bodoni Moda (títulos y texto de marca), Antonio (titular condensado del hero) |
 | Backend | Node.js 20, Express 5 |
 | Acceso a datos | Prisma ORM 5 |
 | Base de datos | PostgreSQL en Supabase (nube) |
@@ -45,9 +47,14 @@ Cada capa solo llama a la inmediatamente inferior; nunca se salta un nivel.
 
 ### Estructura del frontend (`frontend/src`)
 
-- `pages/public` (Home, Catalog, Collection, ProductDetail) y `pages/admin` (Login, Dashboard, Products, ProductForm).
-- `components/` agrupados por dominio: `common` (SiteHeader, Footer), `product`, `cart`, `account`, `search`, `home`, `admin`, `icons`.
-- `context/`: `CartContext` (carrito), `AuthContext` (token admin), `AccountPanelContext` (panel de cuenta).
+- `pages/public`: Home, Catalog, Collection, ProductDetail. `pages/admin`: Login, Dashboard, Products, ProductForm.
+- `components/` agrupados por dominio:
+  - `common`: `SiteHeader`, `Footer`, `FooterReveal`, `MobileMenu`, `BrandFrame`, `SmoothScroll`, `Dock`, `SocialDock`.
+  - `home`: `JennieHero`, `PromoBand`, `CategoryCards`, `FeaturedProducts`, `FaqSection`.
+  - `product`, `cart` (`CartDrawer`, `CartItem`, `CartToast`), `account`, `search`, `admin`, `icons`.
+- `context/`: `CartContext` (carrito y último producto agregado), `AuthContext` (token admin), `AccountPanelContext` (panel de cuenta).
+- `data/`: `collections.js` (colecciones y su tema), `faqs.js`, `socialLinks.js`.
+- `utils/`: `formatPrice`, `slugify`, `brandTheme` (colores de la marca por ruta).
 - `services/`: una función por llamada a la API sobre `api.js`, que añade la URL base y desenvuelve `data`.
 
 ## 3. Modelo de datos
@@ -158,11 +165,35 @@ Variables de entorno:
 | `PORT` | backend | Puerto (por defecto 4000; Render lo define). |
 | `VITE_API_URL` | frontend | URL base de la API; se incorpora al compilar. |
 
-## 7. Despliegue
+## 7. Interfaz y efectos (frontend)
+
+Todo el movimiento respeta `prefers-reduced-motion: reduce` (CSS en `index.css`, y `useReducedMotion` de `motion` en el dock). Los efectos se inspiraron en la página de Hermes Agent y se reimplementaron con código propio.
+
+| Pieza | Archivo | Qué hace |
+|---|---|---|
+| Header de tres zonas | `SiteHeader.jsx` | Cuadrícula `1fr auto 1fr`: secciones a los lados, logo al centro con las redes debajo (`SocialDock`). Desde 1024 px; por debajo, hamburguesa a la izquierda y logo al centro. En la landing va superpuesto al hero y, al pasar el 85 % del alto de la ventana, baja un header compacto; en las demás rutas es fijo y se compacta tras 40 px de scroll. Un espaciador (84 px / 127 px) evita que el contenido se tape. |
+| Menú móvil | `MobileMenu.jsx` | Panel lila desde la izquierda, en un portal en `document.body` (el header usa `backdrop-filter`, que atraparía a un panel `fixed` dentro). |
+| Dock | `Dock.jsx`, `SocialDock.jsx` | Efecto de lupa tipo macOS con `motion`: `Dock`/`DockIcon` para íconos y `DockText` para letras (escala, sin mover el layout). |
+| Scroll suave | `SmoothScroll.jsx` | Lenis con `lerp: 0.09`; no se activa con reducir movimiento. Las zonas con scroll propio llevan `data-lenis-prevent`. Al cambiar de ruta vuelve arriba. |
+| Footer revelado | `FooterReveal.jsx`, `Footer.jsx` | El footer queda `fixed` detrás del contenido (`main` con `z-10` y fondo propio) y `FooterReveal` escribe `--footer-progress` (0 a 1) en cada scroll; el footer pasa de `blur(10px)` y opacidad 0 a nítido y completo. Solo desde 768 px, si el footer cabe en la ventana y fuera de `/admin`. |
+| Marco y barra del navegador | `BrandFrame.jsx`, `utils/brandTheme.js` | Borde fijo de 5 px (solo desde 768 px, sin capturar clics) con un brillo que se desliza; y `<meta name="theme-color">` actualizada por ruta. El color es rojo ruby (`#D6001C`) o el de la colección en `/colecciones/:slug`. |
+| Hero | `JennieHero.jsx` | Titular condensado (Antonio) y foto en blanco y negro enmarcada; la foto se limita al alto de la ventana. |
+| Bandas de colección | `PromoBand.jsx`, `data/collections.js` | Una banda por colección: con foto (`image`, `imageSide`, `imageWidth`, `imagePosition`) o solo color. |
+| Tarjetas por categoría | `CategoryCards.jsx` | Foto de un producto real de cada categoría en duotono (`grayscale` + `mix-blend-multiply` sobre el acento). |
+| FAQs | `FaqSection.jsx`, `data/faqs.js` | Acordeón accesible (`aria-expanded`), animación de altura con `grid-template-rows`. |
+| Aviso al agregar | `CartToast.jsx`, `CartContext.jsx` | `addItem` guarda `lastAdded`; el aviso entra por la derecha y se cierra a los 4 s. `addItem` ya **no abre** el carrito. |
+| Buscador | `SearchPanel.jsx` | Carga el catálogo una vez y filtra por nombre en el cliente (hasta 5 resultados). También en un portal. |
+| Clases de CSS | `index.css` | `.hover-underline` y `.group-hover-underline` (línea que se dibuja), `.btn-sweep` (brillo que barre el botón) y `.brand-frame`. Las animaciones `toast-in`, `toast-out` y `slide-in-left` están en `tailwind.config.js`. |
+
+**Paleta.** Negro como base, rojo ruby `#D6001C` como acento y lila (`lilac` `#D9C8E0`, `lilac-deep` `#24102F`) para los paneles; cada colección define la suya en `data/collections.js`.
+
+**Dependencias nuevas del frontend:** `motion` y `lenis`.
+
+## 8. Despliegue
 
 Ver la sección *Despliegue* del `README.md`. En resumen: `render.yaml` define el servicio del backend (build con `npm ci && npx prisma migrate deploy`), Vercel construye el frontend desde `frontend/`, y ambos se redespliegan solos con cada push a `main`.
 
-## 8. Scripts de datos y colecciones
+## 9. Scripts de datos y colecciones
 
 Los scripts viven en `backend/prisma/scripts/` y se ejecutan a mano desde `backend/` (modifican la base a la que apunte `DATABASE_URL`).
 
@@ -178,7 +209,7 @@ Los JSON de `prisma/data/` salen del catálogo de la tienda de referencia: preci
 
 **Orden de categorías.** `frontend/src/services/category.service.js` ordena las categorías (Ropa, Abrigos, Accesorios, Música) para el menú, el footer y los filtros.
 
-## 9. Flujo de trabajo y calidad
+## 10. Flujo de trabajo y calidad
 
 - Nada se commitea directo en `main`: cada cambio va en su rama (`feat/...`, `fix/...`, `docs/...`), se prueba contra el backend y la DB reales y entra por Pull Request.
 - El CI valida cada PR: `prisma validate` en el backend y `oxlint` + `vite build` en el frontend.

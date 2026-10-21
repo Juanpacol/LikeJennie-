@@ -6,7 +6,7 @@ E-commerce full-stack de ropa/streetwear, proyecto académico (Taller II de Prog
 
 - **Backend:** Node.js + Express (arquitectura en capas)
 - **Base de datos:** Supabase (PostgreSQL) + Prisma ORM
-- **Frontend:** React + Vite + Tailwind CSS, React Router, Context API (carrito y sesión admin)
+- **Frontend:** React + Vite + Tailwind CSS, React Router, Context API (carrito y sesión admin); `motion` (efecto dock) y `lenis` (scroll suave)
 - **Comunicación:** JSON exclusivo entre cliente y servidor
 - **Auth admin:** JWT (jsonwebtoken) + bcryptjs
 - **Deploy:** Backend en Render, Frontend en Vercel, DB en Supabase — ver sección Despliegue
@@ -37,16 +37,22 @@ LikeJennie-/
 │       │   ├── public/     # Home, Catalog, ProductDetail
 │       │   └── admin/      # Login, Dashboard, Products, ProductForm
 │       ├── components/
-│       │   ├── common/     # Navbar, Footer
+│       │   ├── common/     # SiteHeader, Footer, FooterReveal, MobileMenu, BrandFrame, Dock, SmoothScroll
+│       │   ├── home/       # JennieHero, PromoBand, CategoryCards, FeaturedProducts, FaqSection
+│       │   ├── search/     # SearchPanel
+│       │   ├── account/    # AccountPanel
 │       │   ├── product/    # ProductCard, FilterBar, VariantSelector
-│       │   ├── cart/       # CartDrawer, CartItem
+│       │   ├── cart/       # CartDrawer, CartItem, CartToast
 │       │   └── admin/      # AdminNav, StatCard, ProtectedRoute
-│       ├── context/        # CartContext, AuthContext
+│       ├── context/        # CartContext, AuthContext, AccountPanelContext
+│       ├── data/           # collections, faqs, socialLinks
 │       ├── services/       # llamadas a la API (api.js + uno por recurso)
 │       ├── utils/          # formatPrice, slugify
 │       └── App.jsx         # routing (React Router)
 │
 └── docs/
+    ├── manual-usuario.md       # Manual de Usuario (no técnico)
+    ├── manual-programador.md   # Manual del Programador
     └── specs/
         └── data-model.spec.md
 ```
@@ -55,7 +61,7 @@ Regla de capas en el backend: cada capa solo llama a la inmediatamente inferior 
 
 ## Módulos funcionales
 
-- **Público:** catálogo dinámico con filtros por categoría, detalle de producto con selector de talla/color, carrito de compras con checkout simulado (`POST /api/orders`)
+- **Público:** landing con hero, colecciones, categorías y FAQs; catálogo dinámico con filtros por categoría; colecciones con su paleta; buscador; detalle de producto con galería y selector de talla/color; carrito con aviso animado y checkout simulado (`POST /api/orders`); menú móvil
 - **Admin:** login JWT, dashboard con métricas reales (productos activos, stock bajo/agotado, órdenes recientes), CRUD completo de productos (incluye variantes y stock), alertas de stock mínimo
 
 ## Desarrollo local
@@ -104,4 +110,9 @@ Nada se commitea directo en `main`. Cada feature vive en su propia rama (`featur
 
 Backend y frontend funcionales de punta a punta, probados en vivo contra Supabase (sin mocks): modelo de datos, API pública y admin, catálogo, carrito/checkout, panel admin con auth/dashboard/CRUD.
 
-Pendiente: documentación de entrega (Manual de Usuario + Manual del Programador).
+## Documentación
+
+- [Manual de Usuario](docs/manual-usuario.md): cómo comprar y cómo administrar la tienda (no técnico).
+- [Manual del Programador](docs/manual-programador.md): arquitectura, modelo de datos, endpoints, flujo de datos, instalación, interfaz y despliegue.
+
+Pendiente: capturas de pantalla para el Manual de Usuario.
