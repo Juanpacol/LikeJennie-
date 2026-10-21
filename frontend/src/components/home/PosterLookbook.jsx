@@ -164,11 +164,11 @@ function PosterLookbook() {
       </div>
 
       {/* Texto a la derecha de «Idol». */}
-      <div className="absolute left-[42%] top-[21%] z-[15] hidden max-w-[17rem] md:block">
-        <p className="font-display text-[11px] uppercase tracking-[0.3em] text-black/60">
+      <div className="absolute left-[42%] top-[21%] z-[15] hidden max-w-[21rem] md:block">
+        <p className="font-display text-sm uppercase tracking-[0.3em] text-black/60">
           Lookbook · 2026
         </p>
-        <p className="mt-3 font-display text-xs font-semibold leading-relaxed">
+        <p className="mt-3 font-display text-base font-semibold leading-snug">
           Alta costura con actitud de calle. Blanco, negro y un solo acento:
           rojo.
         </p>
@@ -211,7 +211,7 @@ function PosterLookbook() {
 
       <Link
         to="/catalogo"
-        className="btn-sweep absolute bottom-14 left-6 z-40 inline-block bg-accent px-6 py-2.5 font-display text-xs uppercase tracking-widest text-white [--sweep:rgb(0_0_0/0.25)] sm:left-10 md:bottom-auto md:left-[67%] md:top-[21.5%] md:px-7 md:py-3"
+        className="btn-sweep absolute bottom-14 left-6 z-40 inline-block bg-accent px-6 py-2.5 font-display text-xs uppercase tracking-widest text-white [--sweep:rgb(0_0_0/0.25)] sm:left-10 md:bottom-auto md:left-[72%] md:top-[21.5%] md:px-8 md:py-3.5 md:text-sm"
       >
         Ver tienda
       </Link>
@@ -219,7 +219,7 @@ function PosterLookbook() {
       {/* Lista vertical a la derecha, como el "in my ZONE" del póster de referencia. */}
       <p
         aria-hidden="true"
-        className="absolute right-6 top-28 z-40 hidden text-right font-condensed text-3xl font-semibold uppercase leading-[1.05] sm:block sm:right-10 lg:top-36 lg:text-4xl"
+        className="absolute right-6 top-28 z-40 hidden text-right font-condensed text-3xl font-semibold uppercase leading-[1.05] sm:block sm:right-10 sm:text-5xl lg:top-36 lg:text-6xl"
       >
         In
         <br />
