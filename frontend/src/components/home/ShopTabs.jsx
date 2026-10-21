@@ -41,7 +41,7 @@ function ShopTabs() {
   }, [categories, products, selected]);
 
   const tabClass = (active) =>
-    `shrink-0 border-b-2 pb-2 font-display text-xs uppercase tracking-widest transition ${
+    `shrink-0 border-b-2 pb-2 font-mono text-[11px] uppercase tracking-[0.2em] transition ${
       active
         ? "border-accent text-white"
         : "border-transparent text-white/50 hover:text-white"
@@ -50,10 +50,10 @@ function ShopTabs() {
   return (
     <section className="bg-black px-6 py-16 text-white">
       <div className="mx-auto max-w-6xl">
-        <p className="font-display text-xs uppercase tracking-widest text-white/60">
+        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
           Tienda
         </p>
-        <h2 className="mt-3 font-display text-5xl sm:text-6xl">
+        <h2 className="mt-3 font-condensed text-6xl font-light uppercase tracking-[-0.01em] sm:text-7xl">
           Elige lo tuyo
         </h2>
 
