@@ -7,5 +7,5 @@ const DEFAULT_THEME = { color: "#D6001C", ink: "#FFFFFF" };
 export function brandThemeForPath(pathname) {
   const match = pathname.match(/^\/colecciones\/([^/]+)/);
   const theme = match && COLLECTIONS[match[1]]?.theme;
-  return theme ? { color: theme.page, ink: theme.ink } : DEFAULT_THEME;
+  return theme ? { color: theme.frame ?? theme.page, ink: theme.ink } : DEFAULT_THEME;
 }

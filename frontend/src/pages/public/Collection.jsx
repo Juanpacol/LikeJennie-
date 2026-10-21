@@ -15,7 +15,9 @@ function Collection() {
     if (!collection) return;
     getCatalog()
       .then((all) =>
-        setProducts(all.filter((p) => p.name.toLowerCase().includes(collection.match))),
+        setProducts(
+          all.filter((p) => p.name.toLowerCase().includes(collection.match)),
+        ),
       )
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -42,10 +44,23 @@ function Collection() {
         "--card-accent": collection.theme.accent,
       }}
     >
-      <div className="bg-black/10 px-6 py-14 text-center">
-        <p className="font-display text-xs uppercase tracking-widest">Colección</p>
-        <h1 className="mt-3 font-script text-6xl leading-none sm:text-7xl">{collection.title}</h1>
-        <p className="mx-auto mt-4 max-w-md font-display text-sm">{collection.description}</p>
+      <div
+        className="bg-black/10 px-6 py-14 text-center"
+        style={
+          collection.divider
+            ? { borderBottom: `1px solid ${collection.theme.accent}66` }
+            : undefined
+        }
+      >
+        <p className="font-display text-xs uppercase tracking-widest">
+          Colección
+        </p>
+        <h1 className="mt-3 font-script text-6xl leading-none sm:text-7xl">
+          {collection.title}
+        </h1>
+        <p className="mx-auto mt-4 max-w-md font-display text-sm">
+          {collection.description}
+        </p>
       </div>
 
       <section className="mx-auto max-w-6xl px-6 py-12">
