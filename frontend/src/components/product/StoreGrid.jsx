@@ -5,6 +5,9 @@ import { getCatalog } from "../../services/product.service";
 import ProductCard from "./ProductCard";
 import FilterBar from "./FilterBar";
 
+const GRID_CLASS = "mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4";
+const SKELETON_COUNT = 8;
+
 function StoreGrid() {
   const [categories, setCategories] = useState([]);
   // La categoría vive en la URL (?categoria=slug) para poder enlazarla desde el header.
@@ -41,7 +44,6 @@ function StoreGrid() {
         onSelect={handleSelect}
       />
 
-      {loading && <p className="mt-8 text-white/50">Cargando productos...</p>}
       {error && <p className="mt-8 text-accent">{error}</p>}
 
       {!loading && !error && products.length === 0 && (
@@ -50,10 +52,30 @@ function StoreGrid() {
         </p>
       )}
 
-      {!loading && !error && products.length > 0 && (
-        <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+      {/* Primera carga: tarjetas-esqueleto que respiran en lugar de un texto. */}
+      {loading && products.length === 0 && (
+        <div className={GRID_CLASS}>
+          {Array.from({ length: SKELETON_COUNT }, (_, i) => (
+            <div key={i}>
+              <div className="aspect-[3/4] animate-pulse rounded-lg bg-neutral-900" />
+              <div className="mt-3 h-3 w-3/4 animate-pulse rounded bg-neutral-900" />
+              <div className="mt-2 h-3 w-1/4 animate-pulse rounded bg-neutral-900" />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Al cambiar de categoría los productos anteriores se atenúan hasta que llegan los nuevos,
+          y las tarjetas nuevas aparecen otra vez con su animación (la key cambia con el filtro). */}
+      {!error && products.length > 0 && (
+        <div
+          key={selectedCategory ?? "todos"}
+          className={`${GRID_CLASS} transition-opacity duration-300 ${
+            loading ? "pointer-events-none opacity-40" : "opacity-100"
+          }`}
+        >
+          {products.map((product, index) => (
+            <ProductCard key={product.id} product={product} index={index} />
           ))}
         </div>
       )}
