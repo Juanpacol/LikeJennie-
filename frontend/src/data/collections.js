@@ -5,7 +5,7 @@ import hariboCover from "../assets/haribo-cover.jpg";
 // si su nombre contiene `match`.
 // `theme`: page = fondo de la página, ink = texto, accent = botones y precio en oferta,
 // onAccent = texto sobre el accent. `image` (opcional) = foto de la banda en la home, con `imageSide` ("left"|"right", por defecto right)
-// y `imageAspect` (proporción CSS, por defecto 1/1) para mostrarla entera.
+// `imageWidth` (px máximos de ancho) e `imagePosition` (qué parte de la foto queda visible).
 export const COLLECTIONS = {
   "fallen-angel": {
     title: "Fallen Angel",
@@ -14,7 +14,8 @@ export const COLLECTIONS = {
     match: "fallen angel",
     image: fallenAngelCover,
     imageSide: "right",
-    imageAspect: "1 / 1",
+    imageWidth: 680,
+    imagePosition: "50% 0%",
     theme: { page: "#D9C8E0", ink: "#24102F", accent: "#24102F", onAccent: "#FFFFFF" },
   },
   haribo: {
@@ -24,7 +25,8 @@ export const COLLECTIONS = {
     match: "haribo",
     image: hariboCover,
     imageSide: "left",
-    imageAspect: "3 / 4",
+    imageWidth: 560,
+    imagePosition: "50% 15%",
     theme: { page: "#FFD500", ink: "#2A0008", accent: "#D6001C", onAccent: "#FFFFFF" },
   },
 };
