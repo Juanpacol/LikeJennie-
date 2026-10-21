@@ -13,7 +13,7 @@ function ProductCard({ product }) {
         <img
           src={product.images[0]?.url}
           alt={product.name}
-          className="h-full w-full object-cover transition group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
         />
         {isOutOfStock && (
           <span className="absolute left-2 top-2 rounded bg-black px-2 py-1 text-xs uppercase tracking-wide text-white">
@@ -21,7 +21,7 @@ function ProductCard({ product }) {
           </span>
         )}
       </div>
-      <h3 className="mt-3 font-display text-sm font-medium text-[color:var(--card-ink,#fff)]">
+      <h3 className="group-hover-underline mt-3 inline-block font-display text-sm font-medium text-[color:var(--card-ink,#fff)]">
         {product.name}
       </h3>
       <p className="mt-1 text-sm">
