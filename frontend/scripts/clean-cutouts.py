@@ -27,10 +27,35 @@ ERASE = {
         [(0, 380), (188, 380), (200, 445), (196, 470), (150, 500), (100, 506), (0, 512)],
         [(0, 505), (110, 505), (110, 548), (0, 548)],
     ],
+    # Sesión en blanco y negro: la banca blanca queda pegada a las figuras sentadas.
+    "session-kneel": [
+        [(0, 812), (395, 812), (428, 832), (436, 895), (0, 895)],
+    ],
+    "session-seat": [
+        [(0, 797), (400, 797), (428, 815), (440, 848), (0, 848)],
+    ],
+    # Abrigo negro: Vision conservó la sombra proyectada en la pared, que corre por el borde derecho.
+    "session-coat": [
+        [(483, 205), (561, 205), (561, 345), (500, 345), (488, 300)],
+        [(561, 470), (552, 478), (530, 498), (512, 525), (506, 560), (506, 615), (561, 615)],
+        [(498, 615), (561, 615), (561, 770), (498, 770)],
+    ],
 }
 
 # nombre -> píxeles que se contrae el borde (quita el halo del fondo original) antes de suavizarlo
-ERODE = {"hero-right": 2, "hero-center": 1, "footer-stage": 1}
+ERODE = {
+    "hero-right": 2,
+    "hero-center": 1,
+    "footer-stage": 1,
+    "session-kneel": 2,
+    "session-blazer": 2,
+    "session-seat": 2,
+    "session-suit": 2,
+    "session-coat": 2,
+}
+
+# fotos a color que se pasan a blanco y negro para igualar el resto de la sesión
+GRAYSCALE = {"session-blazer", "session-coat"}
 
 for name, polygons in ERASE.items():
     path = CUTOUTS / f"{name}.png"
@@ -48,5 +73,9 @@ for name, pixels in ERODE.items():
     image = Image.open(path).convert("RGBA")
     alpha = image.getchannel("A").filter(ImageFilter.MinFilter(2 * pixels + 1))
     image.putalpha(alpha.filter(ImageFilter.GaussianBlur(0.7)))
+    if name in GRAYSCALE:
+        alpha_kept = image.getchannel("A")
+        image = image.convert("L").convert("RGBA")
+        image.putalpha(alpha_kept)
     image.save(path, optimize=True)
     print(f"borde de {name}.png contraído {pixels} px")
