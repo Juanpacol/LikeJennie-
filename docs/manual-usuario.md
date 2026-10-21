@@ -48,15 +48,23 @@ Pulsa **Comprar ahora** en la banda de la colección que te interese (**Fallen A
 
 ### 5. Ver el detalle de un producto
 
-Pulsa cualquier producto. En su página verás la categoría, el nombre, el precio y la descripción, y a la izquierda las fotos: si el producto tiene varias, aparecen miniaturas debajo para cambiar la foto principal. El enlace **← Volver a la tienda** te regresa al catálogo. Aquí puedes elegir:
+Pulsa cualquier producto. La página se divide en dos partes:
 
-1. **Talla** y **color**. Solo se pueden combinar las opciones disponibles.
-2. Si la combinación elegida no tiene existencias, aparecerá **Agotado en esta combinación**: prueba con otra talla o color.
-3. Cuando la combinación está disponible, pulsa **Agregar al carrito**.
+- **A la izquierda, las fotos** a pantalla completa. Si el producto tiene varias, avanzan solas cada pocos segundos; el avance se detiene mientras tienes el mouse encima. Pulsa una foto, o el botón de las cuatro esquinas, para verlas a pantalla completa: con las flechas del teclado o las de la pantalla cambias de foto, y con **Esc** o la **×** lo cierras.
+- **A la derecha, una columna negra** con la categoría, el nombre, el precio y los controles de compra. Si el producto está en oferta verás una etiqueta roja con el porcentaje de descuento y el precio original tachado.
+
+Debajo están el enlace **← Volver a la tienda** y la **descripción** del producto.
+
+Para comprar eliges:
+
+1. **Talla** (y **color**, si el producto tiene más de uno). Las tallas sin existencias aparecen tachadas y no se pueden elegir.
+2. Si la combinación elegida no tiene existencias, aparecerá **Agotado en esta combinación**; si quedan pocas, **¡Últimas N unidades!**.
+3. La **cantidad**, con **−** y **+**.
+4. Pulsa **Añadir al carrito**.
 
 ### 6. Usar el carrito
 
-1. Al pulsar **Agregar al carrito** aparece, arriba a la derecha, un aviso con la foto del producto, su nombre, la talla y el color. Pulsa **Ver carrito** para abrir el carrito, o cierra el aviso con la **×**; si no haces nada, se cierra solo a los 4 segundos.
+1. Al pulsar **Añadir al carrito** aparece, arriba a la derecha, un aviso con la foto del producto, su nombre, la talla y el color. Pulsa **Ver carrito** para abrir el carrito, o cierra el aviso con la **×**; si no haces nada, se cierra solo a los 4 segundos.
 2. El carrito es un panel lateral lila. También lo abres con el ícono de **bolsa**; el número rojo indica cuántas prendas llevas.
 3. Para cada producto puedes cambiar la cantidad con **−** y **+**, o quitarlo con **Quitar**.
 4. Abajo verás el **Total**.
