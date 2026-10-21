@@ -211,7 +211,7 @@ function PosterLookbook() {
 
       <Link
         to="/catalogo"
-        className="btn-sweep absolute bottom-14 left-6 z-40 inline-block bg-black px-6 py-2.5 font-display text-xs uppercase tracking-widest text-white [--sweep:rgb(255_255_255/0.18)] sm:left-10 md:bottom-auto md:left-auto md:right-10 md:top-[22rem] md:px-8 md:py-3.5 md:text-sm lg:top-[23rem]"
+        className="btn-sweep absolute bottom-14 left-6 z-40 inline-block bg-black px-6 py-2.5 font-display text-xs uppercase tracking-widest text-white [--sweep:rgb(255_255_255/0.18)] sm:left-10 md:bottom-auto md:left-[64%] md:top-[21.5%] md:px-7 md:py-3"
       >
         Ver tienda
       </Link>
