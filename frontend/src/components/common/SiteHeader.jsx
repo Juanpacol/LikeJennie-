@@ -66,7 +66,7 @@ function HeaderBar({
       <div className="flex flex-col items-center lg:px-6">
         <Link
           to="/"
-          className={`font-script leading-none transition-[font-size] duration-200 ${compact ? "text-3xl" : "text-4xl"}`}
+          className={`font-condensed font-semibold uppercase tracking-[0.06em] leading-none transition-[font-size] duration-200 ${compact ? "text-3xl" : "text-4xl"}`}
         >
           <DockText text="Ruby." magnification={1.3} distance={50} />
         </Link>

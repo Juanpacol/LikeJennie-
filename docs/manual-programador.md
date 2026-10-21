@@ -8,7 +8,7 @@ E-commerce de streetwear (Taller II de Programación). Este documento explica c�
 |---|---|
 | Frontend | React 19, Vite, Tailwind CSS 3, React Router 7, Context API |
 | Animación e interacción | `motion` (efecto dock), `lenis` (scroll suave), CSS (transiciones, subrayados, brillos) |
-| Tipografías (Google Fonts) | Allura (script), Bodoni Moda (títulos y texto de marca), Antonio (titular condensado del hero) y Poppins 800 (`font-heavy`, el título del Lookbook). En la home, las etiquetas pequeñas y los botones van en monoespaciada (`font-mono`) y los títulos de sección en Antonio (`font-condensed`) |
+| Tipografías (Google Fonts) | Allura (script), Bodoni Moda (títulos y texto de marca), Antonio (titular condensado del hero) y Poppins 800 (`font-heavy`, el título del Lookbook). En la home, las etiquetas pequeñas y los botones van en monoespaciada (`font-mono`) y los títulos de sección en Antonio (`font-condensed`); el logo «RUBY.» (header, menú móvil y footers) también va en Antonio mayúsculas (`font-condensed font-semibold uppercase tracking-[0.06em]`) |
 | Backend | Node.js 20, Express 5 |
 | Acceso a datos | Prisma ORM 5 |
 | Base de datos | PostgreSQL en Supabase (nube) |

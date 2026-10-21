@@ -9,16 +9,18 @@ import { brandThemeForPath } from "../../utils/brandTheme";
 const YEAR = new Date().getFullYear();
 
 const LINK_CLASS =
-  "hover-underline inline-block text-left font-display text-sm uppercase tracking-widest opacity-80 transition hover:opacity-100";
+  "hover-underline inline-block text-left font-mono text-xs uppercase tracking-[0.2em] opacity-80 transition hover:opacity-100";
 
 // Una columna del footer: etiqueta pequeña, título grande y lista de enlaces.
 function FooterColumn({ label, title, children }) {
   return (
     <div>
-      <p className="font-display text-xs uppercase tracking-widest opacity-60">
+      <p className="font-mono text-[11px] uppercase tracking-[0.3em] opacity-60">
         {label}
       </p>
-      <h2 className="mt-3 font-display text-3xl">{title}</h2>
+      <h2 className="mt-3 font-condensed text-4xl font-light uppercase">
+        {title}
+      </h2>
       <ul className="mt-6 space-y-3">{children}</ul>
     </div>
   );
@@ -65,7 +67,7 @@ function Footer() {
       {/* Marca gigante translúcida. */}
       <p
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[8%] select-none text-center font-script text-[26vw] leading-none opacity-[0.12]"
+        className="pointer-events-none absolute inset-x-0 top-[8%] select-none text-center font-condensed font-semibold uppercase tracking-[0.06em] text-[26vw] leading-none opacity-[0.12]"
       >
         Ruby.
       </p>
@@ -78,8 +80,10 @@ function Footer() {
       >
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div className="sm:col-span-2 lg:col-span-1">
-            <p className="font-script text-6xl leading-none">Ruby.</p>
-            <p className="mt-3 font-display text-xs uppercase tracking-widest">
+            <p className="font-condensed font-semibold uppercase tracking-[0.06em] text-6xl leading-none">
+              Ruby.
+            </p>
+            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.3em]">
               Wanna rock with this?
             </p>
           </div>
@@ -144,7 +148,7 @@ function Footer() {
           </FooterColumn>
         </div>
 
-        <p className="mt-16 font-display text-xs uppercase tracking-widest opacity-70">
+        <p className="mt-16 font-mono text-[11px] uppercase tracking-[0.2em] opacity-70">
           © {YEAR} Ruby. Proyecto académico.
         </p>
       </div>

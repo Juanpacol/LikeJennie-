@@ -14,7 +14,8 @@ function SmoothScroll() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+      return undefined;
 
     const lenis = new Lenis({ lerp: LERP, autoRaf: true });
     lenisRef.current = lenis;
