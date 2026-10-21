@@ -20,7 +20,7 @@ Al entrar verás, de arriba abajo:
 4. **Elige tu mundo:** cuatro tarjetas numeradas, una por categoría (Ropa, Abrigos, Accesorios y Música), con la cantidad de productos de cada una.
 5. **Destacados:** una selección de productos, con el botón **Ver todo**.
 6. **Preguntas frecuentes (FAQs):** pulsa una pregunta para ver la respuesta; solo se mantiene una abierta a la vez.
-7. **Pie de página:** al llegar al final de la página aparece poco a poco, con la marca en grande y cuatro columnas de enlaces: **Tienda**, **Colecciones**, **Cuenta** y **Sígueme** (redes).
+7. **Pie de página:** al llegar al final de la página de inicio aparece poco a poco, con la marca en grande y cuatro columnas de enlaces: **Tienda**, **Colecciones**, **Cuenta** y **Sígueme** (redes). En el resto de las páginas (catálogo, colecciones y productos) el pie es una franja delgada con la marca, los enlaces principales y las redes.
 
 **Detalles de la página**
 - Un **marco de color** rodea la ventana: rojo en la tienda, y lila, amarillo o rojo cuando estás en una colección. En Safari y en el celular, la barra del navegador también toma ese color.
