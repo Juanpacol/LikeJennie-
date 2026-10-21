@@ -6,7 +6,7 @@ function FaqSection() {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <section className="bg-black px-6 py-20 text-white">
+    <section className="bg-black px-6 py-14 text-white">
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_2fr]">
         <div>
           <p className="font-display text-xs uppercase tracking-widest text-white/60">
