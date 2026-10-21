@@ -5,6 +5,8 @@ const CartContext = createContext(null);
 export function CartProvider({ children }) {
   const [items, setItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  // Último producto agregado: lo muestra el aviso (CartToast) en vez de abrir el carrito.
+  const [lastAdded, setLastAdded] = useState(null);
 
   function addItem(item) {
     setItems((prev) => {
@@ -16,7 +18,7 @@ export function CartProvider({ children }) {
       }
       return [...prev, item];
     });
-    setIsOpen(true);
+    setLastAdded({ ...item, toastId: Date.now() });
   }
 
   function removeItem(variantId) {
@@ -43,6 +45,8 @@ export function CartProvider({ children }) {
     total,
     count,
     isOpen,
+    lastAdded,
+    dismissAdded: () => setLastAdded(null),
     open: () => setIsOpen(true),
     close: () => setIsOpen(false),
   };
