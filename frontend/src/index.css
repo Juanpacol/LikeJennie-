@@ -68,3 +68,16 @@ body {
     }
   }
 }
+
+/* Quien pide menos movimiento en su sistema no ve transiciones ni animaciones CSS.
+   (El dock lo respeta aparte, con useReducedMotion en Dock.jsx.) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
