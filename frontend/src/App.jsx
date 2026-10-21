@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/admin/ProtectedRoute";
 import SiteHeader from "./components/common/SiteHeader";
 import Footer from "./components/common/Footer";
 import FooterReveal from "./components/common/FooterReveal";
+import SlimFooter from "./components/common/SlimFooter";
 import CartDrawer from "./components/cart/CartDrawer";
 import CartToast from "./components/cart/CartToast";
 import BrandFrame from "./components/common/BrandFrame";
@@ -77,9 +78,14 @@ function AppLayout() {
           />
         </Routes>
       </main>
-      <FooterReveal disabled={location.pathname.startsWith("/admin")}>
-        <Footer />
-      </FooterReveal>
+      {/* Footer grande y revelado solo en la landing; en el resto, una franja delgada. */}
+      {isLanding ? (
+        <FooterReveal>
+          <Footer />
+        </FooterReveal>
+      ) : (
+        <SlimFooter dark={isDarkRoute} />
+      )}
     </div>
   );
 }
