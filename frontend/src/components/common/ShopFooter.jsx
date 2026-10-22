@@ -61,8 +61,8 @@ function ShopFooter() {
           src: shopPhotoB,
           side: "right-0",
           fade: "to right",
-          position: "50% 100%",
-          zoom: "origin-bottom scale-[1.9]",
+          position: "50% 40%",
+          zoom: "origin-[50%_40%] scale-[1.35]",
         },
       ].map((photo) => (
         <div
