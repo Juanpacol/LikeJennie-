@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/admin/ProtectedRoute";
 import SiteHeader from "./components/common/SiteHeader";
 import Footer from "./components/common/Footer";
 import FooterReveal from "./components/common/FooterReveal";
+import ShopFooter from "./components/common/ShopFooter";
 import SlimFooter from "./components/common/SlimFooter";
 import CartDrawer from "./components/cart/CartDrawer";
 import CartToast from "./components/cart/CartToast";
@@ -24,6 +25,10 @@ import AdminProductForm from "./pages/admin/ProductForm";
 function AppLayout() {
   const location = useLocation();
   const isLanding = location.pathname === "/";
+  // Catálogo y productos llevan su propio footer revelado (grises cálidos).
+  const isShop =
+    location.pathname === "/catalogo" ||
+    location.pathname.startsWith("/productos/");
   const isDarkRoute =
     isLanding ||
     location.pathname === "/catalogo" ||
@@ -78,10 +83,14 @@ function AppLayout() {
           />
         </Routes>
       </main>
-      {/* Footer grande y revelado solo en la landing; en el resto, una franja delgada. */}
+      {/* Footer grande y revelado en la landing y en la tienda; en el resto, una franja delgada. */}
       {isLanding ? (
         <FooterReveal>
           <Footer />
+        </FooterReveal>
+      ) : isShop ? (
+        <FooterReveal>
+          <ShopFooter />
         </FooterReveal>
       ) : (
         <SlimFooter dark={isDarkRoute} />
