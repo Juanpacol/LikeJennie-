@@ -1,4 +1,5 @@
 import fallenAngelCover from "../assets/fallen-angel-cover.jpg";
+import fallenAngelField from "../assets/fallen-angel-field.jpg";
 import hariboCover from "../assets/haribo-cover.jpg";
 import rubyBanner from "../assets/ruby-banner.jpg";
 import rubyCover from "../assets/ruby-cover.jpg";
@@ -10,6 +11,7 @@ import rubyCover from "../assets/ruby-cover.jpg";
 // `theme`: page = fondo de la página, ink = texto, accent = botones y precio en oferta,
 // onAccent = texto sobre el accent, frame (opcional) = color del marco, el footer y la barra del
 // navegador cuando el de `page` no se distingue (p. ej. una colección en negro). `image` (opcional) = foto de la banda en la home, con `imageSide` ("left"|"right", por defecto right)
+// `secondImage` (opcional) = segunda foto, más pequeña, que se muestra arriba a la izquierda de la cabecera.
 // `bannerImage` (opcional) = foto de la cabecera de su página; si falta se usa `image`, con `bannerPosition`
 // (qué parte queda visible). `imageWidth` (px máximos de ancho) e `imagePosition` (qué parte de la foto queda visible).
 export const COLLECTIONS = {
@@ -23,6 +25,7 @@ export const COLLECTIONS = {
     imageSide: "right",
     imageWidth: 680,
     imagePosition: "50% 0%",
+    secondImage: fallenAngelField,
     theme: {
       page: "#D9C8E0",
       ink: "#24102F",
