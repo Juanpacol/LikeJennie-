@@ -5,7 +5,8 @@ import { getCatalog } from "../../services/product.service";
 import ProductCard from "./ProductCard";
 import FilterBar from "./FilterBar";
 
-const GRID_CLASS = "mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4";
+const GRID_CLASS =
+  "mt-10 grid grid-cols-2 gap-x-4 gap-y-12 sm:grid-cols-3 lg:grid-cols-4";
 const SKELETON_COUNT = 8;
 
 function StoreGrid() {
@@ -42,12 +43,13 @@ function StoreGrid() {
         categories={categories}
         selected={selectedCategory}
         onSelect={handleSelect}
+        total={loading ? null : products.length}
       />
 
-      {error && <p className="mt-8 text-accent">{error}</p>}
+      {error && <p className="mt-10 font-display text-accent">{error}</p>}
 
       {!loading && !error && products.length === 0 && (
-        <p className="mt-8 text-white/50">
+        <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.2em] text-white/50">
           No hay productos en esta categoría.
         </p>
       )}
@@ -57,9 +59,9 @@ function StoreGrid() {
         <div className={GRID_CLASS}>
           {Array.from({ length: SKELETON_COUNT }, (_, i) => (
             <div key={i}>
-              <div className="aspect-[3/4] animate-pulse rounded-lg bg-neutral-900" />
-              <div className="mt-3 h-3 w-3/4 animate-pulse rounded bg-neutral-900" />
-              <div className="mt-2 h-3 w-1/4 animate-pulse rounded bg-neutral-900" />
+              <div className="aspect-[3/4] animate-pulse bg-neutral-900" />
+              <div className="mt-4 h-3 w-3/4 animate-pulse bg-neutral-900" />
+              <div className="mt-2 h-3 w-1/4 animate-pulse bg-neutral-900" />
             </div>
           ))}
         </div>
