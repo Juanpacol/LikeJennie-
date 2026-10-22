@@ -7,6 +7,7 @@ import SiteHeader from "./components/common/SiteHeader";
 import Footer from "./components/common/Footer";
 import FooterReveal from "./components/common/FooterReveal";
 import { COLLECTIONS } from "./data/collections";
+import CollectionFooter from "./components/common/CollectionFooter";
 import ShopFooter from "./components/common/ShopFooter";
 import SlimFooter from "./components/common/SlimFooter";
 import CartDrawer from "./components/cart/CartDrawer";
@@ -30,8 +31,10 @@ function AppLayout() {
   const isShop =
     location.pathname === "/catalogo" ||
     location.pathname.startsWith("/productos/");
-  const collection =
-    COLLECTIONS[location.pathname.match(/^\/colecciones\/([^/]+)/)?.[1]];
+  const collectionSlug = location.pathname.match(
+    /^\/colecciones\/([^/]+)/,
+  )?.[1];
+  const collection = COLLECTIONS[collectionSlug];
   const isDarkRoute =
     isLanding ||
     location.pathname === "/catalogo" ||
@@ -92,20 +95,8 @@ function AppLayout() {
           <Footer />
         </FooterReveal>
       ) : collection ? (
-        <FooterReveal key={collection.title}>
-          <ShopFooter
-            palette={collection.footer}
-            tagline={collection.footer.tagline}
-            photos={[
-              {
-                src: collection.footer.image ?? collection.image,
-                side: "right-0",
-                fade: "to right",
-                width: "w-[36%]",
-                position: collection.footer.position ?? "50% 30%",
-              },
-            ]}
-          />
+        <FooterReveal key={collectionSlug}>
+          <CollectionFooter slug={collectionSlug} collection={collection} />
         </FooterReveal>
       ) : isShop ? (
         <FooterReveal>
