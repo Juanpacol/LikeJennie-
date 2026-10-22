@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import shopPhoto from "../../assets/footer-shop.jpg";
+import shopPhoto from "../../assets/footer-shop-a.jpg";
 import shopPhotoB from "../../assets/footer-shop-b.jpg";
 import { COLLECTIONS } from "../../data/collections";
 import { SOCIAL_ICONS } from "../../data/socialLinks";
@@ -48,21 +48,22 @@ function ShopFooter() {
         opacity: "var(--footer-progress, 1)",
       }}
     >
-      {/* Dos fotos, una a cada lado: la silueta a la izquierda y la bailarina a la derecha. Se funden
+      {/* Dos fotos, una a cada lado: la del cabello platino a la izquierda y la bailarina a la derecha. Se funden
           con el fondo por el lado interior y por arriba y abajo. */}
       {[
         {
           src: shopPhoto,
           side: "left-0",
           fade: "to left",
-          position: "50% 20%",
+          position: "50% 40%",
+          zoom: "origin-[50%_40%] scale-[1.35]",
         },
         {
           src: shopPhotoB,
           side: "right-0",
           fade: "to right",
-          position: "50% 40%",
-          zoom: "origin-[50%_40%] scale-[1.35]",
+          position: "50% 100%",
+          zoom: "origin-bottom scale-[1.9]",
         },
       ].map((photo) => (
         <div
