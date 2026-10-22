@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import shopPhoto from "../../assets/footer-shop.jpg";
+import shopPhotoB from "../../assets/footer-shop-b.jpg";
 import { COLLECTIONS } from "../../data/collections";
 import { SOCIAL_ICONS } from "../../data/socialLinks";
 import { useAccountPanel } from "../../context/AccountPanelContext";
@@ -23,10 +24,10 @@ function FooterColumn({ label, title, children }) {
       >
         {label}
       </p>
-      <h2 className="mt-3 font-condensed text-4xl font-light uppercase">
+      <h2 className="mt-2 font-condensed text-3xl font-light uppercase">
         {title}
       </h2>
-      <ul className="mt-6 space-y-3">{children}</ul>
+      <ul className="mt-4 space-y-2.5">{children}</ul>
     </div>
   );
 }
@@ -47,41 +48,58 @@ function ShopFooter() {
         opacity: "var(--footer-progress, 1)",
       }}
     >
-      {/* Foto vertical a la derecha, de alto completo; se funde con el fondo por la izquierda y abajo. */}
-      <div
-        className="pointer-events-none absolute inset-y-0 -right-[4%] hidden aspect-[1210/1554] md:block"
-        style={{
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent 5%, #000 60%), linear-gradient(to bottom, transparent, #000 18%, #000 70%, transparent)",
-          WebkitMaskComposite: "source-in",
-          maskImage:
-            "linear-gradient(to right, transparent 5%, #000 60%), linear-gradient(to bottom, transparent, #000 18%, #000 70%, transparent)",
-          maskComposite: "intersect",
-        }}
-      >
-        <img
-          src={shopPhoto}
-          alt=""
-          className="h-full w-full object-cover opacity-90"
-        />
-      </div>
+      {/* Dos fotos, una a cada lado: la silueta a la izquierda y la bailarina a la derecha. Se funden
+          con el fondo por el lado interior y por arriba y abajo. */}
+      {[
+        {
+          src: shopPhoto,
+          side: "left-0",
+          fade: "to left",
+          position: "50% 20%",
+        },
+        {
+          src: shopPhotoB,
+          side: "right-0",
+          fade: "to right",
+          position: "50% 100%",
+          zoom: "origin-bottom scale-[1.9]",
+        },
+      ].map((photo) => (
+        <div
+          key={photo.src}
+          className={`pointer-events-none absolute inset-y-0 ${photo.side} hidden w-[24%] md:block`}
+          style={{
+            WebkitMaskImage: `linear-gradient(${photo.fade}, transparent 2%, #000 65%), linear-gradient(to bottom, transparent, #000 22%, #000 75%, transparent)`,
+            WebkitMaskComposite: "source-in",
+            maskImage: `linear-gradient(${photo.fade}, transparent 2%, #000 65%), linear-gradient(to bottom, transparent, #000 22%, #000 75%, transparent)`,
+            maskComposite: "intersect",
+          }}
+        >
+          <img
+            src={photo.src}
+            alt=""
+            className={`h-full w-full object-cover opacity-90 ${photo.zoom ?? ""}`}
+            style={{ objectPosition: photo.position }}
+          />
+        </div>
+      ))}
       {/* Marca gigante translúcida. */}
       <p
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[8%] select-none text-center font-condensed text-[26vw] font-semibold uppercase leading-none tracking-[0.06em] opacity-[0.07]"
+        className="pointer-events-none absolute inset-x-0 top-[4%] select-none text-center font-condensed text-[20vw] font-semibold uppercase leading-none tracking-[0.06em] opacity-[0.07]"
       >
         Ruby.
       </p>
 
       <div
-        className="relative mx-auto max-w-6xl px-6 pb-8 pt-72 md:pt-96"
+        className="relative mx-auto max-w-7xl px-6 pb-8 pt-40 md:px-[23%] md:pt-44"
         style={{
           transform: "translateY(calc((1 - var(--footer-progress, 1)) * 30%))",
         }}
       >
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
-          <div className="sm:col-span-2 lg:col-span-1">
-            <p className="font-condensed text-6xl font-semibold uppercase leading-none tracking-[0.06em]">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="sm:col-span-2 lg:col-span-3 lg:text-center">
+            <p className="font-condensed text-5xl font-semibold uppercase leading-none tracking-[0.06em]">
               Ruby<span className="text-accent">.</span>
             </p>
             <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.3em]">
@@ -149,7 +167,7 @@ function ShopFooter() {
           </FooterColumn>
         </div>
 
-        <p className="mt-16 font-mono text-[11px] uppercase tracking-[0.2em] opacity-70">
+        <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.2em] opacity-70 md:text-center">
           © {YEAR} Ruby. Proyecto académico.
         </p>
       </div>
