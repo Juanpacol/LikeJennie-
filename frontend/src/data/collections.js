@@ -4,6 +4,7 @@ import fallenAngelField from "../assets/fallen-angel-field.jpg";
 import hariboFooterA from "../assets/haribo-footer-a.jpg";
 import hariboFooterB from "../assets/haribo-footer-b.jpg";
 import hariboCover from "../assets/haribo-cover.jpg";
+import rubyFooter from "../assets/ruby-footer.jpg";
 import rubyBanner from "../assets/ruby-banner.jpg";
 import rubyCover from "../assets/ruby-cover.jpg";
 
@@ -89,6 +90,8 @@ export const COLLECTIONS = {
     imagePosition: "50% 42%",
     divider: true,
     footer: {
+      image: rubyFooter,
+      position: "50% 25%",
       bg: "#0B0B0B",
       ink: "#F5EDED",
       muted: "#8A6F6F",
