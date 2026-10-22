@@ -7,6 +7,10 @@ const PARALLAX = 0.12;
 const FADE =
   "linear-gradient(to right, transparent 2%, #000 48%), linear-gradient(to bottom, #000 62%, transparent 98%)";
 
+// La foto pequeña se funde por todos los bordes.
+const SMALL_FADE =
+  "linear-gradient(to right, transparent, #000 18%, #000 82%, transparent), linear-gradient(to bottom, transparent, #000 15%, #000 80%, transparent)";
+
 // Cabecera de una colección, con la misma estética que el hero de la home: etiqueta en monoespaciada,
 // título enorme en condensada y la foto grande, fundida con el color de la página, que se revela de
 // arriba hacia abajo y se desplaza más despacio que la página. Los colores salen de la paleta de la colección
@@ -50,7 +54,7 @@ function CollectionBanner({ collection, count }) {
       {image && (
         <div
           aria-hidden="true"
-          className={`collection-photo pointer-events-none absolute inset-y-0 right-0 w-full opacity-40 md:w-[72%] md:opacity-100 ${ready ? "is-revealing" : ""}`}
+          className={`collection-photo pointer-events-none absolute inset-y-0 right-0 w-full opacity-40 md:w-[58%] md:opacity-100 ${ready ? "is-revealing" : ""}`}
           style={{
             WebkitMaskImage: FADE,
             WebkitMaskComposite: "source-in",
@@ -71,6 +75,26 @@ function CollectionBanner({ collection, count }) {
               }}
             />
           </div>
+        </div>
+      )}
+
+      {collection.secondImage && (
+        <div
+          aria-hidden="true"
+          className={`collection-photo pointer-events-none absolute left-[8%] top-24 hidden aspect-[735/913] w-[16%] md:block ${ready ? "is-revealing" : ""}`}
+          style={{
+            animationDelay: "0.35s",
+            WebkitMaskImage: SMALL_FADE,
+            WebkitMaskComposite: "source-in",
+            maskImage: SMALL_FADE,
+            maskComposite: "intersect",
+          }}
+        >
+          <img
+            src={collection.secondImage}
+            alt=""
+            className="h-full w-full object-cover"
+          />
         </div>
       )}
 
