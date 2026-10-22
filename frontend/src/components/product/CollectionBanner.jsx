@@ -1,15 +1,23 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const PARALLAX = 0.18;
+const PARALLAX = 0.12;
 
-// Cabecera de una colección: texto a la izquierda y la foto de la colección a la derecha, fundida con
-// el fondo mediante una máscara (sirve para cualquier color de página). La foto entra con un zoom que
-// se asienta y, al hacer scroll, se desplaza más despacio que la página (parallax); en móvil va de fondo.
-function CollectionBanner({ collection }) {
+// Cabecera de una colección, con la misma estética que el hero de la home: etiqueta en monoespaciada,
+// título enorme en condensada y la foto a media pantalla, nítida, que se revela de arriba hacia
+// abajo y se desplaza más despacio que la página. Los colores salen de la paleta de la colección
+// (el texto hereda `color` de la página). En móvil la foto va de fondo, atenuada.
+function CollectionBanner({ collection, count }) {
   const photoRef = useRef(null);
+  const [ready, setReady] = useState(false);
   const image = collection.bannerImage ?? collection.image;
   const { accent } = collection.theme;
 
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setReady(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  // Parallax suave de la foto con el scroll; no se activa si el sistema pide menos movimiento.
   useEffect(() => {
     const photo = photoRef.current;
     if (!photo || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
@@ -31,57 +39,49 @@ function CollectionBanner({ collection }) {
 
   return (
     <div
-      className="relative overflow-hidden bg-black/10"
-      style={
-        collection.divider
-          ? { borderBottom: `1px solid ${accent}66` }
-          : undefined
-      }
+      className="relative min-h-[78vh] overflow-hidden"
+      style={{ borderBottom: `1px solid ${accent}55` }}
     >
       {image && (
         <div
-          ref={photoRef}
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-[-15%] right-0 w-full opacity-40 will-change-transform md:aspect-square md:w-auto md:opacity-100"
-          style={{
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent, #000 40%), linear-gradient(to bottom, transparent, #000 15%, #000 80%, transparent)",
-            WebkitMaskComposite: "source-in",
-            maskImage:
-              "linear-gradient(to right, transparent, #000 40%), linear-gradient(to bottom, transparent, #000 15%, #000 80%, transparent)",
-            maskComposite: "intersect",
-          }}
+          className={`collection-photo pointer-events-none absolute inset-y-0 right-0 w-full opacity-35 md:w-[52%] md:opacity-100 ${ready ? "is-revealing" : ""}`}
+          style={{ borderLeft: `1px solid ${accent}55` }}
         >
-          <img
-            src={image}
-            alt=""
-            className="h-full w-full animate-banner-in object-cover"
-            style={{
-              objectPosition:
-                collection.bannerPosition ??
-                collection.imagePosition ??
-                "50% 30%",
-            }}
-          />
+          <div ref={photoRef} className="h-[115%] w-full will-change-transform">
+            <img
+              src={image}
+              alt=""
+              className="h-full w-full object-cover"
+              style={{
+                objectPosition:
+                  collection.bannerPosition ??
+                  collection.imagePosition ??
+                  "50% 30%",
+              }}
+            />
+          </div>
         </div>
       )}
 
-      <div className="relative mx-auto flex min-h-[380px] max-w-6xl flex-col justify-center px-6 py-16 md:min-h-[460px]">
-        <div className="animate-fade-up text-center md:max-w-xl md:text-left">
-          <p className="font-display text-xs uppercase tracking-widest">
-            Colección
+      <div className="relative mx-auto flex min-h-[78vh] max-w-7xl flex-col justify-end px-6 pb-14 pt-32 sm:px-10">
+        <div className="max-w-3xl">
+          <p className="animate-fade-up font-mono text-[11px] uppercase tracking-[0.3em] opacity-70">
+            {collection.tagline} · Ruby. 2026
           </p>
-          <h1 className="mt-3 font-script text-6xl leading-none sm:text-7xl">
+          <h1 className="animate-fade-up mt-4 font-condensed text-[clamp(3.5rem,8vw,8rem)] font-light uppercase leading-[0.9] tracking-[-0.02em] [animation-delay:80ms]">
             {collection.title}
           </h1>
-          <p className="mt-4 font-display text-sm">{collection.description}</p>
-          {collection.phrase && (
-            <p className="mt-6 flex items-center gap-4 font-display text-[11px] uppercase tracking-[0.3em] opacity-80">
-              <span className="h-px flex-1 bg-current opacity-40" />
-              {collection.phrase}
-              <span className="h-px flex-1 bg-current opacity-40 md:hidden" />
-            </p>
-          )}
+          <p className="animate-fade-up mt-6 max-w-md font-display text-sm opacity-80 [animation-delay:160ms] sm:text-base">
+            {collection.description}
+          </p>
+          <div className="animate-fade-up mt-8 flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.3em] [animation-delay:240ms]">
+            <span className="h-px w-16" style={{ backgroundColor: accent }} />
+            {collection.phrase}
+            {count != null && (
+              <span className="opacity-60">· {count} piezas</span>
+            )}
+          </div>
         </div>
       </div>
     </div>
