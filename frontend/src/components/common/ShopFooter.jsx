@@ -8,19 +8,36 @@ import { useCart } from "../../context/CartContext";
 
 const YEAR = new Date().getFullYear();
 
-// Paleta de grises cálidos sacada de la propia foto (sepia): sombra, tono medio y luz.
-const INK = "#D6CCB8";
-const MUTED = "#837C71";
+// Paleta de grises cálidos sacada de las fotos (sepia): sombra, tono medio y luz. Es la de la tienda.
+const SHOP_PALETTE = { bg: "#12110F", ink: "#D6CCB8", muted: "#837C71" };
+
+// Fotos de la tienda: una a cada lado, fundidas con el fondo por el lado interior.
+const SHOP_PHOTOS = [
+  {
+    src: shopPhoto,
+    side: "left-0",
+    fade: "to left",
+    position: "50% 40%",
+    zoom: "origin-[50%_40%] scale-[1.35]",
+  },
+  {
+    src: shopPhotoB,
+    side: "right-0",
+    fade: "to right",
+    position: "50% 100%",
+    zoom: "origin-bottom scale-[1.9]",
+  },
+];
 
 const LINK_CLASS =
   "hover-underline inline-block text-left font-mono text-xs uppercase tracking-[0.2em] opacity-80 transition hover:opacity-100";
 
-function FooterColumn({ label, title, children }) {
+function FooterColumn({ label, title, muted, children }) {
   return (
     <div>
       <p
         className="font-mono text-[11px] uppercase tracking-[0.3em]"
-        style={{ color: MUTED }}
+        style={{ color: muted }}
       >
         {label}
       </p>
@@ -32,43 +49,33 @@ function FooterColumn({ label, title, children }) {
   );
 }
 
-// Footer de la tienda (catálogo y productos): misma estructura y efecto de revelado que el de la
-// home, pero en grises cálidos y con la foto sepia de la silueta. Lo envuelve FooterReveal.
-function ShopFooter() {
+// Footer revelado de la tienda y de las colecciones: misma estructura y efecto que el de la home.
+// Por defecto lleva los grises cálidos y las dos fotos de la tienda; una colección le pasa su propia
+// paleta (`palette`) y foto (`photos`). `tagline` es la frase bajo la marca. Lo envuelve FooterReveal.
+function ShopFooter({
+  palette = SHOP_PALETTE,
+  photos = SHOP_PHOTOS,
+  tagline = "Nos vemos en el próximo acto",
+}) {
+  const centered = photos.length > 1;
   const { open: openCart } = useCart();
   const { open: openAccount } = useAccountPanel();
   return (
     <footer
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "#12110F",
-        color: INK,
+        backgroundColor: palette.bg,
+        color: palette.ink,
         // Efecto de footer revelado: --footer-progress lo define FooterReveal (1 si no aplica).
         filter: "blur(calc(10px * (1 - var(--footer-progress, 1))))",
         opacity: "var(--footer-progress, 1)",
       }}
     >
-      {/* Dos fotos, una a cada lado: la del cabello platino a la izquierda y la bailarina a la derecha. Se funden
-          con el fondo por el lado interior y por arriba y abajo. */}
-      {[
-        {
-          src: shopPhoto,
-          side: "left-0",
-          fade: "to left",
-          position: "50% 40%",
-          zoom: "origin-[50%_40%] scale-[1.35]",
-        },
-        {
-          src: shopPhotoB,
-          side: "right-0",
-          fade: "to right",
-          position: "50% 100%",
-          zoom: "origin-bottom scale-[1.9]",
-        },
-      ].map((photo) => (
+      {/* Fotos a los lados, fundidas con el fondo por el lado interior y por arriba y abajo. */}
+      {photos.map((photo) => (
         <div
           key={photo.src}
-          className={`pointer-events-none absolute inset-y-0 ${photo.side} hidden w-[24%] md:block`}
+          className={`pointer-events-none absolute inset-y-0 ${photo.side} hidden ${photo.width ?? "w-[24%]"} md:block`}
           style={{
             WebkitMaskImage: `linear-gradient(${photo.fade}, transparent 2%, #000 65%), linear-gradient(to bottom, transparent, #000 22%, #000 75%, transparent)`,
             WebkitMaskComposite: "source-in",
@@ -93,22 +100,28 @@ function ShopFooter() {
       </p>
 
       <div
-        className="relative mx-auto max-w-7xl px-6 pb-8 pt-40 md:px-[23%] md:pt-44"
+        className={`relative mx-auto max-w-7xl px-6 pb-8 pt-40 ${photos.length === 1 ? "md:pl-[10%] md:pr-[34%]" : "md:px-[23%]"} md:pt-44`}
         style={{
           transform: "translateY(calc((1 - var(--footer-progress, 1)) * 30%))",
         }}
       >
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="sm:col-span-2 lg:col-span-3 lg:text-center">
+          <div
+            className={`sm:col-span-2 lg:col-span-3 ${centered ? "lg:text-center" : ""}`}
+          >
             <p className="font-condensed text-5xl font-semibold uppercase leading-none tracking-[0.06em]">
               Ruby<span className="text-accent">.</span>
             </p>
             <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.3em]">
-              Nos vemos en el próximo acto
+              {tagline}
             </p>
           </div>
 
-          <FooterColumn label="Campañas" title="Colecciones">
+          <FooterColumn
+            label="Campañas"
+            muted={palette.muted}
+            title="Colecciones"
+          >
             {Object.entries(COLLECTIONS).map(([slug, collection]) => (
               <li key={slug}>
                 <Link to={`/colecciones/${slug}`} className={LINK_CLASS}>
@@ -118,7 +131,7 @@ function ShopFooter() {
             ))}
           </FooterColumn>
 
-          <FooterColumn label="Tu compra" title="Cuenta">
+          <FooterColumn label="Tu compra" muted={palette.muted} title="Cuenta">
             <li>
               <Link to="/catalogo" className={LINK_CLASS}>
                 Catálogo
@@ -145,7 +158,7 @@ function ShopFooter() {
             </li>
           </FooterColumn>
 
-          <FooterColumn label="Redes" title="Sígueme">
+          <FooterColumn label="Redes" muted={palette.muted} title="Sígueme">
             {SOCIAL_ICONS.map((icon) => (
               <li key={icon.platform}>
                 <a
@@ -168,7 +181,9 @@ function ShopFooter() {
           </FooterColumn>
         </div>
 
-        <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.2em] opacity-70 md:text-center">
+        <p
+          className={`mt-10 font-mono text-[11px] uppercase tracking-[0.2em] opacity-70 ${centered ? "md:text-center" : ""}`}
+        >
           © {YEAR} Ruby. Proyecto académico.
         </p>
       </div>
