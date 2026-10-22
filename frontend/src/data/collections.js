@@ -1,6 +1,8 @@
 import fallenAngelCover from "../assets/fallen-angel-cover.jpg";
 import fallenAngelFooter from "../assets/fallen-angel-footer.jpg";
 import fallenAngelField from "../assets/fallen-angel-field.jpg";
+import hariboFooterA from "../assets/haribo-footer-a.jpg";
+import hariboFooterB from "../assets/haribo-footer-b.jpg";
 import hariboCover from "../assets/haribo-cover.jpg";
 import rubyBanner from "../assets/ruby-banner.jpg";
 import rubyCover from "../assets/ruby-cover.jpg";
@@ -12,7 +14,7 @@ import rubyCover from "../assets/ruby-cover.jpg";
 // `theme`: page = fondo de la página, ink = texto, accent = botones y precio en oferta,
 // onAccent = texto sobre el accent, frame (opcional) = color del marco, el footer y la barra del
 // navegador cuando el de `page` no se distingue (p. ej. una colección en negro). `image` (opcional) = foto de la banda en la home, con `imageSide` ("left"|"right", por defecto right)
-// `footer`: paleta (bg, ink, muted), frase (tagline) y foto (image; si falta se usa `image`) del footer
+// `footer`: `images` (opcional, dos fotos: izquierda y derecha) en lugar de `image`; paleta (bg, ink, muted), frase (tagline) y foto (image; si falta se usa `image`) del footer
 // de su página.
 // `secondImage` (opcional) = segunda foto, más pequeña, que se muestra arriba a la izquierda de la cabecera.
 // `bannerImage` (opcional) = foto de la cabecera de su página; si falta se usa `image`, con `bannerPosition`
@@ -56,6 +58,10 @@ export const COLLECTIONS = {
     imageWidth: 560,
     imagePosition: "50% 15%",
     footer: {
+      images: [
+        { src: hariboFooterA, position: "50% 30%" },
+        { src: hariboFooterB, position: "40% 40%" },
+      ],
       bg: "#2A0008",
       ink: "#FFD500",
       muted: "#B8902A",
