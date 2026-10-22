@@ -201,3 +201,21 @@ body {
     clip-path: inset(0 0 0 0);
   }
 }
+
+/* Foto de la cabecera de una colección: se revela de arriba hacia abajo, como las franjas del hero. */
+.collection-photo {
+  clip-path: inset(0 0 100% 0);
+}
+
+.collection-photo.is-revealing {
+  animation: hero-strip-reveal 0.9s cubic-bezier(0.76, 0, 0.24, 1) 0.1s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collection-photo {
+    clip-path: none;
+  }
+  .collection-photo.is-revealing {
+    animation: none;
+  }
+}

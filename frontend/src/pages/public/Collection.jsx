@@ -45,7 +45,10 @@ function Collection() {
         "--card-accent": collection.theme.accent,
       }}
     >
-      <CollectionBanner collection={collection} />
+      <CollectionBanner
+        collection={collection}
+        count={loading || error ? null : products.length}
+      />
 
       <section className="mx-auto max-w-6xl px-6 py-12">
         {loading && <p className="opacity-70">Cargando productos...</p>}
