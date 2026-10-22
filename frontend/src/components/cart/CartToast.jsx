@@ -39,7 +39,9 @@ function ToastCard({ item }) {
         />
       )}
       <div className="min-w-0 flex-1">
-        <p className="whitespace-nowrap text-[11px] uppercase tracking-widest">Agregado al carrito</p>
+        <p className="whitespace-nowrap text-[11px] uppercase tracking-widest">
+          Agregado al carrito
+        </p>
         <p className="truncate text-sm">{item.productName}</p>
         <p className="text-xs opacity-70">
           {item.size} / {item.color}
