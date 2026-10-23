@@ -319,3 +319,21 @@ body {
     animation: none;
   }
 }
+
+/* La figura de la tienda de la home sube y aparece en fundido al cargarse. */
+.shop-kneel {
+  animation: fade-up-soft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+@keyframes fade-up-soft {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-kneel {
+    animation: none;
+  }
+}

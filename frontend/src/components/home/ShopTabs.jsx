@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getCategories } from "../../services/category.service";
 import { getCatalog } from "../../services/product.service";
 import ProductCard from "../product/ProductCard";
+import kneel from "../../assets/cutouts/shop-kneel.webp";
 
 const PER_TAB = 4;
 
@@ -48,8 +49,22 @@ function ShopTabs() {
     }`;
 
   return (
-    <section className="bg-black px-6 py-16 text-white">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative overflow-hidden bg-black px-6 py-16 text-white">
+      {/* Figura recortada en blanco y negro, a la derecha del título: se ve de la gorra a la cintura y se
+          desvanece justo sobre la línea de las pestañas. Solo en escritorio, donde hay espacio junto al título. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[5%] top-0 hidden h-[14.25rem] w-[24rem] overflow-hidden lg:block [mask-image:linear-gradient(to_bottom,#000_62%,transparent)]"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(closest-side_at_58%_48%,rgba(255,255,255,0.2),transparent)]" />
+        <img
+          src={kneel}
+          alt=""
+          loading="lazy"
+          className="shop-kneel absolute right-8 top-6 h-[27rem] w-auto max-w-none"
+        />
+      </div>
+      <div className="relative mx-auto max-w-6xl">
         <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
           Tienda
         </p>
