@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-// Selector de talla y color para el panel de compra (fondo rojo). Las tallas sin existencias
+// Selector de talla y color para el panel de compra (toma sus colores de las variables --panel-text, --panel-button y --panel-on-button). Las tallas sin existencias
 // (para el color elegido) salen tachadas y deshabilitadas, como en las tiendas de moda.
 function VariantSelector({
   sizes,
@@ -24,8 +24,8 @@ function VariantSelector({
                 aria-pressed={selectedColor === color}
                 className={`border px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] transition ${
                   selectedColor === color
-                    ? "border-black bg-black text-white"
-                    : "border-white/60 hover:border-black"
+                    ? "border-[var(--panel-button)] bg-[var(--panel-button)] text-[var(--panel-on-button)]"
+                    : "border-current hover:border-[var(--panel-button)]"
                 }`}
               >
                 {color}
@@ -50,15 +50,15 @@ function VariantSelector({
               onClick={() => onSelectSize(size)}
               aria-pressed={selected}
               className={`relative min-w-11 px-3 py-2 font-condensed text-xl uppercase transition-colors ${
-                selected ? "text-white" : "text-white/70 hover:text-white"
-              } ${available ? "" : "cursor-not-allowed text-white/30 line-through"}`}
+                selected ? "opacity-100" : "opacity-70 hover:opacity-100"
+              } ${available ? "" : "cursor-not-allowed opacity-30 line-through"}`}
             >
               {size}
-              {/* La línea negra se desliza de una talla a otra. */}
+              {/* La línea se desliza de una talla a otra. */}
               {selected && (
                 <motion.span
                   layoutId="size-underline"
-                  className="absolute inset-x-2 bottom-0 h-0.5 bg-black"
+                  className="absolute inset-x-2 bottom-0 h-0.5 bg-[var(--panel-button)]"
                   transition={{ type: "spring", stiffness: 500, damping: 36 }}
                 />
               )}

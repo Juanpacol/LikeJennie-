@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { getProductBySlug } from "../../services/product.service";
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
-import katana from "../../assets/katana.jpg";
+import { collectionOfProduct } from "../../data/collections";
 import ImageLightbox from "../../components/product/ImageLightbox";
 import VariantSelector from "../../components/product/VariantSelector";
 
@@ -125,16 +125,38 @@ function ProductDetail() {
   }
 
   const images = product.images;
+  // Colores y dibujo de la colección a la que pertenece el producto.
+  const { panel, art } = collectionOfProduct(product.name);
+  // Dibujo del panel: en tinta oscura sobre el color; el del fondo oscuro, claro con screen.
+  const artMask =
+    "linear-gradient(to bottom, transparent, #000 30%), linear-gradient(to right, transparent, #000 35%)";
+  const stageMask =
+    "linear-gradient(to right, #000 15%, transparent 85%), linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent)";
 
   return (
     <section className="text-white">
       {/* Galería a pantalla completa con la columna de compra a la derecha. */}
       <div className="lg:grid lg:h-[calc(100vh-127px)] lg:min-h-[620px] lg:grid-cols-[1fr_29rem]">
         <div
-          className="relative h-[68vh] overflow-hidden bg-black lg:h-full"
+          className="relative isolate h-[68vh] overflow-hidden lg:h-full"
+          style={{ backgroundColor: panel.stage }}
           onMouseMove={handleStageMove}
           onMouseLeave={handleStageLeave}
         >
+          {/* Dibujo de la colección, en claro y muy tenue, detrás de la prenda. */}
+          <img
+            src={art.image}
+            alt=""
+            aria-hidden="true"
+            className="katana-bg pointer-events-none absolute -left-10 bottom-0 -z-10 hidden h-[105%] w-auto max-w-none opacity-25 mix-blend-screen lg:block"
+            style={{
+              WebkitMaskImage: stageMask,
+              WebkitMaskComposite: "source-in",
+              maskImage: stageMask,
+              maskComposite: "intersect",
+            }}
+          />
+
           {/* Móvil: una foto por pantalla, se desliza. Escritorio: fotos apiladas con fundido. */}
           <div
             ref={stripRef}
@@ -207,7 +229,14 @@ function ProductDetail() {
             entra en cascada (la key reinicia la animación al cambiar de producto). */}
         <aside
           key={product.id}
-          className="product-panel relative isolate overflow-hidden bg-accent px-6 py-8 text-white lg:flex lg:flex-col lg:justify-center lg:overflow-y-auto lg:py-10 lg:pl-16 lg:pr-10"
+          style={{
+            backgroundColor: panel.bg,
+            color: panel.text,
+            "--panel-text": panel.text,
+            "--panel-button": panel.button,
+            "--panel-on-button": panel.onButton,
+          }}
+          className="product-panel relative isolate overflow-hidden px-6 py-8 lg:flex lg:flex-col lg:justify-center lg:overflow-y-auto lg:py-10 lg:pl-16 lg:pr-10"
         >
           <svg
             aria-hidden="true"
@@ -220,25 +249,23 @@ function ProductDetail() {
               y1="0"
               x2="0.4"
               y2="100"
-              stroke="#fff"
+              stroke={panel.text}
               strokeWidth="1.5"
               vectorEffect="non-scaling-stroke"
               opacity="0.85"
             />
           </svg>
-          {/* Katana de fondo: se invierte y se mezcla en multiplicación, así el negro de la foto desaparece sobre
-              el rojo y queda la hoja en tinta negra. Se desvanece por la izquierda y por arriba. */}
+          {/* Dibujo de la colección: se invierte y se mezcla en multiplicación, así el negro de la foto desaparece
+              sobre el color y queda la figura en tinta oscura. Se desvanece por la izquierda y por arriba. */}
           <img
-            src={katana}
+            src={art.image}
             alt=""
             aria-hidden="true"
             className="katana-bg pointer-events-none absolute -bottom-4 -right-16 -z-10 h-[96%] opacity-55 w-auto max-w-none mix-blend-multiply [filter:invert(1)]"
             style={{
-              WebkitMaskImage:
-                "linear-gradient(to bottom, transparent, #000 30%), linear-gradient(to right, transparent, #000 35%)",
+              WebkitMaskImage: artMask,
               WebkitMaskComposite: "source-in",
-              maskImage:
-                "linear-gradient(to bottom, transparent, #000 30%), linear-gradient(to right, transparent, #000 35%)",
+              maskImage: artMask,
               maskComposite: "intersect",
             }}
           />
@@ -248,12 +275,12 @@ function ProductDetail() {
             style={{ animationDelay: "120ms" }}
           >
             {product.category && (
-              <p className="border border-white/60 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.25em]">
+              <p className="border border-current px-2 py-1 font-mono text-[10px] uppercase tracking-[0.25em]">
                 {product.category.name}
               </p>
             )}
             {hasSale && (
-              <p className="bg-black px-2 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-white">
+              <p className="bg-[var(--panel-button)] px-2 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--panel-on-button)]">
                 -{discount}%
               </p>
             )}
@@ -272,7 +299,7 @@ function ProductDetail() {
                   <span className="block font-condensed text-3xl leading-none">
                     {formatPrice(product.salePrice)}
                   </span>
-                  <span className="mt-1 block font-mono text-[11px] text-white/70 line-through">
+                  <span className="mt-1 block font-mono text-[11px] line-through opacity-70">
                     {formatPrice(product.basePrice)}
                   </span>
                 </>
@@ -285,7 +312,7 @@ function ProductDetail() {
           </div>
 
           <div
-            className="animate-fade-up mt-6 border-t border-white/40 pt-6"
+            className="animate-fade-up mt-6 border-t border-current pt-6"
             style={{ animationDelay: "280ms" }}
           >
             <VariantSelector
@@ -310,7 +337,7 @@ function ProductDetail() {
             {selectedVariant &&
               !selectedVariant.isOutOfStock &&
               !selectedVariant.isLowStock && (
-                <span className="text-white/80">Disponible</span>
+                <span className="opacity-80">Disponible</span>
               )}
           </p>
 
@@ -322,7 +349,7 @@ function ProductDetail() {
               type="button"
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
               aria-label="Disminuir cantidad"
-              className="h-10 w-10 border border-black/60 transition hover:bg-black hover:text-white"
+              className="h-10 w-10 border border-current transition hover:bg-[var(--panel-button)] hover:text-[var(--panel-on-button)]"
             >
               −
             </button>
@@ -336,7 +363,7 @@ function ProductDetail() {
               type="button"
               onClick={() => setQuantity((q) => q + 1)}
               aria-label="Aumentar cantidad"
-              className="h-10 w-10 border border-black/60 transition hover:bg-black hover:text-white"
+              className="h-10 w-10 border border-current transition hover:bg-[var(--panel-button)] hover:text-[var(--panel-on-button)]"
             >
               +
             </button>
@@ -346,7 +373,7 @@ function ProductDetail() {
             type="button"
             onClick={handleAddToCart}
             disabled={!canAddToCart}
-            className="btn-sweep animate-fade-up mt-5 w-full bg-black py-4 font-mono text-[11px] uppercase tracking-[0.25em] text-white [--sweep:rgb(255_255_255/0.2)] disabled:opacity-40"
+            className="btn-sweep animate-fade-up mt-5 w-full bg-[var(--panel-button)] py-4 font-mono text-[11px] uppercase tracking-[0.25em] text-[var(--panel-on-button)] [--sweep:rgb(255_255_255/0.2)] disabled:opacity-40"
             style={{ animationDelay: "460ms" }}
           >
             Añadir al carrito
