@@ -218,3 +218,14 @@ body {
     clip-path: polygon(5% 0, 100% 0, 100% 100%, 0 100%);
   }
 }
+
+/* La katana del panel de compra aparece en fundido, un poco después del panel. */
+.katana-bg {
+  animation: ink-art-in 1s ease-out 0.3s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .katana-bg {
+    animation: none;
+  }
+}

@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { getProductBySlug } from "../../services/product.service";
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
+import katana from "../../assets/katana.jpg";
 import ImageLightbox from "../../components/product/ImageLightbox";
 import VariantSelector from "../../components/product/VariantSelector";
 
@@ -225,13 +226,22 @@ function ProductDetail() {
               opacity="0.85"
             />
           </svg>
-          {/* Nombre de la categoría como marca de agua. */}
-          <p
+          {/* Katana de fondo: se invierte y se mezcla en multiplicación, así el negro de la foto desaparece sobre
+              el rojo y queda la hoja en tinta negra. Se desvanece por la izquierda y por arriba. */}
+          <img
+            src={katana}
+            alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-6 right-0 -z-10 select-none font-condensed text-[9rem] font-semibold uppercase leading-none text-black/10"
-          >
-            {product.category?.name ?? "Ruby"}
-          </p>
+            className="katana-bg pointer-events-none absolute -bottom-4 -right-16 -z-10 h-[96%] opacity-55 w-auto max-w-none mix-blend-multiply [filter:invert(1)]"
+            style={{
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent, #000 30%), linear-gradient(to right, transparent, #000 35%)",
+              WebkitMaskComposite: "source-in",
+              maskImage:
+                "linear-gradient(to bottom, transparent, #000 30%), linear-gradient(to right, transparent, #000 35%)",
+              maskComposite: "intersect",
+            }}
+          />
 
           <div
             className="animate-fade-up flex items-start justify-between gap-3"
