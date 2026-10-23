@@ -290,3 +290,34 @@ body {
     display: none;
   }
 }
+
+/* Hoja que barre el carrito al abrirlo, de derecha a izquierda (acompaña al corte del panel). */
+.drawer-blade {
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  right: 0;
+  width: 14px;
+  background: linear-gradient(
+    90deg,
+    #000 40%,
+    rgb(255 255 255 / 0.85) 42%,
+    #000 46%
+  );
+  transform: skewX(12deg) translateX(0);
+  animation: drawer-blade-sweep 0.55s cubic-bezier(0.76, 0, 0.24, 1) both;
+  pointer-events: none;
+}
+
+@keyframes drawer-blade-sweep {
+  to {
+    transform: skewX(12deg) translateX(-480px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer-blade {
+    display: none;
+  }
+}

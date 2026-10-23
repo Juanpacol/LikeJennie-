@@ -7,10 +7,32 @@ import { formatPrice } from "../../utils/formatPrice";
 import CartItem from "./CartItem";
 
 const EASE = [0.16, 1, 0.3, 1];
+
+// Borde izquierdo del panel, rasgado como el filo de una hoja: cada punto es [y %, x %]. El panel se
+// recorta con estos puntos (clip-path) y se revela barriendo de derecha a izquierda, como un corte de katana.
+const EDGE = [
+  [0, 7],
+  [6, 4],
+  [12, 6.5],
+  [19, 3],
+  [27, 5.5],
+  [35, 2],
+  [44, 4.5],
+  [53, 1.5],
+  [62, 3.5],
+  [71, 1],
+  [80, 2.5],
+  [90, 0.5],
+  [100, 0],
+];
+const polygon = (x) =>
+  `polygon(${EDGE.map(([y, ex]) => `${x ?? ex}% ${y}%`).join(", ")}, 100% 100%, 100% 0%)`;
+const CLOSED = polygon(100);
+const OPEN = polygon();
 const LABEL_CLASS = "font-mono text-[11px] uppercase tracking-[0.2em]";
 const INPUT_CLASS =
-  "mt-2 w-full border-0 border-b border-white/30 bg-transparent px-0 py-3 font-display text-base text-white placeholder:text-white/40 transition-colors focus:border-accent focus:outline-none";
-const PRIMARY_BUTTON_CLASS = `btn-sweep w-full bg-accent py-4 text-white [--sweep:rgb(0_0_0/0.25)] disabled:opacity-50 ${LABEL_CLASS}`;
+  "mt-2 w-full border-0 border-b border-white/50 bg-transparent px-0 py-3 font-display text-base text-white placeholder:text-white/80 transition-colors focus:border-black focus:outline-none";
+const PRIMARY_BUTTON_CLASS = `btn-sweep w-full bg-black py-4 text-white [--sweep:rgb(255_255_255/0.2)] disabled:opacity-50 ${LABEL_CLASS}`;
 const STEPS = ["Carrito", "Datos", "Pago"];
 
 // Indicador de pasos: el actual en blanco, el resto atenuado.
@@ -20,7 +42,7 @@ function Steps({ current }) {
       {STEPS.map((name, index) => (
         <li
           key={name}
-          className={`${LABEL_CLASS} transition-colors ${index === current ? "text-white" : "text-white/35"}`}
+          className={`${LABEL_CLASS} transition-colors ${index === current ? "text-white" : "text-white/50"}`}
         >
           0{index + 1} {name}
         </li>
@@ -98,13 +120,19 @@ function CartDrawer() {
             role="dialog"
             aria-modal="true"
             aria-label="Carrito"
-            className="relative flex h-full w-full max-w-md flex-col border-l border-white/15 bg-[#0b0b0b] p-6 text-white shadow-2xl sm:p-8"
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ duration: 0.5, ease: EASE }}
+            className="relative flex h-full w-full max-w-md flex-col overflow-hidden bg-accent py-6 pl-10 pr-6 text-white sm:py-8 sm:pl-12 sm:pr-8"
+            initial={{ clipPath: CLOSED }}
+            animate={{ clipPath: OPEN }}
+            exit={{ clipPath: CLOSED }}
+            transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
           >
-            <div className="flex items-start justify-between">
+            {/* Katana negra cruzando el fondo, y una hoja que barre el panel al abrirlo. */}
+            <span
+              aria-hidden="true"
+              className="toast-katana !top-[44%] !h-2 opacity-70"
+            />
+            <span aria-hidden="true" className="drawer-blade" />
+            <div className="relative flex items-start justify-between">
               <div>
                 <h2 className="font-condensed text-5xl font-light uppercase leading-none">
                   Tu carrito
@@ -115,7 +143,7 @@ function CartDrawer() {
                 type="button"
                 onClick={handleClose}
                 aria-label="Cerrar carrito"
-                className="flex h-10 w-10 items-center justify-center border border-white/30 text-lg leading-none transition hover:bg-white hover:text-black"
+                className="flex h-10 w-10 items-center justify-center border border-black/60 text-lg leading-none transition hover:bg-black hover:text-white"
               >
                 ×
               </button>
@@ -123,7 +151,7 @@ function CartDrawer() {
 
             {step === "cart" && items.length === 0 && (
               <div className="flex flex-1 flex-col items-center justify-center text-center">
-                <p className="animate-fade-up font-condensed text-8xl font-light uppercase leading-none text-white/15">
+                <p className="animate-fade-up font-condensed text-8xl font-light uppercase leading-none text-black/30">
                   Vacío
                 </p>
                 <p className="mt-4 font-display text-sm text-white/70">
@@ -141,7 +169,7 @@ function CartDrawer() {
 
             {step === "cart" && items.length > 0 && (
               <>
-                <p className={`${LABEL_CLASS} mt-8 text-white/60`}>
+                <p className={`${LABEL_CLASS} mt-8 text-white/80`}>
                   {count} {count === 1 ? "artículo" : "artículos"}
                 </p>
                 <div data-lenis-prevent className="flex-1 overflow-y-auto">
@@ -151,7 +179,7 @@ function CartDrawer() {
                 </div>
                 <div className="border-t border-white/15 pt-5">
                   <div className="flex items-end justify-between">
-                    <span className={`${LABEL_CLASS} text-white/60`}>
+                    <span className={`${LABEL_CLASS} text-white/80`}>
                       Total
                     </span>
                     <span className="font-condensed text-4xl font-light leading-none">
@@ -175,7 +203,7 @@ function CartDrawer() {
                 className="animate-fade-up mt-10 flex flex-1 flex-col"
               >
                 <label
-                  className={`${LABEL_CLASS} text-white/60`}
+                  className={`${LABEL_CLASS} text-white/80`}
                   htmlFor="customerName"
                 >
                   Nombre
@@ -189,7 +217,7 @@ function CartDrawer() {
                 />
 
                 <label
-                  className={`${LABEL_CLASS} mt-8 text-white/60`}
+                  className={`${LABEL_CLASS} mt-8 text-white/80`}
                   htmlFor="customerEmail"
                 >
                   Email
@@ -214,7 +242,7 @@ function CartDrawer() {
 
                 <div className="mt-auto space-y-4 pt-6">
                   <div className="flex items-end justify-between border-t border-white/15 pt-5">
-                    <span className={`${LABEL_CLASS} text-white/60`}>
+                    <span className={`${LABEL_CLASS} text-white/80`}>
                       Total · {count} {count === 1 ? "artículo" : "artículos"}
                     </span>
                     <span className="font-condensed text-4xl font-light leading-none">
@@ -233,7 +261,7 @@ function CartDrawer() {
                   <button
                     type="button"
                     onClick={() => setStep("cart")}
-                    className={`hover-underline mx-auto block text-white/60 transition hover:text-white ${LABEL_CLASS}`}
+                    className={`hover-underline mx-auto block text-white/80 transition hover:text-white ${LABEL_CLASS}`}
                   >
                     Volver al carrito
                   </button>
