@@ -86,6 +86,8 @@ Todas las respuestas son JSON. Éxito: `{ "success": true, "data": ... }`. Error
 | GET | `/api/products?category=<slug>` | Catálogo de productos activos, con imágenes, variantes y banderas `isLowStock` / `isOutOfStock`. |
 | GET | `/api/products/:slug` | Detalle de un producto (404 si no existe o está inactivo). |
 | POST | `/api/orders` | Crea una orden. Cuerpo: `{ customerName, customerEmail, items: [{ variantId, quantity }] }`. Valida stock, fija precios y descuenta inventario. |
+| POST | `/api/payments/checkout` | Crea la orden en PENDING (sin tocar el stock) y una sesión de Stripe Checkout. Cuerpo igual al de `/api/orders`. Devuelve `{ url, orderId }`. |
+| POST | `/api/payments/webhook` | Lo llama Stripe. Verifica la firma (`STRIPE_WEBHOOK_SECRET`); en `checkout.session.completed` pasa la orden a COMPLETED y descuenta el stock; en `checkout.session.expired` la pasa a CANCELLED. |
 
 ### Admin (requieren `Authorization: Bearer <token>`)
 
@@ -126,6 +128,15 @@ Regla de stock: `STOCK_MINIMO = 5` (`backend/src/constants/stock.constants.js`).
 3. `order.service.createOrder` valida que haya ítems, busca cada variante, verifica stock, toma `salePrice ?? basePrice` como precio unitario y calcula el total.
 4. Descuenta el stock de cada variante y crea `orders` + `order_items`.
 5. El carrito se vacía y se muestra la confirmación. Si el stock no alcanza, el error 400 llega al drawer y se muestra en línea.
+
+### 5.2b Pago con Stripe (modo de prueba)
+
+1. En `CartDrawer`, «Pagar con tarjeta» llama a `POST /api/payments/checkout` con `variantId` y `quantity`.
+2. `payment.service.createCheckoutSession` crea la orden en `PENDING` (`order.service.createPendingOrder`, que valida stock y precio pero **no** descuenta) y una sesión de Stripe Checkout en COP (monto en centavos). El `orderId` viaja en `metadata`.
+3. El frontend redirige a `session.url` (página de pago alojada por Stripe). Tarjeta de prueba: `4242 4242 4242 4242`, cualquier fecha futura y CVC.
+4. Stripe devuelve al cliente a `/pago/exito` (se vacía el carrito) o `/pago/cancelado` (el carrito se conserva).
+5. Stripe llama a `POST /api/payments/webhook`. El cuerpo llega **sin parsear** (`express.raw`) para verificar la firma. Con el pago confirmado, `order.repository.completeWithStock` marca la orden `COMPLETED` y descuenta el stock en una transacción; solo actúa si sigue en `PENDING`, así un evento repetido no descuenta dos veces.
+6. Variables de entorno del backend: `STRIPE_SECRET_KEY` (`sk_test_...`), `STRIPE_WEBHOOK_SECRET` (`whsec_...`) y `FRONTEND_URL`. En local, el webhook se recibe con `stripe listen --api-key "$STRIPE_SECRET_KEY" --events checkout.session.completed,checkout.session.expired --forward-to localhost:4000/api/payments/webhook`.
 
 ### 5.3 Panel admin
 
