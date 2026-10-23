@@ -8,8 +8,8 @@ import typa from "../../assets/cutouts/shop-typa.webp";
 
 // Collage de la columna izquierda (solo escritorio), todo en blanco y negro de alto contraste (estilo fotocopia),
 // repartido a lo largo de TODO el alto del bloque (tienda + FAQs). Las posiciones son porcentajes de ese alto y
-// cada pieza se coloca según su postura: el afiche de la cadena arriba, mirando hacia la derecha; la cara asoma
-// por la esquina superior derecha hacia los productos; el retrato del brazo en alto baja por el costado; los ojos
+// cada pieza se coloca según su postura: el afiche de la cadena arriba, mirando hacia la derecha; la cara recortada
+// ocupa el hueco a la derecha del título «Be unique», mirando hacia el interior; el retrato del brazo en alto baja por el costado; los ojos
 // lo cruzan; la rubia de ojos rojos ocupa el medio, de frente; y la figura agachada, volteada, estira el brazo
 // hacia las preguntas desde abajo. `delay` escalona su entrada.
 const COLLAGE = [
@@ -18,15 +18,6 @@ const COLLAGE = [
     className:
       "left-[0%] top-[1%] w-[94%] -rotate-[2.5deg] shadow-[0_26px_40px_rgba(0,0,0,0.65)]",
     delay: "0.2s",
-  },
-  {
-    src: face,
-    className: "-right-[10%] top-[0%] h-[16%] w-auto max-w-none",
-    style: {
-      WebkitMaskImage: "linear-gradient(to bottom, #000 58%, transparent)",
-      maskImage: "linear-gradient(to bottom, #000 58%, transparent)",
-    },
-    delay: "0.7s",
   },
   {
     src: zineA,
@@ -54,12 +45,24 @@ const COLLAGE = [
   },
 ];
 
-// Retrato de la derecha, junto al título «Be unique» (recorte sin el texto del afiche original): llena el hueco
-// negro que queda a la derecha del título y mira hacia el interior de la página.
+// Cara recortada en el hueco negro a la derecha del título «Be unique», mirando hacia el interior. Va fuera de la
+// columna del collage: su posición es relativa a todo el bloque.
+const FACE_PIECE = {
+  src: face,
+  className: "right-[6%] top-[0.8%] h-[14%] w-auto max-w-none",
+  style: {
+    WebkitMaskImage: "linear-gradient(to bottom, #000 60%, transparent)",
+    maskImage: "linear-gradient(to bottom, #000 60%, transparent)",
+  },
+  delay: "0.7s",
+};
+
+// Retrato de la derecha, junto al título de las FAQs (recorte sin el texto del afiche original): llena el hueco
+// que queda a la derecha de «FAQs» y mira hacia el interior de la página.
 const SIDE_PIECE = {
   src: typa,
   className:
-    "right-[4.5%] top-[1.8%] w-[12%] rotate-[3deg] shadow-[0_26px_40px_rgba(0,0,0,0.7)]",
+    "right-[3%] top-[71.5%] w-[15%] rotate-[3deg] shadow-[0_26px_40px_rgba(0,0,0,0.7)]",
   delay: "1.1s",
 };
 
@@ -96,6 +99,13 @@ function ShopCollage({ children }) {
         className="pointer-events-none absolute inset-0 hidden px-10 lg:block"
       >
         <img
+          src={FACE_PIECE.src}
+          alt=""
+          loading="lazy"
+          className={`shop-piece absolute ${FACE_PIECE.className}`}
+          style={{ ...FACE_PIECE.style, "--piece-delay": FACE_PIECE.delay }}
+        />
+        <img
           src={SIDE_PIECE.src}
           alt=""
           loading="lazy"
@@ -103,7 +113,7 @@ function ShopCollage({ children }) {
           style={{ "--piece-delay": SIDE_PIECE.delay }}
         />
         <span
-          className="shop-piece absolute right-[13%] top-[1.4%] z-10 h-6 w-20 rotate-[-12deg] bg-accent/90 shadow-md"
+          className="shop-piece absolute right-[14.5%] top-[71%] z-10 h-6 w-20 rotate-[-12deg] bg-accent/90 shadow-md"
           style={{ "--piece-delay": "1.2s" }}
         />
         <div className="mx-auto grid h-full max-w-7xl gap-12 lg:grid-cols-[5fr_7fr]">
