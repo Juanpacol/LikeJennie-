@@ -55,7 +55,7 @@ function JennieHero() {
   const ready = useImagesReady(SOURCES);
 
   return (
-    <section className="relative flex min-h-screen w-full items-end overflow-hidden bg-black px-6 pb-16 pt-32 text-white sm:px-10">
+    <section className="relative flex min-h-[100svh] w-full items-end overflow-hidden bg-black px-6 pb-16 pt-32 text-white sm:px-10">
       {/* Las tres fotos a pantalla completa, una junto a otra, como en el hero de offform.net. */}
       <div
         className={`absolute inset-0 grid grid-cols-3 gap-px bg-black ${ready ? "is-revealing" : ""}`}

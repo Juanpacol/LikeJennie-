@@ -291,6 +291,35 @@ function ShopCollage({ children }) {
         reduced={reduced}
       />
       <Layer side front={false} progress={scrollYProgress} reduced={reduced} />
+      {/* Móvil: tira de fotos solapadas sobre el título, en lugar de la columna del collage. */}
+      <div
+        aria-hidden="true"
+        className="relative mx-auto h-72 max-w-md px-6 pt-10 lg:hidden"
+      >
+        <img
+          src={poster}
+          alt=""
+          loading="lazy"
+          className={`shop-piece absolute left-6 top-10 w-[58%] -rotate-3 ${SHADOW}`}
+          style={{ "--piece-delay": "0.1s" }}
+        />
+        <img
+          src={mono}
+          alt=""
+          loading="lazy"
+          className={`shop-piece absolute right-6 top-16 w-[36%] rotate-[4deg] ${SHADOW}`}
+          style={{ "--piece-delay": "0.3s" }}
+        />
+        <img
+          src={rubia}
+          alt=""
+          loading="lazy"
+          className={`shop-piece absolute bottom-0 left-[34%] w-[30%] rotate-[2deg] ${SHADOW}`}
+          style={{ "--piece-delay": "0.5s" }}
+        />
+        <span className="absolute left-4 top-8 z-10 h-5 w-16 -rotate-[38deg] bg-accent/90 shadow-md" />
+        <span className="absolute right-10 top-[3.6rem] z-10 h-5 w-14 rotate-[10deg] bg-accent/90 shadow-md" />
+      </div>
       <div className="relative z-10">{children}</div>
       <Layer side={false} front progress={scrollYProgress} reduced={reduced} />
       {/* Grano de fotocopia sobre todo el bloque. */}

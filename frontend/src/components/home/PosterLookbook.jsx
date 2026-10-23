@@ -129,7 +129,7 @@ function PosterLookbook() {
       data-header-theme="light"
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      className="relative h-screen min-h-[640px] w-full overflow-hidden bg-[#e9e9e9] text-[#0b0b0b]"
+      className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-[#e9e9e9] text-[#0b0b0b]"
     >
       {/* Luz suave de estudio. */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,rgba(255,255,255,0.9),transparent_65%)]" />
