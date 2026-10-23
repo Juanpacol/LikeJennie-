@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useCart } from "../../context/CartContext";
 import { createCheckoutSession } from "../../services/order.service";
 import { formatPrice } from "../../utils/formatPrice";
-import BladeArt from "./BladeArt";
+import InkArt from "./InkArt";
 import CartItem from "./CartItem";
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -127,8 +127,8 @@ function CartDrawer() {
             exit={{ clipPath: CLOSED }}
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
           >
-            {/* Cuchillas negras en diagonal al fondo, y una hoja que barre el panel al abrirlo. */}
-            <BladeArt />
+            {/* Pinceladas de tinta al fondo, y una hoja que barre el panel al abrirlo. */}
+            <InkArt />
             <span aria-hidden="true" className="drawer-blade" />
             <div className="relative flex items-start justify-between">
               <div>

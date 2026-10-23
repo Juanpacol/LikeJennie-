@@ -322,12 +322,12 @@ body {
   }
 }
 
-/* Las cuchillas del carrito entran cortando desde abajo a la izquierda, un poco después del corte del panel. */
-.blade-art {
-  animation: blade-art-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+/* Las pinceladas del carrito entran deslizándose desde abajo a la izquierda, un poco después del corte del panel. */
+.ink-art {
+  animation: ink-art-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 }
 
-@keyframes blade-art-in {
+@keyframes ink-art-in {
   from {
     transform: translate(-18%, 14%);
     opacity: 0;
@@ -339,7 +339,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .blade-art {
+  .ink-art {
     animation: none;
   }
 }
