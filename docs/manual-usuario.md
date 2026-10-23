@@ -37,7 +37,7 @@ Al entrar verás, de arriba abajo:
 
 ### 3. Ver una colección
 
-Pulsa la tarjeta de la colección que te interese en la página de inicio (**Fallen Angel**, **JENNIE x Haribo** o **JENNIE x Ruby**), o su nombre en el pie de página o en el menú del celular. Se abre una página con el color de esa colección: arriba, una cabecera con el nombre de la colección en letras enormes, una frase que la identifica, cuántas piezas tiene y su foto grande a la derecha, que se funde con el color de la página (se revela de arriba hacia abajo y se desplaza suavemente al bajar) y, debajo, todos sus productos. Al final, un pie de página propio de la colección, con sus colores, su foto y su frase, y enlaces a las otras colecciones y al catálogo.
+Pulsa la tarjeta de la colección que te interese en la página de inicio (**Fallen Angel**, **JENNIE x Haribo** o **JENNIE x Ruby**), o su nombre en el pie de página o en el menú del celular. Se abre una página con el color de esa colección: arriba, una cabecera con el nombre de la colección en letras enormes, una frase que la identifica, cuántas piezas tiene y su foto grande a la derecha, con un dibujo de fondo propio de cada colección (un lirio, un kanji de «amor» o una katana), que se funde con el color de la página (se revela de arriba hacia abajo y se desplaza suavemente al bajar) y, debajo, todos sus productos. Al final, un pie de página propio de la colección, con sus colores, su foto y su frase, y enlaces a las otras colecciones y al catálogo.
 
 ### 4. Buscar un producto
 

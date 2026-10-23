@@ -11,6 +11,10 @@ const FADE =
 const SMALL_FADE =
   "linear-gradient(to right, transparent, #000 18%, #000 82%, transparent), linear-gradient(to bottom, transparent, #000 15%, #000 80%, transparent)";
 
+// El dibujo de fondo se desvanece por los bordes para no marcar su rectángulo.
+const ART_FADE =
+  "linear-gradient(to right, transparent, #000 25%, #000 75%, transparent), linear-gradient(to bottom, transparent, #000 20%, #000 80%, transparent)";
+
 // Cabecera de una colección, con la misma estética que el hero de la home: etiqueta en monoespaciada,
 // título enorme en condensada y la foto grande, fundida con el color de la página, que se revela de
 // arriba hacia abajo y se desplaza más despacio que la página. Los colores salen de la paleta de la colección
@@ -51,6 +55,24 @@ function CollectionBanner({ collection, count }) {
       className="relative min-h-[78vh] overflow-hidden"
       style={{ borderBottom: `1px solid ${accent}33` }}
     >
+      {collection.art && (
+        <img
+          src={collection.art.image}
+          alt=""
+          aria-hidden="true"
+          className={`collection-art pointer-events-none absolute -z-0 hidden w-auto max-w-none md:block ${collection.art.position} ${
+            collection.art.blend === "ink"
+              ? "opacity-30 mix-blend-multiply [filter:invert(1)]"
+              : "opacity-40 mix-blend-screen"
+          }`}
+          style={{
+            WebkitMaskImage: ART_FADE,
+            WebkitMaskComposite: "source-in",
+            maskImage: ART_FADE,
+            maskComposite: "intersect",
+          }}
+        />
+      )}
       {image && (
         <div
           aria-hidden="true"
