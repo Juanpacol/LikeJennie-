@@ -3,6 +3,7 @@ import FaqSection from "../../components/home/FaqSection";
 import HeroCurtain from "../../components/home/HeroCurtain";
 import JennieHero from "../../components/home/JennieHero";
 import PosterLookbook from "../../components/home/PosterLookbook";
+import ShopCollage from "../../components/home/ShopCollage";
 import ShopTabs from "../../components/home/ShopTabs";
 
 function Home() {
@@ -10,8 +11,10 @@ function Home() {
     <HeroCurtain hero={<JennieHero />}>
       <CollectionCards />
       <PosterLookbook />
-      <ShopTabs />
-      <FaqSection />
+      <ShopCollage>
+        <ShopTabs />
+        <FaqSection />
+      </ShopCollage>
     </HeroCurtain>
   );
 }
