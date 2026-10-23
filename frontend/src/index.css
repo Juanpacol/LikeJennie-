@@ -320,9 +320,9 @@ body {
   }
 }
 
-/* La figura de la tienda de la home sube y aparece en fundido al cargarse. */
-.shop-kneel {
-  animation: fade-up-soft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+/* Las piezas del collage de la tienda de la home suben y aparecen en fundido al cargarse, escalonadas. */
+.shop-piece {
+  animation: fade-up-soft 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--piece-delay, 0.2s) both;
 }
 
 @keyframes fade-up-soft {
@@ -333,7 +333,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shop-kneel {
+  .shop-piece {
     animation: none;
   }
 }
