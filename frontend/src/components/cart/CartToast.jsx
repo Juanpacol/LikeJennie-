@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
+import { formatPrice } from "../../utils/formatPrice";
 
 const VISIBLE_MS = 4000;
 const EXIT_MS = 250;
@@ -7,7 +8,8 @@ const EXIT_MS = 250;
 // Tarjeta del aviso. Se monta de nuevo con cada producto (key = id del aviso), así sus
 // temporizadores y su estado de salida empiezan limpios.
 function ToastCard({ item }) {
-  const { dismissAdded, open } = useCart();
+  const { dismissAdded, open, items, total } = useCart();
+  const count = items.reduce((sum, line) => sum + line.quantity, 0);
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
@@ -34,10 +36,26 @@ function ToastCard({ item }) {
       {/* La tarjeta aparece "cortada" en diagonal por la hoja; la hoja barre la tarjeta y luego
           queda como una katana negra cruzando el fondo. */}
       <div className="toast-slash relative overflow-hidden bg-accent text-white shadow-2xl">
-        <span aria-hidden="true" className="toast-katana" />
-        <span aria-hidden="true" className="toast-blade" />
+        {/* Filo: línea blanca finísima a lo largo del corte diagonal. */}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute inset-0 h-full w-full"
+        >
+          <line
+            x1="7.4"
+            y1="0"
+            x2="0.4"
+            y2="100"
+            stroke="#fff"
+            strokeWidth="1.5"
+            vectorEffect="non-scaling-stroke"
+            opacity="0.85"
+          />
+        </svg>
 
-        <div className="relative flex items-stretch gap-4 p-3">
+        <div className="relative flex items-stretch gap-4 p-3 pl-9">
           {item.image && (
             <img
               src={item.image}
@@ -55,10 +73,14 @@ function ToastCard({ item }) {
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">
               {item.size} / {item.color}
             </p>
+            <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/90">
+              {count} {count === 1 ? "artículo" : "artículos"} ·{" "}
+              {formatPrice(total)}
+            </p>
             <button
               type="button"
               onClick={handleViewCart}
-              className="btn-sweep mt-auto w-fit bg-black px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white [--sweep:rgb(255_255_255/0.2)]"
+              className="btn-sweep mt-3 w-fit bg-black px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white [--sweep:rgb(255_255_255/0.2)]"
             >
               Ver carrito
             </button>
