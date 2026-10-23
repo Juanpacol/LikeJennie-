@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import CollectionBanner from "../../components/product/CollectionBanner";
 import ProductCard from "../../components/product/ProductCard";
 import { COLLECTIONS } from "../../data/collections";
+import { useHeaderTheme } from "../../utils/useHeaderTheme";
 import { getCatalog } from "../../services/product.service";
 
 function Collection() {
@@ -11,6 +12,9 @@ function Collection() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // El header se funde con el color de la página de la colección.
+  useHeaderTheme(collection?.theme.page, collection?.theme.ink);
 
   useEffect(() => {
     if (!collection) return;

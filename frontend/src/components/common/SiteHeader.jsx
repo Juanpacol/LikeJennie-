@@ -152,7 +152,7 @@ function SiteHeader({ overlay = false, dark = true }) {
   }, []);
 
   const theme = dark
-    ? "border-white/10 text-white"
+    ? "text-[color:var(--header-ink,#fff)]"
     : "border-gray-200 text-black";
   const blur = "border-b backdrop-blur-md";
   const background = dark
