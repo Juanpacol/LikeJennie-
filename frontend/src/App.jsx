@@ -27,10 +27,8 @@ import AdminProductForm from "./pages/admin/ProductForm";
 function AppLayout() {
   const location = useLocation();
   const isLanding = location.pathname === "/";
-  // Catálogo y productos llevan su propio footer revelado (grises cálidos).
-  const isShop =
-    location.pathname === "/catalogo" ||
-    location.pathname.startsWith("/productos/");
+  // El catálogo lleva su propio footer revelado (grises cálidos); el producto, la franja delgada.
+  const isShop = location.pathname === "/catalogo";
   const collectionSlug = location.pathname.match(
     /^\/colecciones\/([^/]+)/,
   )?.[1];

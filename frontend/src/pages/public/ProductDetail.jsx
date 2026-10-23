@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getProductBySlug } from "../../services/product.service";
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
@@ -159,6 +159,16 @@ function ProductDetail() {
           onMouseMove={handleStageMove}
           onMouseLeave={handleStageLeave}
         >
+          {/* Volver a la colección del producto (o a la tienda si no tiene). */}
+          <Link
+            to={
+              collection.slug ? `/colecciones/${collection.slug}` : "/catalogo"
+            }
+            className="absolute left-5 top-5 z-10 border border-white/40 bg-black/50 px-3 py-2.5 font-mono text-[11px] uppercase tracking-[0.25em] text-white backdrop-blur transition hover:border-white hover:bg-white hover:text-black"
+          >
+            ← {collection.slug ? collection.title : "Tienda"}
+          </Link>
+
           {/* Dibujo de la colección, en claro y muy tenue, detrás de la prenda. */}
           <img
             src={art.image}

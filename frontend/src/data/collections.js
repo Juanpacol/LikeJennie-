@@ -154,11 +154,14 @@ export const COLLECTIONS = {
   },
 };
 
-// Colección a la que pertenece un producto (por su nombre), o `ruby` si no encaja en ninguna.
+// Colección a la que pertenece un producto (por su nombre), con su `slug`; `null` en `slug` si no encaja
+// en ninguna (entonces se usan los colores de Ruby).
 export function collectionOfProduct(name) {
   const lower = name.toLowerCase();
-  return (
-    Object.values(COLLECTIONS).find((c) => lower.includes(c.match)) ??
-    COLLECTIONS.ruby
+  const entry = Object.entries(COLLECTIONS).find(([, c]) =>
+    lower.includes(c.match),
   );
+  return entry
+    ? { ...entry[1], slug: entry[0] }
+    : { ...COLLECTIONS.ruby, slug: null };
 }
