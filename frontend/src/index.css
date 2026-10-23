@@ -211,3 +211,10 @@ body {
     animation: none;
   }
 }
+
+/* Panel de compra del detalle de producto: borde izquierdo en diagonal (solo en escritorio, donde va junto a la foto). */
+@media (min-width: 1024px) {
+  .product-panel {
+    clip-path: polygon(5% 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
