@@ -9,21 +9,10 @@ import CartItem from "./CartItem";
 
 const EASE = [0.16, 1, 0.3, 1];
 
-// Borde izquierdo del panel, rasgado como el filo de una hoja: cada punto es [y %, x %]. El panel se
-// recorta con estos puntos (clip-path) y se revela barriendo de derecha a izquierda, como un corte de katana.
+// Borde izquierdo del panel: un único tajo diagonal, recto y limpio (como un corte de katana). Cada
+// punto es [y %, x %]; el panel se recorta con ellos (clip-path) y se revela barriendo de derecha a izquierda.
 const EDGE = [
-  [0, 7],
-  [6, 4],
-  [12, 6.5],
-  [19, 3],
-  [27, 5.5],
-  [35, 2],
-  [44, 4.5],
-  [53, 1.5],
-  [62, 3.5],
-  [71, 1],
-  [80, 2.5],
-  [90, 0.5],
+  [0, 10],
   [100, 0],
 ];
 const polygon = (x) =>
@@ -121,7 +110,7 @@ function CartDrawer() {
             role="dialog"
             aria-modal="true"
             aria-label="Carrito"
-            className="relative isolate flex h-full w-full max-w-md flex-col overflow-hidden bg-accent py-6 pl-10 pr-6 text-white sm:py-8 sm:pl-12 sm:pr-8"
+            className="relative isolate flex h-full w-full max-w-md flex-col overflow-hidden bg-accent py-6 pl-14 pr-6 text-white sm:py-8 sm:pl-16 sm:pr-8"
             initial={{ clipPath: CLOSED }}
             animate={{ clipPath: OPEN }}
             exit={{ clipPath: CLOSED }}
@@ -143,6 +132,24 @@ function CartDrawer() {
               }}
             />
             <span aria-hidden="true" className="drawer-blade" />
+            {/* Filo: línea blanca finísima a lo largo del corte. */}
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              className="pointer-events-none absolute inset-0 h-full w-full"
+            >
+              <line
+                x1="10.4"
+                y1="0"
+                x2="0.4"
+                y2="100"
+                stroke="#fff"
+                strokeWidth="1.5"
+                vectorEffect="non-scaling-stroke"
+                opacity="0.85"
+              />
+            </svg>
             <div className="relative flex items-start justify-between">
               <div>
                 <h2 className="font-condensed text-5xl font-light uppercase leading-none">

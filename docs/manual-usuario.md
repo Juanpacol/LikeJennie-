@@ -65,7 +65,7 @@ Para comprar eliges:
 ### 6. Usar el carrito
 
 1. Al pulsar **Añadir al carrito** aparece, arriba a la derecha, un aviso rojo que aparece con un corte diagonal, con una katana negra cruzando el fondo, la foto del producto, su nombre, la talla y el color; una barra negra marca cuánto falta para que se cierre solo. Pulsa **Ver carrito** para abrir el carrito o la **×** para cerrarlo.
-2. El carrito es un panel lateral rojo que se abre con un corte de katana, con el borde rasgado como una hoja y, al fondo, una foto en silueta fundida con el rojo (con **Escape** lo cierras) y muestra en qué paso vas: carrito, datos o listo. También lo abres con el ícono de **bolsa**; el número rojo indica cuántas prendas llevas.
+2. El carrito es un panel lateral rojo que se abre con un corte de katana, con un borde en diagonal, como un tajo de katana y, al fondo, una foto en silueta fundida con el rojo (con **Escape** lo cierras) y muestra en qué paso vas: carrito, datos o listo. También lo abres con el ícono de **bolsa**; el número rojo indica cuántas prendas llevas.
 3. Para cada producto puedes cambiar la cantidad con **−** y **+**, o quitarlo con **Quitar**.
 4. Abajo verás el **Total**.
 5. Si el carrito está vacío, aparece la palabra «Vacío» y el botón **Ver tienda**.
