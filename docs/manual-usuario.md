@@ -42,7 +42,7 @@ Pulsa la tarjeta de la colección que te interese en la página de inicio (**Fal
 ### 4. Buscar un producto
 
 1. Pulsa la **lupa** del encabezado.
-2. Escribe parte del nombre (por ejemplo, "hoodie"). Aparecen hasta 5 resultados con foto, nombre y precio.
+2. Escribe parte del nombre (por ejemplo, "hoodie"). Aparecen hasta 5 resultados con foto, nombre y precio, en un cuadro oscuro como el de la cuenta. En el celular, el aviso de «añadido al carrito» sale abajo.
 3. Pulsa un resultado para abrir el producto, o **Ver todo el catálogo** para ir a la lista completa.
 4. Para cerrar el buscador pulsa la **×**, haz clic fuera del cuadro o presiona la tecla **Esc**.
 
@@ -81,7 +81,7 @@ Para comprar eliges:
 
 ### 8. Menú en el celular
 
-En pantallas pequeñas el menú de secciones se esconde. Pulsa el botón de **tres rayas** (arriba a la izquierda): se abre un panel lila con **Tienda** (todo el catálogo), **Colecciones** y las redes sociales. Se cierra con la **×**, tocando fuera del panel, con la tecla **Esc** o al elegir una opción.
+En pantallas pequeñas el menú de secciones se esconde. Pulsa el botón de **tres rayas** (arriba a la izquierda): se abre un panel negro con borde rojo con **Tienda** y las tres **colecciones** numeradas, y las redes sociales abajo. Se cierra con la **×**, tocando fuera del panel, con la tecla **Esc** o al elegir una opción.
 
 ### 9. Panel de cuenta
 

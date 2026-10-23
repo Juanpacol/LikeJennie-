@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { COLLECTIONS } from "../../data/collections";
 import SocialDock from "./SocialDock";
 
-const LINK_CLASS = "hover-underline inline-block font-display text-2xl";
+const LINK_CLASS =
+  "group flex items-baseline gap-4 font-condensed text-4xl font-light uppercase leading-none transition-colors hover:text-accent";
 
-// Menú de navegación para pantallas pequeñas: panel lila que entra desde la izquierda, con el
-// estilo del carrito. Se cierra con la ×, tocando fuera, con Escape o al elegir un enlace.
+// Menú de navegación para pantallas pequeñas: panel negro con borde rojo que entra desde la izquierda, con los
+// enlaces numerados en tipografía condensada. Se cierra con la ×, tocando fuera, con Escape o al elegir un enlace.
 // Va en un portal para no quedar atrapado dentro del header (que tiene backdrop-filter).
 function MobileMenu({ onClose }) {
   useEffect(() => {
@@ -24,50 +25,51 @@ function MobileMenu({ onClose }) {
     };
   }, [onClose]);
 
+  const links = [
+    { to: "/catalogo", label: "Tienda", note: "Todo el catálogo" },
+    ...Object.entries(COLLECTIONS).map(([slug, collection]) => ({
+      to: `/colecciones/${slug}`,
+      label: collection.title,
+      note: collection.tagline,
+    })),
+  ];
+
   return createPortal(
     <div className="fixed inset-0 z-50 flex lg:hidden">
       <aside
         role="dialog"
         aria-label="Menú"
         data-lenis-prevent
-        className="relative flex h-full w-[85%] max-w-sm animate-slide-in-left flex-col overflow-y-auto rounded-r-3xl bg-lilac p-6 font-display text-lilac-deep shadow-2xl"
+        className="relative flex h-full w-[88%] max-w-sm animate-slide-in-left flex-col overflow-y-auto border-r-2 border-accent bg-[#0b0b0b] p-6 text-white shadow-2xl"
       >
         <div className="flex items-center justify-between">
-          <p className="font-condensed font-semibold uppercase tracking-[0.06em] text-4xl leading-none">
+          <p className="font-condensed text-4xl font-semibold uppercase leading-none tracking-[0.06em]">
             Ruby.
           </p>
           <button
             type="button"
             onClick={onClose}
             aria-label="Cerrar menú"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-lilac-deep/60 text-lg leading-none transition hover:bg-white/50"
+            className="flex h-10 w-10 items-center justify-center border border-white/30 text-lg leading-none transition hover:bg-white hover:text-black"
           >
             ×
           </button>
         </div>
 
-        <nav className="mt-10">
-          <p className="text-xs uppercase tracking-widest opacity-60">Tienda</p>
-          <ul className="mt-3 space-y-4">
-            <li>
-              <Link to="/catalogo" onClick={onClose} className={LINK_CLASS}>
-                Todo el catálogo
-              </Link>
-            </li>
-          </ul>
-
-          <p className="mt-10 text-xs uppercase tracking-widest opacity-60">
-            Colecciones
-          </p>
-          <ul className="mt-3 space-y-4">
-            {Object.entries(COLLECTIONS).map(([slug, collection]) => (
-              <li key={slug}>
-                <Link
-                  to={`/colecciones/${slug}`}
-                  onClick={onClose}
-                  className={LINK_CLASS}
-                >
-                  {collection.title}
+        <nav className="mt-12">
+          <ul className="space-y-7">
+            {links.map((link, index) => (
+              <li key={link.to}>
+                <Link to={link.to} onClick={onClose} className={LINK_CLASS}>
+                  <span className="font-mono text-[11px] tracking-[0.2em] text-accent">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="flex flex-col gap-1.5">
+                    {link.label}
+                    <span className="font-mono text-[10px] tracking-[0.25em] text-white/50">
+                      {link.note}
+                    </span>
+                  </span>
                 </Link>
               </li>
             ))}
@@ -78,7 +80,7 @@ function MobileMenu({ onClose }) {
       </aside>
 
       <div
-        className="flex-1 bg-black/50"
+        className="flex-1 bg-black/60"
         onClick={onClose}
         aria-hidden="true"
       />

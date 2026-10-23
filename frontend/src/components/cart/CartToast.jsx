@@ -29,7 +29,7 @@ function ToastCard({ item }) {
   return (
     <div
       role="status"
-      className={`fixed right-4 top-24 z-40 w-[24rem] max-w-[calc(100vw-2rem)] ${
+      className={`fixed inset-x-4 bottom-4 z-40 sm:inset-x-auto sm:bottom-auto sm:right-4 sm:top-24 sm:w-[24rem] ${
         leaving ? "animate-toast-out" : ""
       }`}
     >
@@ -67,7 +67,7 @@ function ToastCard({ item }) {
             <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/80">
               Añadido al carrito
             </p>
-            <p className="mt-1.5 truncate font-condensed text-2xl font-light uppercase leading-tight">
+            <p className="mt-1.5 line-clamp-2 font-condensed text-2xl font-light uppercase leading-tight">
               {item.productName}
             </p>
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">
