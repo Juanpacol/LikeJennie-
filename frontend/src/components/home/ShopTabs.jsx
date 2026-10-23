@@ -3,9 +3,16 @@ import { Link } from "react-router-dom";
 import { getCategories } from "../../services/category.service";
 import { getCatalog } from "../../services/product.service";
 import ProductCard from "../product/ProductCard";
-import kneel from "../../assets/cutouts/shop-kneel.webp";
+import stage from "../../assets/cutouts/shop-stage.webp";
 
 const PER_TAB = 4;
+// La foto de contraluz se desvanece en elipse por todos los bordes (sin marcar su rectángulo).
+const STAGE_MASK_IMAGE =
+  "radial-gradient(ellipse 62% 40% at 50% 26%, #000 35%, transparent 100%)";
+const STAGE_MASK = {
+  WebkitMaskImage: STAGE_MASK_IMAGE,
+  maskImage: STAGE_MASK_IMAGE,
+};
 
 // Tienda de la landing con pestañas: Todo y una por categoría, con 4 productos cada una. Carga el
 // catálogo una vez y filtra en el cliente, así cambiar de pestaña no hace peticiones. "Todo" muestra
@@ -50,18 +57,18 @@ function ShopTabs() {
 
   return (
     <section className="relative overflow-hidden bg-black px-6 py-16 text-white">
-      {/* Figura recortada en blanco y negro, a la derecha del título: se ve de la gorra a la cintura y se
-          desvanece justo sobre la línea de las pestañas. Solo en escritorio, donde hay espacio junto al título. */}
+      {/* Foto a contraluz en blanco y negro, a la derecha del título. Su fondo es casi negro, así que se mezcla con
+          la sección (screen) y una máscara radial la desvanece por todos los bordes. Solo en escritorio. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-[5%] top-0 hidden h-[14.25rem] w-[24rem] overflow-hidden lg:block [mask-image:linear-gradient(to_bottom,#000_62%,transparent)]"
+        className="pointer-events-none absolute right-[7%] top-0 hidden h-[14.25rem] w-[22rem] overflow-hidden lg:block"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(closest-side_at_58%_48%,rgba(255,255,255,0.2),transparent)]" />
         <img
-          src={kneel}
+          src={stage}
           alt=""
           loading="lazy"
-          className="shop-kneel absolute right-8 top-6 h-[27rem] w-auto max-w-none"
+          className="shop-kneel absolute -top-6 right-12 h-[28rem] w-auto max-w-none mix-blend-screen [filter:brightness(0.9)_contrast(1.3)]"
+          style={{ ...STAGE_MASK }}
         />
       </div>
       <div className="relative mx-auto max-w-6xl">
