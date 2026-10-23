@@ -9,7 +9,7 @@ const YEAR = new Date().getFullYear();
 // revelado, es solo de la landing. `dark` elige el tema, igual que el SiteHeader.
 function SlimFooter({ dark = true }) {
   const theme = dark
-    ? "border-white/10 bg-black text-white"
+    ? "border-white/10 bg-[var(--stage-color,#000)] text-white"
     : "border-gray-200 bg-white text-black";
   const linkClass =
     "hover-underline font-display text-xs uppercase tracking-widest opacity-70 transition hover:opacity-100";
