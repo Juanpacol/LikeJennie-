@@ -131,11 +131,16 @@ function CollectionBanner({ collection, count }) {
           <p className="animate-fade-up mt-6 max-w-md font-display text-sm opacity-80 [animation-delay:160ms] sm:text-base">
             {collection.description}
           </p>
-          <div className="animate-fade-up mt-8 flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.3em] [animation-delay:240ms]">
-            <span className="h-px w-16" style={{ backgroundColor: accent }} />
-            {collection.phrase}
+          <div className="animate-fade-up mt-8 flex flex-col gap-2 font-mono text-[11px] uppercase tracking-[0.3em] [animation-delay:240ms] sm:flex-row sm:items-center sm:gap-4">
+            <span
+              className="h-px w-16 sm:w-16"
+              style={{ backgroundColor: accent }}
+            />
+            <span>{collection.phrase}</span>
             {count != null && (
-              <span className="opacity-60">· {count} piezas</span>
+              <span className="opacity-60 sm:before:content-['·_']">
+                {count} piezas
+              </span>
             )}
           </div>
         </div>

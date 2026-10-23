@@ -14,7 +14,8 @@ function FilterBar({ categories, selected, onSelect, total }) {
 
   return (
     <div className="mt-12 flex items-end justify-between gap-6 border-t border-white/20 pt-5">
-      <div className="no-scrollbar flex gap-6 overflow-x-auto">
+      {/* En móvil la fila de filtros se desliza de lado: un degradado a la derecha avisa de que hay más. */}
+      <div className="no-scrollbar flex min-w-0 gap-6 overflow-x-auto pr-8 [mask-image:linear-gradient(to_right,#000_85%,transparent)] sm:pr-0 sm:[mask-image:none]">
         <button
           type="button"
           onClick={() => onSelect(null)}

@@ -31,7 +31,7 @@ Al entrar verás, de arriba abajo:
 
 1. Pulsa **Tienda** en el menú, **Ver tienda** en la portada, o **Ver todo** en la sección **Be unique**.
 2. Verás el título **Catálogo** en grande y, debajo, todos los productos con su foto, nombre y precio; cada foto lleva un número.
-3. Para ver solo un tipo de prenda, pulsa una categoría (**Ropa**, **Abrigos**, **Accesorios** o **Música**) arriba de la lista; a la derecha verás cuántas piezas hay. **Todo** vuelve a mostrar todo.
+3. Para ver solo un tipo de prenda (en el celular, la fila de filtros se desliza de lado y un degradado avisa de que hay más), pulsa una categoría (**Ropa**, **Abrigos**, **Accesorios** o **Música**) arriba de la lista; a la derecha verás cuántas piezas hay. **Todo** vuelve a mostrar todo.
 4. Si un producto tiene precio de oferta, verás el precio original tachado, el nuevo en rojo y una etiqueta con el porcentaje de descuento sobre la foto.
 5. Los productos sin existencias muestran la etiqueta **Agotado**.
 
