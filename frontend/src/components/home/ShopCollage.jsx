@@ -54,12 +54,12 @@ const COLLAGE = [
   },
 ];
 
-// Retrato de la derecha, junto al título de las FAQs (recorte sin el texto del afiche original): llena el hueco
-// que queda a la derecha de «FAQs» y mira hacia el interior de la página.
+// Retrato de la derecha, junto al título «Be unique» (recorte sin el texto del afiche original): llena el hueco
+// negro que queda a la derecha del título y mira hacia el interior de la página.
 const SIDE_PIECE = {
   src: typa,
   className:
-    "right-[3%] top-[71.5%] w-[15%] rotate-[3deg] shadow-[0_26px_40px_rgba(0,0,0,0.7)]",
+    "right-[4.5%] top-[1.8%] w-[12%] rotate-[3deg] shadow-[0_26px_40px_rgba(0,0,0,0.7)]",
   delay: "1.1s",
 };
 
@@ -103,7 +103,7 @@ function ShopCollage({ children }) {
           style={{ "--piece-delay": SIDE_PIECE.delay }}
         />
         <span
-          className="shop-piece absolute right-[14.5%] top-[71%] z-10 h-6 w-20 rotate-[-12deg] bg-accent/90 shadow-md"
+          className="shop-piece absolute right-[13%] top-[1.4%] z-10 h-6 w-20 rotate-[-12deg] bg-accent/90 shadow-md"
           style={{ "--piece-delay": "1.2s" }}
         />
         <div className="mx-auto grid h-full max-w-7xl gap-12 lg:grid-cols-[5fr_7fr]">
