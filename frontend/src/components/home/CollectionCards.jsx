@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { COLLECTIONS } from "../../data/collections";
 
@@ -6,6 +7,33 @@ import { COLLECTIONS } from "../../data/collections";
 // o la de su banda (`image`), fundida con el color de la colección. Al pasar el mouse, la foto hace
 // zoom y sube su frase y el botón.
 function CollectionCards() {
+  const listRef = useRef(null);
+  const [active, setActive] = useState(0);
+  const slugs = Object.keys(COLLECTIONS);
+
+  // Móvil: la tarjeta activa es la más cercana al borde izquierdo de la lista (alimenta los puntos).
+  function handleScroll(event) {
+    const list = event.currentTarget;
+    const card = list.firstElementChild;
+    if (!card) return;
+    setActive(
+      Math.min(
+        slugs.length - 1,
+        Math.round(list.scrollLeft / (card.offsetWidth + 16)),
+      ),
+    );
+  }
+
+  // Puntos de la lista en móvil: llevan a la tarjeta correspondiente.
+  function goTo(index) {
+    const list = listRef.current;
+    const card = list?.children[index];
+    if (!card) return;
+    const offset =
+      card.getBoundingClientRect().left - list.getBoundingClientRect().left;
+    list.scrollTo({ left: list.scrollLeft + offset - 24, behavior: "smooth" });
+  }
+
   return (
     <section className="bg-black px-6 py-16 text-white">
       <div className="mx-auto max-w-6xl">
@@ -16,7 +44,11 @@ function CollectionCards() {
           Colecciones
         </h2>
 
-        <ul className="no-scrollbar -mx-6 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0">
+        <ul
+          ref={listRef}
+          onScroll={handleScroll}
+          className="no-scrollbar -mx-6 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0"
+        >
           {Object.entries(COLLECTIONS).map(([slug, collection]) => {
             const { page, ink, accent, onAccent } = collection.theme;
             const image = collection.bannerImage ?? collection.image;
@@ -91,6 +123,27 @@ function CollectionCards() {
             );
           })}
         </ul>
+
+        {/* Móvil: puntos con la tarjeta activa y una pista para deslizar. */}
+        <div className="mt-6 flex items-center justify-between md:hidden">
+          <div className="flex gap-2">
+            {slugs.map((slug, index) => (
+              <button
+                key={slug}
+                type="button"
+                onClick={() => goTo(index)}
+                aria-label={`Ver ${COLLECTIONS[slug].title}`}
+                aria-current={index === active}
+                className={`h-1.5 transition-all duration-300 ${
+                  index === active ? "w-8 bg-accent" : "w-3 bg-white/30"
+                }`}
+              />
+            ))}
+          </div>
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/50">
+            Desliza →
+          </p>
+        </div>
       </div>
     </section>
   );
