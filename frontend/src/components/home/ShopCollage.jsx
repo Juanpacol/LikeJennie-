@@ -184,22 +184,6 @@ const PIECES = [
     speed: -40,
     delay: "0.7s",
   },
-  {
-    src: star,
-    side: true,
-    pos: "right-[3%] top-[70.5%] w-[17%]",
-    look: `rotate-[3deg] ${SHADOW}`,
-    speed: 50,
-    delay: "1.1s",
-    tape: "-top-3 left-[12%] -rotate-[12deg]",
-  },
-  {
-    id: "faq-star",
-    side: true,
-    node: <Star className="h-full w-full" />,
-    pos: "right-[19%] top-[83%] w-[5%]",
-    speed: -40,
-  },
 ];
 
 // Una pieza: el contenedor se mueve con el scroll (parallax) y la foto se endereza y crece al pasar el mouse.
@@ -282,6 +266,24 @@ function ShopCollage({ children }) {
 
   return (
     <div ref={ref} className="relative overflow-hidden bg-black">
+      {/* Afiche de la estrella roja como ambiente detrás de las FAQs: se mezcla con el negro (screen) y se
+          desvanece por arriba, por abajo y por los lados, para no restar legibilidad al texto. */}
+      <img
+        src={star}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="shop-piece pointer-events-none absolute bottom-[1%] right-[2%] hidden h-[36%] w-[40%] object-cover object-[50%_30%] opacity-50 mix-blend-screen lg:block"
+        style={{
+          WebkitMaskImage:
+            "linear-gradient(to top, transparent, #000 25%, #000 65%, transparent), linear-gradient(to right, transparent, #000 35%, #000 65%, transparent)",
+          WebkitMaskComposite: "source-in",
+          maskImage:
+            "linear-gradient(to top, transparent, #000 25%, #000 65%, transparent), linear-gradient(to right, transparent, #000 35%, #000 65%, transparent)",
+          maskComposite: "intersect",
+          "--piece-delay": "0.2s",
+        }}
+      />
       <Layer
         side={false}
         front={false}
