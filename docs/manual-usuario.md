@@ -64,7 +64,7 @@ Para comprar eliges:
 
 ### 6. Usar el carrito
 
-1. Al pulsar **Añadir al carrito** aparece, arriba a la derecha, un aviso con la foto del producto, su nombre, la talla y el color. Pulsa **Ver carrito** para abrir el carrito, o cierra el aviso con la **×**; si no haces nada, se cierra solo a los 4 segundos.
+1. Al pulsar **Añadir al carrito** aparece, arriba a la derecha, un aviso negro con la foto del producto, su nombre, la talla y el color; una barra roja marca cuánto falta para que se cierre solo. Pulsa **Ver carrito** para abrir el carrito o la **×** para cerrarlo.
 2. El carrito es un panel lateral negro que se desliza desde la derecha (con **Escape** lo cierras) y muestra en qué paso vas: carrito, datos o listo. También lo abres con el ícono de **bolsa**; el número rojo indica cuántas prendas llevas.
 3. Para cada producto puedes cambiar la cantidad con **−** y **+**, o quitarlo con **Quitar**.
 4. Abajo verás el **Total**.
