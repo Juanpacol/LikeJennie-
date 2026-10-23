@@ -1,3 +1,6 @@
+import artLily from "../assets/art-lily.jpg";
+import artKanji from "../assets/art-kanji.jpg";
+import artKatana from "../assets/katana.jpg";
 import fallenAngelCover from "../assets/fallen-angel-cover.jpg";
 import fallenAngelFooter from "../assets/fallen-angel-footer.jpg";
 import fallenAngelField from "../assets/fallen-angel-field.jpg";
@@ -17,6 +20,9 @@ import rubyCover from "../assets/ruby-cover.jpg";
 // navegador cuando el de `page` no se distingue (p. ej. una colección en negro). `image` (opcional) = foto de la banda en la home, con `imageSide` ("left"|"right", por defecto right)
 // `footer`: `images` (opcional, dos fotos: izquierda y derecha) en lugar de `image`; paleta (bg, ink, muted), frase (tagline) y foto (image; si falta se usa `image`) del footer
 // de su página.
+// `art` (opcional) = dibujo decorativo de fondo de la cabecera: `blend` "ink" (se invierte y se multiplica: la figura queda
+// en tinta oscura sobre el color de la página) o "light" (se suma con screen: figura clara sobre página oscura);
+// `position` = clases de posición y alto.
 // `secondImage` (opcional) = segunda foto, más pequeña, que se muestra arriba a la izquierda de la cabecera.
 // `bannerImage` (opcional) = foto de la cabecera de su página; si falta se usa `image`, con `bannerPosition`
 // (qué parte queda visible). `imageWidth` (px máximos de ancho) e `imagePosition` (qué parte de la foto queda visible).
@@ -32,6 +38,11 @@ export const COLLECTIONS = {
     imageWidth: 680,
     imagePosition: "50% 0%",
     secondImage: fallenAngelField,
+    art: {
+      image: artLily,
+      blend: "ink",
+      position: "left-[22%] bottom-0 h-[84%]",
+    },
     footer: {
       image: fallenAngelFooter,
       bg: "#24102F",
@@ -58,6 +69,11 @@ export const COLLECTIONS = {
     imageSide: "left",
     imageWidth: 560,
     imagePosition: "50% 15%",
+    art: {
+      image: artKanji,
+      blend: "ink",
+      position: "left-[4%] bottom-[8%] h-[78%]",
+    },
     footer: {
       images: [
         { src: hariboFooterA, position: "50% 30%" },
@@ -89,6 +105,11 @@ export const COLLECTIONS = {
     imageWidth: 480,
     imagePosition: "50% 42%",
     divider: true,
+    art: {
+      image: artKatana,
+      blend: "light",
+      position: "left-[-2%] bottom-0 h-[110%]",
+    },
     footer: {
       image: rubyFooter,
       position: "50% 25%",
