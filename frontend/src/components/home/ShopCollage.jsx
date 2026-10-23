@@ -5,7 +5,7 @@ import {
   useScroll,
   useTransform,
 } from "motion/react";
-import eyes from "../../assets/cutouts/shop-eyes.webp";
+import rubia from "../../assets/cutouts/shop-rubia.webp";
 import zineA from "../../assets/cutouts/shop-zine-a.webp";
 import zineB from "../../assets/cutouts/shop-zine-b.webp";
 import face from "../../assets/cutouts/shop-face.webp";
@@ -116,9 +116,9 @@ const PIECES = [
     tape: "-top-3 left-[7%] -rotate-[38deg]",
   },
   {
-    src: eyes,
-    pos: "left-[1%] top-[27.5%] w-[27%]",
-    look: `-rotate-[5deg] opacity-90 ${SHADOW}`,
+    src: rubia,
+    pos: "left-[1%] top-[27%] w-[31%]",
+    look: `-rotate-[5deg] ${SHADOW}`,
     speed: -50,
     delay: "0.55s",
   },
