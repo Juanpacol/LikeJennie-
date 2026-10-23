@@ -75,9 +75,11 @@ Para comprar eliges:
 
 1. En el carrito pulsa **Finalizar compra**.
 2. Escribe tu **nombre** y tu **email**.
-3. Pulsa **Confirmar pedido**.
-4. Si todo sale bien verás **¡Pedido confirmado!** con una frase de bienvenida, y el carrito queda vacío. El pedido descuenta las existencias.
-5. Si alguna prenda ya no tiene existencias suficientes, verás un aviso en rojo; vuelve al carrito con **Volver al carrito** y ajusta la cantidad.
+3. Pulsa **Pagar con tarjeta**: te llevamos a la página de pago de Stripe.
+4. Esta tienda funciona en **modo de prueba**: no se cobra dinero real. Paga con la tarjeta de prueba **4242 4242 4242 4242**, cualquier fecha futura y cualquier CVC de 3 números.
+5. Si el pago se aprueba verás **Pedido confirmado**, el carrito queda vacío y las existencias se descuentan.
+6. Si cancelas en la página de pago, verás **No se cobró nada** y tu carrito se conserva para reintentar.
+7. Si alguna prenda ya no tiene existencias suficientes, verás un aviso en rojo; vuelve al carrito con **Volver al carrito** y ajusta la cantidad.
 
 ### 8. Menú en el celular
 
