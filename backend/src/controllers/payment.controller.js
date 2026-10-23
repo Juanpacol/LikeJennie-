@@ -7,4 +7,10 @@ const checkout = asyncHandler(async (req, res) => {
   ok(res, session, 201);
 });
 
-module.exports = { checkout };
+// Recibe el cuerpo crudo (Buffer) que Stripe firmó; por eso la ruta usa express.raw.
+const webhook = asyncHandler(async (req, res) => {
+  const result = await paymentService.handleWebhook(req.body, req.headers["stripe-signature"]);
+  ok(res, result);
+});
+
+module.exports = { checkout, webhook };

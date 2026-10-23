@@ -1,5 +1,6 @@
 const stripe = require("../config/stripe");
 const orderService = require("./order.service");
+const orderRepo = require("../repositories/order.repository");
 const { BadRequestError } = require("../utils/errors");
 
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
@@ -39,4 +40,29 @@ async function createCheckoutSession({ customerName, customerEmail, items }) {
   return { url: session.url, orderId: order.id };
 }
 
-module.exports = { createCheckoutSession };
+// Verifica la firma del webhook (Stripe firma cada evento con STRIPE_WEBHOOK_SECRET) y actúa:
+// pago completado -> orden COMPLETED y stock descontado; sesión caducada -> orden CANCELLED.
+async function handleWebhook(rawBody, signature) {
+  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  if (!stripe || !secret) throw new BadRequestError("Webhook no configurado");
+
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(rawBody, signature, secret);
+  } catch {
+    throw new BadRequestError("Firma del webhook inválida");
+  }
+
+  const session = event.data.object;
+  const orderId = session.metadata?.orderId;
+
+  if (event.type === "checkout.session.completed" && session.payment_status === "paid" && orderId) {
+    await orderRepo.completeWithStock(orderId);
+  } else if (event.type === "checkout.session.expired" && orderId) {
+    await orderRepo.cancelIfPending(orderId);
+  }
+
+  return { received: true };
+}
+
+module.exports = { createCheckoutSession, handleWebhook };
