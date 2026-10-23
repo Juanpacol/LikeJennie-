@@ -60,7 +60,7 @@ Para comprar eliges:
 1. **Talla** (y **color**, si el producto tiene más de uno). Las tallas sin existencias aparecen tachadas y no se pueden elegir.
 2. Si la combinación elegida no tiene existencias, aparecerá **Agotado en esta combinación**; si quedan pocas, **¡Últimas N unidades!**.
 3. La **cantidad**, con **−** y **+**.
-4. Pulsa **Añadir al carrito**. El panel de compra toma los colores de la colección del producto (rojo para Ruby, lila para Fallen Angel, amarillo para Haribo) y su dibujo de fondo (katana, lirio o kanji); sus elementos aparecen en cascada y, al cambiar de talla, la línea se desliza hasta la nueva. El header y el fondo de la foto también cambian al color de la colección. Arriba a la izquierda de la foto, la **katana** con el nombre de la colección te devuelve a ella; al pasar el mouse se desenvaina.
+4. Pulsa **Añadir al carrito**. El panel de compra toma los colores de la colección del producto (rojo para Ruby, lila para Fallen Angel, amarillo para Haribo) y su dibujo de fondo (katana, lirio o kanji); sus elementos aparecen en cascada y, al cambiar de talla, la línea se desliza hasta la nueva. El header y el fondo de la foto también cambian al color de la colección. Arriba a la izquierda de la foto, la flecha con el nombre de la colección te devuelve a ella.
 5. **Más abajo** hay una zona clara con la descripción, desplegables de **Detalles, Envío y Cuidado** y otros productos de la misma colección.
 
 ### 6. Usar el carrito

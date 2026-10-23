@@ -5,7 +5,7 @@ import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
 import { collectionOfProduct } from "../../data/collections";
 import ImageLightbox from "../../components/product/ImageLightbox";
-import KatanaBack from "../../components/product/KatanaBack";
+import BackLink from "../../components/product/BackLink";
 import ProductInfo from "../../components/product/ProductInfo";
 import VariantSelector from "../../components/product/VariantSelector";
 
@@ -160,13 +160,12 @@ function ProductDetail() {
           onMouseMove={handleStageMove}
           onMouseLeave={handleStageLeave}
         >
-          {/* Volver a la colección del producto (o a la tienda si no tiene), como una katana. */}
-          <KatanaBack
+          {/* Volver a la colección del producto (o a la tienda si no tiene). */}
+          <BackLink
             to={
               collection.slug ? `/colecciones/${collection.slug}` : "/catalogo"
             }
             label={collection.slug ? collection.title : "Tienda"}
-            accent={panel.bg}
           />
 
           {/* Dibujo de la colección, en claro y muy tenue, detrás de la prenda. */}
