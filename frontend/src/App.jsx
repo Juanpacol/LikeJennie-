@@ -43,7 +43,7 @@ function AppLayout() {
 
   return (
     <div
-      className={`relative flex min-h-screen flex-col ${isDarkRoute ? "bg-black" : ""}`}
+      className={`relative flex min-h-screen flex-col ${isDarkRoute ? "bg-[var(--stage-color,#000)]" : ""}`}
     >
       <SiteHeader overlay={isLanding} dark={isDarkRoute} />
       <main

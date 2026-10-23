@@ -157,8 +157,8 @@ function SiteHeader({ overlay = false, dark = true }) {
   const blur = "border-b backdrop-blur-md";
   const background = dark
     ? scrolled
-      ? "bg-black/85"
-      : "bg-black/60"
+      ? "header-tint-strong"
+      : "header-tint"
     : scrolled
       ? "bg-white/95"
       : "bg-white/80";

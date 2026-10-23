@@ -20,6 +20,17 @@ function ProductDetail() {
   // Foto activa: en escritorio la elige el mouse al recorrer la foto; en móvil, el deslizamiento.
   const [activeIndex, setActiveIndex] = useState(0);
   const stripRef = useRef(null);
+  const stageColor = product
+    ? collectionOfProduct(product.name).panel.stage
+    : null;
+
+  // Publica el color de la colección para que el header y el fondo de la página lo usen mientras se ve el producto.
+  useEffect(() => {
+    if (!stageColor) return undefined;
+    const root = document.documentElement;
+    root.style.setProperty("--stage-color", stageColor);
+    return () => root.style.removeProperty("--stage-color");
+  }, [stageColor]);
 
   useEffect(() => {
     setLoading(true);
@@ -136,7 +147,10 @@ function ProductDetail() {
   return (
     <section className="text-white">
       {/* Galería a pantalla completa con la columna de compra a la derecha. */}
-      <div className="lg:grid lg:h-[calc(100vh-127px)] lg:min-h-[620px] lg:grid-cols-[1fr_29rem]">
+      <div
+        className="lg:grid lg:h-[calc(100vh-127px)] lg:min-h-[620px] lg:grid-cols-[1fr_29rem]"
+        style={{ backgroundColor: panel.stage }}
+      >
         <div
           className="relative isolate h-[68vh] overflow-hidden lg:h-full"
           style={{ backgroundColor: panel.stage }}

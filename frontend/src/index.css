@@ -246,3 +246,12 @@ body {
     animation: none;
   }
 }
+
+/* Header de las páginas oscuras: negro, o el color de la colección cuando el producto lo publica en --stage-color. */
+.header-tint {
+  background-color: color-mix(in srgb, var(--stage-color, #000) 60%, transparent);
+}
+
+.header-tint-strong {
+  background-color: color-mix(in srgb, var(--stage-color, #000) 85%, transparent);
+}
