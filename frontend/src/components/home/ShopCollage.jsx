@@ -1,3 +1,10 @@
+import { useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import eyes from "../../assets/cutouts/shop-eyes.webp";
 import zineA from "../../assets/cutouts/shop-zine-a.webp";
 import zineB from "../../assets/cutouts/shop-zine-b.webp";
@@ -6,79 +13,150 @@ import poster from "../../assets/cutouts/shop-poster.webp";
 import halo from "../../assets/cutouts/shop-halo.webp";
 import typa from "../../assets/cutouts/shop-typa.webp";
 
-// Collage de la columna izquierda (solo escritorio), todo en blanco y negro de alto contraste (estilo fotocopia),
-// repartido a lo largo de TODO el alto del bloque (tienda + FAQs). Las posiciones son porcentajes de ese alto y
-// cada pieza se coloca según su postura: el afiche de la cadena arriba, mirando hacia la derecha; la cara recortada
-// ocupa el hueco a la derecha del título «Be unique», mirando hacia el interior; el retrato del brazo en alto baja por el costado; los ojos
-// lo cruzan; la rubia de ojos rojos ocupa el medio, de frente; y la figura agachada, volteada, estira el brazo
-// hacia las preguntas desde abajo. `delay` escalona su entrada.
-const COLLAGE = [
+const SHADOW = "shadow-[0_26px_40px_rgba(0,0,0,0.65)]";
+
+// Piezas del collage (solo escritorio), todas en blanco y negro de alto contraste (estilo fotocopia).
+// `pos`: posición y ancho como porcentajes del bloque entero (tienda + FAQs) o, con `side`, de todo su ancho.
+// `look`: giro, sombra y marco. `speed`: cuántos px se desplaza la pieza a lo largo del scroll del bloque (las
+// de `front` van delante de los productos y se mueven más, así hay profundidad). `tape`: cinta roja pegada a la
+// pieza (se mueve con ella). Los tamaños varían a propósito: el afiche de la cadena es enorme y se sale del
+// borde, y el retrato del brazo en alto se monta sobre la primera tarjeta de producto.
+const PIECES = [
   {
     src: poster,
-    className:
-      "left-[0%] top-[1%] w-[94%] -rotate-[2.5deg] shadow-[0_26px_40px_rgba(0,0,0,0.65)]",
+    pos: "-left-[9%] top-[0.6%] w-[112%]",
+    look: `-rotate-[2.5deg] ${SHADOW}`,
+    speed: 60,
     delay: "0.2s",
-  },
-  {
-    src: zineA,
-    className:
-      "left-[2%] top-[21%] w-[44%] rotate-[3deg] border border-white/25 shadow-[0_26px_40px_rgba(0,0,0,0.7)]",
-    delay: "0.4s",
+    tape: "-top-3 left-[7%] -rotate-[38deg]",
   },
   {
     src: eyes,
-    className:
-      "right-[1%] top-[27%] w-[40%] rotate-[4deg] opacity-90 shadow-[0_22px_34px_rgba(0,0,0,0.65)]",
+    pos: "left-[1%] top-[27.5%] w-[27%]",
+    look: `-rotate-[5deg] opacity-90 ${SHADOW}`,
+    speed: -50,
     delay: "0.55s",
   },
   {
+    src: zineA,
+    pos: "left-[72%] top-[20%] w-[36%]",
+    look: `rotate-[5deg] border border-white/25 shadow-[0_30px_50px_rgba(0,0,0,0.8)]`,
+    speed: -140,
+    delay: "0.4s",
+    front: true,
+    tape: "-top-3 left-[30%] rotate-[8deg]",
+  },
+  {
     src: halo,
-    className:
-      "left-[12%] top-[46%] w-[70%] -rotate-[2deg] shadow-[0_26px_40px_rgba(0,0,0,0.7)]",
+    pos: "left-[8%] top-[45%] w-[80%]",
+    look: `-rotate-[2deg] ${SHADOW}`,
+    speed: 90,
     delay: "0.85s",
+    tape: "-top-3 right-[8%] -rotate-[22deg]",
   },
   {
     src: zineB,
-    className:
-      "left-[6%] top-[68%] w-[58%] -scale-x-100 rotate-[4deg] shadow-[0_26px_40px_rgba(0,0,0,0.65)]",
+    pos: "-left-[4%] top-[67%] w-[56%]",
+    look: `-scale-x-100 rotate-[4deg] ${SHADOW}`,
+    speed: -70,
     delay: "1s",
   },
-];
-
-// Cara recortada en el hueco negro a la derecha del título «Be unique», mirando hacia el interior. Va fuera de la
-// columna del collage: su posición es relativa a todo el bloque.
-const FACE_PIECE = {
-  src: face,
-  className: "right-[6%] top-[0.8%] h-[14%] w-auto max-w-none",
-  style: {
-    WebkitMaskImage: "linear-gradient(to bottom, #000 60%, transparent)",
-    maskImage: "linear-gradient(to bottom, #000 60%, transparent)",
+  // Fuera de la columna (posición respecto a todo el ancho del bloque): llenan los huecos a la derecha de los
+  // títulos. La cara recortada mira hacia el interior desde la derecha de «Be unique»; el retrato claro se
+  // pega a la derecha de «FAQs».
+  {
+    src: face,
+    side: true,
+    pos: "right-[6%] top-[0.8%] h-[14%]",
+    look: "w-auto max-w-none [mask-image:linear-gradient(to_bottom,#000_60%,transparent)]",
+    speed: -40,
+    delay: "0.7s",
   },
-  delay: "0.7s",
-};
-
-// Retrato de la derecha, junto al título de las FAQs (recorte sin el texto del afiche original): llena el hueco
-// que queda a la derecha de «FAQs» y mira hacia el interior de la página.
-const SIDE_PIECE = {
-  src: typa,
-  className:
-    "right-[3%] top-[71.5%] w-[15%] rotate-[3deg] shadow-[0_26px_40px_rgba(0,0,0,0.7)]",
-  delay: "1.1s",
-};
-
-// Cintas rojas pegadas en las esquinas de las piezas (color de acento de la marca).
-const TAPES = [
-  "left-[-2%] top-[0.8%] -rotate-[38deg]",
-  "left-[26%] top-[20.2%] rotate-[8deg]",
-  "right-[6%] top-[46%] -rotate-[22deg]",
-  "right-[10%] top-[67.5%] rotate-[14deg]",
+  {
+    src: typa,
+    side: true,
+    pos: "right-[3%] top-[71.5%] w-[15%]",
+    look: `rotate-[3deg] ${SHADOW}`,
+    speed: 50,
+    delay: "1.1s",
+    tape: "-top-3 left-[10%] -rotate-[12deg]",
+  },
 ];
+
+// Una pieza: el contenedor se mueve con el scroll (parallax) y la foto se endereza y crece al pasar el mouse.
+function Piece({ piece, progress, reduced }) {
+  const y = useTransform(
+    progress,
+    [0, 1],
+    reduced ? [0, 0] : [piece.speed, -piece.speed],
+  );
+  return (
+    <motion.div className={`absolute ${piece.pos}`} style={{ y }}>
+      <motion.div
+        className="pointer-events-auto relative h-full w-full"
+        whileHover={reduced ? undefined : { scale: 1.05, rotate: 0, zIndex: 5 }}
+        transition={{ type: "spring", stiffness: 260, damping: 22 }}
+      >
+        <img
+          src={piece.src}
+          alt=""
+          loading="lazy"
+          className={`shop-piece block h-full w-full object-cover ${piece.look}`}
+          style={{ "--piece-delay": piece.delay }}
+        />
+        {piece.tape && (
+          <span
+            className={`shop-piece absolute z-10 h-6 w-20 bg-accent/90 shadow-md ${piece.tape}`}
+            style={{ "--piece-delay": "0.9s" }}
+          />
+        )}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// Capa de piezas: `side` pone las que están fuera de la columna; `front` elige si van detrás o delante del contenido.
+function Layer({ side, front, progress, reduced }) {
+  const pieces = PIECES.filter(
+    (p) => Boolean(p.side) === side && Boolean(p.front) === front,
+  );
+  if (pieces.length === 0) return null;
+  const inner = pieces.map((piece) => (
+    <Piece
+      key={piece.src}
+      piece={piece}
+      progress={progress}
+      reduced={reduced}
+    />
+  ));
+  return (
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-0 hidden px-10 lg:block ${front ? "z-20" : "z-0"}`}
+    >
+      {side ? (
+        inner
+      ) : (
+        <div className="mx-auto grid h-full max-w-7xl gap-12 lg:grid-cols-[5fr_7fr]">
+          <div className="relative h-full">{inner}</div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 // Bloque de la tienda de la home: envuelve "Be unique" (ShopTabs) y las FAQs, y dibuja a la izquierda un collage
-// que cubre todo el alto de ambas secciones, para que ninguna quede vacía. En móvil no se muestra el collage.
+// que cubre todo el alto de ambas secciones y se mueve con el scroll. En móvil no se muestra el collage.
 function ShopCollage({ children }) {
+  const ref = useRef(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
   return (
-    <div className="relative overflow-hidden bg-black">
+    <div ref={ref} className="relative overflow-hidden bg-black">
       {/* Banda ancha con los ojos, muy tenue, que cierra el bloque por abajo. */}
       <img
         src={eyes}
@@ -94,51 +172,20 @@ function ShopCollage({ children }) {
           "--piece-delay": "0.2s",
         }}
       />
+      <Layer
+        side={false}
+        front={false}
+        progress={scrollYProgress}
+        reduced={reduced}
+      />
+      <Layer side front={false} progress={scrollYProgress} reduced={reduced} />
+      <div className="relative z-10">{children}</div>
+      <Layer side={false} front progress={scrollYProgress} reduced={reduced} />
+      {/* Grano de fotocopia sobre todo el bloque. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden px-10 lg:block"
-      >
-        <img
-          src={FACE_PIECE.src}
-          alt=""
-          loading="lazy"
-          className={`shop-piece absolute ${FACE_PIECE.className}`}
-          style={{ ...FACE_PIECE.style, "--piece-delay": FACE_PIECE.delay }}
-        />
-        <img
-          src={SIDE_PIECE.src}
-          alt=""
-          loading="lazy"
-          className={`shop-piece absolute ${SIDE_PIECE.className}`}
-          style={{ "--piece-delay": SIDE_PIECE.delay }}
-        />
-        <span
-          className="shop-piece absolute right-[14.5%] top-[71%] z-10 h-6 w-20 rotate-[-12deg] bg-accent/90 shadow-md"
-          style={{ "--piece-delay": "1.2s" }}
-        />
-        <div className="mx-auto grid h-full max-w-7xl gap-12 lg:grid-cols-[5fr_7fr]">
-          <div className="relative h-full">
-            {COLLAGE.map((piece) => (
-              <img
-                key={piece.src}
-                src={piece.src}
-                alt=""
-                loading="lazy"
-                className={`shop-piece absolute ${piece.className}`}
-                style={{ ...piece.style, "--piece-delay": piece.delay }}
-              />
-            ))}
-            {TAPES.map((position) => (
-              <span
-                key={position}
-                className={`shop-piece absolute z-10 h-6 w-20 bg-accent/90 shadow-md ${position}`}
-                style={{ "--piece-delay": "0.9s" }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="relative z-10">{children}</div>
+        className="shop-grain pointer-events-none absolute inset-0 z-30 hidden mix-blend-overlay lg:block"
+      />
     </div>
   );
 }
