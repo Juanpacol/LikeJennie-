@@ -16,7 +16,7 @@ function CartItem({ item, index = 0 }) {
       <img
         src={item.image}
         alt={item.productName}
-        className="h-28 w-[5.5rem] shrink-0 bg-black/30 object-cover ring-1 ring-black/40"
+        className="h-32 w-24 shrink-0 bg-[#141414] object-contain p-1.5 ring-1 ring-black/50"
       />
 
       <div className="flex flex-1 flex-col">

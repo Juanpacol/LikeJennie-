@@ -60,7 +60,7 @@ function ToastCard({ item }) {
             <img
               src={item.image}
               alt=""
-              className="h-20 w-16 shrink-0 bg-black/30 object-cover ring-1 ring-black/40"
+              className="h-24 w-[4.5rem] shrink-0 bg-[#141414] object-contain p-1 ring-1 ring-black/50"
             />
           )}
           <div className="flex min-w-0 flex-1 flex-col">
