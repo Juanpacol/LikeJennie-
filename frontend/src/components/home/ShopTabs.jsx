@@ -3,46 +3,48 @@ import { Link } from "react-router-dom";
 import { getCategories } from "../../services/category.service";
 import { getCatalog } from "../../services/product.service";
 import ProductCard from "../product/ProductCard";
-import stage from "../../assets/cutouts/shop-stage.webp";
 import eyes from "../../assets/cutouts/shop-eyes.webp";
 import portrait from "../../assets/cutouts/shop-portrait.webp";
 import face from "../../assets/cutouts/shop-face.webp";
 
 const PER_TAB = 4;
-// La foto de contraluz se desvanece por la izquierda, arriba y abajo (sin marcar su rectángulo).
-const STAGE_MASK_IMAGE =
-  "linear-gradient(to right, transparent, #000 55%), linear-gradient(to bottom, transparent, #000 14%, #000 80%, transparent)";
-const STAGE_MASK = {
-  WebkitMaskImage: STAGE_MASK_IMAGE,
-  WebkitMaskComposite: "source-in",
-  maskImage: STAGE_MASK_IMAGE,
-  maskComposite: "intersect",
-};
 
-// Piezas del collage de la sección (solo escritorio), de izquierda a derecha y solapadas: tira de ojos en
-// negativo, retrato sepia con marco claro y cara recortada en medios tonos, que se desvanece hacia abajo.
-// `delay` escalona su entrada.
+// Piezas del collage de fondo (solo escritorio), repartidas por toda la sección y solapadas: tira de ojos en
+// negativo a la izquierda, retrato sepia con marco claro junto al título, cara recortada en medios tonos a la
+// derecha y, abajo, una banda ancha con los ojos recortada y muy tenue. `delay` escalona su entrada.
 const COLLAGE = [
   {
     src: eyes,
     className:
-      "right-[39%] top-12 w-44 -rotate-3 opacity-90 shadow-[0_18px_30px_rgba(0,0,0,0.55)]",
+      "left-[0.5%] top-[34%] w-32 -rotate-3 opacity-80 shadow-[0_18px_30px_rgba(0,0,0,0.55)]",
     delay: "0.3s",
   },
   {
     src: portrait,
     className:
-      "right-[24.5%] top-24 w-48 rotate-[2.5deg] border-[6px] border-[#efe9dc] shadow-[0_22px_34px_rgba(0,0,0,0.6)]",
+      "right-[27%] top-20 w-52 rotate-[2.5deg] border-[6px] border-[#efe9dc] shadow-[0_22px_34px_rgba(0,0,0,0.6)]",
     delay: "0.45s",
   },
   {
     src: face,
-    className: "right-[3%] -top-6 h-[26rem] w-auto max-w-none",
+    className: "right-[1.5%] -top-6 h-[31rem] w-auto max-w-none",
     style: {
       WebkitMaskImage: "linear-gradient(to bottom, #000 55%, transparent)",
       maskImage: "linear-gradient(to bottom, #000 55%, transparent)",
     },
     delay: "0.6s",
+  },
+  {
+    src: eyes,
+    className:
+      "inset-x-0 bottom-0 h-64 w-full object-cover object-[50%_14%] opacity-25 mix-blend-screen",
+    style: {
+      WebkitMaskImage:
+        "linear-gradient(to top, transparent, #000 22%, #000 40%, transparent)",
+      maskImage:
+        "linear-gradient(to top, transparent, #000 22%, #000 40%, transparent)",
+    },
+    delay: "0.2s",
   },
 ];
 
@@ -89,24 +91,14 @@ function ShopTabs() {
 
   return (
     <section className="relative overflow-hidden bg-black px-6 py-16 text-white">
-      {/* Fondo de collage: la foto a contraluz ocupa el alto completo a la derecha (se mezcla con el negro y se
-          desvanece por los bordes) y sobre ella van las piezas del collage. El contenido va por encima (z-10). */}
+      {/* Fondo de collage estilo fotocopia repartido por toda la sección; el contenido va por encima (z-10). */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 hidden lg:block"
       >
-        <div className="absolute inset-y-0 right-0 w-[60%]">
-          <img
-            src={stage}
-            alt=""
-            loading="lazy"
-            className="shop-piece h-full w-full object-cover object-[50%_18%] opacity-50 mix-blend-screen [filter:brightness(0.9)_contrast(1.25)]"
-            style={{ ...STAGE_MASK }}
-          />
-        </div>
         {COLLAGE.map((piece) => (
           <img
-            key={piece.src}
+            key={`${piece.src}-${piece.delay}`}
             src={piece.src}
             alt=""
             loading="lazy"
@@ -119,8 +111,8 @@ function ShopTabs() {
         <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
           Tienda
         </p>
-        <h2 className="mt-3 font-condensed text-6xl font-light uppercase tracking-[-0.01em] sm:text-7xl">
-          Elige lo tuyo
+        <h2 className="mt-3 font-condensed text-7xl font-light uppercase tracking-[-0.01em] sm:text-8xl">
+          Be unique
         </h2>
 
         <div
