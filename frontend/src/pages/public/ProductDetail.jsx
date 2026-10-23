@@ -5,6 +5,7 @@ import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
 import { collectionOfProduct } from "../../data/collections";
 import ImageLightbox from "../../components/product/ImageLightbox";
+import { useHeaderTheme } from "../../utils/useHeaderTheme";
 import BackLink from "../../components/product/BackLink";
 import ProductInfo from "../../components/product/ProductInfo";
 import VariantSelector from "../../components/product/VariantSelector";
@@ -22,17 +23,10 @@ function ProductDetail() {
   // Foto activa: en escritorio la elige el mouse al recorrer la foto; en móvil, el deslizamiento.
   const [activeIndex, setActiveIndex] = useState(0);
   const stripRef = useRef(null);
-  const stageColor = product
-    ? collectionOfProduct(product.name).panel.stage
-    : null;
-
-  // Publica el color de la colección para que el header y el fondo de la página lo usen mientras se ve el producto.
-  useEffect(() => {
-    if (!stageColor) return undefined;
-    const root = document.documentElement;
-    root.style.setProperty("--stage-color", stageColor);
-    return () => root.style.removeProperty("--stage-color");
-  }, [stageColor]);
+  // El header y el fondo de la página toman el color de la colección mientras se ve el producto.
+  useHeaderTheme(
+    product ? collectionOfProduct(product.name).panel.stage : null,
+  );
 
   useEffect(() => {
     setLoading(true);

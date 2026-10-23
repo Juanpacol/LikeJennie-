@@ -247,13 +247,19 @@ body {
   }
 }
 
-/* Header de las páginas oscuras: negro, o el color de la colección cuando el producto lo publica en --stage-color. */
+/* Header de las páginas oscuras: del color de la página (negro por defecto) y translúcido. Las páginas de colección y
+   de producto publican --stage-color y --header-ink (useHeaderTheme). */
+.header-tint,
+.header-tint-strong {
+  border-color: color-mix(in srgb, currentColor 14%, transparent);
+}
+
 .header-tint {
-  background-color: color-mix(in srgb, var(--stage-color, #000) 60%, transparent);
+  background-color: color-mix(in srgb, var(--stage-color, #000) 55%, transparent);
 }
 
 .header-tint-strong {
-  background-color: color-mix(in srgb, var(--stage-color, #000) 85%, transparent);
+  background-color: color-mix(in srgb, var(--stage-color, #000) 88%, transparent);
 }
 
 /* Zona de información bajo la compra: borde superior diagonal, como el del panel de compra. */

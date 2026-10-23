@@ -85,12 +85,12 @@ export const COLLECTIONS = {
       position: "left-[4%] bottom-[8%] h-[78%]",
     },
     panel: {
-      bg: "#FFD500",
+      bg: "#EFD670",
       text: "#2A0008",
       button: "#D6001C",
       onButton: "#FFFFFF",
       stage: "#2A0008",
-      detail: { bg: "#FFD500", ink: "#2A0008" },
+      detail: { bg: "#EFD670", ink: "#2A0008" },
     },
     footer: {
       images: [
@@ -98,12 +98,12 @@ export const COLLECTIONS = {
         { src: hariboFooterB, position: "40% 40%" },
       ],
       bg: "#2A0008",
-      ink: "#FFD500",
+      ink: "#EFD670",
       muted: "#B8902A",
       tagline: "Dulce, pero con carácter",
     },
     theme: {
-      page: "#FFD500",
+      page: "#EFD670",
       ink: "#2A0008",
       accent: "#D6001C",
       onAccent: "#FFFFFF",
