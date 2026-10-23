@@ -275,3 +275,47 @@ body {
 .info-item[open] .info-plus {
   transform: rotate(45deg);
 }
+
+/* Aviso de "añadido al carrito": tarjeta roja con el mismo borde en diagonal que el carrito; entra
+   deslizándose y en fundido, con una curva suave. */
+.toast-slash {
+  clip-path: polygon(7% 0, 100% 0, 100% 100%, 0 100%);
+  animation: toast-soft-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes toast-soft-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast-slash {
+    animation: none;
+  }
+}
+
+/* La foto del carrito aparece en fundido, un poco después de abrirse el panel. */
+.ink-art {
+  animation: ink-art-in 0.9s ease-out 0.25s both;
+}
+
+@keyframes ink-art-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-art {
+    animation: none;
+  }
+}

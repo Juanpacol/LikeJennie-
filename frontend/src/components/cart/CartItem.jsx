@@ -2,7 +2,7 @@ import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
 
 const STEP_BUTTON_CLASS =
-  "flex h-8 w-8 items-center justify-center border border-white/30 text-base leading-none transition hover:border-white hover:bg-white hover:text-black";
+  "flex h-8 w-8 items-center justify-center border border-black/60 text-base leading-none transition hover:bg-black hover:text-white";
 
 // Una fila del carrito: foto, datos de la variante, cantidad y subtotal de la línea.
 function CartItem({ item, index = 0 }) {
@@ -10,13 +10,13 @@ function CartItem({ item, index = 0 }) {
 
   return (
     <div
-      className="animate-fade-up flex gap-4 border-b border-white/15 py-5"
+      className="animate-fade-up flex gap-4 border-b border-black/25 py-5"
       style={{ animationDelay: `${index * 70}ms` }}
     >
       <img
         src={item.image}
         alt={item.productName}
-        className="h-28 w-[5.5rem] shrink-0 bg-neutral-900 object-cover"
+        className="h-32 w-24 shrink-0 bg-[#141414] object-contain p-1.5 ring-1 ring-black/50"
       />
 
       <div className="flex flex-1 flex-col">
@@ -28,7 +28,7 @@ function CartItem({ item, index = 0 }) {
             {formatPrice(item.price * item.quantity)}
           </p>
         </div>
-        <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-white/60">
+        <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-white/80">
           {item.size} / {item.color}
         </p>
 
@@ -57,7 +57,7 @@ function CartItem({ item, index = 0 }) {
           <button
             type="button"
             onClick={() => removeItem(item.variantId)}
-            className="hover-underline ml-auto font-mono text-[11px] uppercase tracking-[0.2em] text-white/60 transition hover:text-white"
+            className="hover-underline ml-auto font-mono text-[11px] uppercase tracking-[0.2em] text-white/80 transition hover:text-white"
           >
             Quitar
           </button>
