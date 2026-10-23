@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { Link } from "react-router-dom";
 import {
   motion,
   useMotionValue,
@@ -127,6 +126,7 @@ function PosterLookbook() {
     <section
       ref={sectionRef}
       aria-label="Lookbook"
+      data-header-theme="light"
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       className="relative h-screen min-h-[640px] w-full overflow-hidden bg-[#e9e9e9] text-[#0b0b0b]"
@@ -208,13 +208,6 @@ function PosterLookbook() {
         </span>
         <span className="h-px flex-1 bg-black/40" />
       </div>
-
-      <Link
-        to="/catalogo"
-        className="btn-sweep absolute bottom-14 left-6 z-40 inline-block bg-accent px-6 py-2.5 font-display text-xs uppercase tracking-widest text-white [--sweep:rgb(0_0_0/0.25)] sm:left-10 md:bottom-auto md:left-[72%] md:top-[21.5%] md:px-8 md:py-3.5 md:text-sm"
-      >
-        Ver tienda
-      </Link>
 
       {/* Lista vertical a la derecha, como el "in my ZONE" del póster de referencia. */}
       <p
