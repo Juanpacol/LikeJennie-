@@ -128,7 +128,7 @@ function ProductDetail() {
   return (
     <section className="text-white">
       {/* Galería a pantalla completa con la columna de compra a la derecha. */}
-      <div className="lg:grid lg:h-[calc(100vh-127px)] lg:min-h-[620px] lg:grid-cols-[1fr_26rem]">
+      <div className="lg:grid lg:h-[calc(100vh-127px)] lg:min-h-[620px] lg:grid-cols-[1fr_29rem]">
         <div
           className="relative h-[68vh] overflow-hidden bg-black lg:h-full"
           onMouseMove={handleStageMove}
@@ -202,44 +202,82 @@ function ProductDetail() {
           </div>
         </div>
 
-        {/* Tarjeta de compra: de vidrio esmerilado sobre la foto en escritorio; bajo ella en móvil. */}
-        <aside className="animate-fade-up border-l border-white/10 bg-[#0d0d0d] p-6 text-white [animation-delay:350ms] lg:flex lg:flex-col lg:justify-center lg:overflow-y-auto lg:p-10">
-          <div className="flex items-start justify-between gap-3">
+        {/* Panel de compra: rojo, con el mismo borde diagonal y filo blanco que el carrito. Cada bloque
+            entra en cascada (la key reinicia la animación al cambiar de producto). */}
+        <aside
+          key={product.id}
+          className="product-panel relative isolate overflow-hidden bg-accent px-6 py-8 text-white lg:flex lg:flex-col lg:justify-center lg:overflow-y-auto lg:py-10 lg:pl-16 lg:pr-10"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            className="pointer-events-none absolute inset-0 -z-10 hidden h-full w-full lg:block"
+          >
+            <line
+              x1="5.4"
+              y1="0"
+              x2="0.4"
+              y2="100"
+              stroke="#fff"
+              strokeWidth="1.5"
+              vectorEffect="non-scaling-stroke"
+              opacity="0.85"
+            />
+          </svg>
+          {/* Nombre de la categoría como marca de agua. */}
+          <p
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-6 right-0 -z-10 select-none font-condensed text-[9rem] font-semibold uppercase leading-none text-black/10"
+          >
+            {product.category?.name ?? "Ruby"}
+          </p>
+
+          <div
+            className="animate-fade-up flex items-start justify-between gap-3"
+            style={{ animationDelay: "120ms" }}
+          >
             {product.category && (
-              <p className="border border-white/30 px-2 py-1 font-display text-[11px] font-semibold uppercase tracking-widest shadow-sm">
+              <p className="border border-white/60 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.25em]">
                 {product.category.name}
               </p>
             )}
             {hasSale && (
-              <p className="bg-accent px-2 py-1 font-display text-xs font-semibold text-white">
+              <p className="bg-black px-2 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-white">
                 -{discount}%
               </p>
             )}
           </div>
 
-          <div className="mt-4 flex items-start justify-between gap-4">
-            <h1 className="font-display text-xl uppercase leading-tight">
+          <div
+            className="animate-fade-up mt-5 flex items-start justify-between gap-4"
+            style={{ animationDelay: "200ms" }}
+          >
+            <h1 className="font-condensed text-4xl font-light uppercase leading-[0.95] xl:text-5xl">
               {product.name}
             </h1>
             <p className="shrink-0 text-right">
               {hasSale ? (
                 <>
-                  <span className="block bg-accent px-2 py-0.5 text-sm font-semibold text-white">
+                  <span className="block font-condensed text-3xl leading-none">
                     {formatPrice(product.salePrice)}
                   </span>
-                  <span className="mt-1 block text-xs text-white/50 line-through">
+                  <span className="mt-1 block font-mono text-[11px] text-white/70 line-through">
                     {formatPrice(product.basePrice)}
                   </span>
                 </>
               ) : (
-                <span className="text-sm font-semibold">
+                <span className="font-condensed text-3xl leading-none">
                   {formatPrice(product.basePrice)}
                 </span>
               )}
             </p>
           </div>
 
-          <div className="mt-5 border-t border-white/15 pt-5">
+          <div
+            className="animate-fade-up mt-6 border-t border-white/40 pt-6"
+            style={{ animationDelay: "280ms" }}
+          >
             <VariantSelector
               sizes={sizes}
               colors={colors}
@@ -251,52 +289,55 @@ function ProductDetail() {
             />
           </div>
 
-          <p className="mt-4 text-sm">
+          <p
+            className="animate-fade-up mt-4 font-mono text-[11px] uppercase tracking-[0.2em]"
+            style={{ animationDelay: "340ms" }}
+          >
             {!selectedVariant && "Selecciona una talla disponible."}
-            {selectedVariant?.isOutOfStock && (
-              <span className="font-medium text-accent">
-                Agotado en esta combinación.
-              </span>
-            )}
-            {selectedVariant?.isLowStock && (
-              <span className="font-medium text-amber-400">
-                ¡Últimas {selectedVariant.stock} unidades!
-              </span>
-            )}
+            {selectedVariant?.isOutOfStock && "Agotado en esta combinación."}
+            {selectedVariant?.isLowStock &&
+              `¡Últimas ${selectedVariant.stock} unidades!`}
             {selectedVariant &&
               !selectedVariant.isOutOfStock &&
               !selectedVariant.isLowStock && (
-                <span className="text-white/60">Disponible.</span>
+                <span className="text-white/80">Disponible</span>
               )}
           </p>
 
-          <div className="mt-4 flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                aria-label="Disminuir cantidad"
-                className="h-9 w-9 border border-white/30 transition hover:border-black"
-              >
-                −
-              </button>
-              <span className="w-5 text-center text-sm">{quantity}</span>
-              <button
-                type="button"
-                onClick={() => setQuantity((q) => q + 1)}
-                aria-label="Aumentar cantidad"
-                className="h-9 w-9 border border-white/30 transition hover:border-black"
-              >
-                +
-              </button>
-            </div>
+          <div
+            className="animate-fade-up mt-4 flex items-center gap-3"
+            style={{ animationDelay: "400ms" }}
+          >
+            <button
+              type="button"
+              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+              aria-label="Disminuir cantidad"
+              className="h-10 w-10 border border-black/60 transition hover:bg-black hover:text-white"
+            >
+              −
+            </button>
+            <span
+              key={quantity}
+              className="animate-fade-up w-6 text-center font-mono text-sm"
+            >
+              {quantity}
+            </span>
+            <button
+              type="button"
+              onClick={() => setQuantity((q) => q + 1)}
+              aria-label="Aumentar cantidad"
+              className="h-10 w-10 border border-black/60 transition hover:bg-black hover:text-white"
+            >
+              +
+            </button>
           </div>
 
           <button
             type="button"
             onClick={handleAddToCart}
             disabled={!canAddToCart}
-            className="btn-sweep mt-4 w-full bg-accent py-4 font-display text-sm uppercase tracking-widest text-white disabled:opacity-40"
+            className="btn-sweep animate-fade-up mt-5 w-full bg-black py-4 font-mono text-[11px] uppercase tracking-[0.25em] text-white [--sweep:rgb(255_255_255/0.2)] disabled:opacity-40"
+            style={{ animationDelay: "460ms" }}
           >
             Añadir al carrito
           </button>

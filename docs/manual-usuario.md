@@ -60,7 +60,7 @@ Para comprar eliges:
 1. **Talla** (y **color**, si el producto tiene más de uno). Las tallas sin existencias aparecen tachadas y no se pueden elegir.
 2. Si la combinación elegida no tiene existencias, aparecerá **Agotado en esta combinación**; si quedan pocas, **¡Últimas N unidades!**.
 3. La **cantidad**, con **−** y **+**.
-4. Pulsa **Añadir al carrito**.
+4. Pulsa **Añadir al carrito**. El panel de compra es rojo y sus elementos aparecen en cascada; al cambiar de talla, la línea negra se desliza hasta la nueva.
 
 ### 6. Usar el carrito
 
