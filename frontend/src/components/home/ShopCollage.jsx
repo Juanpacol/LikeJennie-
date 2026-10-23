@@ -4,6 +4,7 @@ import zineB from "../../assets/cutouts/shop-zine-b.webp";
 import face from "../../assets/cutouts/shop-face.webp";
 import poster from "../../assets/cutouts/shop-poster.webp";
 import halo from "../../assets/cutouts/shop-halo.webp";
+import typa from "../../assets/cutouts/shop-typa.webp";
 
 // Collage de la columna izquierda (solo escritorio), todo en blanco y negro de alto contraste (estilo fotocopia),
 // repartido a lo largo de TODO el alto del bloque (tienda + FAQs). Las posiciones son porcentajes de ese alto y
@@ -53,6 +54,15 @@ const COLLAGE = [
   },
 ];
 
+// Retrato de la derecha, junto al título de las FAQs (recorte sin el texto del afiche original): llena el hueco
+// que queda a la derecha de «FAQs» y mira hacia el interior de la página.
+const SIDE_PIECE = {
+  src: typa,
+  className:
+    "right-[3%] top-[71.5%] w-[15%] rotate-[3deg] shadow-[0_26px_40px_rgba(0,0,0,0.7)]",
+  delay: "1.1s",
+};
+
 // Cintas rojas pegadas en las esquinas de las piezas (color de acento de la marca).
 const TAPES = [
   "left-[-2%] top-[0.8%] -rotate-[38deg]",
@@ -66,10 +76,36 @@ const TAPES = [
 function ShopCollage({ children }) {
   return (
     <div className="relative overflow-hidden bg-black">
+      {/* Banda ancha con los ojos, muy tenue, que cierra el bloque por abajo. */}
+      <img
+        src={eyes}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="shop-piece pointer-events-none absolute inset-x-0 bottom-0 hidden h-72 w-full object-cover object-[50%_14%] opacity-25 mix-blend-screen lg:block"
+        style={{
+          WebkitMaskImage:
+            "linear-gradient(to top, transparent, #000 25%, #000 45%, transparent)",
+          maskImage:
+            "linear-gradient(to top, transparent, #000 25%, #000 45%, transparent)",
+          "--piece-delay": "0.2s",
+        }}
+      />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 hidden px-10 lg:block"
       >
+        <img
+          src={SIDE_PIECE.src}
+          alt=""
+          loading="lazy"
+          className={`shop-piece absolute ${SIDE_PIECE.className}`}
+          style={{ "--piece-delay": SIDE_PIECE.delay }}
+        />
+        <span
+          className="shop-piece absolute right-[14.5%] top-[71%] z-10 h-6 w-20 rotate-[-12deg] bg-accent/90 shadow-md"
+          style={{ "--piece-delay": "1.2s" }}
+        />
         <div className="mx-auto grid h-full max-w-7xl gap-12 lg:grid-cols-[5fr_7fr]">
           <div className="relative h-full">
             {COLLAGE.map((piece) => (
