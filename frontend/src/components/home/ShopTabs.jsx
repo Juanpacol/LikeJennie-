@@ -4,14 +4,16 @@ import { getCategories } from "../../services/category.service";
 import { getCatalog } from "../../services/product.service";
 import ProductCard from "../product/ProductCard";
 import eyes from "../../assets/cutouts/shop-eyes.webp";
-import portrait from "../../assets/cutouts/shop-portrait.webp";
+import zineA from "../../assets/cutouts/shop-zine-a.webp";
+import zineB from "../../assets/cutouts/shop-zine-b.webp";
 import face from "../../assets/cutouts/shop-face.webp";
 
 const PER_TAB = 4;
 
-// Piezas del collage de fondo (solo escritorio), repartidas por toda la sección y solapadas: tira de ojos en
-// negativo a la izquierda, retrato sepia con marco claro junto al título, cara recortada en medios tonos a la
-// derecha y, abajo, una banda ancha con los ojos recortada y muy tenue. `delay` escalona su entrada.
+// Piezas del collage de fondo (solo escritorio), todas en blanco y negro de alto contraste (estilo fotocopia),
+// repartidas por toda la sección y solapadas: tira de ojos en negativo a la izquierda, retrato punteado junto
+// al título, cara recortada a la derecha, un afiche claro abajo a la derecha y, al fondo, una banda ancha con
+// los ojos, muy tenue. `delay` escalona su entrada.
 const COLLAGE = [
   {
     src: eyes,
@@ -20,9 +22,9 @@ const COLLAGE = [
     delay: "0.3s",
   },
   {
-    src: portrait,
+    src: zineA,
     className:
-      "right-[27%] top-20 w-52 rotate-[2.5deg] border-[6px] border-[#efe9dc] shadow-[0_22px_34px_rgba(0,0,0,0.6)]",
+      "right-[28%] top-16 w-44 rotate-[2.5deg] border border-white/25 shadow-[0_22px_34px_rgba(0,0,0,0.6)]",
     delay: "0.45s",
   },
   {
@@ -33,6 +35,12 @@ const COLLAGE = [
       maskImage: "linear-gradient(to bottom, #000 55%, transparent)",
     },
     delay: "0.6s",
+  },
+  {
+    src: zineB,
+    className:
+      "bottom-4 right-[1.5%] h-36 w-44 -rotate-6 object-cover object-[55%_30%] opacity-90 shadow-[0_22px_34px_rgba(0,0,0,0.6)]",
+    delay: "0.75s",
   },
   {
     src: eyes,
