@@ -111,12 +111,12 @@ function CartDrawer() {
             aria-modal="true"
             aria-label="Carrito"
             className="relative isolate flex h-full w-full max-w-md flex-col overflow-hidden bg-accent py-6 pl-14 pr-6 text-white sm:py-8 sm:pl-16 sm:pr-8"
-            initial={{ clipPath: CLOSED }}
-            animate={{ clipPath: OPEN }}
-            exit={{ clipPath: CLOSED }}
-            transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
+            initial={{ clipPath: CLOSED, x: "6%", opacity: 0 }}
+            animate={{ clipPath: OPEN, x: 0, opacity: 1 }}
+            exit={{ clipPath: CLOSED, x: "6%", opacity: 0 }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* Foto en silueta fundida con el rojo, y una hoja que barre el panel al abrirlo. */}
+            {/* Foto en silueta fundida con el rojo. */}
             <img
               src={silhouette}
               alt=""
@@ -131,7 +131,6 @@ function CartDrawer() {
                 maskComposite: "intersect",
               }}
             />
-            <span aria-hidden="true" className="drawer-blade" />
             {/* Filo: línea blanca finísima a lo largo del corte. */}
             <svg
               aria-hidden="true"
