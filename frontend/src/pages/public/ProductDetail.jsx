@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getProductBySlug } from "../../services/product.service";
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
 import { collectionOfProduct } from "../../data/collections";
 import ImageLightbox from "../../components/product/ImageLightbox";
+import ProductInfo from "../../components/product/ProductInfo";
 import VariantSelector from "../../components/product/VariantSelector";
 
 function ProductDetail() {
@@ -137,7 +138,8 @@ function ProductDetail() {
 
   const images = product.images;
   // Colores y dibujo de la colección a la que pertenece el producto.
-  const { panel, art } = collectionOfProduct(product.name);
+  const collection = collectionOfProduct(product.name);
+  const { panel, art } = collection;
   // Dibujo del panel: en tinta oscura sobre el color; el del fondo oscuro, claro con screen.
   const artMask =
     "linear-gradient(to bottom, transparent, #000 30%), linear-gradient(to right, transparent, #000 35%)";
@@ -395,18 +397,7 @@ function ProductDetail() {
         </aside>
       </div>
 
-      <div className="mx-auto max-w-6xl px-6 py-12">
-        <Link
-          to="/catalogo"
-          className="hover-underline font-display text-xs uppercase tracking-widest text-white/60"
-        >
-          ← Volver a la tienda
-        </Link>
-        <h2 className="mt-8 font-display text-xs uppercase tracking-widest text-white/60">
-          Descripción
-        </h2>
-        <p className="mt-3 max-w-2xl text-white/70">{product.description}</p>
-      </div>
+      <ProductInfo product={product} collection={collection} />
 
       {lightboxIndex !== null && (
         <ImageLightbox
