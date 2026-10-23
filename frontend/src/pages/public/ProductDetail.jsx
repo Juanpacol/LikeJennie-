@@ -145,7 +145,7 @@ function ProductDetail() {
     <section className="text-white">
       {/* Galería a pantalla completa con la columna de compra a la derecha. */}
       <div
-        className="lg:grid lg:h-[calc(100vh-127px)] lg:min-h-[620px] lg:grid-cols-[1fr_29rem]"
+        className="lg:grid lg:h-[calc(100vh-88px)] lg:min-h-[620px] lg:grid-cols-[1fr_29rem]"
         style={{ backgroundColor: panel.stage }}
       >
         <div

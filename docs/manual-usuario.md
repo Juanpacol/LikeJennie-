@@ -14,7 +14,7 @@ Sitio: https://like-jennie-seven.vercel.app
 
 Al entrar verás, de arriba abajo:
 
-1. **Encabezado:** el logo **Ruby.** al centro con los íconos de **Spotify**, **Instagram** y **YouTube** debajo; las secciones (**Tienda**, **Ropa**, **Abrigos**, **Accesorios**, **Música**) repartidas a ambos lados; y a la derecha tres íconos: lupa (buscar), persona (cuenta) y bolsa (carrito). Al bajar por la página, el encabezado se hace más pequeño y no se pierde de vista.
+1. **Encabezado:** el logo **Ruby.** a la izquierda; a la derecha, **Tienda** y un menú **Colecciones** (al pasar el mouse muestra Fallen Angel, Haribo y Ruby, cada una con su color) y tres íconos: lupa (buscar), persona (cuenta) y bolsa (carrito). Al bajar por la página, el encabezado se hace más pequeño y no se pierde de vista.
 2. **Portada:** tres fotos a pantalla completa, una junto a otra, que se revelan una tras otra; encima, el titular **«Wanna rock with this?»** y el botón **Ver tienda**. Al bajar, la portada se queda fija y se oscurece un poco mientras las colecciones suben por encima.
 3. **Colecciones:** tres tarjetas, una por colección, cada una con **su propio color** y su foto fundida en él: **Fallen Angel** (lila), **JENNIE x Haribo** (amarillo) y **JENNIE x Ruby** (negro y rojo). Al pasar el mouse sobre una tarjeta aparecen su frase y el botón **Ver colección**. En el celular se deslizan de lado.
 4. **Lookbook:** una sección de pantalla completa con el título **Idol / JENNIE** en letras negras enormes sobre un fondo gris claro, tres fotos recortadas en blanco y negro que se montan sobre las letras, un texto breve, el botón «Ver tienda», la frase «In my Ruby era» en vertical a la derecha y **RUBY** en negro en el suelo; al mover el mouse y al hacer scroll, las fotos se desplazan a distinta velocidad para dar profundidad.
@@ -31,7 +31,7 @@ Al entrar verás, de arriba abajo:
 
 1. Pulsa **Tienda** en el menú, **Ver tienda** en la portada, o **Ver todo** en la sección **Elige lo tuyo**.
 2. Verás el título **Catálogo** en grande y, debajo, todos los productos con su foto, nombre y precio; cada foto lleva un número.
-3. Para ver solo un tipo de prenda, pulsa una categoría (**Ropa**, **Abrigos**, **Accesorios** o **Música**) arriba de la lista, o en el menú del encabezado; a la derecha verás cuántas piezas hay. **Todo** vuelve a mostrar todo.
+3. Para ver solo un tipo de prenda, pulsa una categoría (**Ropa**, **Abrigos**, **Accesorios** o **Música**) arriba de la lista; a la derecha verás cuántas piezas hay. **Todo** vuelve a mostrar todo.
 4. Si un producto tiene precio de oferta, verás el precio original tachado, el nuevo en rojo y una etiqueta con el porcentaje de descuento sobre la foto.
 5. Los productos sin existencias muestran la etiqueta **Agotado**.
 
@@ -81,7 +81,7 @@ Para comprar eliges:
 
 ### 8. Menú en el celular
 
-En pantallas pequeñas el menú de secciones se esconde. Pulsa el botón de **tres rayas** (arriba a la izquierda): se abre un panel lila con **Tienda** (todo el catálogo y las categorías), **Colecciones** y las redes sociales. Se cierra con la **×**, tocando fuera del panel, con la tecla **Esc** o al elegir una opción.
+En pantallas pequeñas el menú de secciones se esconde. Pulsa el botón de **tres rayas** (arriba a la izquierda): se abre un panel lila con **Tienda** (todo el catálogo), **Colecciones** y las redes sociales. Se cierra con la **×**, tocando fuera del panel, con la tecla **Esc** o al elegir una opción.
 
 ### 9. Panel de cuenta
 

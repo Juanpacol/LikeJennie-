@@ -9,7 +9,7 @@ const LINK_CLASS = "hover-underline inline-block font-display text-2xl";
 // Menú de navegación para pantallas pequeñas: panel lila que entra desde la izquierda, con el
 // estilo del carrito. Se cierra con la ×, tocando fuera, con Escape o al elegir un enlace.
 // Va en un portal para no quedar atrapado dentro del header (que tiene backdrop-filter).
-function MobileMenu({ categories, onClose }) {
+function MobileMenu({ onClose }) {
   useEffect(() => {
     function handleKeyDown(event) {
       if (event.key === "Escape") onClose();
@@ -54,17 +54,6 @@ function MobileMenu({ categories, onClose }) {
                 Todo el catálogo
               </Link>
             </li>
-            {categories.map((category) => (
-              <li key={category.id}>
-                <Link
-                  to={`/catalogo?categoria=${category.slug}`}
-                  onClick={onClose}
-                  className={LINK_CLASS}
-                >
-                  {category.name}
-                </Link>
-              </li>
-            ))}
           </ul>
 
           <p className="mt-10 text-xs uppercase tracking-widest opacity-60">

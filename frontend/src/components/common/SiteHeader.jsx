@@ -6,118 +6,144 @@ import MenuIcon from "../icons/MenuIcon";
 import SearchIcon from "../icons/SearchIcon";
 import UserIcon from "../icons/UserIcon";
 import MobileMenu from "./MobileMenu";
-import SocialDock from "./SocialDock";
 import SearchPanel from "../search/SearchPanel";
 import { useAccountPanel } from "../../context/AccountPanelContext";
 import { useCart } from "../../context/CartContext";
-import { getCategories } from "../../services/category.service";
+import { COLLECTIONS } from "../../data/collections";
 
 const SCROLL_THRESHOLD = 40;
 // Fracción del alto de la ventana a partir de la cual aparece el header deslizante en la landing.
 const HERO_FRACTION = 0.85;
 // Alto del header sin compactar: el espaciador lo reserva para que el contenido no salte al compactarse.
-const HEADER_HEIGHT_CLASS = "h-[84px] lg:h-[127px]";
+const HEADER_HEIGHT_CLASS = "h-[68px] lg:h-[88px]";
 
-// Contenido del header (logo, menú, íconos). Se usa en el header normal y en el que se desliza
-// sobre la landing, por eso recibe los manejadores desde SiteHeader.
-function HeaderBar({
-  compact,
-  categories,
-  count,
-  onMenu,
-  onSearch,
-  onAccount,
-  onCart,
-}) {
-  // Enlaces de sección repartidos a ambos lados del logo (como en Hermes).
-  const links = [
-    { to: "/catalogo", label: "Tienda" },
-    ...categories.map((c) => ({
-      to: `/catalogo?categoria=${c.slug}`,
-      label: c.name,
-    })),
-  ];
-  const middle = Math.ceil(links.length / 2);
-  const navClass =
-    "hidden flex-1 items-center justify-between font-display text-sm uppercase tracking-[0.1em] lg:flex";
-
+// Menú de colecciones: se abre al pasar el mouse o con el teclado (focus-within) y enlaza a la página de
+// cada colección, con un punto del color de su tema.
+function CollectionsMenu() {
   return (
-    <div
-      className={`mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-5 px-6 transition-[padding] duration-200 ${compact ? "py-3" : "py-6 lg:pb-4 lg:pt-9"}`}
-    >
-      <div className="flex items-center justify-start">
-        <button
-          type="button"
-          onClick={onMenu}
-          aria-label="Abrir menú"
-          className="lg:hidden"
+    <div className="group relative hidden lg:block">
+      <button
+        type="button"
+        className="hover-underline flex items-center gap-1.5 py-2"
+        aria-haspopup="true"
+      >
+        Colecciones
+        <svg
+          viewBox="0 0 10 6"
+          className="h-1.5 w-2.5 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          aria-hidden="true"
         >
-          <MenuIcon />
-        </button>
-        <nav className={navClass}>
-          {links.slice(0, middle).map((link) => (
-            <Link key={link.to} to={link.to} className="hover-underline">
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-      </div>
-
-      <div className="flex flex-col items-center lg:px-6">
-        <Link
-          to="/"
-          className={`font-condensed font-semibold uppercase tracking-[0.06em] leading-none transition-[font-size] duration-200 ${compact ? "text-3xl" : "text-4xl"}`}
-        >
-          <DockText text="Ruby." magnification={1.3} distance={50} />
-        </Link>
-        {!compact && <SocialDock className="mt-3 hidden lg:flex" />}
-      </div>
-
-      <div className="flex items-center justify-end gap-10">
-        <nav className={navClass}>
-          {links.slice(middle).map((link) => (
-            <Link key={link.to} to={link.to} className="hover-underline">
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-        <Dock>
-          <DockIcon>
-            <button
-              type="button"
-              onClick={onSearch}
-              aria-label="Buscar"
-              className="h-full w-full"
+          <path d="M1 1l4 4 4-4" />
+        </svg>
+      </button>
+      <ul className="invisible absolute right-0 top-full z-50 w-64 translate-y-1 border border-white/15 bg-[#0b0b0b] p-2 text-white opacity-0 shadow-2xl transition duration-200 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+        {Object.entries(COLLECTIONS).map(([slug, collection]) => (
+          <li key={slug}>
+            <Link
+              to={`/colecciones/${slug}`}
+              className="flex items-center gap-3 px-3 py-3 transition hover:bg-white/10"
             >
-              <SearchIcon className="h-full w-full" />
-            </button>
-          </DockIcon>
-          <DockIcon>
-            <button
-              type="button"
-              onClick={onAccount}
-              aria-label="Cuenta"
-              className="h-full w-full"
-            >
-              <UserIcon className="h-full w-full" />
-            </button>
-          </DockIcon>
-          <DockIcon>
-            <button
-              type="button"
-              onClick={onCart}
-              aria-label={`Carrito (${count})`}
-              className="h-full w-full"
-            >
-              <BagIcon className="h-full w-full" />
-            </button>
-            {count > 0 && (
-              <span className="pointer-events-none absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] leading-none text-white">
-                {count}
+              <span
+                aria-hidden="true"
+                className="h-2.5 w-2.5 shrink-0 rounded-full"
+                style={{
+                  backgroundColor:
+                    collection.theme.page === "#000000"
+                      ? collection.theme.accent
+                      : collection.theme.page,
+                }}
+              />
+              <span className="flex flex-col">
+                <span className="font-display text-sm uppercase tracking-[0.1em]">
+                  {collection.title}
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
+                  {collection.tagline}
+                </span>
               </span>
-            )}
-          </DockIcon>
-        </Dock>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// Contenido del header: logo a la izquierda; a la derecha, Tienda, el menú de Colecciones y los íconos.
+// Se usa en el header normal y en el que se desliza sobre la landing, por eso recibe los manejadores
+// desde SiteHeader.
+function HeaderBar({ compact, count, onMenu, onSearch, onAccount, onCart }) {
+  return (
+    // Mismo ancho y márgenes que el hero (max-w-7xl dentro de px-10) para que el logo quede alineado con su texto.
+    <div className="px-6 sm:px-10">
+      <div
+        className={`mx-auto flex max-w-7xl items-center justify-between gap-5 transition-[padding] duration-200 ${compact ? "py-3" : "py-5 lg:py-6"}`}
+      >
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={onMenu}
+            aria-label="Abrir menú"
+            className="lg:hidden"
+          >
+            <MenuIcon />
+          </button>
+          <Link
+            to="/"
+            className={`font-condensed font-semibold uppercase tracking-[0.06em] leading-none transition-[font-size] duration-200 ${compact ? "text-3xl" : "text-4xl"}`}
+          >
+            <DockText text="Ruby." magnification={1.3} distance={50} />
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-10">
+          <nav className="hidden items-center gap-10 font-display text-sm uppercase tracking-[0.1em] lg:flex">
+            <Link to="/catalogo" className="hover-underline py-2">
+              Tienda
+            </Link>
+            <CollectionsMenu />
+          </nav>
+          <Dock>
+            <DockIcon>
+              <button
+                type="button"
+                onClick={onSearch}
+                aria-label="Buscar"
+                className="h-full w-full"
+              >
+                <SearchIcon className="h-full w-full" />
+              </button>
+            </DockIcon>
+            <DockIcon>
+              <button
+                type="button"
+                onClick={onAccount}
+                aria-label="Cuenta"
+                className="h-full w-full"
+              >
+                <UserIcon className="h-full w-full" />
+              </button>
+            </DockIcon>
+            <DockIcon>
+              <button
+                type="button"
+                onClick={onCart}
+                aria-label={`Carrito (${count})`}
+                className="h-full w-full"
+              >
+                <BagIcon className="h-full w-full" />
+              </button>
+              {count > 0 && (
+                <span className="pointer-events-none absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] leading-none text-white">
+                  {count}
+                </span>
+              )}
+            </DockIcon>
+          </Dock>
+        </div>
       </div>
     </div>
   );
@@ -128,7 +154,6 @@ function HeaderBar({
 function SiteHeader({ overlay = false, dark = true }) {
   const { count, open: openCart } = useCart();
   const { open: openAccount } = useAccountPanel();
-  const [categories, setCategories] = useState([]);
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -145,12 +170,6 @@ function SiteHeader({ overlay = false, dark = true }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    getCategories()
-      .then(setCategories)
-      .catch(() => {});
-  }, []);
-
   const theme = dark
     ? "text-[color:var(--header-ink,#fff)]"
     : "border-gray-200 text-black";
@@ -163,7 +182,6 @@ function SiteHeader({ overlay = false, dark = true }) {
       ? "bg-white/95"
       : "bg-white/80";
   const bar = {
-    categories,
     count,
     onMenu: () => setMenuOpen(true),
     onSearch: () => setSearchOpen(true),
@@ -200,12 +218,7 @@ function SiteHeader({ overlay = false, dark = true }) {
       )}
 
       {searchOpen && <SearchPanel onClose={() => setSearchOpen(false)} />}
-      {menuOpen && (
-        <MobileMenu
-          categories={categories}
-          onClose={() => setMenuOpen(false)}
-        />
-      )}
+      {menuOpen && <MobileMenu onClose={() => setMenuOpen(false)} />}
     </>
   );
 }
