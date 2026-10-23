@@ -211,3 +211,82 @@ body {
     animation: none;
   }
 }
+
+/* Aviso de "añadido al carrito": la tarjeta roja se revela con un corte diagonal, una hoja negra la
+   barre de izquierda a derecha y después queda una katana negra cruzando el fondo. */
+.toast-slash {
+  animation: toast-slash-in 0.55s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+@keyframes toast-slash-in {
+  from {
+    clip-path: polygon(0 0, 0 0, -22% 100%, -22% 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 122% 0, 100% 100%, -22% 100%);
+  }
+}
+
+.toast-blade {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 14px;
+  background: linear-gradient(
+    90deg,
+    #000 60%,
+    rgb(255 255 255 / 0.85) 62%,
+    #000 66%
+  );
+  transform: skewX(-12deg) translateX(-40px);
+  animation: toast-blade-sweep 0.55s cubic-bezier(0.76, 0, 0.24, 1) both;
+  pointer-events: none;
+}
+
+@keyframes toast-blade-sweep {
+  to {
+    transform: skewX(-12deg) translateX(420px);
+    opacity: 0;
+  }
+}
+
+.toast-katana {
+  position: absolute;
+  top: 50%;
+  left: -10%;
+  width: 120%;
+  height: 7px;
+  background: linear-gradient(
+    180deg,
+    #000 55%,
+    rgb(255 255 255 / 0.55) 58%,
+    #000 62%
+  );
+  clip-path: polygon(0 40%, 94% 0, 100% 50%, 94% 100%, 0 60%);
+  transform: rotate(-14deg);
+  opacity: 0.9;
+  animation: toast-katana-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+  pointer-events: none;
+}
+
+@keyframes toast-katana-in {
+  from {
+    transform: rotate(-14deg) translateX(-30%);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(-14deg) translateX(0);
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast-slash,
+  .toast-katana {
+    animation: none;
+  }
+  .toast-blade {
+    display: none;
+  }
+}
