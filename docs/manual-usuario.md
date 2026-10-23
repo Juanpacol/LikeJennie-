@@ -18,7 +18,7 @@ Al entrar verás, de arriba abajo:
 2. **Portada:** tres fotos a pantalla completa, una junto a otra, que se revelan una tras otra; encima, el titular **«Wanna rock with this?»** y el botón **Ver tienda**. Al bajar, la portada se queda fija y se oscurece un poco mientras las colecciones suben por encima.
 3. **Colecciones:** tres tarjetas, una por colección, cada una con **su propio color** y su foto fundida en él: **Fallen Angel** (lila), **JENNIE x Haribo** (amarillo) y **JENNIE x Ruby** (negro y rojo). Al pasar el mouse sobre una tarjeta aparecen su frase y el botón **Ver colección**. En el celular se deslizan de lado.
 4. **Lookbook:** una sección de pantalla completa con el título **Idol / JENNIE** en letras negras enormes sobre un fondo gris claro, tres fotos recortadas en blanco y negro que se montan sobre las letras, un texto breve, la frase «In my Ruby era» en vertical a la derecha y **RUBY** en negro en el suelo; al mover el mouse y al hacer scroll, las fotos se desplazan a distinta velocidad para dar profundidad.
-5. **Elige lo tuyo:** una mini tienda con pestañas (**Todo**, **Ropa**, **Abrigos**, **Accesorios** y **Música**) que muestra cuatro productos de la categoría elegida sin salir de la página. **Ver todo** abre el catálogo ya filtrado. En pantallas grandes, el fondo de la sección es un collage en blanco y negro (una foto a contraluz, una tira de ojos, un retrato sepia y un rostro recortado) que aparece poco a poco.
+5. **Be unique:** una mini tienda con pestañas (**Todo**, **Ropa**, **Abrigos**, **Accesorios** y **Música**) que muestra cuatro productos de la categoría elegida sin salir de la página. **Ver todo** abre el catálogo ya filtrado. En pantallas grandes, el fondo de toda la sección es un collage estilo fotocopia (un rostro recortado, un retrato sepia y tiras de ojos) que aparece poco a poco.
 6. **Preguntas frecuentes (FAQs):** las tres preguntas esenciales; pulsa una para ver la respuesta.
 7. **Pie de página:** al llegar al final de la página de inicio aparece poco a poco, con la marca en grande y tres columnas de enlaces: **Colecciones**, **Cuenta** (catálogo, mi cuenta, carrito y acceso de administrador) y **Sígueme** (redes). En el resto de las páginas (catálogo, colecciones y productos) el pie es una franja delgada con la marca, los enlaces principales y las redes.
 
@@ -29,7 +29,7 @@ Al entrar verás, de arriba abajo:
 
 ### 2. Explorar el catálogo
 
-1. Pulsa **Tienda** en el menú, **Ver tienda** en la portada, o **Ver todo** en la sección **Elige lo tuyo**.
+1. Pulsa **Tienda** en el menú, **Ver tienda** en la portada, o **Ver todo** en la sección **Be unique**.
 2. Verás el título **Catálogo** en grande y, debajo, todos los productos con su foto, nombre y precio; cada foto lleva un número.
 3. Para ver solo un tipo de prenda, pulsa una categoría (**Ropa**, **Abrigos**, **Accesorios** o **Música**) arriba de la lista; a la derecha verás cuántas piezas hay. **Todo** vuelve a mostrar todo.
 4. Si un producto tiene precio de oferta, verás el precio original tachado, el nuevo en rojo y una etiqueta con el porcentaje de descuento sobre la foto.
