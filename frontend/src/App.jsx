@@ -18,6 +18,7 @@ import AccountPanel from "./components/account/AccountPanel";
 import Home from "./pages/public/Home";
 import Catalog from "./pages/public/Catalog";
 import Collection from "./pages/public/Collection";
+import PaymentResult from "./pages/public/PaymentResult";
 import ProductDetail from "./pages/public/ProductDetail";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -39,7 +40,8 @@ function AppLayout() {
     isLanding ||
     location.pathname === "/catalogo" ||
     location.pathname.startsWith("/colecciones/") ||
-    location.pathname.startsWith("/productos/");
+    location.pathname.startsWith("/productos/") ||
+    location.pathname.startsWith("/pago/");
 
   return (
     <div
@@ -54,6 +56,8 @@ function AppLayout() {
           <Route path="/catalogo" element={<Catalog />} />
           <Route path="/colecciones/:slug" element={<Collection />} />
           <Route path="/productos/:slug" element={<ProductDetail />} />
+          <Route path="/pago/exito" element={<PaymentResult success />} />
+          <Route path="/pago/cancelado" element={<PaymentResult />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route
             path="/admin"

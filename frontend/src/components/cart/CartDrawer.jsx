@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { useCart } from "../../context/CartContext";
-import { createOrder } from "../../services/order.service";
-import { ORDER_PHRASE } from "../../data/phrases";
+import { createCheckoutSession } from "../../services/order.service";
 import { formatPrice } from "../../utils/formatPrice";
 import CartItem from "./CartItem";
 
@@ -12,7 +11,7 @@ const LABEL_CLASS = "font-mono text-[11px] uppercase tracking-[0.2em]";
 const INPUT_CLASS =
   "mt-2 w-full border-0 border-b border-white/30 bg-transparent px-0 py-3 font-display text-base text-white placeholder:text-white/40 transition-colors focus:border-accent focus:outline-none";
 const PRIMARY_BUTTON_CLASS = `btn-sweep w-full bg-accent py-4 text-white [--sweep:rgb(0_0_0/0.25)] disabled:opacity-50 ${LABEL_CLASS}`;
-const STEPS = ["Carrito", "Datos", "Listo"];
+const STEPS = ["Carrito", "Datos", "Pago"];
 
 // Indicador de pasos: el actual en blanco, el resto atenuado.
 function Steps({ current }) {
@@ -33,8 +32,8 @@ function Steps({ current }) {
 // Carrito lateral: panel negro que entra deslizando desde la derecha, con la misma tipografía
 // (condensada para los títulos, monoespaciada para las etiquetas) y el rojo de la marca como acento.
 function CartDrawer() {
-  const { items, total, isOpen, close, clear } = useCart();
-  const [step, setStep] = useState("cart"); // "cart" | "checkout" | "success"
+  const { items, total, isOpen, close } = useCart();
+  const [step, setStep] = useState("cart"); // "cart" | "checkout"
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -62,7 +61,9 @@ function CartDrawer() {
     setError(null);
 
     try {
-      await createOrder({
+      // El pedido se crea en PENDING y el pago se hace en la página de Stripe; el carrito se vacía
+      // al volver a /pago/exito.
+      const { url } = await createCheckoutSession({
         customerName,
         customerEmail,
         items: items.map((item) => ({
@@ -70,16 +71,14 @@ function CartDrawer() {
           quantity: item.quantity,
         })),
       });
-      clear();
-      setStep("success");
+      window.location.assign(url);
     } catch (err) {
       setError(err.message);
-    } finally {
       setSubmitting(false);
     }
   }
 
-  const stepIndex = { cart: 0, checkout: 1, success: 2 }[step];
+  const stepIndex = { cart: 0, checkout: 1 }[step];
   const count = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -108,7 +107,7 @@ function CartDrawer() {
             <div className="flex items-start justify-between">
               <div>
                 <h2 className="font-condensed text-5xl font-light uppercase leading-none">
-                  {step === "success" ? "Pedido confirmado" : "Tu carrito"}
+                  Tu carrito
                 </h2>
                 <Steps current={stepIndex} />
               </div>
@@ -121,25 +120,6 @@ function CartDrawer() {
                 ×
               </button>
             </div>
-
-            {step === "success" && (
-              <div className="flex flex-1 flex-col items-center justify-center text-center">
-                <p className="animate-fade-up font-script text-6xl leading-tight">
-                  {ORDER_PHRASE}
-                </p>
-                <p className="mt-6 max-w-xs font-display text-sm text-white/70">
-                  Gracias por tu compra. Este es un simulacro de checkout del
-                  proyecto académico.
-                </p>
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  className={`${PRIMARY_BUTTON_CLASS} mt-8`}
-                >
-                  Seguir comprando
-                </button>
-              </div>
-            )}
 
             {step === "cart" && items.length === 0 && (
               <div className="flex flex-1 flex-col items-center justify-center text-center">
@@ -246,7 +226,9 @@ function CartDrawer() {
                     disabled={submitting}
                     className={PRIMARY_BUTTON_CLASS}
                   >
-                    {submitting ? "Procesando..." : "Confirmar pedido"}
+                    {submitting
+                      ? "Redirigiendo a Stripe..."
+                      : "Pagar con tarjeta"}
                   </button>
                   <button
                     type="button"
