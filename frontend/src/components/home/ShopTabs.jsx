@@ -6,12 +6,14 @@ import ProductCard from "../product/ProductCard";
 import stage from "../../assets/cutouts/shop-stage.webp";
 
 const PER_TAB = 4;
-// La foto de contraluz se desvanece en elipse por todos los bordes (sin marcar su rectángulo).
+// La foto de contraluz se desvanece por la izquierda, arriba y abajo (sin marcar su rectángulo).
 const STAGE_MASK_IMAGE =
-  "radial-gradient(ellipse 62% 40% at 50% 26%, #000 35%, transparent 100%)";
+  "linear-gradient(to right, transparent, #000 55%), linear-gradient(to bottom, transparent, #000 14%, #000 80%, transparent)";
 const STAGE_MASK = {
   WebkitMaskImage: STAGE_MASK_IMAGE,
+  WebkitMaskComposite: "source-in",
   maskImage: STAGE_MASK_IMAGE,
+  maskComposite: "intersect",
 };
 
 // Tienda de la landing con pestañas: Todo y una por categoría, con 4 productos cada una. Carga el
@@ -57,21 +59,22 @@ function ShopTabs() {
 
   return (
     <section className="relative overflow-hidden bg-black px-6 py-16 text-white">
-      {/* Foto a contraluz en blanco y negro, a la derecha del título. Su fondo es casi negro, así que se mezcla con
-          la sección (screen) y una máscara radial la desvanece por todos los bordes. Solo en escritorio. */}
+      {/* Foto a contraluz en blanco y negro como fondo de toda la sección: ocupa el alto completo a la derecha y se
+          desvanece hacia la izquierda y por arriba y abajo. Su fondo casi negro se mezcla con la sección (screen).
+          Las tarjetas y el título van por encima (z-10). */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-[7%] top-0 hidden h-[14.25rem] w-[22rem] overflow-hidden lg:block"
+        className="pointer-events-none absolute inset-y-0 right-0 hidden w-[60%] lg:block"
       >
         <img
           src={stage}
           alt=""
           loading="lazy"
-          className="shop-kneel absolute -top-6 right-12 h-[28rem] w-auto max-w-none mix-blend-screen [filter:brightness(0.9)_contrast(1.3)]"
+          className="shop-kneel h-full w-full object-cover object-[50%_18%] opacity-80 mix-blend-screen [filter:brightness(0.9)_contrast(1.25)]"
           style={{ ...STAGE_MASK }}
         />
       </div>
-      <div className="relative mx-auto max-w-6xl">
+      <div className="relative z-10 mx-auto max-w-6xl">
         <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
           Tienda
         </p>
