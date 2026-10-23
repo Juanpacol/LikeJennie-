@@ -10,6 +10,8 @@ import zineA from "../../assets/cutouts/shop-zine-a.webp";
 import zineB from "../../assets/cutouts/shop-zine-b.webp";
 import face from "../../assets/cutouts/shop-face.webp";
 import poster from "../../assets/cutouts/shop-poster.webp";
+import mono from "../../assets/cutouts/shop-mono.webp";
+import dark from "../../assets/cutouts/shop-dark.webp";
 
 const SHADOW = "shadow-[0_26px_40px_rgba(0,0,0,0.65)]";
 
@@ -128,6 +130,14 @@ const PIECES = [
     delay: "0.4s",
     front: true,
     tape: "-top-3 left-[30%] rotate-[8deg]",
+  },
+  {
+    src: mono,
+    pos: "left-[5%] top-[38%] w-[64%]",
+    look: `-rotate-[2deg] ${SHADOW}`,
+    speed: 80,
+    delay: "0.7s",
+    tape: "-top-3 right-[12%] rotate-[10deg]",
   },
   {
     src: zineB,
@@ -270,18 +280,21 @@ function ShopCollage({ children }) {
 
   return (
     <div ref={ref} className="relative overflow-hidden bg-black">
-      {/* Banda ancha con los ojos, muy tenue, que cierra el bloque por abajo. */}
+      {/* Foto oscura de ambiente detrás de las FAQs: se mezcla con el negro (screen) y se desvanece por arriba,
+          por abajo y por los lados. */}
       <img
-        src={eyes}
+        src={dark}
         alt=""
         aria-hidden="true"
         loading="lazy"
-        className="shop-piece pointer-events-none absolute inset-x-0 bottom-0 hidden h-72 w-full object-cover object-[50%_14%] opacity-25 mix-blend-screen lg:block"
+        className="shop-piece pointer-events-none absolute bottom-0 right-0 hidden h-[34%] w-[64%] object-cover object-[50%_22%] opacity-50 mix-blend-screen lg:block"
         style={{
           WebkitMaskImage:
-            "linear-gradient(to top, transparent, #000 25%, #000 45%, transparent)",
+            "linear-gradient(to top, transparent, #000 22%, #000 70%, transparent), linear-gradient(to right, transparent, #000 40%, #000 80%, transparent)",
+          WebkitMaskComposite: "source-in",
           maskImage:
-            "linear-gradient(to top, transparent, #000 25%, #000 45%, transparent)",
+            "linear-gradient(to top, transparent, #000 22%, #000 70%, transparent), linear-gradient(to right, transparent, #000 40%, #000 80%, transparent)",
+          maskComposite: "intersect",
           "--piece-delay": "0.2s",
         }}
       />
