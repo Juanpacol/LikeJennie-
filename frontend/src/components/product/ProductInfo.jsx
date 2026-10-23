@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getCatalog } from "../../services/product.service";
 import ProductCard from "./ProductCard";
 
@@ -63,13 +62,7 @@ function ProductInfo({ product, collection }) {
 
         <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.2fr_1fr]">
           <div className="animate-fade-up">
-            <Link
-              to="/catalogo"
-              className="hover-underline font-mono text-[11px] uppercase tracking-[0.25em]"
-            >
-              ← Volver a la tienda
-            </Link>
-            <h2 className="mt-8 font-mono text-[11px] uppercase tracking-[0.25em] opacity-70">
+            <h2 className="font-mono text-[11px] uppercase tracking-[0.25em] opacity-70">
               Descripción
             </h2>
             <p className="mt-4 max-w-xl font-condensed text-2xl font-light leading-snug sm:text-3xl">

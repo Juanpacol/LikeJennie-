@@ -158,12 +158,20 @@ function SiteHeader({ overlay = false, dark = true }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [pastHero, setPastHero] = useState(false);
+  // En la landing, el header compacto se aclara cuando pasa sobre una sección clara (data-header-theme="light").
+  const [overLight, setOverLight] = useState(false);
 
   // Al bajar, el header se compacta; en la landing, además, aparece el header deslizante.
   useEffect(() => {
     function handleScroll() {
       setScrolled(window.scrollY > SCROLL_THRESHOLD);
       setPastHero(window.scrollY > window.innerHeight * HERO_FRACTION);
+      const under = document
+        .elementsFromPoint(window.innerWidth / 2, 4)
+        .find((element) => !element.closest("header"));
+      setOverLight(
+        under?.closest("[data-header-theme]")?.dataset.headerTheme === "light",
+      );
     }
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -199,9 +207,9 @@ function SiteHeader({ overlay = false, dark = true }) {
           {/* Header compacto que se desliza desde arriba cuando el hero ya pasó. */}
           <header
             aria-hidden={!pastHero}
-            className={`fixed inset-x-0 top-0 z-40 bg-black/85 transition-[transform,visibility] duration-300 ease-out ${blur} ${theme} ${
-              pastHero ? "visible translate-y-0" : "invisible -translate-y-full"
-            }`}
+            className={`fixed inset-x-0 top-0 z-40 backdrop-blur-sm transition-[transform,visibility,background-color,color] duration-300 ease-out ${
+              overLight ? "bg-white/85 text-black" : "bg-black/85 text-white"
+            } ${pastHero ? "visible translate-y-0" : "invisible -translate-y-full"}`}
           >
             <HeaderBar compact {...bar} />
           </header>
