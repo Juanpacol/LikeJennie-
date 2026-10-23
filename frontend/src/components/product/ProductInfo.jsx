@@ -21,7 +21,7 @@ const DETAILS = [
 
 // Zona clara bajo la compra del producto, con los colores de su colección: borde superior diagonal
 // (como el del panel de compra), nombre de la colección como marca de agua, descripción con acordeones,
-// otros productos de la misma colección y una franja con su frase.
+// y otros productos de la misma colección.
 function ProductInfo({ product, collection }) {
   const { panel, theme } = collection;
   const [related, setRelated] = useState([]);
@@ -46,7 +46,7 @@ function ProductInfo({ product, collection }) {
     // El fondo de detrás es el color de la colección, que asoma por encima del borde diagonal.
     <div style={{ backgroundColor: panel.stage }}>
       <div
-        className="info-edge relative overflow-hidden px-6 pb-0 pt-20 lg:pt-28"
+        className="info-edge relative overflow-hidden px-6 pb-16 pt-20 lg:pt-28"
         style={{
           backgroundColor: panel.detail.bg,
           color: panel.detail.ink,
@@ -112,24 +112,6 @@ function ProductInfo({ product, collection }) {
             </div>
           </div>
         )}
-
-        {/* Franja con la frase de la colección, en movimiento lento. */}
-        <div
-          aria-hidden="true"
-          className="relative -mx-6 mt-20 overflow-hidden border-y border-current py-4"
-        >
-          <div className="marquee-track flex w-max whitespace-nowrap font-condensed text-3xl font-light uppercase sm:text-4xl">
-            {[0, 1].map((copy) => (
-              <span key={copy} className="flex shrink-0">
-                {Array.from({ length: 6 }, (_, i) => (
-                  <span key={i} className="px-6">
-                    {collection.phrase} <span className="opacity-50">/</span>
-                  </span>
-                ))}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
