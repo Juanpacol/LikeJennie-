@@ -406,6 +406,7 @@ function ProductDetail() {
           onIndexChange={setLightboxIndex}
           onClose={() => setLightboxIndex(null)}
           alt={product.name}
+          collection={collection}
         />
       )}
     </section>
