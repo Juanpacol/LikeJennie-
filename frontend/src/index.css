@@ -269,20 +269,3 @@ body {
 .info-item[open] .info-plus {
   transform: rotate(45deg);
 }
-
-/* Franja con la frase de la colección: dos copias, se desplaza media pista y vuelve sin saltos. */
-.marquee-track {
-  animation: marquee 40s linear infinite;
-}
-
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
-}
