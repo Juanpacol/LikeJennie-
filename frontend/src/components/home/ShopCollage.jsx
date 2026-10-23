@@ -11,7 +11,7 @@ import zineB from "../../assets/cutouts/shop-zine-b.webp";
 import face from "../../assets/cutouts/shop-face.webp";
 import poster from "../../assets/cutouts/shop-poster.webp";
 import mono from "../../assets/cutouts/shop-mono.webp";
-import dark from "../../assets/cutouts/shop-dark.webp";
+import star from "../../assets/cutouts/shop-star.webp";
 
 const SHADOW = "shadow-[0_26px_40px_rgba(0,0,0,0.65)]";
 
@@ -185,17 +185,19 @@ const PIECES = [
     delay: "0.7s",
   },
   {
-    id: "faq-scribble",
+    src: star,
     side: true,
-    node: <Scribble className="h-full w-full" />,
-    pos: "right-[8%] top-[73%] w-[16%]",
+    pos: "right-[3%] top-[70.5%] w-[17%]",
+    look: `rotate-[3deg] ${SHADOW}`,
     speed: 50,
+    delay: "1.1s",
+    tape: "-top-3 left-[12%] -rotate-[12deg]",
   },
   {
     id: "faq-star",
     side: true,
     node: <Star className="h-full w-full" />,
-    pos: "right-[4%] top-[80.5%] w-[6%]",
+    pos: "right-[19%] top-[83%] w-[5%]",
     speed: -40,
   },
 ];
@@ -280,24 +282,6 @@ function ShopCollage({ children }) {
 
   return (
     <div ref={ref} className="relative overflow-hidden bg-black">
-      {/* Foto oscura de ambiente detrás de las FAQs: se mezcla con el negro (screen) y se desvanece por arriba,
-          por abajo y por los lados. */}
-      <img
-        src={dark}
-        alt=""
-        aria-hidden="true"
-        loading="lazy"
-        className="shop-piece pointer-events-none absolute bottom-0 right-0 hidden h-[34%] w-[64%] object-cover object-[50%_22%] opacity-50 mix-blend-screen lg:block"
-        style={{
-          WebkitMaskImage:
-            "linear-gradient(to top, transparent, #000 22%, #000 70%, transparent), linear-gradient(to right, transparent, #000 40%, #000 80%, transparent)",
-          WebkitMaskComposite: "source-in",
-          maskImage:
-            "linear-gradient(to top, transparent, #000 22%, #000 70%, transparent), linear-gradient(to right, transparent, #000 40%, #000 80%, transparent)",
-          maskComposite: "intersect",
-          "--piece-delay": "0.2s",
-        }}
-      />
       <Layer
         side={false}
         front={false}
