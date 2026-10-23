@@ -7,53 +7,56 @@ import eyes from "../../assets/cutouts/shop-eyes.webp";
 import zineA from "../../assets/cutouts/shop-zine-a.webp";
 import zineB from "../../assets/cutouts/shop-zine-b.webp";
 import face from "../../assets/cutouts/shop-face.webp";
+import poster from "../../assets/cutouts/shop-poster.webp";
 
 const PER_TAB = 4;
 
-// Piezas del collage de fondo (solo escritorio), todas en blanco y negro de alto contraste (estilo fotocopia),
-// repartidas por toda la sección y solapadas: tira de ojos en negativo a la izquierda, retrato punteado junto
-// al título, cara recortada a la derecha, un afiche claro abajo a la derecha y, al fondo, una banda ancha con
-// los ojos, muy tenue. `delay` escalona su entrada.
+// Collage de la columna izquierda (solo escritorio), todo en blanco y negro de alto contraste (estilo
+// fotocopia). Cada pieza se coloca según su postura: el afiche de la cadena arriba, mirando hacia la derecha; la
+// cara asoma por la esquina superior derecha hacia los productos; el retrato del brazo en alto sube por el
+// centro; los ojos lo cruzan por un lado; y la figura agachada, invertida, queda abajo estirando el brazo hacia
+// la cuadrícula. Las cintas rojas son el acento de la marca. `delay` escalona su entrada.
 const COLLAGE = [
   {
-    src: eyes,
+    src: poster,
     className:
-      "left-[0.5%] top-[34%] w-32 -rotate-3 opacity-80 shadow-[0_18px_30px_rgba(0,0,0,0.55)]",
-    delay: "0.3s",
+      "left-[1%] top-[3%] w-[84%] -rotate-[2.5deg] shadow-[0_26px_40px_rgba(0,0,0,0.65)]",
+    delay: "0.2s",
   },
   {
     src: zineA,
     className:
-      "right-[28%] top-16 w-44 rotate-[2.5deg] border border-white/25 shadow-[0_22px_34px_rgba(0,0,0,0.6)]",
-    delay: "0.45s",
-  },
-  {
-    src: face,
-    className: "right-[1.5%] -top-6 h-[31rem] w-auto max-w-none",
-    style: {
-      WebkitMaskImage: "linear-gradient(to bottom, #000 55%, transparent)",
-      maskImage: "linear-gradient(to bottom, #000 55%, transparent)",
-    },
-    delay: "0.6s",
-  },
-  {
-    src: zineB,
-    className:
-      "bottom-4 right-[1.5%] h-36 w-44 -rotate-6 object-cover object-[55%_30%] opacity-90 shadow-[0_22px_34px_rgba(0,0,0,0.6)]",
-    delay: "0.75s",
+      "left-[6%] top-[37%] w-[40%] rotate-[3deg] border border-white/25 shadow-[0_26px_40px_rgba(0,0,0,0.7)]",
+    delay: "0.4s",
   },
   {
     src: eyes,
     className:
-      "inset-x-0 bottom-0 h-64 w-full object-cover object-[50%_14%] opacity-25 mix-blend-screen",
-    style: {
-      WebkitMaskImage:
-        "linear-gradient(to top, transparent, #000 22%, #000 40%, transparent)",
-      maskImage:
-        "linear-gradient(to top, transparent, #000 22%, #000 40%, transparent)",
-    },
-    delay: "0.2s",
+      "right-[3%] top-[60%] w-[29%] rotate-[4deg] opacity-90 shadow-[0_22px_34px_rgba(0,0,0,0.65)]",
+    delay: "0.55s",
   },
+  {
+    src: face,
+    className: "-right-[9%] -top-[2%] h-[33%] w-auto max-w-none",
+    style: {
+      WebkitMaskImage: "linear-gradient(to bottom, #000 58%, transparent)",
+      maskImage: "linear-gradient(to bottom, #000 58%, transparent)",
+    },
+    delay: "0.7s",
+  },
+  {
+    src: zineB,
+    className:
+      "bottom-[1%] left-[16%] w-[50%] -scale-x-100 rotate-[4deg] opacity-95 shadow-[0_26px_40px_rgba(0,0,0,0.65)]",
+    delay: "0.85s",
+  },
+];
+
+// Cintas rojas pegadas en las esquinas de las piezas.
+const TAPES = [
+  "left-[-2%] top-[2%] -rotate-[38deg]",
+  "left-[34%] top-[35.5%] rotate-[8deg]",
+  "left-[56%] bottom-[28%] -rotate-[24deg]",
 ];
 
 // Tienda de la landing con pestañas: Todo y una por categoría, con 4 productos cada una. Carga el
@@ -98,90 +101,116 @@ function ShopTabs() {
     }`;
 
   return (
-    <section className="relative overflow-hidden bg-black px-6 py-16 text-white">
-      {/* Fondo de collage estilo fotocopia repartido por toda la sección; el contenido va por encima (z-10). */}
-      <div
+    <section className="relative overflow-hidden bg-black px-6 py-16 text-white sm:px-10">
+      {/* Banda ancha con los ojos, muy tenue, que cierra la sección por abajo (solo escritorio). */}
+      <img
+        src={eyes}
+        alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden lg:block"
-      >
-        {COLLAGE.map((piece) => (
-          <img
-            key={`${piece.src}-${piece.delay}`}
-            src={piece.src}
-            alt=""
-            loading="lazy"
-            className={`shop-piece absolute ${piece.className}`}
-            style={{ ...piece.style, "--piece-delay": piece.delay }}
-          />
-        ))}
-      </div>
-      <div className="relative z-10 mx-auto max-w-6xl">
-        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
-          Tienda
-        </p>
-        <h2 className="mt-3 font-condensed text-7xl font-light uppercase tracking-[-0.01em] sm:text-8xl">
-          Be unique
-        </h2>
+        loading="lazy"
+        className="shop-piece pointer-events-none absolute inset-x-0 bottom-0 hidden h-64 w-full object-cover object-[50%_14%] opacity-20 mix-blend-screen lg:block"
+        style={{
+          WebkitMaskImage:
+            "linear-gradient(to top, transparent, #000 22%, #000 40%, transparent)",
+          maskImage:
+            "linear-gradient(to top, transparent, #000 22%, #000 40%, transparent)",
+          "--piece-delay": "0.2s",
+        }}
+      />
 
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 lg:grid-cols-[5fr_7fr]">
+        {/* Collage de la izquierda: ocupa todo el alto de la sección. */}
         <div
-          role="tablist"
-          aria-label="Categorías"
-          className="no-scrollbar mt-8 flex gap-8 overflow-x-auto border-b border-white/10"
+          aria-hidden="true"
+          className="pointer-events-none relative hidden min-h-[58rem] lg:block"
         >
-          <button
-            type="button"
-            role="tab"
-            aria-selected={selected === null}
-            onClick={() => setSelected(null)}
-            className={tabClass(selected === null)}
-          >
-            Todo
-          </button>
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              type="button"
-              role="tab"
-              aria-selected={selected === category.slug}
-              onClick={() => setSelected(category.slug)}
-              className={tabClass(selected === category.slug)}
-            >
-              {category.name}
-            </button>
+          {COLLAGE.map((piece) => (
+            <img
+              key={`${piece.src}-${piece.delay}`}
+              src={piece.src}
+              alt=""
+              loading="lazy"
+              className={`shop-piece absolute ${piece.className}`}
+              style={{ ...piece.style, "--piece-delay": piece.delay }}
+            />
+          ))}
+          {TAPES.map((position) => (
+            <span
+              key={position}
+              className={`shop-piece absolute z-10 h-6 w-20 bg-accent/90 shadow-md ${position}`}
+              style={{ "--piece-delay": "0.9s" }}
+            />
           ))}
         </div>
 
-        {loading && (
-          <div className="mt-8 grid grid-cols-2 gap-6 lg:grid-cols-4">
-            {Array.from({ length: PER_TAB }, (_, i) => (
-              <div
-                key={i}
-                className="aspect-[3/4] animate-pulse rounded-lg bg-neutral-900"
-              />
-            ))}
-          </div>
-        )}
-        {error && <p className="mt-8 text-accent">{error}</p>}
+        <div>
+          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
+            Tienda
+          </p>
+          <h2 className="mt-3 font-condensed text-7xl font-light uppercase tracking-[-0.01em] sm:text-8xl">
+            Be unique
+          </h2>
 
-        {!loading && !error && (
           <div
-            key={selected ?? "todo"}
-            role="tabpanel"
-            className="mt-8 grid grid-cols-2 gap-6 lg:grid-cols-4"
+            role="tablist"
+            aria-label="Categorías"
+            className="no-scrollbar mt-8 flex gap-8 overflow-x-auto border-b border-white/10"
           >
-            {visible.map((product, index) => (
-              <ProductCard key={product.id} product={product} index={index} />
+            <button
+              type="button"
+              role="tab"
+              aria-selected={selected === null}
+              onClick={() => setSelected(null)}
+              className={tabClass(selected === null)}
+            >
+              Todo
+            </button>
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                type="button"
+                role="tab"
+                aria-selected={selected === category.slug}
+                onClick={() => setSelected(category.slug)}
+                className={tabClass(selected === category.slug)}
+              >
+                {category.name}
+              </button>
             ))}
           </div>
-        )}
 
-        <div className="mt-10 text-center">
-          <Link
-            to={selected ? `/catalogo?categoria=${selected}` : "/catalogo"}
-            className="btn-sweep inline-block border border-white/70 px-8 py-3 font-display text-xs uppercase tracking-widest transition hover:bg-white hover:text-black"
-          >
-            Ver todo
-          </Link>
+          {loading && (
+            <div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-8">
+              {Array.from({ length: PER_TAB }, (_, i) => (
+                <div
+                  key={i}
+                  className="aspect-[3/4] animate-pulse rounded-lg bg-neutral-900"
+                />
+              ))}
+            </div>
+          )}
+          {error && <p className="mt-8 text-accent">{error}</p>}
+
+          {!loading && !error && (
+            <div
+              key={selected ?? "todo"}
+              role="tabpanel"
+              className="mt-8 grid grid-cols-2 gap-x-5 gap-y-8"
+            >
+              {visible.map((product, index) => (
+                <ProductCard key={product.id} product={product} index={index} />
+              ))}
+            </div>
+          )}
+
+          <div className="mt-10 text-center">
+            <Link
+              to={selected ? `/catalogo?categoria=${selected}` : "/catalogo"}
+              className="btn-sweep inline-block border border-white/70 px-8 py-3 font-display text-xs uppercase tracking-widest transition hover:bg-white hover:text-black"
+            >
+              Ver todo
+            </Link>
+          </div>
         </div>
       </div>
     </section>
