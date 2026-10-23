@@ -24,7 +24,7 @@ import rubyCover from "../assets/ruby-cover.jpg";
 // en tinta oscura sobre el color de la página) o "light" (se suma con screen: figura clara sobre página oscura);
 // `position` = clases de posición y alto.
 // `panel` = colores del detalle de producto de la colección: bg = panel de compra, text = su texto, button/onButton = botón
-// de compra, stage = fondo detrás de la prenda. El dibujo `art` se reutiliza ahí.
+// de compra, stage = fondo detrás de la prenda, detail = fondo y texto de la zona de información bajo la compra. El dibujo `art` se reutiliza ahí.
 // `secondImage` (opcional) = segunda foto, más pequeña, que se muestra arriba a la izquierda de la cabecera.
 // `bannerImage` (opcional) = foto de la cabecera de su página; si falta se usa `image`, con `bannerPosition`
 // (qué parte queda visible). `imageWidth` (px máximos de ancho) e `imagePosition` (qué parte de la foto queda visible).
@@ -51,6 +51,7 @@ export const COLLECTIONS = {
       button: "#24102F",
       onButton: "#FFFFFF",
       stage: "#24102F",
+      detail: { bg: "#D9C8E0", ink: "#24102F" },
     },
     footer: {
       image: fallenAngelFooter,
@@ -89,6 +90,7 @@ export const COLLECTIONS = {
       button: "#D6001C",
       onButton: "#FFFFFF",
       stage: "#2A0008",
+      detail: { bg: "#FFD500", ink: "#2A0008" },
     },
     footer: {
       images: [
@@ -132,6 +134,7 @@ export const COLLECTIONS = {
       button: "#000000",
       onButton: "#FFFFFF",
       stage: "#0B0B0B",
+      detail: { bg: "#F5EDED", ink: "#0B0B0B" },
     },
     footer: {
       image: rubyFooter,
