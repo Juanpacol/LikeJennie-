@@ -162,6 +162,16 @@ function ProductDetail() {
             label={collection.slug ? collection.title : "Tienda"}
           />
 
+          {/* Foco de luz con el tono de la colección detrás de la prenda: separa del fondo las prendas
+              negras, rojas o blancas. */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10"
+            style={{
+              background: `radial-gradient(ellipse 62% 72% at 50% 52%, color-mix(in srgb, ${panel.detail.bg} 38%, transparent), transparent 74%)`,
+            }}
+          />
+
           {/* Dibujo de la colección, en claro y muy tenue, detrás de la prenda. */}
           <img
             src={art.image}
