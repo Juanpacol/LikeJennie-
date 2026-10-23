@@ -321,3 +321,25 @@ body {
     display: none;
   }
 }
+
+/* Las cuchillas del carrito entran cortando desde abajo a la izquierda, un poco después del corte del panel. */
+.blade-art {
+  animation: blade-art-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+@keyframes blade-art-in {
+  from {
+    transform: translate(-18%, 14%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blade-art {
+    animation: none;
+  }
+}

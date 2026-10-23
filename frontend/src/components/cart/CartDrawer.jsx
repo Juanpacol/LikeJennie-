@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useCart } from "../../context/CartContext";
 import { createCheckoutSession } from "../../services/order.service";
 import { formatPrice } from "../../utils/formatPrice";
+import BladeArt from "./BladeArt";
 import CartItem from "./CartItem";
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -120,17 +121,14 @@ function CartDrawer() {
             role="dialog"
             aria-modal="true"
             aria-label="Carrito"
-            className="relative flex h-full w-full max-w-md flex-col overflow-hidden bg-accent py-6 pl-10 pr-6 text-white sm:py-8 sm:pl-12 sm:pr-8"
+            className="relative isolate flex h-full w-full max-w-md flex-col overflow-hidden bg-accent py-6 pl-10 pr-6 text-white sm:py-8 sm:pl-12 sm:pr-8"
             initial={{ clipPath: CLOSED }}
             animate={{ clipPath: OPEN }}
             exit={{ clipPath: CLOSED }}
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
           >
-            {/* Katana negra cruzando el fondo, y una hoja que barre el panel al abrirlo. */}
-            <span
-              aria-hidden="true"
-              className="toast-katana !top-[44%] !h-2 opacity-70"
-            />
+            {/* Cuchillas negras en diagonal al fondo, y una hoja que barre el panel al abrirlo. */}
+            <BladeArt />
             <span aria-hidden="true" className="drawer-blade" />
             <div className="relative flex items-start justify-between">
               <div>
