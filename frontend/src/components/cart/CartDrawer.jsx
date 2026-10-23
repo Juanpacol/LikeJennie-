@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useCart } from "../../context/CartContext";
 import { createCheckoutSession } from "../../services/order.service";
 import { formatPrice } from "../../utils/formatPrice";
-import InkArt from "./InkArt";
+import silhouette from "../../assets/cart-silhouette.jpg";
 import CartItem from "./CartItem";
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -127,8 +127,21 @@ function CartDrawer() {
             exit={{ clipPath: CLOSED }}
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
           >
-            {/* Pinceladas de tinta al fondo, y una hoja que barre el panel al abrirlo. */}
-            <InkArt />
+            {/* Foto en silueta fundida con el rojo, y una hoja que barre el panel al abrirlo. */}
+            <img
+              src={silhouette}
+              alt=""
+              aria-hidden="true"
+              className="ink-art pointer-events-none absolute bottom-0 right-0 -z-10 h-[86%] w-auto max-w-none mix-blend-multiply"
+              style={{
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, transparent, #000 38%), linear-gradient(to right, transparent, #000 30%)",
+                WebkitMaskComposite: "source-in",
+                maskImage:
+                  "linear-gradient(to bottom, transparent, #000 38%), linear-gradient(to right, transparent, #000 30%)",
+                maskComposite: "intersect",
+              }}
+            />
             <span aria-hidden="true" className="drawer-blade" />
             <div className="relative flex items-start justify-between">
               <div>
