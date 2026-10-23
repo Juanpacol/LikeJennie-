@@ -23,6 +23,8 @@ import rubyCover from "../assets/ruby-cover.jpg";
 // `art` (opcional) = dibujo decorativo de fondo de la cabecera: `blend` "ink" (se invierte y se multiplica: la figura queda
 // en tinta oscura sobre el color de la página) o "light" (se suma con screen: figura clara sobre página oscura);
 // `position` = clases de posición y alto.
+// `panel` = colores del detalle de producto de la colección: bg = panel de compra, text = su texto, button/onButton = botón
+// de compra, stage = fondo detrás de la prenda. El dibujo `art` se reutiliza ahí.
 // `secondImage` (opcional) = segunda foto, más pequeña, que se muestra arriba a la izquierda de la cabecera.
 // `bannerImage` (opcional) = foto de la cabecera de su página; si falta se usa `image`, con `bannerPosition`
 // (qué parte queda visible). `imageWidth` (px máximos de ancho) e `imagePosition` (qué parte de la foto queda visible).
@@ -42,6 +44,13 @@ export const COLLECTIONS = {
       image: artLily,
       blend: "ink",
       position: "left-[22%] bottom-0 h-[84%]",
+    },
+    panel: {
+      bg: "#D9C8E0",
+      text: "#24102F",
+      button: "#24102F",
+      onButton: "#FFFFFF",
+      stage: "#24102F",
     },
     footer: {
       image: fallenAngelFooter,
@@ -73,6 +82,13 @@ export const COLLECTIONS = {
       image: artKanji,
       blend: "ink",
       position: "left-[4%] bottom-[8%] h-[78%]",
+    },
+    panel: {
+      bg: "#FFD500",
+      text: "#2A0008",
+      button: "#D6001C",
+      onButton: "#FFFFFF",
+      stage: "#2A0008",
     },
     footer: {
       images: [
@@ -110,6 +126,13 @@ export const COLLECTIONS = {
       blend: "light",
       position: "left-[-2%] bottom-0 h-[110%]",
     },
+    panel: {
+      bg: "#D6001C",
+      text: "#FFFFFF",
+      button: "#000000",
+      onButton: "#FFFFFF",
+      stage: "#0B0B0B",
+    },
     footer: {
       image: rubyFooter,
       position: "50% 25%",
@@ -127,3 +150,12 @@ export const COLLECTIONS = {
     },
   },
 };
+
+// Colección a la que pertenece un producto (por su nombre), o `ruby` si no encaja en ninguna.
+export function collectionOfProduct(name) {
+  const lower = name.toLowerCase();
+  return (
+    Object.values(COLLECTIONS).find((c) => lower.includes(c.match)) ??
+    COLLECTIONS.ruby
+  );
+}
