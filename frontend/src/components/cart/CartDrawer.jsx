@@ -83,6 +83,27 @@ function CartDrawer() {
           quantity: item.quantity,
         })),
       });
+      // Copia del carrito para la pantalla de confirmación (el carrito se vacía al volver de Stripe).
+      try {
+        sessionStorage.setItem(
+          "ruby_last_order",
+          JSON.stringify({
+            total,
+            items: items.map(
+              ({ productName, size, color, price, image, quantity }) => ({
+                productName,
+                size,
+                color,
+                price,
+                image,
+                quantity,
+              }),
+            ),
+          }),
+        );
+      } catch {
+        // Sin sessionStorage la confirmación se muestra sin el resumen.
+      }
       window.location.assign(url);
     } catch (err) {
       setError(err.message);
