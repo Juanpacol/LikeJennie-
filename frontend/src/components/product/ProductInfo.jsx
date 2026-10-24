@@ -55,7 +55,7 @@ function ProductInfo({ product, collection }) {
       >
         <p
           aria-hidden="true"
-          className="pointer-events-none absolute -top-2 left-4 select-none whitespace-nowrap font-condensed text-[min(28vw,22rem)] font-semibold uppercase leading-none opacity-[0.07]"
+          className="pointer-events-none absolute -top-2 left-4 max-w-full select-none overflow-hidden whitespace-nowrap font-condensed text-[min(22vw,22rem)] font-semibold uppercase leading-none opacity-[0.07]"
         >
           {collection.title}
         </p>
@@ -65,7 +65,7 @@ function ProductInfo({ product, collection }) {
             <h2 className="font-mono text-[11px] uppercase tracking-[0.25em] opacity-70">
               Descripción
             </h2>
-            <p className="mt-4 max-w-xl font-condensed text-2xl font-light leading-snug sm:text-3xl">
+            <p className="mt-4 max-w-xl font-display text-base leading-relaxed sm:font-condensed sm:text-3xl sm:font-light sm:leading-snug">
               {product.description}
             </p>
           </div>

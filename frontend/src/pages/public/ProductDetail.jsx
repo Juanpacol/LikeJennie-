@@ -290,7 +290,7 @@ function ProductDetail() {
             src={art.image}
             alt=""
             aria-hidden="true"
-            className="katana-bg pointer-events-none absolute -bottom-4 -right-16 -z-10 h-[96%] opacity-55 w-auto max-w-none mix-blend-multiply [filter:invert(1)]"
+            className="katana-bg pointer-events-none absolute -bottom-4 -right-16 -z-10 h-[96%] opacity-30 sm:opacity-55 w-auto max-w-none mix-blend-multiply [filter:invert(1)]"
             style={{
               WebkitMaskImage: artMask,
               WebkitMaskComposite: "source-in",
