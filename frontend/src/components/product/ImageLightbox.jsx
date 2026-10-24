@@ -38,7 +38,7 @@ function ImageLightbox({
     };
   }, [index, count, onClose, onIndexChange]);
 
-  const arrowClass = `absolute top-1/2 -translate-y-1/2 ${buttonClass}`;
+  const arrowClass = `absolute top-[42%] -translate-y-1/2 ${buttonClass} max-sm:h-9 max-sm:w-9 max-sm:bg-black/30`;
 
   return createPortal(
     <div
@@ -70,7 +70,7 @@ function ImageLightbox({
       />
       <p
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-6 right-4 select-none whitespace-nowrap font-condensed text-[min(26vw,20rem)] font-semibold uppercase leading-none opacity-[0.06]"
+        className="pointer-events-none absolute bottom-28 right-4 select-none sm:-bottom-6 whitespace-nowrap font-condensed text-[min(26vw,20rem)] font-semibold uppercase leading-none opacity-[0.06]"
       >
         {title}
       </p>
@@ -79,7 +79,7 @@ function ImageLightbox({
         key={index}
         src={images[index]?.url}
         alt={alt}
-        className="relative max-h-[74vh] max-w-[88vw] animate-fade-in object-contain drop-shadow-[0_24px_40px_rgba(0,0,0,0.45)]"
+        className="relative max-h-[64vh] max-w-[88vw] sm:max-h-[74vh] animate-fade-in object-contain drop-shadow-[0_24px_40px_rgba(0,0,0,0.45)]"
         onClick={(event) => event.stopPropagation()}
       />
 
