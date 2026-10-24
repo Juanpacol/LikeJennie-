@@ -111,7 +111,7 @@ function CartDrawer() {
             role="dialog"
             aria-modal="true"
             aria-label="Carrito"
-            className="relative isolate flex h-full w-full max-w-md flex-col overflow-hidden bg-accent py-6 pl-14 pr-6 text-white sm:py-8 sm:pl-16 sm:pr-8"
+            className="relative isolate flex h-full w-full max-w-md flex-col overflow-hidden bg-accent pb-[max(1.5rem,env(safe-area-inset-bottom))] pl-14 pr-6 pt-6 text-white sm:py-8 sm:pl-16 sm:pr-8"
             initial={{ clipPath: CLOSED, x: "6%", opacity: 0 }}
             animate={{ clipPath: OPEN, x: 0, opacity: 1 }}
             exit={{ clipPath: CLOSED, x: "6%", opacity: 0 }}
