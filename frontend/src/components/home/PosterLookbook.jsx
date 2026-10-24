@@ -164,7 +164,7 @@ function PosterLookbook() {
       </div>
 
       {/* Texto a la derecha de «Idol». */}
-      <div className="absolute left-[42%] top-[21%] z-[15] hidden max-w-[21rem] md:block">
+      <div className="absolute left-[42%] top-[21%] z-[15] hidden max-w-[21rem] lg:block">
         <p className="font-display text-sm uppercase tracking-[0.3em] text-black/60">
           Lookbook · 2026
         </p>
