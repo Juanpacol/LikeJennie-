@@ -187,7 +187,7 @@ function ProductForm() {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label className="text-sm font-medium" htmlFor="basePrice">
               Precio
@@ -269,18 +269,18 @@ function ProductForm() {
             <p className="text-sm font-medium">Variantes (talla / color / stock)</p>
             <div className="mt-2 space-y-2">
               {variants.map((variant, index) => (
-                <div key={index} className="flex gap-2">
+                <div key={index} className="flex items-center gap-2">
                   <input
                     placeholder="Talla"
                     value={variant.size}
                     onChange={(e) => updateVariantField(index, "size", e.target.value)}
-                    className="w-1/4 rounded border border-gray-300 px-2 py-1 text-sm"
+                    className="min-w-0 flex-1 rounded border border-gray-300 px-2 py-1 text-sm"
                   />
                   <input
                     placeholder="Color"
                     value={variant.color}
                     onChange={(e) => updateVariantField(index, "color", e.target.value)}
-                    className="w-1/3 rounded border border-gray-300 px-2 py-1 text-sm"
+                    className="min-w-0 flex-[1.4] rounded border border-gray-300 px-2 py-1 text-sm"
                   />
                   <input
                     type="number"
@@ -288,13 +288,13 @@ function ProductForm() {
                     placeholder="Stock"
                     value={variant.stock}
                     onChange={(e) => updateVariantField(index, "stock", e.target.value)}
-                    className="w-1/4 rounded border border-gray-300 px-2 py-1 text-sm"
+                    className="min-w-0 flex-1 rounded border border-gray-300 px-2 py-1 text-sm"
                   />
                   {variants.length > 1 && (
                     <button
                       type="button"
                       onClick={() => removeVariantRow(index)}
-                      className="text-sm text-red-600 underline"
+                      className="shrink-0 text-sm text-red-600 underline"
                     >
                       Quitar
                     </button>
