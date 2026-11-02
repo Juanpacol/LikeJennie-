@@ -210,6 +210,58 @@ Todo el movimiento respeta `prefers-reduced-motion: reduce` (CSS en `index.css`,
 
 **Dependencias nuevas del frontend:** `motion` y `lenis`.
 
+### 7.1 Diseño responsive y pruebas
+
+El sitio se escribe primero para móvil y se amplía con los breakpoints por defecto de Tailwind (`sm` 640 px, `md` 768 px, `lg` 1024 px). No hay media queries propias salvo en `index.css` (`prefers-reduced-motion`, marco de marca y tamaño de letra del admin).
+
+**Qué cambia en cada breakpoint**
+
+| Desde | Qué cambia | Dónde |
+|---|---|---|
+| `sm` (640 px) | La tabla de productos del admin muestra Categoría y Estado como columnas; el aviso al agregar vuelve arriba a la derecha; los precios del formulario admin van en dos columnas. | `Products.jsx`, `ProductForm.jsx`, `CartToast.jsx` |
+| `md` (768 px) | Marco de marca de 5 px; efecto de telón del hero (`sticky`, `md:h-[100svh]`); footer revelado de la landing; dibujos de fondo de las colecciones. Bajo 768 px los campos del admin suben a 16 px. | `index.css`, `HeroCurtain.jsx`, `FooterReveal.jsx`, `CollectionBanner.jsx` |
+| `lg` (1024 px) | Header de escritorio (88 px, con **Tienda** y **Colecciones**) en lugar de la hamburguesa (68 px); detalle de producto en dos columnas; pedido confirmado en dos columnas; collage de la tienda; texto «Lookbook». | `SiteHeader.jsx`, `ProductDetail.jsx`, `PaymentResult.jsx`, `ShopCollage.jsx`, `PosterLookbook.jsx` |
+
+**Reglas que hay que respetar**
+
+- **Alturas de pantalla completa con `svh`, no `vh`.** `100svh` no salta con la barra del navegador móvil. Si un contenedor resta el header, el valor depende del ancho: 68 px bajo `lg` y 88 px desde `lg` (ver `PaymentResult.jsx`).
+- **Sin `window.alert/confirm/prompt`.** Las confirmaciones van en línea (ver `Products.jsx`).
+- **Áreas de toque.** El ícono se queda del tamaño del diseño y el área tocable se agranda con un pseudo-elemento: `relative after:absolute after:-inset-2 after:content-['']` (header, redes). Mínimo aceptado: 24 px de alto en enlaces de texto (WCAG 2.2 AA) y 40 px en botones de cantidad. El header queda en ≈40 px porque el hueco entre íconos es de 12 px.
+- **Hover.** `tailwind.config.js` activa `future.hoverOnlyWhenSupported`: las clases `hover:` solo aplican en dispositivos con hover, para que no queden «pegadas» tras tocar. No se debe esconder contenido detrás de `hover:` o `group-hover:`; hoy solo lo decorativo (zoom, segunda foto) y el menú **Colecciones** (solo `lg`) los usan.
+- **Campos de formulario del admin a 16 px en móvil.** iOS Safari hace zoom al enfocar un campo menor a 16 px. La regla vive en `index.css` y se acota con la clase `.admin-area`, que `App.jsx` pone en `<main>` para las rutas `/admin/*`.
+- **Admin sin header ni footer de la tienda.** `App.jsx` no renderiza `SiteHeader` ni footer en `/admin/*`; el admin usa `AdminNav`.
+- **Tablas anchas.** No se usa scroll horizontal: bajo `sm` se ocultan columnas secundarias y su contenido se repite como texto pequeño bajo el nombre (`Products.jsx`).
+- **Filas de formulario.** Inputs con `flex-1 min-w-0` y botones con `shrink-0`; no usar anchos fraccionarios (`w-1/4`), que se rompen en 320 px.
+
+**Cómo probar**
+
+`resize_window` de Chrome no cambia el viewport que ven los media queries. Se prueba cargando la ruta en un `<iframe>` del mismo origen con el ancho fijo, desde la consola de `http://localhost:5173`:
+
+```js
+const f = document.createElement("iframe");
+f.style.cssText = "position:fixed;left:0;top:0;width:375px;height:812px;border:0;background:#fff;z-index:99999";
+f.src = "/catalogo";
+document.body.appendChild(f);
+// Desborde horizontal: debe ser igual al ancho del iframe.
+f.contentDocument.documentElement.scrollWidth;
+```
+
+El admin requiere sesión: el iframe comparte `localStorage`, así que basta con haber entrado antes en `/admin/login`.
+
+**Checklist antes de abrir un PR con cambios de interfaz**
+
+1. Probar a 320, 375, 768, 1024 y 1440 px, y en horizontal (812×375).
+2. `scrollWidth` igual al ancho del viewport en cada ruta tocada (`/`, `/catalogo`, `/colecciones/:slug`, `/productos/:slug`, `/pago/exito`, `/pago/cancelado`, `/admin/login`, `/admin`, `/admin/products`, `/admin/products/new`).
+3. Ningún botón o enlace de la zona tocada por debajo de 24 px de alto; los íconos sueltos con área tocable ampliada.
+4. Con `prefers-reduced-motion` activado, la pantalla sigue siendo usable.
+5. `vite build` compila y `oxlint` no agrega warnings.
+
+**Límites conocidos**
+
+- La verificación se hizo en Chrome de escritorio con iframes; no hay pruebas en un dispositivo táctil real ni en Safari de iOS.
+- En horizontal en un móvil, el hero de la home no cabe entero en la primera pantalla; el contenido se alcanza con scroll.
+- Falta probar el flujo de pago de Stripe de punta a punta en móvil.
+
 ## 8. Despliegue
 
 Ver la sección *Despliegue* del `README.md`. En resumen: `render.yaml` define el servicio del backend (build con `npm ci && npx prisma migrate deploy`), Vercel construye el frontend desde `frontend/`, y ambos se redespliegan solos con cada push a `main`.
