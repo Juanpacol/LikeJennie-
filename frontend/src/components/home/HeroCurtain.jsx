@@ -26,7 +26,7 @@ function HeroCurtain({ hero, children }) {
 
   return (
     <div className="relative">
-      <div className="md:sticky md:top-0 md:h-screen md:overflow-hidden">
+      <div className="md:sticky md:top-0 md:h-[100svh] md:overflow-hidden">
         <motion.div
           style={{ scale, transformOrigin: "50% 0%" }}
           className="h-full will-change-transform"

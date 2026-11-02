@@ -50,7 +50,7 @@ function Confirmed() {
 
   return (
     <div className="relative overflow-hidden bg-black text-white">
-      <section className="relative grid min-h-[calc(100svh-88px)] lg:grid-cols-[1.05fr_1fr]">
+      <section className="relative grid min-h-[calc(100svh-68px)] lg:min-h-[calc(100svh-88px)] lg:grid-cols-[1.05fr_1fr]">
         {/* Hoja: barre la pantalla de izquierda a derecha y deja el filo blanco del corte. */}
         <span
           aria-hidden="true"
