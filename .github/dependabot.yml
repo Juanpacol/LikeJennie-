@@ -7,6 +7,11 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 3
+    # Las versiones mayores (Tailwind 3 a 4, Prisma 5 a 7...) cambian la configuración y la API: se
+    # migran a mano, no con una PR automática que rompe el build.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
       minor-and-patch:
         update-types: [minor, patch]
@@ -16,6 +21,11 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 3
+    # Las versiones mayores (Tailwind 3 a 4, Prisma 5 a 7...) cambian la configuración y la API: se
+    # migran a mano, no con una PR automática que rompe el build.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
       minor-and-patch:
         update-types: [minor, patch]
