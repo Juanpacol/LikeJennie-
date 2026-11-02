@@ -61,7 +61,7 @@ Regla de capas en el backend: cada capa solo llama a la inmediatamente inferior 
 
 ## Módulos funcionales
 
-- **Público:** landing con hero, tarjetas de colecciones, tienda con pestañas por categoría y FAQs; catálogo dinámico con filtros por categoría; colecciones con su paleta; buscador; detalle de producto con galería y selector de talla/color; carrito con aviso animado y checkout simulado (`POST /api/orders`); menú móvil
+- **Público:** landing con hero, tarjetas de colecciones, tienda con pestañas por categoría y FAQs; catálogo dinámico con filtros por categoría; colecciones con su paleta; buscador; detalle de producto con galería y selector de talla/color; carrito con aviso animado y pago con Stripe en modo de prueba (`POST /api/payments/checkout`); menú móvil
 - **Admin:** login JWT, dashboard con métricas reales (productos activos, stock bajo/agotado, órdenes recientes), CRUD completo de productos (incluye variantes y stock), alertas de stock mínimo
 
 ## Desarrollo local

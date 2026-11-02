@@ -14,9 +14,9 @@ async function buildOrderItems(items) {
 
   for (const { variantId, quantity } of items) {
     const variant = await variantRepo.findById(variantId);
-    if (!variant) throw new NotFoundError(`Variante ${variantId} no encontrada`);
+    if (!variant) throw new NotFoundError("Una prenda del carrito ya no existe");
     if (variant.stock < quantity) {
-      throw new BadRequestError(`Stock insuficiente para ${variant.sku}`);
+      throw new BadRequestError(`Stock insuficiente para ${variant.product.name}`);
     }
 
     const unitPrice = variant.product.salePrice ?? variant.product.basePrice;
@@ -25,22 +25,6 @@ async function buildOrderItems(items) {
   }
 
   return { orderItems, total };
-}
-
-// Simulacro de compra (sin pasarela): crea la orden y descuenta el inventario de inmediato.
-async function createOrder({ customerName, customerEmail, items }) {
-  const { orderItems, total } = await buildOrderItems(items);
-
-  for (const { variantId, quantity } of orderItems) {
-    await variantRepo.decrementStock(variantId, quantity);
-  }
-
-  return orderRepo.create({
-    customerName,
-    customerEmail,
-    total,
-    items: orderItems.map(({ variant, ...line }) => line),
-  });
 }
 
 // Compra con pasarela: crea la orden en PENDING y NO toca el inventario; el stock se descuenta
@@ -64,4 +48,4 @@ function getOrderById(id) {
   return orderRepo.findById(id);
 }
 
-module.exports = { createOrder, createPendingOrder, listOrders, getOrderById };
+module.exports = { createPendingOrder, listOrders, getOrderById };
