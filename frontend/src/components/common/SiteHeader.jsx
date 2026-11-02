@@ -87,7 +87,7 @@ function HeaderBar({ compact, count, onMenu, onSearch, onAccount, onCart }) {
             type="button"
             onClick={onMenu}
             aria-label="Abrir menú"
-            className="lg:hidden"
+            className="relative after:absolute after:-inset-2 after:content-[''] lg:hidden"
           >
             <MenuIcon />
           </button>
@@ -112,9 +112,9 @@ function HeaderBar({ compact, count, onMenu, onSearch, onAccount, onCart }) {
                 type="button"
                 onClick={onSearch}
                 aria-label="Buscar"
-                className="h-full w-full"
+                className="relative h-full w-full after:absolute after:-inset-2 after:content-['']"
               >
-                <SearchIcon className="h-full w-full" />
+                <SearchIcon className="relative h-full w-full after:absolute after:-inset-2 after:content-['']" />
               </button>
             </DockIcon>
             <DockIcon>
@@ -122,9 +122,9 @@ function HeaderBar({ compact, count, onMenu, onSearch, onAccount, onCart }) {
                 type="button"
                 onClick={onAccount}
                 aria-label="Cuenta"
-                className="h-full w-full"
+                className="relative h-full w-full after:absolute after:-inset-2 after:content-['']"
               >
-                <UserIcon className="h-full w-full" />
+                <UserIcon className="relative h-full w-full after:absolute after:-inset-2 after:content-['']" />
               </button>
             </DockIcon>
             <DockIcon>
@@ -132,9 +132,9 @@ function HeaderBar({ compact, count, onMenu, onSearch, onAccount, onCart }) {
                 type="button"
                 onClick={onCart}
                 aria-label={`Carrito (${count})`}
-                className="h-full w-full"
+                className="relative h-full w-full after:absolute after:-inset-2 after:content-['']"
               >
-                <BagIcon className="h-full w-full" />
+                <BagIcon className="relative h-full w-full after:absolute after:-inset-2 after:content-['']" />
               </button>
               {count > 0 && (
                 <span className="pointer-events-none absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] leading-none text-white">

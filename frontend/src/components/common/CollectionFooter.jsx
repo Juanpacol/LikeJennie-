@@ -5,7 +5,7 @@ import { SOCIAL_ICONS } from "../../data/socialLinks";
 const YEAR = new Date().getFullYear();
 
 const LINK_CLASS =
-  "hover-underline inline-block font-mono text-xs uppercase tracking-[0.2em] opacity-80 transition hover:opacity-100";
+  "hover-underline inline-block py-1 font-mono lg:py-0 text-xs uppercase tracking-[0.2em] opacity-80 transition hover:opacity-100";
 
 // Footer revelado de una colección: más bajo que el de la home y centrado en ella. Lleva el nombre de
 // la colección como marca de agua y título, su frase, un acceso a las otras dos colecciones y al

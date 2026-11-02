@@ -30,7 +30,7 @@ const SHOP_PHOTOS = [
 ];
 
 const LINK_CLASS =
-  "hover-underline inline-block text-left font-mono text-xs uppercase tracking-[0.2em] opacity-80 transition hover:opacity-100";
+  "hover-underline inline-block py-1 text-left lg:py-0 font-mono text-xs uppercase tracking-[0.2em] opacity-80 transition hover:opacity-100";
 
 function FooterColumn({ label, title, muted, children }) {
   return (
