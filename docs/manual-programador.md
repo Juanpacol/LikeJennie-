@@ -283,3 +283,53 @@ Los JSON de `prisma/data/` salen del catálogo de la tienda de referencia: preci
 - Nada se commitea directo en `main`: cada cambio va en su rama (`feat/...`, `fix/...`, `docs/...`), se prueba contra el backend y la DB reales y entra por Pull Request.
 - El CI valida cada PR: `prisma validate` en el backend y `oxlint` + `vite build` en el frontend.
 - Convención de commits: `tipo(ámbito): descripción` (`feat`, `fix`, `chore`, `docs`).
+
+## 11. Seguridad
+
+Resumen de los controles que tiene el proyecto, dónde viven y qué riesgos se aceptaron a propósito.
+
+### 11.1 Controles activos
+
+| Área | Qué se hace | Dónde |
+|---|---|---|
+| Base de datos | RLS activado en las 8 tablas de `public`, sin políticas: los roles `anon` y `authenticated` de Supabase no leen ni escriben nada. Prisma se conecta como `postgres`, que ignora RLS, así que el backend no se ve afectado. | `backend/prisma/migrations/20261102210000_enable_rls` |
+| Validación de entrada | Todo cuerpo que llega a login, checkout y CRUD de productos se valida con `zod` antes del controlador. Los esquemas son estrictos: rechazan campos que no estén en la lista. Los mensajes de error no devuelven lo que envió el cliente. | `backend/src/validators/`, `middlewares/validate.middleware.js` |
+| Precio y stock | El checkout toma el precio de la base, nunca del cliente. El webhook de Stripe descuenta stock de forma idempotente y sin bajar de 0. No existe una ruta pública que cree pedidos pagados sin Stripe. | `payment.service.js`, `order.repository.js` |
+| Autenticación | JWT firmado y verificado con HS256 fijado (no se acepta otro algoritmo). El login compara siempre contra un hash, exista o no el correo, para no revelar qué correos son válidos. | `utils/jwt.util.js`, `services/auth.service.js` |
+| Límite de intentos | `express-rate-limit`: login 10 fallos por IP cada 15 min (los correctos no cuentan), checkout 20 y API general 600 en la misma ventana. `trust proxy = 1` porque Render pone un proxy delante. | `middlewares/rateLimit.middleware.js`, `app.js` |
+| Cabeceras | `helmet` en el backend. En Vercel, `frontend/vercel.json` agrega CSP, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy` y `Permissions-Policy`. | `app.js`, `frontend/vercel.json` |
+| Secretos | No hay claves en el repositorio. El seed toma el admin de `ADMIN_EMAIL` y `ADMIN_PASSWORD` (mínimo 12 caracteres) y aborta si faltan. | `backend/prisma/seed.js`, `.env.example` |
+| Dependencias | `npm audit` en 0. Dependabot revisa cada semana backend, frontend y GitHub Actions, e ignora las versiones mayores (se migran a mano). El CI usa `npm ci`. | `.github/dependabot.yml` |
+
+La CSP permite scripts solo del propio sitio, estilos y fuentes de Google, imágenes por `https:` (las fotos de producto vienen de URLs externas) y conexiones únicamente a la API de Render. Si se cambia el dominio de la API, hay que actualizar `connect-src`.
+
+### 11.2 Riesgos aceptados
+
+- **JWT en `localStorage`.** El token del admin (`ruby_admin_token`) lo puede leer cualquier JavaScript que corra en la página; una cookie `httpOnly` sería más segura frente a XSS. Se aceptó porque el frontend y la API están en dominios distintos (Vercel y Render), lo que complica las cookies y exige protección CSRF, y porque la CSP con `script-src 'self'` y el hecho de que React escapa el contenido reducen el riesgo de XSS. El token expira y solo hay un rol, el admin.
+- **CORS abierto (`*`).** La API usa `Authorization: Bearer` y no cookies, así que otro sitio no puede actuar con la sesión del admin. Restringirlo a `FRONTEND_URL` es posible, pero tumba el sitio si esa variable falta o cambia el dominio.
+- **Límite de intentos en memoria.** Se reinicia cuando Render duerme o reinicia el servicio. Frena ráfagas, no un ataque lento y sostenido.
+- **Un solo usuario admin, sin MFA ni cierre de sesión en el servidor.** Un token robado vale hasta que expire. Está fuera del alcance del taller.
+- **`/pago/exito` no verifica el pago.** La página muestra «Pedido confirmado» al volver de Stripe sin consultar el estado del pedido. El stock y el estado real los fija el webhook firmado, así que no se puede obtener mercancía sin pagar, pero la pantalla puede confirmar algo que aún no se pagó.
+
+### 11.3 Rotar la contraseña del admin
+
+El seed y el script de rotación nunca guardan la contraseña en el repositorio. Para cambiarla en la base real, desde `backend/` y con la `DATABASE_URL` de esa base:
+
+```bash
+npm run admin:set-password -- admin@likejennie.com
+```
+
+El script pide la nueva contraseña (mínimo 12 caracteres) sin mostrarla y exige una terminal interactiva. Después hay que comprobar que la contraseña anterior ya no entra al login. Si una contraseña estuvo alguna vez en el repositorio o en un chat, se considera comprometida aunque se haya borrado.
+
+### 11.4 Variables en producción
+
+Render debe tener `DATABASE_URL`, `JWT_SECRET`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` y `FRONTEND_URL`; `render.yaml` no las lista porque son secretas y se cargan en el panel. Vercel solo necesita `VITE_API_URL`. Ninguna clave `sk_` ni `whsec_` va al frontend.
+
+### 11.5 Cómo comprobar los controles
+
+- Cabeceras: `curl -sI <API>/api/health` no debe mostrar `X-Powered-By` y sí `Strict-Transport-Security`.
+- Límite de intentos: 11 logins fallidos seguidos desde la misma IP deben terminar en `429`.
+- Validación: `POST /api/admin/auth/login` con `{}` responde `400`, no `500`.
+- RLS: con la clave `anon` de Supabase, una consulta REST a `products` debe devolver vacío o error de permisos.
+- CSP: abrir el sitio con la consola del navegador abierta y comprobar que no aparecen bloqueos.
+- Dependencias: `npm audit` en `backend/` y `frontend/`.
