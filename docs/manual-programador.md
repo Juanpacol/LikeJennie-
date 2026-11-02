@@ -155,7 +155,8 @@ cd backend
 npm install
 cp .env.example .env      # completar DATABASE_URL y JWT_SECRET
 npx prisma migrate dev    # aplica el esquema
-npx prisma db seed        # datos de prueba + admin de prueba
+npx prisma db seed        # datos de prueba + admin (ADMIN_EMAIL y ADMIN_PASSWORD de .env)
+npm run admin:set-password -- correo@ejemplo.com   # cambia la contraseña de un admin existente
 node server.js            # http://localhost:4000
 ```
 

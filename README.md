@@ -84,7 +84,7 @@ cp .env.example .env     # ajustar VITE_API_URL si el backend corre en otro puer
 npm run dev                # http://localhost:5173
 ```
 
-Credenciales de admin de prueba: ver salida de `npx prisma db seed` (se generan en `backend/prisma/seed.js`).
+El admin lo crea el seed con `ADMIN_EMAIL` y `ADMIN_PASSWORD` de `backend/.env` (el seed se niega a correr si faltan o la contraseña tiene menos de 12 caracteres). Para cambiar la contraseña de un admin existente: `npm run admin:set-password -- correo@ejemplo.com` desde `backend/` (la pide por terminal, sin mostrarla).
 
 ## Despliegue
 
