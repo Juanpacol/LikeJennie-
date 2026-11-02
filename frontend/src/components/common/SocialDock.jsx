@@ -17,7 +17,7 @@ function SocialDock({ className = "" }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={icon.platform}
-            className="group block h-full w-full text-current opacity-80 transition hover:opacity-100"
+            className="group relative block h-full w-full text-current after:absolute after:-inset-1 after:content-[''] opacity-80 transition hover:opacity-100"
             style={{ "--brand-color": icon.brandColor }}
           >
             <svg

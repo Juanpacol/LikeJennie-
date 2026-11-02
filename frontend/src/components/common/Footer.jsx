@@ -9,7 +9,7 @@ import { brandThemeForPath } from "../../utils/brandTheme";
 const YEAR = new Date().getFullYear();
 
 const LINK_CLASS =
-  "hover-underline inline-block text-left font-mono text-xs uppercase tracking-[0.2em] opacity-80 transition hover:opacity-100";
+  "hover-underline inline-block py-1 text-left lg:py-0 font-mono text-xs uppercase tracking-[0.2em] opacity-80 transition hover:opacity-100";
 
 // Una columna del footer: etiqueta pequeña, título grande y lista de enlaces.
 function FooterColumn({ label, title, children }) {

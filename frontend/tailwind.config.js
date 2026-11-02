@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  // `hover:` solo aplica en dispositivos con hover real: en táctil no queda "pegado" tras tocar.
+  future: { hoverOnlyWhenSupported: true },
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {

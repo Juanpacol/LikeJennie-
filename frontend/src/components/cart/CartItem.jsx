@@ -2,7 +2,7 @@ import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
 
 const STEP_BUTTON_CLASS =
-  "flex h-8 w-8 items-center justify-center border border-black/60 text-base leading-none transition hover:bg-black hover:text-white";
+  "flex h-10 w-10 items-center justify-center border border-black/60 text-base leading-none transition hover:bg-black hover:text-white";
 
 // Una fila del carrito: foto, datos de la variante, cantidad y subtotal de la línea.
 function CartItem({ item, index = 0 }) {
@@ -57,7 +57,7 @@ function CartItem({ item, index = 0 }) {
           <button
             type="button"
             onClick={() => removeItem(item.variantId)}
-            className="hover-underline ml-auto font-mono text-[11px] uppercase tracking-[0.2em] text-white/80 transition hover:text-white"
+            className="hover-underline ml-auto py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/80 transition hover:text-white"
           >
             Quitar
           </button>
