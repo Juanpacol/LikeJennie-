@@ -16,11 +16,4 @@ function updateStock(id, stock) {
   return prisma.productVariant.update({ where: { id }, data: { stock } });
 }
 
-function decrementStock(id, quantity) {
-  return prisma.productVariant.update({
-    where: { id },
-    data: { stock: { decrement: quantity } },
-  });
-}
-
-module.exports = { findById, findLowStock, updateStock, decrementStock };
+module.exports = { findById, findLowStock, updateStock };
