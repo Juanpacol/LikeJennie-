@@ -55,10 +55,10 @@ function Products() {
           <thead>
             <tr className="border-b border-gray-200 text-gray-500">
               <th className="py-2">Nombre</th>
-              <th className="py-2">Categoría</th>
+              <th className="hidden py-2 sm:table-cell">Categoría</th>
               <th className="py-2">Precio</th>
               <th className="py-2">Stock total</th>
-              <th className="py-2">Estado</th>
+              <th className="hidden py-2 sm:table-cell">Estado</th>
               <th className="py-2"></th>
             </tr>
           </thead>
@@ -69,14 +69,22 @@ function Products() {
 
               return (
                 <tr key={product.id} className="border-b border-gray-100">
-                  <td className="py-2">{product.name}</td>
-                  <td className="py-2">{product.category.name}</td>
+                  <td className="py-2 pr-2">
+                    {product.name}
+                    {/* En móvil se ocultan las columnas Categoría y Estado y se muestran aquí. */}
+                    <span className="block text-xs text-gray-500 sm:hidden">
+                      {product.category.name} · {product.isActive ? "Activo" : "Inactivo"}
+                    </span>
+                  </td>
+                  <td className="hidden py-2 sm:table-cell">{product.category.name}</td>
                   <td className="py-2">{formatPrice(product.salePrice ?? product.basePrice)}</td>
                   <td className="py-2">{totalStock}</td>
-                  <td className="py-2">{product.isActive ? "Activo" : "Inactivo"}</td>
+                  <td className="hidden py-2 sm:table-cell">
+                    {product.isActive ? "Activo" : "Inactivo"}
+                  </td>
                   <td className="py-2 text-right">
                     {isPending ? (
-                      <span className="inline-flex items-center gap-2">
+                      <span className="inline-flex flex-wrap items-center justify-end gap-2">
                         <span className="text-xs text-gray-500">¿Eliminar?</span>
                         <button
                           type="button"
