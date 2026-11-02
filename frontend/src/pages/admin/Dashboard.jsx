@@ -43,8 +43,8 @@ function Dashboard() {
               ) : (
                 <ul className="mt-2 divide-y divide-gray-100">
                   {summary.lowStockVariants.map((variant) => (
-                    <li key={variant.id} className="flex justify-between py-2 text-sm">
-                      <span>
+                    <li key={variant.id} className="flex justify-between gap-3 py-2 text-sm">
+                      <span className="min-w-0">
                         {variant.product.name} · {variant.size}/{variant.color}
                       </span>
                       <span
@@ -70,9 +70,9 @@ function Dashboard() {
                 <ul className="mt-2 divide-y divide-gray-100">
                   {summary.recentOrders.map((order) => (
                     <li key={order.id} className="py-2 text-sm">
-                      <div className="flex justify-between">
-                        <span>{order.customerName}</span>
-                        <span>{formatPrice(order.total)}</span>
+                      <div className="flex justify-between gap-3">
+                        <span className="min-w-0 truncate">{order.customerName}</span>
+                        <span className="shrink-0">{formatPrice(order.total)}</span>
                       </div>
                       <span className="text-xs text-gray-400">{order.status}</span>
                     </li>

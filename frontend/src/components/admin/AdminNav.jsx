@@ -5,12 +5,16 @@ function AdminNav() {
   const { logout } = useAuth();
 
   return (
-    <div className="mb-6 flex items-center justify-between border-b border-gray-200 pb-4">
-      <nav className="flex gap-4 text-sm">
-        <Link to="/admin">Dashboard</Link>
-        <Link to="/admin/products">Productos</Link>
+    <div className="mb-6 flex items-center justify-between gap-4 border-b border-gray-200">
+      <nav className="flex gap-2 text-sm">
+        <Link to="/admin" className="py-3 pr-2">
+          Dashboard
+        </Link>
+        <Link to="/admin/products" className="py-3 pr-2">
+          Productos
+        </Link>
       </nav>
-      <button type="button" onClick={logout} className="text-sm text-gray-500 underline">
+      <button type="button" onClick={logout} className="py-3 text-sm text-gray-500 underline">
         Cerrar sesión
       </button>
     </div>

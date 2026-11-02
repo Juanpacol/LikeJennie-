@@ -28,6 +28,7 @@ import AdminProductForm from "./pages/admin/ProductForm";
 function AppLayout() {
   const location = useLocation();
   const isLanding = location.pathname === "/";
+  const isAdmin = location.pathname.startsWith("/admin");
   // El catálogo lleva su propio footer revelado (grises cálidos); el producto, la franja delgada.
   const isShop = location.pathname === "/catalogo";
   const collectionSlug = location.pathname.match(
@@ -45,9 +46,10 @@ function AppLayout() {
     <div
       className={`relative flex min-h-screen flex-col ${isDarkRoute ? "bg-[var(--stage-color,#000)]" : ""}`}
     >
-      <SiteHeader overlay={isLanding} dark={isDarkRoute} />
+      {/* El panel admin lleva su propia navegación: sin header ni footer de la tienda. */}
+      {!isAdmin && <SiteHeader overlay={isLanding} dark={isDarkRoute} />}
       <main
-        className={`relative z-10 flex-1 ${isDarkRoute ? "bg-black" : "bg-white"}`}
+        className={`relative z-10 flex-1 ${isDarkRoute ? "bg-black" : "bg-white"} ${isAdmin ? "admin-area" : ""}`}
       >
         <Routes>
           <Route path="/" element={<Home />} />
@@ -92,7 +94,7 @@ function AppLayout() {
         </Routes>
       </main>
       {/* Footer grande y revelado en la landing y en la tienda; en el resto, una franja delgada. */}
-      {isLanding ? (
+      {isAdmin ? null : isLanding ? (
         <FooterReveal>
           <Footer />
         </FooterReveal>

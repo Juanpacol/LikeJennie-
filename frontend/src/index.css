@@ -6,6 +6,16 @@ body {
   @apply bg-white text-black;
 }
 
+/* iOS Safari hace zoom al enfocar un campo con letra menor de 16 px: en el admin los campos de
+   formulario suben a 16 px en móvil. */
+@media (max-width: 767px) {
+  .admin-area input,
+  .admin-area select,
+  .admin-area textarea {
+    font-size: 16px;
+  }
+}
+
 /* Subrayado que se dibuja de izquierda a derecha al pasar el mouse o enfocar con teclado.
    .group-hover-underline lo dispara el hover del contenedor .group (p. ej. la tarjeta de producto). */
 @layer components {
