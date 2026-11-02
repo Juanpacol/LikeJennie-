@@ -1,10 +1,20 @@
+require("dotenv").config();
 const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcryptjs");
 
 const prisma = new PrismaClient();
 
-const ADMIN_EMAIL = "admin@likejennie.com";
-const ADMIN_PASSWORD = "Admin123.";
+// Las credenciales del admin vienen del entorno (backend/.env), nunca del código: este repo es público.
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const MIN_PASSWORD_LENGTH = 12;
+
+if (!ADMIN_EMAIL || !ADMIN_PASSWORD || ADMIN_PASSWORD.length < MIN_PASSWORD_LENGTH) {
+  console.error(
+    `Define ADMIN_EMAIL y ADMIN_PASSWORD (mínimo ${MIN_PASSWORD_LENGTH} caracteres) en backend/.env antes del seed.`,
+  );
+  process.exit(1);
+}
 
 const CATEGORIES = [
   { name: "Ropa", slug: "ropa" },
@@ -323,8 +333,7 @@ async function main() {
     },
   });
 
-  console.log(`Seed completo: ${CATEGORIES.length} categorías, ${PRODUCTS.length} productos, 1 admin.`);
-  console.log(`Credenciales admin de prueba -> email: ${ADMIN_EMAIL} / password: ${ADMIN_PASSWORD}`);
+  console.log(`Seed completo: ${CATEGORIES.length} categorías, ${PRODUCTS.length} productos, 1 admin (${ADMIN_EMAIL}).`);
 }
 
 main()
