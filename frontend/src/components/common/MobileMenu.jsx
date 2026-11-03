@@ -3,6 +3,8 @@ import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { COLLECTIONS } from "../../data/collections";
 import SocialDock from "./SocialDock";
+import LanguageToggle from "./LanguageToggle";
+import { useLanguage } from "../../context/LanguageContext";
 
 const LINK_CLASS =
   "group flex items-baseline gap-4 font-condensed text-4xl font-light uppercase leading-none transition-colors hover:text-accent";
@@ -11,6 +13,7 @@ const LINK_CLASS =
 // enlaces numerados en tipografía condensada. Se cierra con la ×, tocando fuera, con Escape o al elegir un enlace.
 // Va en un portal para no quedar atrapado dentro del header (que tiene backdrop-filter).
 function MobileMenu({ onClose }) {
+  const { t } = useLanguage();
   useEffect(() => {
     function handleKeyDown(event) {
       if (event.key === "Escape") onClose();
@@ -26,7 +29,7 @@ function MobileMenu({ onClose }) {
   }, [onClose]);
 
   const links = [
-    { to: "/catalogo", label: "Tienda", note: "Todo el catálogo" },
+    { to: "/catalogo", label: t("nav.shop"), note: t("nav.allCatalog") },
     ...Object.entries(COLLECTIONS).map(([slug, collection]) => ({
       to: `/colecciones/${slug}`,
       label: collection.title,
@@ -38,7 +41,7 @@ function MobileMenu({ onClose }) {
     <div className="fixed inset-0 z-50 flex lg:hidden">
       <aside
         role="dialog"
-        aria-label="Menú"
+        aria-label={t("nav.menu")}
         data-lenis-prevent
         className="relative flex h-full w-[88%] max-w-sm animate-slide-in-left flex-col overflow-y-auto border-r-2 border-accent bg-[#0b0b0b] p-6 text-white shadow-2xl"
       >
@@ -49,7 +52,7 @@ function MobileMenu({ onClose }) {
           <button
             type="button"
             onClick={onClose}
-            aria-label="Cerrar menú"
+            aria-label={t("nav.closeMenu")}
             className="flex h-10 w-10 items-center justify-center border border-white/30 text-lg leading-none transition hover:bg-white hover:text-black"
           >
             ×
@@ -76,7 +79,10 @@ function MobileMenu({ onClose }) {
           </ul>
         </nav>
 
-        <SocialDock className="mt-auto justify-start pt-10" />
+        <div className="mt-auto flex items-center justify-between pt-10">
+          <SocialDock className="justify-start" />
+          <LanguageToggle />
+        </div>
       </aside>
 
       <div
