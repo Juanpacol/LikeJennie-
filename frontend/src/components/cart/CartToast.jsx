@@ -9,7 +9,7 @@ const EXIT_MS = 250;
 // Tarjeta del aviso. Se monta de nuevo con cada producto (key = id del aviso), así sus
 // temporizadores y su estado de salida empiezan limpios.
 function ToastCard({ item }) {
-  const { t } = useLanguage();
+  const { t, tOr } = useLanguage();
   const { dismissAdded, open, items, total } = useCart();
   const count = items.reduce((sum, line) => sum + line.quantity, 0);
   const [leaving, setLeaving] = useState(false);
@@ -73,10 +73,11 @@ function ToastCard({ item }) {
               {item.productName}
             </p>
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">
-              {item.size} / {item.color}
+              {tOr(`sizes.${item.size}`, item.size)} /{" "}
+              {tOr(`colors.${item.color}`, item.color)}
             </p>
             <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/90">
-              {count} {count === 1 ? "artículo" : "artículos"} ·{" "}
+              {t(count === 1 ? "cart.item" : "cart.items", { count })} ·{" "}
               {formatPrice(total)}
             </p>
             <button

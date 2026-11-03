@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../../utils/formatPrice";
+import { useLanguage } from "../../context/LanguageContext";
 
 const COLUMNS = 4;
 const STAGGER_MS = 60;
 
 // `index` posiciona la tarjeta en la grilla para escalonar su aparición por columna.
 function ProductCard({ product, index = 0 }) {
+  const { t } = useLanguage();
   const isOutOfStock = product.variants.every(
     (variant) => variant.isOutOfStock,
   );
@@ -86,7 +88,7 @@ function ProductCard({ product, index = 0 }) {
 
           {isOutOfStock && (
             <span className="absolute left-3 top-3 border border-white/40 bg-black px-2 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white">
-              Agotado
+              {t("product.soldOut")}
             </span>
           )}
 

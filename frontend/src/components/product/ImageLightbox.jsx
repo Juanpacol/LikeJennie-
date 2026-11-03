@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useLanguage } from "../../context/LanguageContext";
 
 // El dibujo de fondo se desvanece por los bordes para no marcar su rectángulo.
 const ART_FADE =
@@ -20,6 +21,7 @@ function ImageLightbox({
   alt,
   collection,
 }) {
+  const { t } = useLanguage();
   const count = images.length;
   const { panel, art, title } = collection;
 
@@ -43,7 +45,7 @@ function ImageLightbox({
   return createPortal(
     <div
       role="dialog"
-      aria-label="Fotos del producto"
+      aria-label={t("product.photos")}
       className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center overflow-hidden pb-20 text-white"
       style={{ backgroundColor: panel.stage }}
       onClick={onClose}
@@ -86,7 +88,7 @@ function ImageLightbox({
       <button
         type="button"
         onClick={onClose}
-        aria-label="Cerrar"
+        aria-label={t("search.close")}
         className={`absolute right-5 top-5 text-2xl leading-none ${buttonClass}`}
       >
         ×
@@ -104,7 +106,7 @@ function ImageLightbox({
               event.stopPropagation();
               onIndexChange((index - 1 + count) % count);
             }}
-            aria-label="Foto anterior"
+            aria-label={t("product.prevPhoto")}
             className={`${arrowClass} left-5`}
           >
             ‹
@@ -115,7 +117,7 @@ function ImageLightbox({
               event.stopPropagation();
               onIndexChange((index + 1) % count);
             }}
-            aria-label="Foto siguiente"
+            aria-label={t("product.nextPhoto")}
             className={`${arrowClass} right-5`}
           >
             ›
@@ -130,7 +132,7 @@ function ImageLightbox({
                 key={image.id ?? image.url}
                 type="button"
                 onClick={() => onIndexChange(i)}
-                aria-label={`Ver foto ${i + 1}`}
+                aria-label={t("product.photoN", { n: i + 1 })}
                 aria-current={i === index}
                 className={`h-16 w-14 overflow-hidden border bg-black/40 p-1 transition ${
                   i === index
