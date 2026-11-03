@@ -97,6 +97,33 @@ const es = {
     q3: "¿Qué son las colecciones?",
     a3: "Son lanzamientos con su propio color y sus propios productos, como Fallen Angel y JENNIE x Haribo. Puedes verlas completas desde la página de inicio.",
   },
+  collections: {
+    notFound: "Colección no encontrada.",
+    viewCatalog: "Ver catálogo",
+    loading: "Cargando productos...",
+    empty: "Esta colección aún no tiene productos.",
+    pieces: "{count} piezas",
+    "fallen-angel": {
+      tagline: "Nuevo drop",
+      description: "Hoodies, camisetas y accesorios con el flow de Ruby.",
+      phrase: "Cae con estilo.",
+      footerTagline: "Cae con estilo",
+    },
+    haribo: {
+      tagline: "Colaboración",
+      description:
+        "Camisetas, buzos, gorras y llaveros con la dulzura de Haribo.",
+      phrase: "Dulce, con mordida.",
+      footerTagline: "Dulce, con mordida",
+    },
+    ruby: {
+      tagline: "El álbum",
+      description:
+        "Camisetas, buzos y música del álbum Ruby, en negro y rojo sangre.",
+      phrase: "Rojo hasta el fondo.",
+      footerTagline: "Rojo hasta el fondo",
+    },
+  },
 };
 
 export default es;
