@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { formatPrice } from "../../utils/formatPrice";
+import { useLanguage } from "../../context/LanguageContext";
 
 const VISIBLE_MS = 4000;
 const EXIT_MS = 250;
@@ -8,6 +9,7 @@ const EXIT_MS = 250;
 // Tarjeta del aviso. Se monta de nuevo con cada producto (key = id del aviso), así sus
 // temporizadores y su estado de salida empiezan limpios.
 function ToastCard({ item }) {
+  const { t } = useLanguage();
   const { dismissAdded, open, items, total } = useCart();
   const count = items.reduce((sum, line) => sum + line.quantity, 0);
   const [leaving, setLeaving] = useState(false);
@@ -65,7 +67,7 @@ function ToastCard({ item }) {
           )}
           <div className="flex min-w-0 flex-1 flex-col">
             <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/80">
-              Añadido al carrito
+              {t("cart.added")}
             </p>
             <p className="mt-1.5 line-clamp-2 font-condensed text-2xl font-light uppercase leading-tight">
               {item.productName}
@@ -82,13 +84,13 @@ function ToastCard({ item }) {
               onClick={handleViewCart}
               className="btn-sweep mt-3 w-fit bg-black px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white [--sweep:rgb(255_255_255/0.2)]"
             >
-              Ver carrito
+              {t("cart.view")}
             </button>
           </div>
           <button
             type="button"
             onClick={dismissAdded}
-            aria-label="Cerrar aviso"
+            aria-label={t("cart.dismiss")}
             className="-mr-1 -mt-1 flex h-7 w-7 shrink-0 items-center justify-center text-lg leading-none text-white/80 transition hover:text-white"
           >
             ×

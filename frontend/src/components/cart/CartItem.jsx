@@ -1,11 +1,13 @@
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../context/CartContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 const STEP_BUTTON_CLASS =
   "flex h-10 w-10 items-center justify-center border border-black/60 text-base leading-none transition hover:bg-black hover:text-white";
 
 // Una fila del carrito: foto, datos de la variante, cantidad y subtotal de la línea.
 function CartItem({ item, index = 0 }) {
+  const { t } = useLanguage();
   const { updateQuantity, removeItem } = useCart();
 
   return (
@@ -35,7 +37,7 @@ function CartItem({ item, index = 0 }) {
         <div className="mt-auto flex items-center gap-3 pt-3">
           <button
             type="button"
-            aria-label="Disminuir cantidad"
+            aria-label={t("cart.decrease")}
             onClick={() =>
               updateQuantity(item.variantId, Math.max(1, item.quantity - 1))
             }
@@ -48,7 +50,7 @@ function CartItem({ item, index = 0 }) {
           </span>
           <button
             type="button"
-            aria-label="Aumentar cantidad"
+            aria-label={t("cart.increase")}
             onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
             className={STEP_BUTTON_CLASS}
           >
@@ -59,7 +61,7 @@ function CartItem({ item, index = 0 }) {
             onClick={() => removeItem(item.variantId)}
             className="hover-underline ml-auto py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/80 transition hover:text-white"
           >
-            Quitar
+            {t("cart.remove")}
           </button>
         </div>
       </div>

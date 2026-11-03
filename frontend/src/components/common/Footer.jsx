@@ -5,6 +5,7 @@ import { SOCIAL_ICONS } from "../../data/socialLinks";
 import { useAccountPanel } from "../../context/AccountPanelContext";
 import { useCart } from "../../context/CartContext";
 import { brandThemeForPath } from "../../utils/brandTheme";
+import { useLanguage } from "../../context/LanguageContext";
 
 const YEAR = new Date().getFullYear();
 
@@ -29,6 +30,7 @@ function FooterColumn({ label, title, children }) {
 // Footer a color de la marca: foto en duotono de fondo, la marca gigante como marca de agua y
 // tres columnas de enlaces (el menú del header ya lista las categorías). El color sigue el de la ruta (rojo ruby o el de la colección).
 function Footer() {
+  const { t } = useLanguage();
   const { pathname } = useLocation();
   const { color, ink } = brandThemeForPath(pathname);
   const { open: openCart } = useCart();
@@ -88,7 +90,7 @@ function Footer() {
             </p>
           </div>
 
-          <FooterColumn label="Campañas" title="Colecciones">
+          <FooterColumn label={t("footer.campaigns")} title={t("footer.collections")}>
             {Object.entries(COLLECTIONS).map(([slug, collection]) => (
               <li key={slug}>
                 <Link to={`/colecciones/${slug}`} className={LINK_CLASS}>
@@ -98,10 +100,10 @@ function Footer() {
             ))}
           </FooterColumn>
 
-          <FooterColumn label="Tu compra" title="Cuenta">
+          <FooterColumn label={t("footer.yourOrder")} title={t("footer.account")}>
             <li>
               <Link to="/catalogo" className={LINK_CLASS}>
-                Catálogo
+                {t("footer.catalog")}
               </Link>
             </li>
             <li>
@@ -110,22 +112,22 @@ function Footer() {
                 onClick={openAccount}
                 className={LINK_CLASS}
               >
-                Mi cuenta
+                {t("footer.myAccount")}
               </button>
             </li>
             <li>
               <button type="button" onClick={openCart} className={LINK_CLASS}>
-                Carrito
+                {t("footer.bag")}
               </button>
             </li>
             <li>
               <Link to="/admin/login" className={LINK_CLASS}>
-                Acceso administrador
+                {t("footer.adminAccess")}
               </Link>
             </li>
           </FooterColumn>
 
-          <FooterColumn label="Redes" title="Sígueme">
+          <FooterColumn label={t("footer.social")} title={t("footer.followMe")}>
             {SOCIAL_ICONS.map((icon) => (
               <li key={icon.platform}>
                 <a
@@ -149,7 +151,7 @@ function Footer() {
         </div>
 
         <p className="mt-16 font-mono text-[11px] uppercase tracking-[0.2em] opacity-70">
-          © {YEAR} Ruby. Proyecto académico.
+          © {YEAR} Ruby. {t("footer.academic")}
         </p>
       </div>
     </footer>

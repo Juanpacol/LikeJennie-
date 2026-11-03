@@ -5,6 +5,7 @@ import { COLLECTIONS } from "../../data/collections";
 import { SOCIAL_ICONS } from "../../data/socialLinks";
 import { useAccountPanel } from "../../context/AccountPanelContext";
 import { useCart } from "../../context/CartContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 const YEAR = new Date().getFullYear();
 
@@ -55,10 +56,11 @@ function FooterColumn({ label, title, muted, children }) {
 function ShopFooter({
   palette = SHOP_PALETTE,
   photos = SHOP_PHOTOS,
-  tagline = "Nos vemos en el próximo acto",
+  tagline,
 }) {
   const centered = photos.length > 1;
   const { open: openCart } = useCart();
+  const { t } = useLanguage();
   const { open: openAccount } = useAccountPanel();
   return (
     <footer
@@ -113,14 +115,14 @@ function ShopFooter({
               Ruby<span className="text-accent">.</span>
             </p>
             <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.3em]">
-              {tagline}
+              {tagline ?? t("footer.tagline")}
             </p>
           </div>
 
           <FooterColumn
-            label="Campañas"
+            label={t("footer.campaigns")}
             muted={palette.muted}
-            title="Colecciones"
+            title={t("footer.collections")}
           >
             {Object.entries(COLLECTIONS).map(([slug, collection]) => (
               <li key={slug}>
@@ -131,10 +133,10 @@ function ShopFooter({
             ))}
           </FooterColumn>
 
-          <FooterColumn label="Tu compra" muted={palette.muted} title="Cuenta">
+          <FooterColumn label={t("footer.yourOrder")} muted={palette.muted} title={t("footer.account")}>
             <li>
               <Link to="/catalogo" className={LINK_CLASS}>
-                Catálogo
+                {t("footer.catalog")}
               </Link>
             </li>
             <li>
@@ -143,22 +145,22 @@ function ShopFooter({
                 onClick={openAccount}
                 className={LINK_CLASS}
               >
-                Mi cuenta
+                {t("footer.myAccount")}
               </button>
             </li>
             <li>
               <button type="button" onClick={openCart} className={LINK_CLASS}>
-                Carrito
+                {t("footer.bag")}
               </button>
             </li>
             <li>
               <Link to="/admin/login" className={LINK_CLASS}>
-                Acceso administrador
+                {t("footer.adminAccess")}
               </Link>
             </li>
           </FooterColumn>
 
-          <FooterColumn label="Redes" muted={palette.muted} title="Sígueme">
+          <FooterColumn label={t("footer.social")} muted={palette.muted} title={t("footer.followMe")}>
             {SOCIAL_ICONS.map((icon) => (
               <li key={icon.platform}>
                 <a
@@ -184,7 +186,7 @@ function ShopFooter({
         <p
           className={`mt-10 font-mono text-[11px] uppercase tracking-[0.2em] opacity-70 ${centered ? "md:text-center" : ""}`}
         >
-          © {YEAR} Ruby. Proyecto académico.
+          © {YEAR} Ruby. {t("footer.academic")}
         </p>
       </div>
     </footer>

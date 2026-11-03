@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { COLLECTIONS } from "../../data/collections";
 import SocialDock from "./SocialDock";
+import { useLanguage } from "../../context/LanguageContext";
 
 const YEAR = new Date().getFullYear();
 
@@ -8,6 +9,7 @@ const YEAR = new Date().getFullYear();
 // franja con la marca, los enlaces principales y las redes. El footer grande, con el efecto de
 // revelado, es solo de la landing. `dark` elige el tema, igual que el SiteHeader.
 function SlimFooter({ dark = true }) {
+  const { t } = useLanguage();
   const theme = dark
     ? "border-white/10 bg-[var(--stage-color,#000)] text-white"
     : "border-gray-200 bg-white text-black";
@@ -25,16 +27,16 @@ function SlimFooter({ dark = true }) {
             Ruby.
           </Link>
           <p className="mt-1 font-display text-[11px] uppercase tracking-widest opacity-50">
-            © {YEAR} Ruby. Proyecto académico.
+            © {YEAR} Ruby. {t("footer.academic")}
           </p>
         </div>
 
         <nav
-          aria-label="Pie de página"
+          aria-label={t("footer.label")}
           className="flex flex-wrap justify-center gap-x-6 gap-y-3"
         >
           <Link to="/catalogo" className={linkClass}>
-            Tienda
+            {t("nav.shop")}
           </Link>
           {Object.entries(COLLECTIONS).map(([slug, collection]) => (
             <Link key={slug} to={`/colecciones/${slug}`} className={linkClass}>
@@ -42,7 +44,7 @@ function SlimFooter({ dark = true }) {
             </Link>
           ))}
           <Link to="/admin/login" className={linkClass}>
-            Acceso administrador
+            {t("footer.adminAccess")}
           </Link>
         </nav>
 

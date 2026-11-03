@@ -3,11 +3,13 @@ import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { getCatalog } from "../../services/product.service";
 import { formatPrice } from "../../utils/formatPrice";
+import { useLanguage } from "../../context/LanguageContext";
 
 const MAX_RESULTS = 5;
 
 // Panel de búsqueda: carga el catálogo una vez y filtra por nombre en el cliente.
 function SearchPanel({ onClose }) {
+  const { t } = useLanguage();
   const [query, setQuery] = useState("");
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -38,7 +40,7 @@ function SearchPanel({ onClose }) {
 
       <section
         role="dialog"
-        aria-label="Buscar"
+        aria-label={t("nav.search")}
         className="relative max-h-[calc(100dvh-6rem)] w-full max-w-xl overflow-y-auto border border-white/15 bg-[#0b0b0b] p-5 text-white shadow-2xl sm:p-7"
       >
         <div className="flex items-start justify-between">
@@ -47,13 +49,13 @@ function SearchPanel({ onClose }) {
               Ruby.
             </p>
             <h2 className="mt-2 font-condensed text-4xl font-light uppercase leading-none">
-              Buscar
+              {t("nav.search")}
             </h2>
           </div>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Cerrar"
+            aria-label={t("search.close")}
             className="flex h-10 w-10 shrink-0 items-center justify-center border border-white/30 text-lg leading-none transition hover:bg-white hover:text-black"
           >
             ×
@@ -64,8 +66,8 @@ function SearchPanel({ onClose }) {
           autoFocus
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Nombre del producto"
-          aria-label="Buscar productos"
+          placeholder={t("search.placeholder")}
+          aria-label={t("search.label")}
           className="mt-6 w-full border-0 border-b border-white/30 bg-transparent px-0 py-3 font-display text-base text-white placeholder:text-white/40 transition-colors focus:border-accent focus:outline-none"
         />
 
@@ -73,7 +75,7 @@ function SearchPanel({ onClose }) {
 
         {term && !error && results.length === 0 && (
           <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.2em] text-white/70">
-            Sin resultados para “{query.trim()}”.
+            {t("search.empty", { query: query.trim() })}
           </p>
         )}
 
@@ -107,7 +109,7 @@ function SearchPanel({ onClose }) {
               onClick={onClose}
               className="hover-underline mx-auto mt-5 block w-fit font-mono text-[11px] uppercase tracking-[0.2em] text-white/70 hover:text-white"
             >
-              Ver todo el catálogo
+              {t("footer.viewCatalog")}
             </Link>
           </>
         )}
