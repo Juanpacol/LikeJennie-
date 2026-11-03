@@ -6,7 +6,7 @@ const { NotFoundError, BadRequestError } = require("../utils/errors");
 // con su variante (para nombrar el producto en el pago) y el total.
 async function buildOrderItems(items) {
   if (!items || items.length === 0) {
-    throw new BadRequestError("El carrito está vacío");
+    throw new BadRequestError("CART_EMPTY");
   }
 
   const orderItems = [];
@@ -14,9 +14,9 @@ async function buildOrderItems(items) {
 
   for (const { variantId, quantity } of items) {
     const variant = await variantRepo.findById(variantId);
-    if (!variant) throw new NotFoundError("Una prenda del carrito ya no existe");
+    if (!variant) throw new NotFoundError("CART_ITEM_GONE");
     if (variant.stock < quantity) {
-      throw new BadRequestError(`Stock insuficiente para ${variant.product.name}`);
+      throw new BadRequestError("INSUFFICIENT_STOCK");
     }
 
     const unitPrice = variant.product.salePrice ?? variant.product.basePrice;

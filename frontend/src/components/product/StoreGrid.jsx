@@ -11,7 +11,7 @@ const GRID_CLASS =
 const SKELETON_COUNT = 8;
 
 function StoreGrid() {
-  const { t } = useLanguage();
+  const { t, tError } = useLanguage();
   const [categories, setCategories] = useState([]);
   // La categoría vive en la URL (?categoria=slug) para poder enlazarla desde el header.
   const [searchParams, setSearchParams] = useSearchParams();
@@ -31,7 +31,7 @@ function StoreGrid() {
     setError(null);
     getCatalog(selectedCategory)
       .then(setProducts)
-      .catch((err) => setError(err.message))
+      .catch((err) => setError(tError(err)))
       .finally(() => setLoading(false));
   }, [selectedCategory]);
 

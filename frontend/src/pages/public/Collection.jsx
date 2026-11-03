@@ -8,7 +8,7 @@ import { getCatalog } from "../../services/product.service";
 import { useLanguage } from "../../context/LanguageContext";
 
 function Collection() {
-  const { t } = useLanguage();
+  const { t, tError } = useLanguage();
   const { slug } = useParams();
   const collection = COLLECTIONS[slug];
   const [products, setProducts] = useState([]);
@@ -26,7 +26,7 @@ function Collection() {
           all.filter((p) => p.name.toLowerCase().includes(collection.match)),
         ),
       )
-      .catch((err) => setError(err.message))
+      .catch((err) => setError(tError(err)))
       .finally(() => setLoading(false));
   }, [collection]);
 

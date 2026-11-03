@@ -58,6 +58,15 @@ export function LanguageProvider({ children }) {
     t: (key, vars) => translate(lang, key, vars),
     // Para datos que vienen de la base (tallas, colores): si no hay traducción, muestra el valor tal cual.
     tOr: (key, fallback) => translate(lang, key, undefined, fallback),
+    // Texto de un error de la API en el idioma actual: usa su `code`; si no hay traducción, su mensaje.
+    // `forceLang` fija el idioma (el panel admin siempre va en español).
+    tError: (error, forceLang = lang) =>
+      translate(
+        forceLang,
+        `errors.${error?.code}`,
+        undefined,
+        error?.message ?? "",
+      ),
   };
 
   return (

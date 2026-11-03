@@ -28,7 +28,7 @@ const STEPS = ["cart", "details", "payment"];
 
 // Indicador de pasos: el actual en blanco, el resto atenuado.
 function Steps({ current }) {
-  const { t } = useLanguage();
+  const { t, tError } = useLanguage();
   return (
     <ol className="mt-3 flex gap-4">
       {STEPS.map((name, index) => (
@@ -109,7 +109,7 @@ function CartDrawer() {
       }
       window.location.assign(url);
     } catch (err) {
-      setError(err.message);
+      setError(tError(err));
       setSubmitting(false);
     }
   }

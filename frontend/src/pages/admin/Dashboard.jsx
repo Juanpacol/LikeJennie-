@@ -4,8 +4,10 @@ import { getDashboardSummary } from "../../services/dashboard.service";
 import { formatPrice } from "../../utils/formatPrice";
 import StatCard from "../../components/admin/StatCard";
 import AdminNav from "../../components/admin/AdminNav";
+import { useLanguage } from "../../context/LanguageContext";
 
 function Dashboard() {
+  const { tError } = useLanguage();
   const { token } = useAuth();
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,7 +16,7 @@ function Dashboard() {
   useEffect(() => {
     getDashboardSummary(token)
       .then(setSummary)
-      .catch((err) => setError(err.message))
+      .catch((err) => setError(tError(err, "es")))
       .finally(() => setLoading(false));
   }, [token]);
 

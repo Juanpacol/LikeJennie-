@@ -4,7 +4,7 @@ const { AppError } = require("../utils/errors");
 function authMiddleware(req, res, next) {
   const header = req.headers.authorization;
   if (!header || !header.startsWith("Bearer ")) {
-    return next(new AppError("No autorizado", 401));
+    return next(new AppError("UNAUTHORIZED", 401));
   }
 
   try {
@@ -12,7 +12,7 @@ function authMiddleware(req, res, next) {
     req.admin = jwtUtil.verify(token);
     next();
   } catch (err) {
-    next(new AppError("Token inválido o expirado", 401));
+    next(new AppError("INVALID_TOKEN", 401));
   }
 }
 

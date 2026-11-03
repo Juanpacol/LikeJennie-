@@ -10,7 +10,7 @@ const CURRENCY = "cop";
 // Devuelve la URL a la que el frontend redirige al cliente. Stripe espera el monto en la unidad
 // mínima de la moneda (centavos), por eso el precio se multiplica por 100.
 async function createCheckoutSession({ customerName, customerEmail, items }) {
-  if (!stripe) throw new BadRequestError("La pasarela de pagos no está configurada");
+  if (!stripe) throw new BadRequestError("PAYMENTS_UNCONFIGURED");
 
   const { order, orderItems } = await orderService.createPendingOrder({
     customerName,
@@ -44,13 +44,13 @@ async function createCheckoutSession({ customerName, customerEmail, items }) {
 // pago completado -> orden COMPLETED y stock descontado; sesión caducada -> orden CANCELLED.
 async function handleWebhook(rawBody, signature) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
-  if (!stripe || !secret) throw new BadRequestError("Webhook no configurado");
+  if (!stripe || !secret) throw new BadRequestError("WEBHOOK_UNCONFIGURED");
 
   let event;
   try {
     event = stripe.webhooks.constructEvent(rawBody, signature, secret);
   } catch {
-    throw new BadRequestError("Firma del webhook inválida");
+    throw new BadRequestError("WEBHOOK_SIGNATURE");
   }
 
   const session = event.data.object;

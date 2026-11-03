@@ -9,6 +9,7 @@ const authRoutes = require("./routes/auth.routes");
 const adminRoutes = require("./routes/admin.routes");
 const authMiddleware = require("./middlewares/auth.middleware");
 const errorMiddleware = require("./middlewares/error.middleware");
+const { MESSAGES } = require("./utils/errors");
 const { apiLimiter, loginLimiter, checkoutLimiter } = require("./middlewares/rateLimit.middleware");
 
 const app = express();
@@ -37,7 +38,7 @@ app.use("/api/admin/auth", authRoutes);
 app.use("/api/admin", authMiddleware, adminRoutes);
 
 // Ruta inexistente: JSON como el resto de la API, no la página HTML por defecto de Express.
-app.use((req, res) => res.status(404).json({ success: false, error: "Ruta no encontrada" }));
+app.use((req, res) => res.status(404).json({ success: false, code: "ROUTE_NOT_FOUND", error: MESSAGES.ROUTE_NOT_FOUND }));
 
 app.use(errorMiddleware);
 

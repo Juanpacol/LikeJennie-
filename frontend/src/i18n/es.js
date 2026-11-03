@@ -207,6 +207,55 @@ const es = {
     profile: "Perfil",
     soon: "El registro de clientes estará disponible próximamente.",
   },
+  errors: {
+    NETWORK:
+      "No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.",
+    REQUEST_FAILED: "Algo salió mal. Inténtalo de nuevo.",
+    INTERNAL: "Algo falló de nuestro lado. Inténtalo en un momento.",
+    ROUTE_NOT_FOUND: "No encontramos lo que buscabas.",
+    NOT_FOUND: "No encontramos lo que buscabas.",
+    BAD_REQUEST: "Esa solicitud no era válida.",
+    VALIDATION_ERROR:
+      "Algunos datos no son válidos. Revísalos e inténtalo de nuevo.",
+    UNAUTHORIZED: "Inicia sesión para continuar.",
+    INVALID_TOKEN: "Tu sesión expiró. Inicia sesión de nuevo.",
+    INVALID_CREDENTIALS: "Correo o contraseña incorrectos.",
+    TOO_MANY_LOGINS:
+      "Demasiados intentos fallidos. Espera unos minutos e inténtalo de nuevo.",
+    TOO_MANY_ORDERS:
+      "Demasiados pedidos seguidos. Espera unos minutos e inténtalo de nuevo.",
+    TOO_MANY_REQUESTS:
+      "Demasiadas peticiones. Espera unos minutos e inténtalo de nuevo.",
+    EMAIL_REQUIRED: "El correo es obligatorio.",
+    EMAIL_INVALID: "Ese correo no parece válido.",
+    EMAIL_TOO_LONG: "Ese correo es demasiado largo.",
+    PASSWORD_REQUIRED: "La contraseña es obligatoria.",
+    CUSTOMER_NAME_REQUIRED: "El nombre es obligatorio.",
+    CUSTOMER_NAME_TOO_LONG: "Ese nombre es demasiado largo.",
+    QUANTITY_INVALID: "Esa cantidad no es válida.",
+    QUANTITY_TOO_HIGH: "Puedes agregar hasta 20 unidades de cada prenda.",
+    CART_INVALID:
+      "Tu carrito no es válido. Quita los productos y agrégalos de nuevo.",
+    CART_EMPTY: "Tu carrito está vacío.",
+    CART_TOO_LARGE: "Tu carrito tiene demasiados productos.",
+    CART_DUPLICATES:
+      "Tu carrito tiene un producto repetido. Quítalo e inténtalo de nuevo.",
+    CART_ITEM_GONE: "Un producto de tu carrito ya no está disponible.",
+    INSUFFICIENT_STOCK:
+      "No tenemos existencias suficientes de un producto de tu carrito.",
+    PRICE_INVALID: "Ese precio no es válido.",
+    NAME_REQUIRED: "El nombre es obligatorio.",
+    SLUG_REQUIRED: "El slug es obligatorio.",
+    SLUG_INVALID: "El slug solo admite minúsculas, números y guiones.",
+    DESCRIPTION_REQUIRED: "La descripción es obligatoria.",
+    IMAGE_URL_INVALID: "Esa URL de imagen no es válida.",
+    STOCK_INVALID: "El stock debe ser un número entero, 0 o más.",
+    VARIANT_NOT_FOUND: "No encontramos esa variante.",
+    PRODUCT_NOT_FOUND: "No encontramos ese producto.",
+    PAYMENTS_UNCONFIGURED: "Los pagos no están disponibles por ahora.",
+    WEBHOOK_UNCONFIGURED: "Los pagos no están disponibles por ahora.",
+    WEBHOOK_SIGNATURE: "La notificación del pago no era válida.",
+  },
 };
 
 export default es;
