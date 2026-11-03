@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { useAccountPanel } from "../../context/AccountPanelContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 const EASE = [0.16, 1, 0.3, 1];
 const LABEL_CLASS = "font-mono text-[11px] uppercase tracking-[0.2em]";
@@ -10,6 +11,7 @@ const SECONDARY_BUTTON_CLASS = `border border-white/40 py-3.5 transition hover:b
 // Panel de cuenta: tarjeta negra que cae desde el encabezado, con la misma tipografía y el rojo
 // de la marca que el resto del sitio.
 function AccountPanel() {
+  const { t } = useLanguage();
   const { isOpen, close } = useAccountPanel();
   const [email, setEmail] = useState("");
   const [wantsNews, setWantsNews] = useState(false);
@@ -33,7 +35,7 @@ function AccountPanel() {
   // Las cuentas de cliente no hacen parte del alcance actual: se avisa en vez de simular un registro.
   function showComingSoon(event) {
     event?.preventDefault();
-    setNotice("El registro de clientes estará disponible próximamente.");
+    setNotice("account.soon");
   }
 
   return (
@@ -52,7 +54,7 @@ function AccountPanel() {
           <motion.section
             role="dialog"
             aria-modal="true"
-            aria-label="Cuenta"
+            aria-label={t("nav.account")}
             className="relative w-full max-w-sm origin-top-right border border-white/15 bg-[#0b0b0b] p-7 text-white shadow-2xl"
             initial={{ opacity: 0, y: -16, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -63,13 +65,13 @@ function AccountPanel() {
               <div>
                 <p className={`${LABEL_CLASS} text-white/60`}>Ruby.</p>
                 <h2 className="mt-2 font-condensed text-4xl font-light uppercase leading-none">
-                  Tu cuenta
+                  {t("account.title")}
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={handleClose}
-                aria-label="Cerrar"
+                aria-label={t("search.close")}
                 className="flex h-10 w-10 items-center justify-center border border-white/30 text-lg leading-none transition hover:bg-white hover:text-black"
               >
                 ×
@@ -81,7 +83,7 @@ function AccountPanel() {
                 htmlFor="accountEmail"
                 className={`${LABEL_CLASS} text-white/60`}
               >
-                Inicia sesión o crea tu cuenta
+                {t("account.intro")}
               </label>
               <input
                 id="accountEmail"
@@ -89,7 +91,7 @@ function AccountPanel() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
+                placeholder={t("cart.email")}
                 className="mt-2 w-full border-0 border-b border-white/30 bg-transparent px-0 py-3 font-display text-base text-white placeholder:text-white/40 transition-colors focus:border-accent focus:outline-none"
               />
 
@@ -100,14 +102,14 @@ function AccountPanel() {
                   onChange={(e) => setWantsNews(e.target.checked)}
                   className="h-4 w-4 accent-[#D6001C]"
                 />
-                Quiero recibir novedades y ofertas
+                {t("account.newsletter")}
               </label>
 
               <button
                 type="submit"
                 className={`btn-sweep mt-6 w-full bg-accent py-4 text-white [--sweep:rgb(0_0_0/0.25)] ${LABEL_CLASS}`}
               >
-                Continuar
+                {t("account.continue")}
               </button>
             </form>
 
@@ -116,7 +118,7 @@ function AccountPanel() {
                 role="status"
                 className="animate-fade-up mt-4 border border-white/25 px-3 py-2 font-display text-xs text-white/80"
               >
-                {notice}
+                {t(notice)}
               </p>
             )}
 
@@ -126,14 +128,14 @@ function AccountPanel() {
                 onClick={showComingSoon}
                 className={SECONDARY_BUTTON_CLASS}
               >
-                Pedidos
+                {t("account.orders")}
               </button>
               <button
                 type="button"
                 onClick={showComingSoon}
                 className={SECONDARY_BUTTON_CLASS}
               >
-                Perfil
+                {t("account.profile")}
               </button>
             </div>
 
@@ -142,7 +144,7 @@ function AccountPanel() {
               onClick={handleClose}
               className={`hover-underline mx-auto mt-6 block w-fit text-white/60 transition hover:text-white ${LABEL_CLASS}`}
             >
-              Acceso administrador
+              {t("footer.adminAccess")}
             </Link>
           </motion.section>
         </div>

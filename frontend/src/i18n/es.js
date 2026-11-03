@@ -198,6 +198,15 @@ const es = {
     cancelText:
       "Cancelaste el pago. Tu carrito sigue como lo dejaste, así que puedes volver a intentarlo cuando quieras.",
   },
+  account: {
+    title: "Tu cuenta",
+    intro: "Inicia sesión o crea tu cuenta",
+    newsletter: "Quiero recibir novedades y lanzamientos",
+    continue: "Continuar",
+    orders: "Pedidos",
+    profile: "Perfil",
+    soon: "El registro de clientes estará disponible próximamente.",
+  },
 };
 
 export default es;
