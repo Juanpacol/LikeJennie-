@@ -284,7 +284,8 @@ function CartDrawer() {
                 <div className="mt-auto space-y-4 pt-6">
                   <div className="flex items-end justify-between border-t border-white/15 pt-5">
                     <span className={`${LABEL_CLASS} text-white/80`}>
-                      {t("cart.total")} · {t(count === 1 ? "cart.item" : "cart.items", { count })}
+                      {t("cart.total")} ·{" "}
+                      {t(count === 1 ? "cart.item" : "cart.items", { count })}
                     </span>
                     <span className="font-condensed text-4xl font-light leading-none">
                       {formatPrice(total)}
@@ -295,9 +296,7 @@ function CartDrawer() {
                     disabled={submitting}
                     className={PRIMARY_BUTTON_CLASS}
                   >
-                    {submitting
-                      ? t("cart.redirecting")
-                      : t("cart.payByCard")}
+                    {submitting ? t("cart.redirecting") : t("cart.payByCard")}
                   </button>
                   <button
                     type="button"
