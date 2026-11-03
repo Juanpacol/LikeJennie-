@@ -6,6 +6,7 @@ import { createCheckoutSession } from "../../services/order.service";
 import { formatPrice } from "../../utils/formatPrice";
 import silhouette from "../../assets/cart-silhouette.jpg";
 import CartItem from "./CartItem";
+import { useLanguage } from "../../context/LanguageContext";
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -23,10 +24,11 @@ const LABEL_CLASS = "font-mono text-[11px] uppercase tracking-[0.2em]";
 const INPUT_CLASS =
   "mt-2 w-full border-0 border-b border-white/50 bg-transparent px-0 py-3 font-display text-base text-white placeholder:text-white/80 transition-colors focus:border-black focus:outline-none";
 const PRIMARY_BUTTON_CLASS = `btn-sweep w-full bg-black py-4 text-white [--sweep:rgb(255_255_255/0.2)] disabled:opacity-50 ${LABEL_CLASS}`;
-const STEPS = ["Carrito", "Datos", "Pago"];
+const STEPS = ["cart", "details", "payment"];
 
 // Indicador de pasos: el actual en blanco, el resto atenuado.
 function Steps({ current }) {
+  const { t } = useLanguage();
   return (
     <ol className="mt-3 flex gap-4">
       {STEPS.map((name, index) => (
@@ -34,7 +36,7 @@ function Steps({ current }) {
           key={name}
           className={`${LABEL_CLASS} transition-colors ${index === current ? "text-white" : "text-white/50"}`}
         >
-          0{index + 1} {name}
+          0{index + 1} {t(`cart.steps.${name}`)}
         </li>
       ))}
     </ol>
@@ -44,6 +46,7 @@ function Steps({ current }) {
 // Carrito lateral: panel negro que entra deslizando desde la derecha, con la misma tipografía
 // (condensada para los títulos, monoespaciada para las etiquetas) y el rojo de la marca como acento.
 function CartDrawer() {
+  const { t } = useLanguage();
   const { items, total, isOpen, close } = useCart();
   const [step, setStep] = useState("cart"); // "cart" | "checkout"
   const [customerName, setCustomerName] = useState("");
@@ -130,7 +133,7 @@ function CartDrawer() {
           <motion.aside
             role="dialog"
             aria-modal="true"
-            aria-label="Carrito"
+            aria-label={t("nav.cart", { count })}
             className="relative isolate flex h-full w-full max-w-md flex-col overflow-hidden bg-accent pb-[max(1.5rem,env(safe-area-inset-bottom))] pl-14 pr-6 pt-6 text-white sm:py-8 sm:pl-16 sm:pr-8"
             initial={{ clipPath: CLOSED, x: "6%", opacity: 0 }}
             animate={{ clipPath: OPEN, x: 0, opacity: 1 }}
@@ -173,14 +176,14 @@ function CartDrawer() {
             <div className="relative flex items-start justify-between">
               <div>
                 <h2 className="font-condensed text-5xl font-light uppercase leading-none">
-                  Tu carrito
+                  {t("cart.title")}
                 </h2>
                 <Steps current={stepIndex} />
               </div>
               <button
                 type="button"
                 onClick={handleClose}
-                aria-label="Cerrar carrito"
+                aria-label={t("cart.close")}
                 className="flex h-10 w-10 items-center justify-center border border-black/60 text-lg leading-none transition hover:bg-black hover:text-white"
               >
                 ×
@@ -190,17 +193,17 @@ function CartDrawer() {
             {step === "cart" && items.length === 0 && (
               <div className="flex flex-1 flex-col items-center justify-center text-center">
                 <p className="animate-fade-up font-condensed text-8xl font-light uppercase leading-none text-black/30">
-                  Vacío
+                  {t("cart.emptyLabel")}
                 </p>
                 <p className="mt-4 font-display text-sm text-white/70">
-                  Aún no has añadido nada. Elige tu mundo y llévalo puesto.
+                  {t("cart.emptyText")}
                 </p>
                 <Link
                   to="/catalogo"
                   onClick={handleClose}
                   className={`${PRIMARY_BUTTON_CLASS} mt-8 block max-w-xs text-center`}
                 >
-                  Ver tienda
+                  {t("cart.goShop")}
                 </Link>
               </div>
             )}
@@ -208,7 +211,7 @@ function CartDrawer() {
             {step === "cart" && items.length > 0 && (
               <>
                 <p className={`${LABEL_CLASS} mt-8 text-white/80`}>
-                  {count} {count === 1 ? "artículo" : "artículos"}
+                  {t(count === 1 ? "cart.item" : "cart.items", { count })}
                 </p>
                 <div data-lenis-prevent className="flex-1 overflow-y-auto">
                   {items.map((item, index) => (
@@ -218,7 +221,7 @@ function CartDrawer() {
                 <div className="border-t border-white/15 pt-5">
                   <div className="flex items-end justify-between">
                     <span className={`${LABEL_CLASS} text-white/80`}>
-                      Total
+                      {t("cart.total")}
                     </span>
                     <span className="font-condensed text-4xl font-light leading-none">
                       {formatPrice(total)}
@@ -229,7 +232,7 @@ function CartDrawer() {
                     onClick={() => setStep("checkout")}
                     className={`${PRIMARY_BUTTON_CLASS} mt-5`}
                   >
-                    Finalizar compra
+                    {t("cart.checkout")}
                   </button>
                 </div>
               </>
@@ -244,7 +247,7 @@ function CartDrawer() {
                   className={`${LABEL_CLASS} text-white/80`}
                   htmlFor="customerName"
                 >
-                  Nombre
+                  {t("cart.name")}
                 </label>
                 <input
                   id="customerName"
@@ -258,7 +261,7 @@ function CartDrawer() {
                   className={`${LABEL_CLASS} mt-8 text-white/80`}
                   htmlFor="customerEmail"
                 >
-                  Email
+                  {t("cart.email")}
                 </label>
                 <input
                   id="customerEmail"
@@ -281,7 +284,7 @@ function CartDrawer() {
                 <div className="mt-auto space-y-4 pt-6">
                   <div className="flex items-end justify-between border-t border-white/15 pt-5">
                     <span className={`${LABEL_CLASS} text-white/80`}>
-                      Total · {count} {count === 1 ? "artículo" : "artículos"}
+                      {t("cart.total")} · {t(count === 1 ? "cart.item" : "cart.items", { count })}
                     </span>
                     <span className="font-condensed text-4xl font-light leading-none">
                       {formatPrice(total)}
@@ -293,15 +296,15 @@ function CartDrawer() {
                     className={PRIMARY_BUTTON_CLASS}
                   >
                     {submitting
-                      ? "Redirigiendo a Stripe..."
-                      : "Pagar con tarjeta"}
+                      ? t("cart.redirecting")
+                      : t("cart.payByCard")}
                   </button>
                   <button
                     type="button"
                     onClick={() => setStep("cart")}
                     className={`hover-underline mx-auto block text-white/80 transition hover:text-white ${LABEL_CLASS}`}
                   >
-                    Volver al carrito
+                    {t("cart.back")}
                   </button>
                 </div>
               </form>

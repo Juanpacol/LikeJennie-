@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { COLLECTIONS } from "../../data/collections";
 import { SOCIAL_ICONS } from "../../data/socialLinks";
+import { useLanguage } from "../../context/LanguageContext";
 
 const YEAR = new Date().getFullYear();
 
@@ -11,6 +12,7 @@ const LINK_CLASS =
 // la colección como marca de agua y título, su frase, un acceso a las otras dos colecciones y al
 // catálogo, y las redes. Usa la paleta y la foto de `collection.footer`. Lo envuelve FooterReveal.
 function CollectionFooter({ slug, collection }) {
+  const { t } = useLanguage();
   const { bg, ink, muted, image, images, position, tagline } =
     collection.footer;
   // Una foto (a la derecha) o dos (una a cada lado, y el contenido queda en el centro).
@@ -84,7 +86,7 @@ function CollectionFooter({ slug, collection }) {
               className="font-mono text-[11px] uppercase tracking-[0.3em]"
               style={{ color: muted }}
             >
-              Otras colecciones
+              {t("footer.otherCollections")}
             </p>
             <ul className="mt-3 space-y-2.5">
               {others.map(([key, other]) => (
@@ -96,7 +98,7 @@ function CollectionFooter({ slug, collection }) {
               ))}
               <li>
                 <Link to="/catalogo" className={LINK_CLASS}>
-                  Ver todo el catálogo
+                  {t("footer.viewCatalog")}
                 </Link>
               </li>
             </ul>
@@ -107,7 +109,7 @@ function CollectionFooter({ slug, collection }) {
               className="font-mono text-[11px] uppercase tracking-[0.3em]"
               style={{ color: muted }}
             >
-              Redes
+              {t("footer.social")}
             </p>
             <ul className="mt-3 space-y-2.5">
               {SOCIAL_ICONS.map((icon) => (
@@ -134,7 +136,7 @@ function CollectionFooter({ slug, collection }) {
         </div>
 
         <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.2em] opacity-60">
-          © {YEAR} Ruby. Proyecto académico.
+          © {YEAR} Ruby. {t("footer.academic")}
         </p>
       </div>
     </footer>
