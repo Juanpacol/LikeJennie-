@@ -5,10 +5,12 @@ import { Dock, DockIcon, DockText } from "./Dock";
 import MenuIcon from "../icons/MenuIcon";
 import SearchIcon from "../icons/SearchIcon";
 import UserIcon from "../icons/UserIcon";
+import LanguageToggle from "./LanguageToggle";
 import MobileMenu from "./MobileMenu";
 import SearchPanel from "../search/SearchPanel";
 import { useAccountPanel } from "../../context/AccountPanelContext";
 import { useCart } from "../../context/CartContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { COLLECTIONS } from "../../data/collections";
 
 const SCROLL_THRESHOLD = 40;
@@ -20,6 +22,7 @@ const HEADER_HEIGHT_CLASS = "h-[68px] lg:h-[88px]";
 // Menú de colecciones: se abre al pasar el mouse o con el teclado (focus-within) y enlaza a la página de
 // cada colección, con un punto del color de su tema.
 function CollectionsMenu() {
+  const { t } = useLanguage();
   return (
     <div className="group relative hidden lg:block">
       <button
@@ -27,7 +30,7 @@ function CollectionsMenu() {
         className="hover-underline flex items-center gap-1.5 py-2"
         aria-haspopup="true"
       >
-        Colecciones
+        {t("nav.collections")}
         <svg
           viewBox="0 0 10 6"
           className="h-1.5 w-2.5 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
@@ -76,6 +79,7 @@ function CollectionsMenu() {
 // Se usa en el header normal y en el que se desliza sobre la landing, por eso recibe los manejadores
 // desde SiteHeader.
 function HeaderBar({ compact, count, onMenu, onSearch, onAccount, onCart }) {
+  const { t } = useLanguage();
   return (
     // Mismo ancho y márgenes que el hero (max-w-7xl dentro de px-10) para que el logo quede alineado con su texto.
     <div className="px-6 sm:px-10">
@@ -86,7 +90,7 @@ function HeaderBar({ compact, count, onMenu, onSearch, onAccount, onCart }) {
           <button
             type="button"
             onClick={onMenu}
-            aria-label="Abrir menú"
+            aria-label={t("nav.openMenu")}
             className="relative after:absolute after:-inset-2 after:content-[''] lg:hidden"
           >
             <MenuIcon />
@@ -102,16 +106,17 @@ function HeaderBar({ compact, count, onMenu, onSearch, onAccount, onCart }) {
         <div className="flex items-center gap-10">
           <nav className="hidden items-center gap-10 font-display text-sm uppercase tracking-[0.1em] lg:flex">
             <Link to="/catalogo" className="hover-underline py-2">
-              Tienda
+              {t("nav.shop")}
             </Link>
             <CollectionsMenu />
           </nav>
+          <LanguageToggle className="hidden lg:flex" />
           <Dock>
             <DockIcon>
               <button
                 type="button"
                 onClick={onSearch}
-                aria-label="Buscar"
+                aria-label={t("nav.search")}
                 className="relative h-full w-full after:absolute after:-inset-2 after:content-['']"
               >
                 <SearchIcon className="relative h-full w-full after:absolute after:-inset-2 after:content-['']" />
@@ -121,7 +126,7 @@ function HeaderBar({ compact, count, onMenu, onSearch, onAccount, onCart }) {
               <button
                 type="button"
                 onClick={onAccount}
-                aria-label="Cuenta"
+                aria-label={t("nav.account")}
                 className="relative h-full w-full after:absolute after:-inset-2 after:content-['']"
               >
                 <UserIcon className="relative h-full w-full after:absolute after:-inset-2 after:content-['']" />
@@ -131,7 +136,7 @@ function HeaderBar({ compact, count, onMenu, onSearch, onAccount, onCart }) {
               <button
                 type="button"
                 onClick={onCart}
-                aria-label={`Carrito (${count})`}
+                aria-label={t("nav.cart", { count })}
                 className="relative h-full w-full after:absolute after:-inset-2 after:content-['']"
               >
                 <BagIcon className="relative h-full w-full after:absolute after:-inset-2 after:content-['']" />

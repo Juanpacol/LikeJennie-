@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import { AccountPanelProvider } from "./context/AccountPanelContext";
 import { AuthProvider } from "./context/AuthContext";
+import { LanguageProvider } from "./context/LanguageContext";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import SiteHeader from "./components/common/SiteHeader";
 import Footer from "./components/common/Footer";
@@ -115,20 +116,22 @@ function AppLayout() {
 
 function App() {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <AccountPanelProvider>
-          <BrowserRouter>
-            <SmoothScroll />
-            <BrandFrame />
-            <AppLayout />
-            <CartDrawer />
-            <CartToast />
-            <AccountPanel />
-          </BrowserRouter>
-        </AccountPanelProvider>
-      </CartProvider>
-    </AuthProvider>
+    <LanguageProvider>
+      <AuthProvider>
+        <CartProvider>
+          <AccountPanelProvider>
+            <BrowserRouter>
+              <SmoothScroll />
+              <BrandFrame />
+              <AppLayout />
+              <CartDrawer />
+              <CartToast />
+              <AccountPanel />
+            </BrowserRouter>
+          </AccountPanelProvider>
+        </CartProvider>
+      </AuthProvider>
+    </LanguageProvider>
   );
 }
 
