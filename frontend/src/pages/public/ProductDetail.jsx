@@ -12,7 +12,7 @@ import VariantSelector from "../../components/product/VariantSelector";
 import { useLanguage } from "../../context/LanguageContext";
 
 function ProductDetail() {
-  const { t } = useLanguage();
+  const { t, tError } = useLanguage();
   const { slug } = useParams();
   const { addItem } = useCart();
   const [product, setProduct] = useState(null);
@@ -44,7 +44,7 @@ function ProductDetail() {
         setLightboxIndex(null);
         setActiveIndex(0);
       })
-      .catch((err) => setError(err.message))
+      .catch((err) => setError(tError(err)))
       .finally(() => setLoading(false));
   }, [slug]);
 

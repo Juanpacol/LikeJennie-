@@ -14,7 +14,7 @@ function hashPassword(password) {
 async function login(email, password) {
   const user = await adminUserRepo.findByEmail(email);
   const passwordMatches = await bcrypt.compare(password, user ? user.passwordHash : DUMMY_HASH);
-  if (!user || !passwordMatches) throw new BadRequestError("Credenciales inválidas");
+  if (!user || !passwordMatches) throw new BadRequestError("INVALID_CREDENTIALS");
 
   const token = jwtUtil.sign({ sub: user.id, email: user.email });
   return { token, user: { id: user.id, email: user.email, name: user.name } };

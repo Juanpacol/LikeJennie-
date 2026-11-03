@@ -16,10 +16,10 @@ function getLowStockVariants() {
 
 async function updateVariantStock(variantId, stock) {
   if (!Number.isInteger(stock) || stock < 0) {
-    throw new BadRequestError("El stock debe ser un número entero mayor o igual a 0");
+    throw new BadRequestError("STOCK_INVALID");
   }
   const variant = await variantRepo.findById(variantId);
-  if (!variant) throw new NotFoundError("Variante no encontrada");
+  if (!variant) throw new NotFoundError("VARIANT_NOT_FOUND");
   return variantRepo.updateStock(variantId, stock);
 }
 
