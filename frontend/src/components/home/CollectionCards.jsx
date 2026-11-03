@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { COLLECTIONS } from "../../data/collections";
+import { useLanguage } from "../../context/LanguageContext";
 
 // Sección "Colecciones": una tarjeta con foto por colección (tres lado a lado en escritorio; en móvil
 // se deslizan de lado, una por pantalla). Toma la foto de la cabecera de la colección (`bannerImage`)
 // o la de su banda (`image`), fundida con el color de la colección. Al pasar el mouse, la foto hace
 // zoom y sube su frase y el botón.
 function CollectionCards() {
+  const { t } = useLanguage();
   const listRef = useRef(null);
   const [active, setActive] = useState(0);
   const slugs = Object.keys(COLLECTIONS);
@@ -38,10 +40,10 @@ function CollectionCards() {
     <section className="bg-black px-6 py-16 text-white">
       <div className="mx-auto max-w-6xl">
         <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
-          Campañas
+          {t("home.dropsLabel")}
         </p>
         <h2 className="mt-3 font-condensed text-6xl font-light uppercase tracking-[-0.01em] sm:text-7xl">
-          Colecciones
+          {t("footer.collections")}
         </h2>
 
         <ul
@@ -113,7 +115,7 @@ function CollectionCards() {
                           className="mt-4 inline-block px-6 py-2.5 font-display text-xs uppercase tracking-widest"
                           style={{ backgroundColor: accent, color: onAccent }}
                         >
-                          Ver colección
+                          {t("home.viewCollection")}
                         </span>
                       </div>
                     </div>
@@ -132,7 +134,9 @@ function CollectionCards() {
                 key={slug}
                 type="button"
                 onClick={() => goTo(index)}
-                aria-label={`Ver ${COLLECTIONS[slug].title}`}
+                aria-label={t("home.viewNamed", {
+                  title: COLLECTIONS[slug].title,
+                })}
                 aria-current={index === active}
                 className={`h-1.5 transition-all duration-300 ${
                   index === active ? "w-8 bg-accent" : "w-3 bg-white/30"
@@ -141,7 +145,7 @@ function CollectionCards() {
             ))}
           </div>
           <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/50">
-            Desliza →
+            {t("home.swipe")}
           </p>
         </div>
       </div>

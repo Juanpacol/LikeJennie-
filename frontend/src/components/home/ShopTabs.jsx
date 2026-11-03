@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getCategories } from "../../services/category.service";
 import { getCatalog } from "../../services/product.service";
 import ProductCard from "../product/ProductCard";
+import { useLanguage } from "../../context/LanguageContext";
 
 const PER_TAB = 4;
 
@@ -10,6 +11,7 @@ const PER_TAB = 4;
 // catálogo una vez y filtra en el cliente, así cambiar de pestaña no hace peticiones. "Todo" muestra
 // un producto de cada categoría (en vez de los más recientes) para dar una muestra variada.
 function ShopTabs() {
+  const { t } = useLanguage();
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [selected, setSelected] = useState(null);
@@ -55,7 +57,7 @@ function ShopTabs() {
 
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
-            Tienda
+            {t("nav.shop")}
           </p>
           <h2 className="mt-3 font-condensed text-7xl font-light uppercase tracking-[-0.01em] sm:text-8xl">
             Be unique
@@ -63,7 +65,7 @@ function ShopTabs() {
 
           <div
             role="tablist"
-            aria-label="Categorías"
+            aria-label={t("home.categories")}
             className="no-scrollbar mt-8 flex gap-8 overflow-x-auto border-b border-white/10"
           >
             <button
@@ -73,7 +75,7 @@ function ShopTabs() {
               onClick={() => setSelected(null)}
               className={tabClass(selected === null)}
             >
-              Todo
+              {t("home.all")}
             </button>
             {categories.map((category) => (
               <button
@@ -84,7 +86,7 @@ function ShopTabs() {
                 onClick={() => setSelected(category.slug)}
                 className={tabClass(selected === category.slug)}
               >
-                {category.name}
+                {t(`categories.${category.slug}`)}
               </button>
             ))}
           </div>
@@ -118,7 +120,7 @@ function ShopTabs() {
               to={selected ? `/catalogo?categoria=${selected}` : "/catalogo"}
               className="btn-sweep inline-block border border-white/70 px-8 py-3 font-display text-xs uppercase tracking-widest transition hover:bg-white hover:text-black"
             >
-              Ver todo
+              {t("home.viewAll")}
             </Link>
           </div>
         </div>

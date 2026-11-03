@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FAQS } from "../../data/faqs";
+import { useLanguage } from "../../context/LanguageContext";
 
 // Preguntas frecuentes con acordeón: una abierta a la vez, con animación de altura.
 function FaqSection() {
+  const { t } = useLanguage();
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
@@ -14,14 +16,12 @@ function FaqSection() {
         <div>
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
-              Ayuda
+              {t("faq.label")}
             </p>
             <h2 className="mt-3 font-condensed text-6xl font-light uppercase tracking-[-0.01em] sm:text-7xl">
               FAQs
             </h2>
-            <p className="mt-4 max-w-xs text-white/60">
-              Lo esencial para comprar en Ruby.
-            </p>
+            <p className="mt-4 max-w-xs text-white/60">{t("faq.intro")}</p>
           </div>
 
           <ul className="mt-10 border-t border-white/15">
@@ -35,7 +35,7 @@ function FaqSection() {
                     aria-expanded={isOpen}
                     className="hover-underline flex w-full items-center justify-between gap-6 py-5 text-left font-display text-xl sm:text-2xl"
                   >
-                    <span>{faq.question}</span>
+                    <span>{t(faq.question)}</span>
                     <span
                       aria-hidden="true"
                       className={`shrink-0 text-2xl leading-none transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
@@ -49,7 +49,7 @@ function FaqSection() {
                   >
                     <div className="overflow-hidden">
                       <p className="max-w-2xl pb-6 text-white/70">
-                        {faq.answer}
+                        {t(faq.answer)}
                       </p>
                     </div>
                   </div>
