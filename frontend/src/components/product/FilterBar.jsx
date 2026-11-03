@@ -1,9 +1,12 @@
+import { useLanguage } from "../../context/LanguageContext";
+
 const TAB_CLASS =
   "shrink-0 border-b-2 pb-2 font-mono text-[11px] uppercase tracking-[0.2em] transition";
 
 // Pestañas de categoría en monoespaciada, con numeración y el total de piezas a la derecha,
 // bajo una línea fina (idea del listado de offform.net).
 function FilterBar({ categories, selected, onSelect, total }) {
+  const { t } = useLanguage();
   function tabClass(active) {
     return `${TAB_CLASS} ${
       active
@@ -21,7 +24,8 @@ function FilterBar({ categories, selected, onSelect, total }) {
           onClick={() => onSelect(null)}
           className={tabClass(selected === null)}
         >
-          <span className="mr-2 text-white/40">00</span>Todo
+          <span className="mr-2 text-white/40">00</span>
+          {t("home.all")}
         </button>
         {categories.map((category, index) => (
           <button
@@ -31,13 +35,15 @@ function FilterBar({ categories, selected, onSelect, total }) {
             className={tabClass(selected === category.slug)}
           >
             <span className="mr-2 text-white/40">0{index + 1}</span>
-            {category.name}
+            {t(`categories.${category.slug}`)}
           </button>
         ))}
       </div>
       {total != null && (
         <p className="hidden shrink-0 pb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-white/50 sm:block">
-          {total} {total === 1 ? "pieza" : "piezas"}
+          {t(total === 1 ? "product.piece" : "product.pieces", {
+            count: total,
+          })}
         </p>
       )}
     </div>

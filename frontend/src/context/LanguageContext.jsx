@@ -16,13 +16,24 @@ function readStoredLang() {
   }
 }
 
-// Busca "grupo.clave" en el diccionario y reemplaza {nombre} por los valores de `vars`.
-// Si la clave no existe en el idioma pedido, cae al inglés; si tampoco, devuelve la clave.
-function translate(lang, key, vars = {}) {
-  const find = (dictionary) => key.split(".").reduce((node, part) => node?.[part], dictionary);
+// Busca "grupo.clave" en el diccionario del idioma; si no existe cae al inglés. Devuelve undefined si
+// no hay texto en ninguno de los dos.
+function lookup(lang, key) {
+  const find = (dictionary) =>
+    key.split(".").reduce((node, part) => node?.[part], dictionary);
   const text = find(DICTIONARIES[lang]) ?? find(DICTIONARIES[DEFAULT_LANG]);
-  if (typeof text !== "string") return key;
+  return typeof text === "string" ? text : undefined;
+}
+
+// Reemplaza {nombre} por los valores de `vars`.
+function fill(text, vars = {}) {
   return text.replace(/\{(\w+)\}/g, (match, name) => vars[name] ?? match);
+}
+
+// `fallback` es lo que se devuelve si la clave no existe (por defecto, la propia clave).
+function translate(lang, key, vars, fallback = key) {
+  const text = lookup(lang, key);
+  return text === undefined ? fallback : fill(text, vars);
 }
 
 const LanguageContext = createContext(null);
@@ -45,13 +56,20 @@ export function LanguageProvider({ children }) {
     setLang,
     toggleLang: () => setLang((current) => (current === "en" ? "es" : "en")),
     t: (key, vars) => translate(lang, key, vars),
+    // Para datos que vienen de la base (tallas, colores): si no hay traducción, muestra el valor tal cual.
+    tOr: (key, fallback) => translate(lang, key, undefined, fallback),
   };
 
-  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+  return (
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
+  );
 }
 
 export function useLanguage() {
   const context = useContext(LanguageContext);
-  if (!context) throw new Error("useLanguage debe usarse dentro de LanguageProvider");
+  if (!context)
+    throw new Error("useLanguage debe usarse dentro de LanguageProvider");
   return context;
 }

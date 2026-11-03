@@ -9,8 +9,10 @@ import { useHeaderTheme } from "../../utils/useHeaderTheme";
 import BackLink from "../../components/product/BackLink";
 import ProductInfo from "../../components/product/ProductInfo";
 import VariantSelector from "../../components/product/VariantSelector";
+import { useLanguage } from "../../context/LanguageContext";
 
 function ProductDetail() {
+  const { t } = useLanguage();
   const { slug } = useParams();
   const { addItem } = useCart();
   const [product, setProduct] = useState(null);
@@ -159,7 +161,7 @@ function ProductDetail() {
             to={
               collection.slug ? `/colecciones/${collection.slug}` : "/catalogo"
             }
-            label={collection.slug ? collection.title : "Tienda"}
+            label={collection.slug ? collection.title : t("nav.shop")}
           />
 
           {/* Foco de luz con el tono de la colección detrás de la prenda: separa del fondo las prendas
@@ -197,7 +199,7 @@ function ProductDetail() {
                 key={image.id ?? image.url}
                 type="button"
                 onClick={() => setLightboxIndex(index)}
-                aria-label={`Ver foto ${index + 1} a pantalla completa`}
+                aria-label={t("product.viewPhoto", { n: index + 1 })}
                 className={`h-full w-full shrink-0 cursor-zoom-in snap-center p-6 transition-opacity duration-500 lg:absolute lg:inset-0 lg:p-10 ${
                   index === activeIndex
                     ? "lg:opacity-100"
@@ -220,7 +222,10 @@ function ProductDetail() {
                   key={image.id ?? image.url}
                   type="button"
                   onClick={() => goToPhoto(index)}
-                  aria-label={`Foto ${index + 1} de ${images.length}`}
+                  aria-label={t("product.photoOf", {
+                    n: index + 1,
+                    total: images.length,
+                  })}
                   aria-current={index === activeIndex}
                   className={`h-2 transition-all duration-300 ${
                     index === activeIndex
@@ -236,7 +241,7 @@ function ProductDetail() {
             <button
               type="button"
               onClick={() => setLightboxIndex(activeIndex)}
-              aria-label="Ver a pantalla completa"
+              aria-label={t("product.fullscreen")}
               className="flex h-11 w-11 items-center justify-center border border-white/40 bg-black/70 text-white backdrop-blur transition hover:border-accent hover:bg-accent"
             >
               <svg
@@ -305,7 +310,7 @@ function ProductDetail() {
           >
             {product.category && (
               <p className="border border-current px-2 py-1 font-mono text-[10px] uppercase tracking-[0.25em]">
-                {product.category.name}
+                {t(`categories.${product.category.slug}`)}
               </p>
             )}
             {hasSale && (
@@ -359,14 +364,14 @@ function ProductDetail() {
             className="animate-fade-up mt-4 font-mono text-[11px] uppercase tracking-[0.2em]"
             style={{ animationDelay: "340ms" }}
           >
-            {!selectedVariant && "Selecciona una talla disponible."}
-            {selectedVariant?.isOutOfStock && "Agotado en esta combinación."}
+            {!selectedVariant && t("product.pickSize")}
+            {selectedVariant?.isOutOfStock && t("product.soldOutCombo")}
             {selectedVariant?.isLowStock &&
-              `¡Últimas ${selectedVariant.stock} unidades!`}
+              t("product.lowStock", { count: selectedVariant.stock })}
             {selectedVariant &&
               !selectedVariant.isOutOfStock &&
               !selectedVariant.isLowStock && (
-                <span className="opacity-80">Disponible</span>
+                <span className="opacity-80">{t("product.available")}</span>
               )}
           </p>
 
@@ -377,7 +382,7 @@ function ProductDetail() {
             <button
               type="button"
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-              aria-label="Disminuir cantidad"
+              aria-label={t("cart.decrease")}
               className="h-10 w-10 border border-current transition hover:bg-[var(--panel-button)] hover:text-[var(--panel-on-button)]"
             >
               −
@@ -391,7 +396,7 @@ function ProductDetail() {
             <button
               type="button"
               onClick={() => setQuantity((q) => q + 1)}
-              aria-label="Aumentar cantidad"
+              aria-label={t("cart.increase")}
               className="h-10 w-10 border border-current transition hover:bg-[var(--panel-button)] hover:text-[var(--panel-on-button)]"
             >
               +
@@ -405,7 +410,7 @@ function ProductDetail() {
             className="btn-sweep animate-fade-up mt-5 w-full bg-[var(--panel-button)] py-4 font-mono text-[11px] uppercase tracking-[0.25em] text-[var(--panel-on-button)] [--sweep:rgb(255_255_255/0.2)] disabled:opacity-40"
             style={{ animationDelay: "460ms" }}
           >
-            Añadir al carrito
+            {t("product.addToBag")}
           </button>
         </aside>
       </div>

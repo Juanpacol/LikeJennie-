@@ -4,12 +4,14 @@ import { getCategories } from "../../services/category.service";
 import { getCatalog } from "../../services/product.service";
 import ProductCard from "./ProductCard";
 import FilterBar from "./FilterBar";
+import { useLanguage } from "../../context/LanguageContext";
 
 const GRID_CLASS =
   "mt-10 grid grid-cols-2 gap-x-4 gap-y-12 sm:grid-cols-3 lg:grid-cols-4";
 const SKELETON_COUNT = 8;
 
 function StoreGrid() {
+  const { t } = useLanguage();
   const [categories, setCategories] = useState([]);
   // La categoría vive en la URL (?categoria=slug) para poder enlazarla desde el header.
   const [searchParams, setSearchParams] = useSearchParams();
@@ -50,7 +52,7 @@ function StoreGrid() {
 
       {!loading && !error && products.length === 0 && (
         <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.2em] text-white/50">
-          No hay productos en esta categoría.
+          {t("product.emptyCategory")}
         </p>
       )}
 
