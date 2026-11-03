@@ -197,6 +197,15 @@ const en = {
     cancelText:
       "You canceled the payment. Your bag is just as you left it, so you can try again whenever you want.",
   },
+  account: {
+    title: "Your account",
+    intro: "Sign in or create your account",
+    newsletter: "Send me news and drops",
+    continue: "Continue",
+    orders: "Orders",
+    profile: "Profile",
+    soon: "Customer accounts are coming soon.",
+  },
 };
 
 export default en;
