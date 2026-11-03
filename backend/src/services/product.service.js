@@ -21,7 +21,7 @@ async function getCatalog({ categorySlug } = {}) {
 async function getProductDetail(slug) {
   const product = await productRepo.findBySlug(slug);
   if (!product || !product.isActive) {
-    throw new NotFoundError("Producto no encontrado");
+    throw new NotFoundError("PRODUCT_NOT_FOUND");
   }
   return withStockFlags(product);
 }
@@ -32,7 +32,7 @@ function listAllProducts() {
 
 async function getProductById(id) {
   const product = await productRepo.findById(id);
-  if (!product) throw new NotFoundError("Producto no encontrado");
+  if (!product) throw new NotFoundError("PRODUCT_NOT_FOUND");
   return product;
 }
 
@@ -42,13 +42,13 @@ function createProduct(data) {
 
 async function updateProduct(id, data) {
   const existing = await productRepo.findById(id);
-  if (!existing) throw new NotFoundError("Producto no encontrado");
+  if (!existing) throw new NotFoundError("PRODUCT_NOT_FOUND");
   return productRepo.update(id, data);
 }
 
 async function deleteProduct(id) {
   const existing = await productRepo.findById(id);
-  if (!existing) throw new NotFoundError("Producto no encontrado");
+  if (!existing) throw new NotFoundError("PRODUCT_NOT_FOUND");
   return productRepo.remove(id);
 }
 

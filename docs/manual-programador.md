@@ -13,7 +13,7 @@ E-commerce de streetwear (Taller II de Programación). Este documento explica c�
 | Acceso a datos | Prisma ORM 5 |
 | Base de datos | PostgreSQL en Supabase (nube) |
 | Autenticación admin | JWT (`jsonwebtoken`) + `bcryptjs` |
-| Comunicación | JSON exclusivo (`{ success, data }` / `{ success, error }`) |
+| Comunicación | JSON exclusivo (`{ success, data }` / `{ success, code, error }`) |
 | Despliegue | Frontend en Vercel, backend en Render, DB en Supabase |
 | CI | GitHub Actions (`prisma validate`, `oxlint`, `vite build` en cada PR) |
 
@@ -75,7 +75,7 @@ Decisiones: cada prenda tiene variantes talla + color, cada una con su propio st
 
 ## 4. Endpoints
 
-Todas las respuestas son JSON. Éxito: `{ "success": true, "data": ... }`. Error: `{ "success": false, "error": "mensaje" }`.
+Todas las respuestas son JSON. Éxito: `{ "success": true, "data": ... }`. Error: `{ "success": false, "code": "CART_EMPTY", "error": "Cart is empty" }`. `code` es un identificador estable (catálogo en `backend/src/utils/errors.js`) y `error` el mensaje por defecto en inglés. El frontend no muestra `error`: traduce `code` con `tError()` usando las claves `errors.<CODE>` de `frontend/src/i18n/`, así el mensaje sale en el idioma elegido. Al agregar un error nuevo hay que sumar su código a `MESSAGES` y su traducción en `en.js` y `es.js`.
 
 ### Públicos
 

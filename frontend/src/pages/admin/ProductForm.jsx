@@ -10,10 +10,12 @@ import {
 } from "../../services/adminProduct.service";
 import { slugify } from "../../utils/slugify";
 import AdminNav from "../../components/admin/AdminNav";
+import { useLanguage } from "../../context/LanguageContext";
 
 const EMPTY_VARIANT = { size: "", color: "", stock: 0 };
 
 function ProductForm() {
+  const { tError } = useLanguage();
   const { id } = useParams();
   const isEditMode = Boolean(id);
   const { token } = useAuth();
@@ -58,7 +60,7 @@ function ProductForm() {
           product.variants.map((variant) => ({ ...variant, originalStock: variant.stock })),
         );
       })
-      .catch((err) => setError(err.message))
+      .catch((err) => setError(tError(err, "es")))
       .finally(() => setLoading(false));
   }, [id, isEditMode, token]);
 
@@ -128,7 +130,7 @@ function ProductForm() {
       }
       navigate("/admin/products");
     } catch (err) {
-      setError(err.message);
+      setError(tError(err, "es"));
     } finally {
       setSaving(false);
     }

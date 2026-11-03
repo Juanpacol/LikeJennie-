@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 function Login() {
+  const { tError } = useLanguage();
   const { login } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -19,7 +21,7 @@ function Login() {
       await login(email, password);
       navigate("/admin");
     } catch (err) {
-      setError(err.message);
+      setError(tError(err, "es"));
     } finally {
       setSubmitting(false);
     }

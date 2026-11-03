@@ -11,7 +11,7 @@ const PER_TAB = 4;
 // catálogo una vez y filtra en el cliente, así cambiar de pestaña no hace peticiones. "Todo" muestra
 // un producto de cada categoría (en vez de los más recientes) para dar una muestra variada.
 function ShopTabs() {
-  const { t } = useLanguage();
+  const { t, tError } = useLanguage();
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [selected, setSelected] = useState(null);
@@ -24,7 +24,7 @@ function ShopTabs() {
         setCategories(cats);
         setProducts(all);
       })
-      .catch((err) => setError(err.message))
+      .catch((err) => setError(tError(err)))
       .finally(() => setLoading(false));
   }, []);
 

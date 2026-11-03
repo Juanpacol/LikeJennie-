@@ -4,8 +4,10 @@ import { useAuth } from "../../context/AuthContext";
 import { getAllProducts, deleteProduct } from "../../services/adminProduct.service";
 import { formatPrice } from "../../utils/formatPrice";
 import AdminNav from "../../components/admin/AdminNav";
+import { useLanguage } from "../../context/LanguageContext";
 
 function Products() {
+  const { tError } = useLanguage();
   const { token } = useAuth();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +18,7 @@ function Products() {
   useEffect(() => {
     getAllProducts(token)
       .then(setProducts)
-      .catch((err) => setError(err.message))
+      .catch((err) => setError(tError(err, "es")))
       .finally(() => setLoading(false));
   }, [token]);
 
@@ -26,7 +28,7 @@ function Products() {
       await deleteProduct(token, product.id);
       setProducts((prev) => prev.filter((p) => p.id !== product.id));
     } catch (err) {
-      setDeleteError(err.message);
+      setDeleteError(tError(err, "es"));
     } finally {
       setPendingDeleteId(null);
     }

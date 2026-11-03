@@ -9,7 +9,7 @@ const MAX_RESULTS = 5;
 
 // Panel de búsqueda: carga el catálogo una vez y filtra por nombre en el cliente.
 function SearchPanel({ onClose }) {
-  const { t } = useLanguage();
+  const { t, tError } = useLanguage();
   const [query, setQuery] = useState("");
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -17,7 +17,7 @@ function SearchPanel({ onClose }) {
   useEffect(() => {
     getCatalog()
       .then(setProducts)
-      .catch((err) => setError(err.message));
+      .catch((err) => setError(tError(err)));
   }, []);
 
   useEffect(() => {

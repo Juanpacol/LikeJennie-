@@ -1,13 +1,11 @@
-const { AppError } = require("../utils/errors");
+const { AppError, MESSAGES } = require("../utils/errors");
 
 function errorMiddleware(err, req, res, next) {
   const status = err instanceof AppError ? err.status : 500;
   if (status === 500) console.error(err);
 
-  res.status(status).json({
-    success: false,
-    error: status === 500 ? "Error interno del servidor" : err.message,
-  });
+  const code = status === 500 ? "INTERNAL" : err.code;
+  res.status(status).json({ success: false, code, error: MESSAGES[code] ?? err.message });
 }
 
 module.exports = errorMiddleware;
