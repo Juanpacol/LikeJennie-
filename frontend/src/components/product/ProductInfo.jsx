@@ -1,27 +1,20 @@
 import { useEffect, useState } from "react";
 import { getCatalog } from "../../services/product.service";
 import ProductCard from "./ProductCard";
+import { useLanguage } from "../../context/LanguageContext";
 
-// Textos de EJEMPLO de los acordeones: reemplázalos por los reales de la tienda.
+// Acordeones de la ficha: claves de i18n (los textos son de EJEMPLO; se editan en i18n/en.js y es.js).
 const DETAILS = [
-  {
-    title: "Detalles",
-    body: "Algodón pesado, corte relajado y estampado de la colección. Lavado previo para evitar que encoja.",
-  },
-  {
-    title: "Envío",
-    body: "Envío a todo el país en 3 a 6 días hábiles. Gratis en compras superiores a $300.000.",
-  },
-  {
-    title: "Cuidado",
-    body: "Lavar del revés en agua fría, no usar secadora y planchar a baja temperatura.",
-  },
+  { title: "product.detailsTitle", body: "product.detailsBody" },
+  { title: "product.shippingTitle", body: "product.shippingBody" },
+  { title: "product.careTitle", body: "product.careBody" },
 ];
 
 // Zona clara bajo la compra del producto, con los colores de su colección: borde superior diagonal
 // (como el del panel de compra), nombre de la colección como marca de agua, descripción con acordeones,
 // y otros productos de la misma colección.
 function ProductInfo({ product, collection }) {
+  const { t } = useLanguage();
   const { panel, theme } = collection;
   const [related, setRelated] = useState([]);
 
@@ -63,7 +56,7 @@ function ProductInfo({ product, collection }) {
         <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.2fr_1fr]">
           <div className="animate-fade-up">
             <h2 className="font-mono text-[11px] uppercase tracking-[0.25em] opacity-70">
-              Descripción
+              {t("product.description")}
             </h2>
             <p className="mt-4 max-w-xl font-display text-base leading-relaxed sm:font-condensed sm:text-3xl sm:font-light sm:leading-snug">
               {product.description}
@@ -80,13 +73,13 @@ function ProductInfo({ product, collection }) {
                 className="info-item border-t border-current py-4 last:border-b"
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between font-mono text-[11px] uppercase tracking-[0.25em]">
-                  {item.title}
+                  {t(item.title)}
                   <span aria-hidden="true" className="info-plus text-lg">
                     +
                   </span>
                 </summary>
                 <p className="mt-3 max-w-md text-sm leading-relaxed opacity-80">
-                  {item.body}
+                  {t(item.body)}
                 </p>
               </details>
             ))}
@@ -96,7 +89,7 @@ function ProductInfo({ product, collection }) {
         {related.length > 0 && (
           <div className="relative mx-auto mt-20 max-w-6xl">
             <h2 className="font-condensed text-3xl font-light uppercase sm:text-4xl">
-              Más de {collection.title}
+              {t("product.moreFrom", { title: collection.title })}
             </h2>
             <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-4">
               {related.map((item, index) => (

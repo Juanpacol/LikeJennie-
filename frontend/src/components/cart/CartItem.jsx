@@ -7,7 +7,7 @@ const STEP_BUTTON_CLASS =
 
 // Una fila del carrito: foto, datos de la variante, cantidad y subtotal de la línea.
 function CartItem({ item, index = 0 }) {
-  const { t } = useLanguage();
+  const { t, tOr } = useLanguage();
   const { updateQuantity, removeItem } = useCart();
 
   return (
@@ -31,7 +31,8 @@ function CartItem({ item, index = 0 }) {
           </p>
         </div>
         <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.2em] text-white/80">
-          {item.size} / {item.color}
+          {tOr(`sizes.${item.size}`, item.size)} /{" "}
+          {tOr(`colors.${item.color}`, item.color)}
         </p>
 
         <div className="mt-auto flex items-center gap-3 pt-3">

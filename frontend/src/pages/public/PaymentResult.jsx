@@ -6,12 +6,9 @@ import { getCatalog } from "../../services/product.service";
 import { formatPrice } from "../../utils/formatPrice";
 import ProductCard from "../../components/product/ProductCard";
 import silhouette from "../../assets/cart-silhouette.jpg";
+import { useLanguage } from "../../context/LanguageContext";
 
-const STEPS = [
-  "Confirmamos tu pago",
-  "Preparamos tu pedido",
-  "Te escribimos al correo",
-];
+const STEPS = ["payment.step1", "payment.step2", "payment.step3"];
 
 // Copia del carrito guardada por CartDrawer justo antes de ir a Stripe.
 function readLastOrder() {
@@ -25,6 +22,7 @@ function readLastOrder() {
 // Pantalla de confirmación del pago, con el lenguaje del carrito: un tajo diagonal revela el panel rojo, el
 // pedido sale como una boleta y debajo se ofrecen otras piezas de la misma colección.
 function Confirmed() {
+  const { t, tOr } = useLanguage();
   const [params] = useSearchParams();
   const order = useMemo(readLastOrder, []);
   const orderCode = (params.get("orden") ?? "").slice(-6).toUpperCase();
@@ -59,19 +57,21 @@ function Confirmed() {
 
         <div className="relative z-10 flex flex-col justify-center px-6 py-14 sm:px-10 lg:py-20 lg:pl-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))]">
           <p className="pay-in font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
-            Pago aprobado · Modo de prueba
+            {t("payment.approved")}
             {orderCode && (
-              <span className="text-accent"> · N° {orderCode}</span>
+              <span className="text-accent">
+                {" "}
+                · {t("payment.orderNo")} {orderCode}
+              </span>
             )}
           </p>
           <h1 className="pay-in mt-4 font-condensed text-[clamp(3.5rem,9vw,8rem)] font-light uppercase leading-[0.9] [animation-delay:120ms]">
-            Pedido
+            {t("payment.confirmedA")}
             <br />
-            <span className="text-accent">confirmado</span>
+            <span className="text-accent">{t("payment.confirmedB")}</span>
           </h1>
           <p className="pay-in mt-6 max-w-md font-display text-sm text-white/70 sm:text-base [animation-delay:220ms]">
-            Ya eres parte de Ruby. Este pago se hizo con una tarjeta de prueba
-            de Stripe: no se movió dinero real.
+            {t("payment.testNote")}
           </p>
 
           <ol className="pay-in mt-10 space-y-4 [animation-delay:320ms]">
@@ -81,7 +81,7 @@ function Confirmed() {
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/80">
-                  {step}
+                  {t(step)}
                 </span>
               </li>
             ))}
@@ -96,7 +96,9 @@ function Confirmed() {
               }
               className="btn-sweep inline-block bg-accent px-8 py-3.5 font-mono text-[11px] uppercase tracking-[0.2em] text-white [--sweep:rgb(0_0_0/0.25)]"
             >
-              {collection.slug ? `Ver ${collection.title}` : "Seguir comprando"}
+              {collection.slug
+                ? t("home.viewNamed", { title: collection.title })
+                : t("payment.keepShopping")}
             </Link>
           </div>
         </div>
@@ -112,7 +114,7 @@ function Confirmed() {
           {order?.items?.length ? (
             <div className="pay-ticket relative w-full max-w-sm bg-[#0b0b0b] p-6 shadow-[0_30px_60px_rgba(0,0,0,0.55)]">
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/60">
-                Tu pedido
+                {t("payment.yourOrder")}
               </p>
               <ul className="mt-4 divide-y divide-white/10">
                 {order.items.map((item) => (
@@ -132,7 +134,9 @@ function Confirmed() {
                         {item.productName}
                       </p>
                       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">
-                        {item.size} / {item.color} · x{item.quantity}
+                        {tOr(`sizes.${item.size}`, item.size)} /{" "}
+                        {tOr(`colors.${item.color}`, item.color)} · x
+                        {item.quantity}
                       </p>
                     </div>
                     <p className="shrink-0 font-mono text-xs">
@@ -143,7 +147,7 @@ function Confirmed() {
               </ul>
               <div className="mt-4 flex items-end justify-between border-t border-white/20 pt-4">
                 <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/60">
-                  Total pagado
+                  {t("payment.totalPaid")}
                 </span>
                 <span className="font-condensed text-4xl leading-none">
                   {formatPrice(order.total)}
@@ -152,7 +156,7 @@ function Confirmed() {
             </div>
           ) : (
             <p className="pay-ticket font-script text-6xl leading-tight text-white">
-              Gracias.
+              {t("payment.thanks")}
             </p>
           )}
         </div>
@@ -162,10 +166,10 @@ function Confirmed() {
         <section className="px-6 pb-20 pt-16 sm:px-10">
           <div className="mx-auto max-w-7xl">
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
-              Completa el look
+              {t("payment.completeLook")}
             </p>
             <h2 className="mt-3 font-condensed text-5xl font-light uppercase leading-none sm:text-6xl">
-              Más de {collection.title}
+              {t("product.moreFrom", { title: collection.title })}
             </h2>
             <div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-8 lg:grid-cols-4">
               {related.map((product, index) => (
@@ -181,18 +185,19 @@ function Confirmed() {
 
 // Pago cancelado: el carrito se conserva para reintentar.
 function Cancelled() {
+  const { t } = useLanguage();
   const { open } = useCart();
   return (
     <section className="mx-auto flex min-h-[70vh] max-w-3xl flex-col justify-center px-6 py-20 text-white sm:px-10">
       <p className="animate-fade-up font-mono text-[11px] uppercase tracking-[0.3em] text-white/60">
-        Pago cancelado
+        {t("payment.canceled")}
       </p>
       <h1 className="animate-fade-up mt-4 font-condensed text-[clamp(3.5rem,10vw,8rem)] font-light uppercase leading-[0.9] [animation-delay:80ms]">
-        No se cobró <span className="text-accent">nada</span>
+        {t("payment.cancelPre")}
+        <span className="text-accent">{t("payment.cancelAccent")}</span>
       </h1>
       <p className="animate-fade-up mt-6 max-w-md font-display text-sm text-white/70 sm:text-base [animation-delay:160ms]">
-        Cancelaste el pago. Tu carrito sigue como lo dejaste, así que puedes
-        volver a intentarlo cuando quieras.
+        {t("payment.cancelText")}
       </p>
       <div className="animate-fade-up mt-8 flex flex-wrap gap-3 [animation-delay:240ms]">
         <button
@@ -200,13 +205,13 @@ function Cancelled() {
           onClick={open}
           className="btn-sweep bg-accent px-8 py-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white [--sweep:rgb(0_0_0/0.25)]"
         >
-          Volver al carrito
+          {t("cart.back")}
         </button>
         <Link
           to="/catalogo"
           className="border border-white/50 px-8 py-3 font-mono text-[11px] uppercase tracking-[0.2em] transition hover:bg-white hover:text-black"
         >
-          Ver tienda
+          {t("cart.goShop")}
         </Link>
       </div>
     </section>

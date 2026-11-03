@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { useLanguage } from "../../context/LanguageContext";
 
 // Selector de talla y color para el panel de compra (toma sus colores de las variables --panel-text, --panel-button y --panel-on-button). Las tallas sin existencias
 // (para el color elegido) salen tachadas y deshabilitadas, como en las tiendas de moda.
@@ -11,6 +12,7 @@ function VariantSelector({
   onSelectColor,
   isSizeAvailable,
 }) {
+  const { t, tOr } = useLanguage();
   return (
     <div>
       {colors.length > 1 && (
@@ -28,7 +30,7 @@ function VariantSelector({
                     : "border-current hover:border-[var(--panel-button)]"
                 }`}
               >
-                {color}
+                {tOr(`colors.${color}`, color)}
               </button>
             ))}
           </div>
@@ -36,7 +38,7 @@ function VariantSelector({
       )}
 
       <p className="font-mono text-[11px] uppercase tracking-[0.25em]">
-        Tallas
+        {t("product.sizes")}
       </p>
       <div className="mt-3 flex flex-wrap gap-x-1 gap-y-2">
         {sizes.map((size) => {
@@ -53,7 +55,7 @@ function VariantSelector({
                 selected ? "opacity-100" : "opacity-70 hover:opacity-100"
               } ${available ? "" : "cursor-not-allowed opacity-30 line-through"}`}
             >
-              {size}
+              {tOr(`sizes.${size}`, size)}
               {/* La línea se desliza de una talla a otra. */}
               {selected && (
                 <motion.span
