@@ -13,12 +13,12 @@ import rubyCover from "../assets/ruby-cover.jpg";
 
 // Colecciones de la tienda. No hay modelo en la DB: un producto pertenece a la colección
 // si su nombre contiene `match`.
-// `phrase`: frase de la colección (texto de EJEMPLO: reemplázalo por el que quieras); se muestra en la
-// cabecera de su página.
+// Los textos de cada colección (`tagline`, `description`, `phrase` y la frase del footer) viven en i18n/en.js y
+// es.js, bajo `collections.<slug>`.
 // `theme`: page = fondo de la página, ink = texto, accent = botones y precio en oferta,
 // onAccent = texto sobre el accent, frame (opcional) = color del marco, el footer y la barra del
 // navegador cuando el de `page` no se distingue (p. ej. una colección en negro). `image` (opcional) = foto de la banda en la home, con `imageSide` ("left"|"right", por defecto right)
-// `footer`: `images` (opcional, dos fotos: izquierda y derecha) en lugar de `image`; paleta (bg, ink, muted), frase (tagline) y foto (image; si falta se usa `image`) del footer
+// `footer`: `images` (opcional, dos fotos: izquierda y derecha) en lugar de `image`; paleta (bg, ink, muted) y foto (image; si falta se usa `image`) del footer
 // de su página.
 // `art` (opcional) = dibujo decorativo de fondo de la cabecera: `blend` "ink" (se invierte y se multiplica: la figura queda
 // en tinta oscura sobre el color de la página) o "light" (se suma con screen: figura clara sobre página oscura);
@@ -31,10 +31,7 @@ import rubyCover from "../assets/ruby-cover.jpg";
 export const COLLECTIONS = {
   "fallen-angel": {
     title: "Fallen Angel",
-    tagline: "Nueva colección",
-    description: "Hoodies, camisetas y accesorios con el flow de Ruby.",
     match: "fallen angel",
-    phrase: "Cae con estilo.",
     image: fallenAngelCover,
     imageSide: "right",
     imageWidth: 680,
@@ -58,7 +55,6 @@ export const COLLECTIONS = {
       bg: "#24102F",
       ink: "#E9DDF0",
       muted: "#9C86A8",
-      tagline: "Cae con estilo",
       position: "50% 45%",
     },
     theme: {
@@ -70,11 +66,7 @@ export const COLLECTIONS = {
   },
   haribo: {
     title: "JENNIE x Haribo",
-    tagline: "Colaboración",
-    description:
-      "Camisetas, buzos, gorras y llaveros con la dulzura de Haribo.",
     match: "haribo",
-    phrase: "Dulce, pero con carácter.",
     image: hariboCover,
     imageSide: "left",
     imageWidth: 560,
@@ -100,7 +92,6 @@ export const COLLECTIONS = {
       bg: "#2A0008",
       ink: "#F6E9B2",
       muted: "#B8902A",
-      tagline: "Dulce, pero con carácter",
     },
     theme: {
       page: "#F6E9B2",
@@ -111,11 +102,7 @@ export const COLLECTIONS = {
   },
   ruby: {
     title: "JENNIE x Ruby",
-    tagline: "El álbum",
-    description:
-      "Camisetas, buzos y música del álbum Ruby, en negro y rojo sangre.",
     match: "ruby",
-    phrase: "Rojo hasta el fondo.",
     image: rubyCover,
     bannerImage: rubyBanner,
     bannerPosition: "50% 35%",
@@ -142,7 +129,6 @@ export const COLLECTIONS = {
       bg: "#0B0B0B",
       ink: "#F5EDED",
       muted: "#8A6F6F",
-      tagline: "Rojo hasta el fondo",
     },
     theme: {
       page: "#000000",

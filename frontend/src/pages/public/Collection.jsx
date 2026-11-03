@@ -5,8 +5,10 @@ import ProductCard from "../../components/product/ProductCard";
 import { COLLECTIONS } from "../../data/collections";
 import { useHeaderTheme } from "../../utils/useHeaderTheme";
 import { getCatalog } from "../../services/product.service";
+import { useLanguage } from "../../context/LanguageContext";
 
 function Collection() {
+  const { t } = useLanguage();
   const { slug } = useParams();
   const collection = COLLECTIONS[slug];
   const [products, setProducts] = useState([]);
@@ -31,9 +33,9 @@ function Collection() {
   if (!collection) {
     return (
       <section className="mx-auto max-w-6xl px-6 py-16 text-white">
-        <p>Colección no encontrada.</p>
+        <p>{t("collections.notFound")}</p>
         <Link to="/catalogo" className="mt-4 inline-block underline">
-          Ver catálogo
+          {t("collections.viewCatalog")}
         </Link>
       </section>
     );
@@ -50,15 +52,16 @@ function Collection() {
       }}
     >
       <CollectionBanner
+        slug={slug}
         collection={collection}
         count={loading || error ? null : products.length}
       />
 
       <section className="mx-auto max-w-6xl px-6 py-12">
-        {loading && <p className="opacity-70">Cargando productos...</p>}
+        {loading && <p className="opacity-70">{t("collections.loading")}</p>}
         {error && <p className="text-accent">{error}</p>}
         {!loading && !error && products.length === 0 && (
-          <p className="opacity-70">Esta colección aún no tiene productos.</p>
+          <p className="opacity-70">{t("collections.empty")}</p>
         )}
         {!loading && !error && products.length > 0 && (
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">

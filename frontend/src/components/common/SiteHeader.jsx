@@ -64,7 +64,7 @@ function CollectionsMenu() {
                   {collection.title}
                 </span>
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
-                  {collection.tagline}
+                  {t(`collections.${slug}.tagline`)}
                 </span>
               </span>
             </Link>
