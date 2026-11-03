@@ -60,6 +60,42 @@ const en = {
     view: "View bag",
     dismiss: "Dismiss",
   },
+  home: {
+    eyebrow: "Collection 2026 · Ruby.",
+    heroText:
+      "Pieces, accessories and music inspired by Jennie's style. Pick your world. Wear it.",
+    shopNow: "Shop now",
+    heroAlt1: "Black and white portrait with film grain",
+    heroAlt2: "Dancer in dark glasses against a red background",
+    heroAlt3: "Jennie posing in a denim jacket, black and white portrait",
+    dropsLabel: "Drops",
+    viewNamed: "View {title}",
+    viewCollection: "View collection",
+    swipe: "Swipe →",
+    lookText: "High fashion, street attitude. White, black and one red accent.",
+    lookAlt1: "Jennie in an oversized black blazer and a white top",
+    lookAlt2: "Jennie standing in a pinstripe suit, looking up",
+    lookAlt3: "Jennie in a long black coat, looking down",
+    categories: "Categories",
+    all: "All",
+    viewAll: "View all",
+  },
+  categories: {
+    ropa: "Clothing",
+    abrigos: "Coats",
+    accesorios: "Accessories",
+    musica: "Music",
+  },
+  faq: {
+    label: "Help",
+    intro: "The essentials for shopping at Ruby.",
+    q1: "How does checkout work?",
+    a1: "Add pieces to your bag, enter your name and email, and pay by card with Stripe. It's an academic project in test mode: no real money moves and nothing ships, but the order is recorded and stock is updated.",
+    q2: "Do I need an account to buy?",
+    a2: "No. Checkout only asks for your name and email. Customer accounts aren't available yet.",
+    q3: "What are collections?",
+    a3: "Drops with their own color and their own products, like Fallen Angel and JENNIE x Haribo. You can browse them all from the home page.",
+  },
 };
 
 export default en;

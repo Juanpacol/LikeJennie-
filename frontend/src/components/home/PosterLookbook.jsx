@@ -10,6 +10,7 @@ import {
 import sessionCoat from "../../assets/cutouts/session-coat.webp";
 import sessionBlazer from "../../assets/cutouts/session-blazer.webp";
 import sessionSuit from "../../assets/cutouts/session-suit.webp";
+import { useLanguage } from "../../context/LanguageContext";
 
 // Figuras recortadas, de atrás hacia delante. `box` da su posición y alto (en % de la sección) para
 // móvil y, con el prefijo md:, para escritorio (en móvil se muestran solo dos). Las tres son de la
@@ -18,7 +19,7 @@ import sessionSuit from "../../assets/cutouts/session-suit.webp";
 const FIGURES = [
   {
     src: sessionBlazer,
-    alt: "Jennie con un blazer negro oversize y un top blanco",
+    alt: "home.lookAlt1",
     box: "hidden md:block md:bottom-[-4%] md:left-[38%] md:h-[72%]",
     depth: 8,
     z: 22,
@@ -26,7 +27,7 @@ const FIGURES = [
   },
   {
     src: sessionSuit,
-    alt: "Jennie de pie con traje de rayas, mirando hacia arriba",
+    alt: "home.lookAlt2",
     box: "bottom-[-3%] left-[0%] h-[56%] md:left-[10%] md:h-[66%]",
     depth: 20,
     z: 20,
@@ -34,7 +35,7 @@ const FIGURES = [
   },
   {
     src: sessionCoat,
-    alt: "Jennie con un abrigo negro largo, mirando hacia abajo",
+    alt: "home.lookAlt3",
     box: "bottom-[-4%] left-[40%] h-[50%] md:left-[68%] md:h-[68%]",
     depth: 30,
     z: 30,
@@ -103,6 +104,7 @@ function Layer({
 // rojo detrás, figuras recortadas delante que lo tapan en parte, y "JENNIE" acostada en el suelo
 // con perspectiva. Las capas se mueven a distinta velocidad con el mouse para dar profundidad.
 function PosterLookbook() {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -169,8 +171,7 @@ function PosterLookbook() {
           Lookbook · 2026
         </p>
         <p className="mt-3 font-display text-base font-semibold leading-snug">
-          Alta costura con actitud de calle. Blanco, negro y un solo acento:
-          rojo.
+          {t("home.lookText")}
         </p>
       </div>
 
@@ -190,7 +191,7 @@ function PosterLookbook() {
           <div className="h-full [filter:contrast(1.05)_drop-shadow(16px_28px_22px_rgba(0,0,0,0.35))]">
             <img
               src={figure.src}
-              alt={figure.alt}
+              alt={t(figure.alt)}
               loading="lazy"
               className="h-full w-auto max-w-none object-contain object-bottom [mask-image:linear-gradient(to_bottom,#000_84%,transparent)]"
             />

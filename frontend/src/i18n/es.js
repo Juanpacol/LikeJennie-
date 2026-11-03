@@ -59,6 +59,44 @@ const es = {
     view: "Ver carrito",
     dismiss: "Cerrar aviso",
   },
+  home: {
+    eyebrow: "Colección 2026 · Ruby.",
+    heroText:
+      "Prendas, accesorios y música inspirados en el estilo de Jennie. Elige tu mundo. Llévalo puesto.",
+    shopNow: "Ir a la tienda",
+    heroAlt1: "Retrato en blanco y negro con grano de película",
+    heroAlt2: "Bailarina con gafas oscuras sobre fondo rojo",
+    heroAlt3:
+      "Jennie posando con una chaqueta de mezclilla, retrato en blanco y negro",
+    dropsLabel: "Lanzamientos",
+    viewNamed: "Ver {title}",
+    viewCollection: "Ver colección",
+    swipe: "Desliza →",
+    lookText:
+      "Alta costura, actitud de calle. Blanco, negro y un solo acento rojo.",
+    lookAlt1: "Jennie con un blazer negro oversize y un top blanco",
+    lookAlt2: "Jennie de pie con traje de rayas, mirando hacia arriba",
+    lookAlt3: "Jennie con un abrigo negro largo, mirando hacia abajo",
+    categories: "Categorías",
+    all: "Todo",
+    viewAll: "Ver todo",
+  },
+  categories: {
+    ropa: "Ropa",
+    abrigos: "Abrigos",
+    accesorios: "Accesorios",
+    musica: "Música",
+  },
+  faq: {
+    label: "Ayuda",
+    intro: "Lo esencial para comprar en Ruby.",
+    q1: "¿Cómo funciona la compra?",
+    a1: "Agregas productos al carrito, escribes tu nombre y tu correo y pagas con tarjeta en Stripe. Es un proyecto académico en modo de prueba: no se mueve dinero real y no se envía ningún producto, pero el pedido queda registrado y se actualiza el stock.",
+    q2: "¿Necesito una cuenta para comprar?",
+    a2: "No. Para pagar solo se piden tu nombre y tu correo. El registro de clientes todavía no está disponible.",
+    q3: "¿Qué son las colecciones?",
+    a3: "Son lanzamientos con su propio color y sus propios productos, como Fallen Angel y JENNIE x Haribo. Puedes verlas completas desde la página de inicio.",
+  },
 };
 
 export default es;
