@@ -96,6 +96,33 @@ const en = {
     q3: "What are collections?",
     a3: "Drops with their own color and their own products, like Fallen Angel and JENNIE x Haribo. You can browse them all from the home page.",
   },
+  collections: {
+    notFound: "Collection not found.",
+    viewCatalog: "View catalog",
+    loading: "Loading products...",
+    empty: "This collection has no products yet.",
+    pieces: "{count} pieces",
+    "fallen-angel": {
+      tagline: "New drop",
+      description: "Hoodies, tees and accessories with Ruby's flow.",
+      phrase: "Fall in style.",
+      footerTagline: "Fall in style",
+    },
+    haribo: {
+      tagline: "Collab",
+      description:
+        "Tees, sweatshirts, caps and keychains with Haribo's sweetness.",
+      phrase: "Sweet, with a bite.",
+      footerTagline: "Sweet, with a bite",
+    },
+    ruby: {
+      tagline: "The album",
+      description:
+        "Tees, sweatshirts and music from the Ruby album, in black and blood red.",
+      phrase: "Red all the way down.",
+      footerTagline: "Red all the way down",
+    },
+  },
 };
 
 export default en;

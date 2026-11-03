@@ -13,8 +13,7 @@ const LINK_CLASS =
 // catálogo, y las redes. Usa la paleta y la foto de `collection.footer`. Lo envuelve FooterReveal.
 function CollectionFooter({ slug, collection }) {
   const { t } = useLanguage();
-  const { bg, ink, muted, image, images, position, tagline } =
-    collection.footer;
+  const { bg, ink, muted, image, images, position } = collection.footer;
   // Una foto (a la derecha) o dos (una a cada lado, y el contenido queda en el centro).
   const photos = images ?? [{ src: image ?? collection.image, position }];
   const two = photos.length > 1;
@@ -74,10 +73,10 @@ function CollectionFooter({ slug, collection }) {
           className="font-mono text-[11px] uppercase tracking-[0.3em]"
           style={{ color: muted }}
         >
-          {collection.tagline} · Ruby. {YEAR}
+          {t(`collections.${slug}.tagline`)} · Ruby. {YEAR}
         </p>
         <h2 className="mt-3 font-condensed text-5xl font-light uppercase leading-[0.95] sm:text-6xl">
-          {tagline}
+          {t(`collections.${slug}.footerTagline`)}
         </h2>
 
         <div className="mt-10 grid gap-8 sm:grid-cols-2">

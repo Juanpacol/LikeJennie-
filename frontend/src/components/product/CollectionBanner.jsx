@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "../../context/LanguageContext";
 
 const PARALLAX = 0.12;
 
@@ -19,7 +20,8 @@ const ART_FADE =
 // título enorme en condensada y la foto grande, fundida con el color de la página, que se revela de
 // arriba hacia abajo y se desplaza más despacio que la página. Los colores salen de la paleta de la colección
 // (el texto hereda `color` de la página). En móvil la foto va de fondo, atenuada.
-function CollectionBanner({ collection, count }) {
+function CollectionBanner({ slug, collection, count }) {
+  const { t } = useLanguage();
   const photoRef = useRef(null);
   const [ready, setReady] = useState(false);
   const image = collection.bannerImage ?? collection.image;
@@ -123,23 +125,23 @@ function CollectionBanner({ collection, count }) {
       <div className="relative mx-auto flex min-h-[78vh] max-w-7xl flex-col justify-end px-6 pb-14 pt-32 sm:px-10">
         <div className="max-w-3xl">
           <p className="animate-fade-up font-mono text-[11px] uppercase tracking-[0.3em] opacity-70">
-            {collection.tagline} · Ruby. 2026
+            {t(`collections.${slug}.tagline`)} · Ruby. 2026
           </p>
           <h1 className="animate-fade-up mt-4 font-condensed text-[clamp(3.5rem,8vw,8rem)] font-light uppercase leading-[0.9] tracking-[-0.02em] [animation-delay:80ms]">
             {collection.title}
           </h1>
           <p className="animate-fade-up mt-6 max-w-md font-display text-sm opacity-80 [animation-delay:160ms] sm:text-base">
-            {collection.description}
+            {t(`collections.${slug}.description`)}
           </p>
           <div className="animate-fade-up mt-8 flex flex-col gap-2 font-mono text-[11px] uppercase tracking-[0.3em] [animation-delay:240ms] sm:flex-row sm:items-center sm:gap-4">
             <span
               className="h-px w-16 sm:w-16"
               style={{ backgroundColor: accent }}
             />
-            <span>{collection.phrase}</span>
+            <span>{t(`collections.${slug}.phrase`)}</span>
             {count != null && (
               <span className="opacity-60 sm:before:content-['·_']">
-                {count} piezas
+                {t("collections.pieces", { count })}
               </span>
             )}
           </div>

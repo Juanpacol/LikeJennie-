@@ -33,7 +33,7 @@ function MobileMenu({ onClose }) {
     ...Object.entries(COLLECTIONS).map(([slug, collection]) => ({
       to: `/colecciones/${slug}`,
       label: collection.title,
-      note: collection.tagline,
+      note: t(`collections.${slug}.tagline`),
     })),
   ];
 

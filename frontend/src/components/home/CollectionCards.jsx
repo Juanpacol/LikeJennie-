@@ -97,7 +97,7 @@ function CollectionCards() {
 
                   <div className="absolute inset-x-5 bottom-5">
                     <p className="font-mono text-[11px] uppercase tracking-[0.2em] opacity-70">
-                      {collection.tagline}
+                      {t(`collections.${slug}.tagline`)}
                     </p>
                     <h3 className="mt-1 font-script text-4xl leading-none lg:text-[2.6rem]">
                       {collection.title}
@@ -106,11 +106,11 @@ function CollectionCards() {
                     {/* La frase y el botón suben al pasar el mouse; en pantallas táctiles se ven siempre. */}
                     <div className="grid transition-all duration-500 ease-out [@media(hover:hover)]:grid-rows-[0fr] [@media(hover:hover)]:opacity-0 group-hover:[@media(hover:hover)]:grid-rows-[1fr] group-hover:[@media(hover:hover)]:opacity-100">
                       <div className="overflow-hidden">
-                        {collection.phrase && (
+                        {
                           <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.2em] opacity-80">
-                            {collection.phrase}
+                            {t(`collections.${slug}.phrase`)}
                           </p>
-                        )}
+                        }
                         <span
                           className="mt-4 inline-block px-6 py-2.5 font-display text-xs uppercase tracking-widest"
                           style={{ backgroundColor: accent, color: onAccent }}
